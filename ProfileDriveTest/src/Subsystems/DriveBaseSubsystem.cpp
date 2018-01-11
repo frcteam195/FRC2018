@@ -15,16 +15,12 @@ DriveBaseSubsystem::DriveBaseSubsystem(Controllers *robotControllers, vector<Cus
 	rightDriveSlave2 = robotControllers->getRightDrive3();
 
 	shiftSol = robotControllers->getShiftSol();
-	rightDrive->SetInverted(true);
-	rightDriveSlave1->SetInverted(true);
-	rightDriveSlave2->SetInverted(true);
 
 	navX = robotControllers->getNavX();
 
 	shiftSol->Set(DoubleSolenoid::kReverse);
 	highGear = false;
-	//shiftSol->Set(DoubleSolenoid::kForward);
-	//highGear = true;
+
 	holdLow = false;
 	leftDriveSpeed = 0;
 	rightDriveSpeed = 0;
@@ -56,13 +52,17 @@ DriveBaseSubsystem::DriveBaseSubsystem(Controllers *robotControllers, vector<Cus
 DriveBaseSubsystem::~DriveBaseSubsystem() {}
 
 void DriveBaseSubsystem::init() {
-	leftDriveSlave1->Set(ControlMode::Follower, leftDrive->GetDeviceID());
-	leftDriveSlave2->Set(ControlMode::Follower, leftDrive->GetDeviceID());
-	rightDriveSlave1->Set(ControlMode::Follower, rightDrive->GetDeviceID());
-	rightDriveSlave2->Set(ControlMode::Follower, rightDrive->GetDeviceID());
+	rightDrive->SetInverted(true);
+	rightDriveSlave1->SetInverted(true);
+	rightDriveSlave2->SetInverted(true);
 
 	leftDrive->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+	leftDrive->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms, kTimeoutMs);
+	leftDrive->ConfigVelocityMeasurementWindow(32, kTimeoutMs);
+
 	rightDrive->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+	rightDrive->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms, kTimeoutMs);
+	rightDrive->ConfigVelocityMeasurementWindow(32, kTimeoutMs);
 
 	leftDrive->SetSelectedSensorPosition(0, 0, kTimeoutMs);
 	rightDrive->SetSelectedSensorPosition(0, 0, kTimeoutMs);
@@ -216,8 +216,6 @@ void DriveBaseSubsystem::processMPRight() {
 	processMP(rightDrive, mpRightBuffer);
 }
 
-
-
 void DriveBaseSubsystem::processMP(TalonSRX *talonSRX, vector<vector< double> *> *mpBuffer) {
 	talonSRX->ClearMotionProfileTrajectories();
 	TrajectoryPoint point;
@@ -355,8 +353,6 @@ void DriveBaseSubsystem::setPosition(double position) {
 	requestSetRightPosition = true;
 	this->position = position;
 	_subsystemMutex.unlock();
-	//leftDrive->SetPosition(position);
-	//rightDrive->SetPosition(position);
 }
 
 bool DriveBaseSubsystem::isHighGear() {

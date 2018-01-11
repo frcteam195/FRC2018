@@ -6,15 +6,17 @@ Controllers::Controllers() {
 	//Drive Joystick Setup
 	driveJoystick = new KnightJoystick(0);
 
+	talonSRXBuilder = new TalonSRXBuilder();
+
 	//Left Drive Setup
-	leftDrive1 = new TalonSRX(1);
-	leftDrive2 = new TalonSRX(2);
-	leftDrive3 = new TalonSRX(3);
+	leftDrive1 = talonSRXBuilder->createDefaultTalonSRX(1);
+	leftDrive2 = talonSRXBuilder->createPermanentSlaveTalonSRX(2, leftDrive1);
+	leftDrive3 = talonSRXBuilder->createPermanentSlaveTalonSRX(3, leftDrive1);
 
 	//Right Drive Setup
-	rightDrive1 = new TalonSRX(4);
-	rightDrive2 = new TalonSRX(5);
-	rightDrive3 = new TalonSRX(6);
+	rightDrive1 = talonSRXBuilder->createDefaultTalonSRX(4);
+	rightDrive2 = talonSRXBuilder->createPermanentSlaveTalonSRX(5, rightDrive1);
+	rightDrive3 = talonSRXBuilder->createPermanentSlaveTalonSRX(6, rightDrive1);
 
 	//Shift Solenoid Setup
 	shiftSol = new DoubleSolenoid(0, 1);
@@ -39,6 +41,7 @@ TalonSRX* Controllers::getLeftDrive1() {
 TalonSRX* Controllers::getLeftDrive2() {
 	return leftDrive2;
 }
+
 TalonSRX* Controllers::getLeftDrive3() {
 	return leftDrive3;
 }

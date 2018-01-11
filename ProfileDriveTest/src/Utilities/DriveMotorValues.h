@@ -13,6 +13,4 @@ struct DriveMotorValues {
 	double rightDrive;
 };
 
-
-
 #endif /* SRC_UTILITIES_DRIVEMOTORVALUES_H_ */

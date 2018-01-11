@@ -4,11 +4,14 @@
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "AHRS.h"
+#include "Utilities/TalonSRXBuilder.h"
 #include "KnightJoystick.h"
 
 class Controllers {
 private:
 	KnightJoystick *driveJoystick;
+
+	TalonSRXBuilder *talonSRXBuilder;
 
 	TalonSRX *leftDrive1;
 	TalonSRX *leftDrive2;

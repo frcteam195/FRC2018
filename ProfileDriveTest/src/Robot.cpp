@@ -9,6 +9,7 @@
 
 void Robot::RobotInit() {
 	robotControllers = new Controllers();
+
 	robotDrive = new DriveBaseSubsystem(robotControllers, &subsystemVector);
 	hidControllerSubsystem = new HIDControllerSubsystem(robotControllers, &subsystemVector);
 

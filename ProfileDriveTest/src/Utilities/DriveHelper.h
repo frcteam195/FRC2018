@@ -3,6 +3,7 @@
  *
  *  Created on: Jan 10, 2018
  *      Author: roberthilton
+ *      Ported from 254
  */
 
 #ifndef SRC_UTILITIES_DRIVEHELPER_H_
@@ -64,7 +65,7 @@ public:
 
 
 
-	DriveMotorValues runDriveHelper(double throttle, double wheel, bool isQuickTurn, bool isHighGear) {
+	DriveMotorValues calculateOutput(double throttle, double wheel, bool isQuickTurn, bool isHighGear) {
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
 
@@ -87,7 +88,7 @@ public:
             wheel = sin(M_PI / 2.0 * wheelNonLinearity * wheel) / denominator;
         }
 
-        double leftPwm, rightPwm, overPower;
+        double leftOutput, rightOutput, overPower;
         double sensitivity;
 
         double angularPower;
@@ -146,27 +147,27 @@ public:
             }
         }
 
-        rightPwm = leftPwm = linearPower;
-        leftPwm += angularPower;
-        rightPwm -= angularPower;
+        rightOutput = leftOutput = linearPower;
+        leftOutput += angularPower;
+        rightOutput -= angularPower;
 
-        if (leftPwm > 1.0) {
-            rightPwm -= overPower * (leftPwm - 1.0);
-            leftPwm = 1.0;
-        } else if (rightPwm > 1.0) {
-            leftPwm -= overPower * (rightPwm - 1.0);
-            rightPwm = 1.0;
-        } else if (leftPwm < -1.0) {
-            rightPwm += overPower * (-1.0 - leftPwm);
-            leftPwm = -1.0;
-        } else if (rightPwm < -1.0) {
-            leftPwm += overPower * (-1.0 - rightPwm);
-            rightPwm = -1.0;
+        if (leftOutput > 1.0) {
+            rightOutput -= overPower * (leftOutput - 1.0);
+            leftOutput = 1.0;
+        } else if (rightOutput > 1.0) {
+            leftOutput -= overPower * (rightOutput - 1.0);
+            rightOutput = 1.0;
+        } else if (leftOutput < -1.0) {
+            rightOutput += overPower * (-1.0 - leftOutput);
+            leftOutput = -1.0;
+        } else if (rightOutput < -1.0) {
+            leftOutput += overPower * (-1.0 - rightOutput);
+            rightOutput = -1.0;
         }
 
         DriveMotorValues d;
-        d.leftDrive = leftPwm;
-        d.rightDrive = rightPwm;
+        d.leftDrive = leftOutput;
+        d.rightDrive = rightOutput;
         return d;
 	};
 
