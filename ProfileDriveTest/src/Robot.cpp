@@ -5,35 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "WPILib.h"
-#include <SampleRobot.h>
+#include "Robot.h"
 
-class Robot : public frc::SampleRobot {
-public:
-	Robot() {
+void Robot::RobotInit() {
+	robotControllers = new Controllers();
+	robotDrive = new DriveBaseSubsystem(robotControllers, &subsystemVector);
+	hidControllerSubsystem = new HIDControllerSubsystem(robotControllers, &subsystemVector);
 
-	}
+	for(unsigned int i = 0; i < subsystemVector.size(); i++)
+		subsystemVector.at(i)->init();
 
-	void RobotInit() {
-
-	}
-
-
-	void Autonomous() {
-
-	}
+	for (unsigned int i = 0; i < subsystemVector.size(); i++)
+		subsystemVector.at(i)->start();
+}
 
 
-	void OperatorControl() override {
-		while (IsOperatorControl() && IsEnabled()) {
+void Robot::Autonomous() {
+	while(!IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
+}
 
-		}
-	}
 
-	void Test() override {}
+void Robot::OperatorControl() {
+	while(IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
+}
 
-private:
-
-};
+void Robot::Test() {}
 
 START_ROBOT_CLASS(Robot)

@@ -15,6 +15,9 @@ DriveBaseSubsystem::DriveBaseSubsystem(Controllers *robotControllers, vector<Cus
 	rightDriveSlave2 = robotControllers->getRightDrive3();
 
 	shiftSol = robotControllers->getShiftSol();
+	rightDrive->SetInverted(true);
+	rightDriveSlave1->SetInverted(true);
+	rightDriveSlave2->SetInverted(true);
 
 	navX = robotControllers->getNavX();
 
@@ -257,6 +260,13 @@ void DriveBaseSubsystem::setDrivePID(double kP, double kI, double kD, double ff,
 	rightDrive->Config_kI(profileNum, kI, kTimeoutMs);
 	rightDrive->Config_kD(profileNum, kD, kTimeoutMs);
 	rightDrive->Config_kF(profileNum, ff, kTimeoutMs);
+}
+
+void DriveBaseSubsystem::setDriveSpeed(DriveMotorValues d) {
+	_subsystemMutex.lock();
+	this->leftDriveSpeed = d.leftDrive;
+	this->rightDriveSpeed = d.rightDrive;
+	_subsystemMutex.unlock();
 }
 
 void DriveBaseSubsystem::setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {

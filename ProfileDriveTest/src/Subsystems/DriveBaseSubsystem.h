@@ -35,6 +35,7 @@ public:
 	double getLeftDrivePosition();
 	double getRightDrivePosition();
 
+	void setDriveSpeed(DriveMotorValues d);
 	void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed);
 	void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, bool slowDown);
 	void setHoldLowGear(bool holdLowGear);
