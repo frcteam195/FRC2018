@@ -6,6 +6,18 @@
 
 #include "PolynomialRegression.h"
 
+PolynomialRegression::PolynomialRegression(vector<Point> points, int degree) {
+	vector<double> x = vector<double>();
+	vector<double> y = vector<double>();
+
+	for(int i = 0; i < points.size(); i++) {
+		x.push_back(points[i].x);
+		y.push_back(points[i].y);
+	}
+
+	solve(x, y, degree);
+}
+
 PolynomialRegression::PolynomialRegression(vector<double> x, vector<double> y, int degree) {
 	solve(x, y, degree);
 }

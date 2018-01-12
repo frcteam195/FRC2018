@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed310d86-da16-4905-a3dc-0000cc7c5911" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/PolynomialRegression.iml" afterPath="$PROJECT_DIR$/PolynomialRegression.iml" />
-      <change beforePath="$PROJECT_DIR$/out/production/PolynomialRegression/CSVMaker.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/PolynomialRegression/Test.class" afterPath="$PROJECT_DIR$/out/production/PolynomialRegression/Test.class" />
-      <change beforePath="$PROJECT_DIR$/src/CSVMaker.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/PolynomialRegression.java" afterPath="$PROJECT_DIR$/src/PolynomialRegression.java" />
-      <change beforePath="$PROJECT_DIR$/src/Test.java" afterPath="$PROJECT_DIR$/src/Test.java" />
+      <change beforePath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/PolynomialRegressionCpp" afterPath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/PolynomialRegressionCpp" />
+      <change beforePath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/PolynomialRegression.d" afterPath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/PolynomialRegression.d" />
+      <change beforePath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/PolynomialRegression.o" afterPath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/PolynomialRegression.o" />
+      <change beforePath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/subdir.mk" afterPath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/subdir.mk" />
+      <change beforePath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/test.d" afterPath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/test.d" />
+      <change beforePath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/test.o" afterPath="$PROJECT_DIR$/../PolynomialRegressionCpp/Debug/src/test.o" />
+      <change beforePath="$PROJECT_DIR$/../PolynomialRegressionCpp/src/PolynomialRegression.h" afterPath="$PROJECT_DIR$/../PolynomialRegressionCpp/src/PolynomialRegression.h" />
+      <change beforePath="$PROJECT_DIR$/../ProfileDriveTest/.settings/language.settings.xml" afterPath="$PROJECT_DIR$/../ProfileDriveTest/.settings/language.settings.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +35,8 @@
       <file leaf-file-name="PolynomialRegression.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PolynomialRegression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1185">
-              <caret line="151" column="0" lean-forward="true" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+            <state relative-caret-position="1596">
+              <caret line="115" column="5" lean-forward="true" selection-start-line="115" selection-start-column="5" selection-end-line="115" selection-end-column="5" />
               <folding>
                 <element signature="e#1021#1022#0" expanded="true" />
                 <element signature="e#1056#1057#0" expanded="true" />
@@ -246,7 +245,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="984" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -327,8 +325,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PolynomialRegression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="151" column="0" lean-forward="true" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+        <state relative-caret-position="1596">
+          <caret line="115" column="5" lean-forward="true" selection-start-line="115" selection-start-column="5" selection-end-line="115" selection-end-column="5" />
           <folding>
             <element signature="e#1021#1022#0" expanded="true" />
             <element signature="e#1056#1057#0" expanded="true" />

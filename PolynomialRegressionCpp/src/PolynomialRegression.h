@@ -2,7 +2,7 @@
  * PolynomialRegression.h
  *
  *  Created on: Jan 11, 2018
- *      Author: chris
+ *      Author: chris bonomi
  */
 
 #ifndef POLYNOMIALREGRESSION_H_
@@ -12,6 +12,7 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
+#include "Point.h"
 
 using namespace Eigen;
 using namespace std;
@@ -28,6 +29,7 @@ private:
 
 	void solve(vector<double> x, vector<double> y, int degree);
 public:
+	PolynomialRegression(vector<Point> points, int degree);
 	PolynomialRegression(vector<double> x, vector<double> y, int degree);
 
 	double getBeta(int j);
