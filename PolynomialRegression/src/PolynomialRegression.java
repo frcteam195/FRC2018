@@ -62,6 +62,16 @@ public class PolynomialRegression {
         // create matrix from vector
         Matrix matrixY = new Matrix(y, n);
 
+        double[] arr = {1, 2, 3};
+        Matrix test = new Matrix(arr, 3);
+
+        /*for(int i = 0; i < test.getRowDimension(); i++) {
+        	for(int j = 0; j < test.getColumnDimension(); j++) {
+        		System.out.print(test.get(i, j));
+			}
+			System.out.println();
+		}*/
+
         // linear regression coefficients
         beta = qr.solve(matrixY);
 
