@@ -9,6 +9,9 @@ import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 /**
  * @author roberthilton
  * A class to simplify autonomous across many different motor controllers and robot configurations.
+ * Ensure that all left drive motor controllers have the output direction moving in the same way
+ * and that all right drive motor controllers have the output direction moving in the same way. 
+ * This software is provided as-is with no warranty or formal support. Use at your own risk.
  * @param <T> The type of your motor controller. Can be any type of motor controller, PWM or CAN.
  */
 public class CKAutoBuilder<T> extends Thread {	
