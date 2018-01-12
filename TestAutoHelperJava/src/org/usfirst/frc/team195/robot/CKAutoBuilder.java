@@ -6,9 +6,22 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
 
-public class CKAutoBuilder<T> extends Thread {
-	public static final int MIN_DRIVE_LOOP_TIME = 10;
+/**
+ * @author roberthilton
+ * A class to simplify autonomous across many different motor controllers and robot configurations.
+ * @param <T> The type of your motor controller. Can be any type of motor controller, PWM or CAN.
+ */
+public class CKAutoBuilder<T> extends Thread {	
 	
+	/**
+	 * Constructor to build a new CKAutoBuilder. This should always be the first step of using CKAutoBuilder.
+	 * Use this method if your motor controllers are setup as master/slaves.
+	 * Usage: CKAutoBuilder<Spark> ckAuto = new CKAutoBuilder<Spark>(mySpark1, mySpark2, this);
+	 * @param leftDrive The left drive motor controller.
+	 * @param rightDrive The right drive motor controller.
+	 * @param robot Use the "this" keyword in Robot.java to pass the robot into this parameter.
+	 * @throws Exception
+	 */
 	public CKAutoBuilder(T leftDrive, T rightDrive, Robot robot) throws Exception {
 		this.leftDrive = new ArrayList<T>();
 		this.rightDrive = new ArrayList<T>();
@@ -19,22 +32,55 @@ public class CKAutoBuilder<T> extends Thread {
 		this.cheesyDriveHelper = new CheesyDriveHelper();
 		this.useCheesyDrive = true;
 	}
+	
+	/**
+	 * Constructor to build a new CKAutoBuilder. This should always be the first step of using CKAutoBuilder.
+	 * Usage: CKAutoBuilder<Spark> ckAuto = new CKAutoBuilder<Spark>(mySpark1, mySpark2, mySpark3, mySpark4, this);
+	 * @param leftDrive1 The first left drive motor controller.
+	 * @param leftDrive2 The second left drive motor controller.
+	 * @param rightDrive1 The first right drive motor controller.
+	 * @param rightDrive2 The second right drive motor controller.
+	 * @param robot Use the "this" keyword in Robot.java to pass the robot into this parameter.
+	 * @throws Exception
+	 */
 	public CKAutoBuilder(T leftDrive1, T leftDrive2, T rightDrive1, T rightDrive2, Robot robot) throws Exception {
 		this(leftDrive1, rightDrive1, robot);
 		this.leftDrive.add(leftDrive2);
 		this.rightDrive.add(rightDrive2);
 	}
+	
+	/**
+	 * Constructor to build a new CKAutoBuilder. This should always be the first step of using CKAutoBuilder.
+	 * Usage: CKAutoBuilder<Spark> ckAuto = new CKAutoBuilder<Spark>(mySpark1, mySpark2, mySpark3, mySpark4, mySpark5, mySpark6, this);
+	 * @param leftDrive1 The first left drive motor controller.
+	 * @param leftDrive2 The second left drive motor controller.
+	 * @param leftDrive3 The third left drive motor controller.
+	 * @param rightDrive1 The first right drive motor controller.
+	 * @param rightDrive2 The second right drive motor controller.
+	 * @param rightDrive3 The third right drive motor controller.
+	 * @param robot Use the "this" keyword in Robot.java to pass the robot into this parameter.
+	 * @throws Exception
+	 */
 	public CKAutoBuilder(T leftDrive1, T leftDrive2, T leftDrive3, T rightDrive1, T rightDrive2, T rightDrive3, Robot robot) throws Exception {
 		this(leftDrive1, leftDrive2, rightDrive1, rightDrive2, robot);
 		this.leftDrive.add(leftDrive3);
 		this.rightDrive.add(rightDrive3);
 	}
 	
+	/**
+	 * Enable or disable Cheesy Drive mode.
+	 * This mode changes the drive values to throttle and steering (curvature control), rather than direct output to the left and right motors.
+	 * For direct output to left and right motors, disable Cheesy Drive mode.
+	 * @param enable If true, Cheesy Drive is enabled. If false, Cheesy Drive is disabled.
+	 */
 	public void setCheesyDriveOnOff(boolean enable) {
 		if (!this.isAlive())
 			this.useCheesyDrive = enable;
 	}
 	
+	/**
+	 * Do not call this method. To start the thread, call start()
+	 */
 	@Override
     public void run() {		
 		try {
@@ -55,20 +101,84 @@ public class CKAutoBuilder<T> extends Thread {
 				}
 			}
 		} catch (Exception e) {
+			
 		} 
 		return;
     }
 	
-	public void addAutoStep(double throttle, double heading, int holdTimeMS) {
+	/**
+	 * Add a new step to the autonomous path for the robot.
+	 * Usage Delay: ckAuto.addAutoStep(0, 0, 2000); //This will add a 2 second delay in the sequence of actions, no matter what drive mode is active.
+	 * Usage Drive Forward Cheesy: ckAuto.addAutoStep(1, 0, 2000); //This will drive the robot forward for 2 seconds while in Cheesy Drive mode.
+	 * Usage Drive Forward Direct: ckAuto.addAutoStep(1, 1, 2000); //This will drive the robot forward for 2 seconds in direct drive mode (first and second parameters represent left and right direct drive output).
+	 * @param throttle The throttle value (forward and backward) for cheesy drive. If cheesy drive is disabled, this is the left side drive output. This value is always between -1 and 1.
+	 * @param steer The heading value for cheesy drive (controls turning). If cheesy drive is disabled, this is the right side drive output. This value is always between -1 and 1.
+	 * @param holdTimeMS The time for which to hold this drive action. The drive will run as specified for this value. Value is in milliseconds.
+	 */
+	public void addAutoStep(double throttle, double steer, int holdTimeMS) {
 		if (!this.isAlive())
-			autoSteps.add(new CKAutoStep(throttle, heading, holdTimeMS));
+			autoSteps.add(new CKAutoStep(throttle, steer, holdTimeMS));
 	}
+	
+	
+	/**
+	 * Simplest base method to drive the robot forward. Should not be used in conjunction with step mode.
+	 */
+	public synchronized void driveForward() {
+		if (!this.isAlive()) {
+			double driveSpeed = 0.5;
+			double leftOutput = leftReversed ? -driveSpeed : driveSpeed;
+			double rightOutput = rightReversed ? -driveSpeed : driveSpeed;
+			setDriveOutput(leftOutput, rightOutput);
+		}
+	}
+	
+	/**
+	 * Drives the robot forward AFTER a specified delay time.
+	 * @param delayTimeMS The delay time before driving forward in milliseconds.
+	 */
+	public synchronized void driveForwardDelay(int delayTimeMS) {
+		if (!this.isAlive()) {
+			try {
+				Thread.sleep(delayTimeMS);
+			} catch (Exception e) {
+				
+			}
+		}
+		driveForward();
+	}
+	
+	/**
+	 * Reverse the output of the left side drive. Use this to correct if the robot is not driving forward properly. Positive output values should make the robot drive forward.
+	 * @param reversed If true, the left side drive will be reversed.
+	 */
+	public void setLeftSideReversed(boolean reversed) {
+		if (!this.isAlive())
+			leftReversed = reversed;
+	}
+	
+	/**
+	 *  Reverse the output of the right side drive. Use this to correct if the robot is not driving forward properly. Positive output values should make the robot drive forward.
+	 * @param reversed If true, the right side drive will be reversed.
+	 */
+	public void setRightSideReversed(boolean reversed) {
+		if (!this.isAlive())
+			rightReversed = reversed;
+	}
+	
+	
+	
 	
 	private void setDriveOutput(DriveSignal signal) {
 		setDriveOutput(signal.getLeft(), signal.getRight());
 	}
 	
 	private void setDriveOutput(double leftOutput, double rightOutput) {
+		leftOutput = limit(leftOutput, 1);
+		rightOutput = limit(rightOutput, 1);
+		leftOutput = leftReversed ? -leftOutput : leftOutput;
+		rightOutput = rightReversed ? -rightOutput : rightOutput;
+		
 		for (T t : leftDrive) {
 			setSingleMotor(t, leftOutput);
 		}
@@ -86,6 +196,14 @@ public class CKAutoBuilder<T> extends Thread {
 			System.out.println("Motor controller type not recognized!");
 		}
 	}
+	
+    private double limit(double v, double maxMagnitude) {
+        return limit(v, -maxMagnitude, maxMagnitude);
+    }
+
+    private double limit(double v, double min, double max) {
+        return Math.min(max, Math.max(min, v));
+    }
 
 	private ArrayList<T> leftDrive;
 	private ArrayList<T> rightDrive;
@@ -96,19 +214,24 @@ public class CKAutoBuilder<T> extends Thread {
 	private CheesyDriveHelper cheesyDriveHelper;
 	private boolean useCheesyDrive;
 	
+	private boolean leftReversed;
+	private boolean rightReversed;
+	
 	private double timeoutStart;
 	private double timeoutEnd;
 	private int timeoutElapsedTimeMS;
 	
+	private static final int MIN_DRIVE_LOOP_TIME = 10;
+	
 	
 	private class CKAutoStep {
 		private double throttle;
-		private double heading;
+		private double steer;
 		private int holdTimeMS;
 		
-		public CKAutoStep(double throttle, double heading, int holdTimeMS) {
+		public CKAutoStep(double throttle, double steer, int holdTimeMS) {
 			this.throttle = throttle;
-			this.heading = heading;
+			this.steer = steer;
 			this.holdTimeMS = holdTimeMS;
 		}
 		
@@ -116,7 +239,7 @@ public class CKAutoBuilder<T> extends Thread {
 			return throttle;
 		}
 		public double getHeading() {
-			return heading;
+			return steer;
 		}
 		public int getHoldTimeMS() {
 			return holdTimeMS;
@@ -224,8 +347,7 @@ public class CKAutoBuilder<T> extends Thread {
 	        if (isQuickTurn) {
 	            if (Math.abs(linearPower) < kQuickStopDeadband) {
 	                double alpha = kQuickStopWeight;
-	                mQuickStopAccumlator = (1 - alpha) * mQuickStopAccumlator
-	                        + alpha * limit(wheel, 1.0) * kQuickStopScalar;
+	                mQuickStopAccumlator = (1 - alpha) * mQuickStopAccumlator + alpha * limit(wheel, 1.0) * kQuickStopScalar;
 	            }
 	            overPower = 1.0;
 	            angularPower = wheel;
@@ -265,13 +387,6 @@ public class CKAutoBuilder<T> extends Thread {
 	        return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
 	    }
 	    
-	    private double limit(double v, double maxMagnitude) {
-	        return limit(v, -maxMagnitude, maxMagnitude);
-	    }
-
-	    private double limit(double v, double min, double max) {
-	        return Math.min(max, Math.max(min, v));
-	    }
 	}
 	
 	private class DriveSignal {
