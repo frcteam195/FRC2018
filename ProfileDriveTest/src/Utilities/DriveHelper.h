@@ -66,8 +66,10 @@ public:
 
 
 	DriveMotorValues calculateOutput(double throttle, double wheel, bool isQuickTurn, bool isHighGear) {
+
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
+        isQuickTurn |= throttle == 0;
 
         double negInertia = wheel - mOldWheel;
         mOldWheel = wheel;
