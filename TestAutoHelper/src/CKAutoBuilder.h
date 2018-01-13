@@ -8,11 +8,9 @@
 #ifndef SRC_CKAUTOBUILDER_H_
 #define SRC_CKAUTOBUILDER_H_
 
-#if __has_include("ctre/Phoenix.h")
-	#include "ctre/Phoenix.h"
-#endif
-#include "WPILib.h"
 #include "ctre/Phoenix.h"
+
+#include "WPILib.h"
 #include <vector>
 
 using namespace std;
