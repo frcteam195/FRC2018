@@ -33,16 +33,11 @@
 class Robot : public frc::SampleRobot {
 public:
 	Robot() {
-		// Note SmartDashboard is not initialized here, wait until
-		// RobotInit to make SmartDashboard calls
-		m_robotDrive.SetExpiration(0.1);
-		ckAuto = new CKAutoBuilder<Spark>(m_leftMotor, m_rightMotor, SCControlMode::PWM_MotorController);
+		ckAuto = new CKAutoBuilder<Spark>(&m_leftMotor, &m_rightMotor, this);
 	}
 
 	void RobotInit() {
-		m_chooser.AddDefault(kAutoNameDefault, kAutoNameDefault);
-		m_chooser.AddObject(kAutoNameCustom, kAutoNameCustom);
-		frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+
 	}
 
 	/*
@@ -59,37 +54,12 @@ public:
 	 * well.
 	 */
 	void Autonomous() {
-		std::string autoSelected = m_chooser.GetSelected();
-		// std::string autoSelected = frc::SmartDashboard::GetString(
-		// "Auto Selector", kAutoNameDefault);
-		std::cout << "Auto selected: " << autoSelected << std::endl;
-
-		// MotorSafety improves safety when motors are updated in loops
-		// but is disabled here because motor updates are not looped in
-		// this autonomous mode.
-		m_robotDrive.SetSafetyEnabled(false);
-
-		if (autoSelected == kAutoNameCustom) {
-			// Custom Auto goes here
-			std::cout << "Running custom Autonomous" << std::endl;
-
-			// Spin at half speed for two seconds
-			m_robotDrive.ArcadeDrive(0.0, 0.5);
-			frc::Wait(2.0);
-
-			// Stop robot
-			m_robotDrive.ArcadeDrive(0.0, 0.0);
-		} else {
-			// Default Auto goes here
-			std::cout << "Running default Autonomous" << std::endl;
-
-			// Drive forwards at half speed for two seconds
-			m_robotDrive.ArcadeDrive(-0.5, 0.0);
-			frc::Wait(2.0);
-
-			// Stop robot
-			m_robotDrive.ArcadeDrive(0.0, 0.0);
-		}
+		ckAuto->addAutoStep(0, 0, 3000);
+		ckAuto->addAutoStep(1, 0, 5000);
+		ckAuto->addAutoStep(1, 0.25, 2000);
+		ckAuto->addAutoStep(0, 0, 200);
+		ckAuto->start();
+		while(!IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
 	}
 
 	/*
@@ -120,10 +90,7 @@ private:
 
 	frc::Joystick m_stick{0};
 
-	frc::SendableChooser<std::string> m_chooser;
-	CKAutoBuilder<Spark*> *ckAuto;
-	const std::string kAutoNameDefault = "Default";
-	const std::string kAutoNameCustom = "My Auto";
+	CKAutoBuilder<Spark> *ckAuto;
 };
 
 START_ROBOT_CLASS(Robot)

@@ -320,7 +320,7 @@ private:
 	mutex threadLockMutex;
 	bool runThread;
 
-	const int MIN_DRIVE_LOOP_TIME = 10;
+	const int CK_MIN_DRIVE_LOOP_TIME = 10;
 
     double limit(double v, double minVal, double maxVal) {
     		return min(maxVal, max(minVal, v));
@@ -370,7 +370,7 @@ private:
 					else
 						setDriveOutput(autoSteps.at(i)->getThrottle(), autoSteps.at(i)->getHeading());
 
-					this_thread::sleep_for(chrono::milliseconds(MIN_DRIVE_LOOP_TIME));
+					this_thread::sleep_for(chrono::milliseconds(CK_MIN_DRIVE_LOOP_TIME));
 					timeoutEnd = Timer::GetFPGATimestamp();
 					timeoutElapsedTimeMS = (int)((timeoutEnd - timeoutStart) * 1000);
 				}
@@ -380,7 +380,7 @@ private:
 				}
 			}
 		} catch (exception &e) {
-
+			cout << "Error in thread run!" << endl;
 		}
 		threadLockMutex.lock();
 		runThread = false;

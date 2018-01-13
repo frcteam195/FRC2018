@@ -14,6 +14,7 @@
 #include "Utilities/CustomSubsystem.h"
 #include "Subsystems/DriveBaseSubsystem.h"
 #include "Subsystems/HIDControllerSubsystem.h"
+#include "Utilities/CKAutoBuilder.h"
 #include <vector>
 
 class Robot: public SampleRobot {
@@ -27,6 +28,8 @@ private:
 	vector<CustomSubsystem*> subsystemVector;
 	DriveBaseSubsystem *robotDrive;
 	HIDControllerSubsystem *hidControllerSubsystem;
+
+	CKAutoBuilder<TalonSRX> *ckAuto;
 
 	//HIDControllerSubsystem *hid;
 
