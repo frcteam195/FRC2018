@@ -108,7 +108,8 @@ void DriveBaseSubsystem::runLeftDrive() {
 				cout << "MPModeL" << endl;
 				break;
 			default:
-				leftDrive->Set(ControlMode::PercentOutput, leftDriveSpeed);
+				if (!ds->IsAutonomous())
+					leftDrive->Set(ControlMode::PercentOutput, leftDriveSpeed);
 				break;
 		}
 /*
@@ -157,7 +158,8 @@ void DriveBaseSubsystem::runRightDrive() {
 				cout << "MPModeR" << endl;
 				break;
 			default:
-				rightDrive->Set(ControlMode::PercentOutput, rightDriveSpeed);
+				if (!ds->IsAutonomous())
+					rightDrive->Set(ControlMode::PercentOutput, rightDriveSpeed);
 				break;
 		}
 /*
@@ -230,10 +232,12 @@ void DriveBaseSubsystem::processMP(TalonSRX *talonSRX, vector<vector< double> *>
 		}
 		//point.velocityOnly = false;
 
+		/*
 		if (highGear)
 			point.profileSlotSelect = 1;
 		else
 			point.profileSlotSelect = 0;
+		 */
 
 		if (i == 0)
 			point.zeroPos = true;	//Set at start

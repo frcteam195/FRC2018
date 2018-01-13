@@ -88,6 +88,8 @@ public class CKAutoBuilder<T> extends Thread {
     public void run() {		
 		try {
 			for (CKAutoStep ckAutoStep : autoSteps) {
+				timeoutElapsedTimeMS = 0;
+				timeoutEnd = 0;
 				timeoutStart = Timer.getFPGATimestamp();
 				while (timeoutElapsedTimeMS < ckAutoStep.getHoldTimeMS() && robot.isEnabled() && robot.isAutonomous()) {
 					if (useCheesyDrive)

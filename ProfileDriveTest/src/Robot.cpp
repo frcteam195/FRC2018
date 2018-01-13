@@ -18,10 +18,18 @@ void Robot::RobotInit() {
 
 	for (unsigned int i = 0; i < subsystemVector.size(); i++)
 		subsystemVector.at(i)->start();
+
+	ckAuto = new CKAutoBuilder<TalonSRX>(robotControllers->getLeftDrive1(), robotControllers->getRightDrive1(), this);
 }
 
 
 void Robot::Autonomous() {
+	ckAuto->addAutoStep(0, 0, 2000);
+	ckAuto->addAutoStep(1, 0.25, 1000);
+	ckAuto->addAutoStep(0.8, -0.5, 600);
+	ckAuto->addAutoStep(0.75, 0, 500);
+	ckAuto->addAutoStep(0, 0, 200);
+	ckAuto->start();
 	while(!IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
 }
 
