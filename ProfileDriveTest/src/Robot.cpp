@@ -24,11 +24,11 @@ void Robot::RobotInit() {
 
 
 void Robot::Autonomous() {
-	ckAuto->addAutoStep(0, 0, 2000);
-	ckAuto->addAutoStep(1, 0.25, 1000);
-	ckAuto->addAutoStep(0.8, -0.5, 600);
-	ckAuto->addAutoStep(0.75, 0, 500);
-	ckAuto->addAutoStep(0, 0, 200);
+	ckAuto->addAutoStep(0, 0, 2000);	//Delay for two seconds
+	ckAuto->addAutoStep(1, 0.25, 1000);	//Drive forward while turning right for one second
+	ckAuto->addAutoStep(0.8, -0.5, 600);	//Drive forward while turning left for 600 milliseconds
+	ckAuto->addAutoStep(0.75, 0, 500);	//Drive forward for half a second
+	ckAuto->addAutoStep(0, 0, 200);	//Stop
 	ckAuto->start();
 	while(!IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
 }
