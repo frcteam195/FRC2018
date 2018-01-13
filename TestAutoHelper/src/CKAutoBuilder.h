@@ -236,34 +236,6 @@ public:
 
 	~CKAutoBuilder() {};
 
-	void runDrive() {
-		try {
-			for(unsigned int i = 0; i < autoSteps.size(); i++) {
-				timeoutStart = Timer::GetFPGATimestamp();
-				while (timeoutElapsedTimeMS < autoSteps.at(i)->getHoldTimeMS() && robot->IsEnabled() && robot->IsAutonomous()) {
-					if (useCheesyDrive)
-						setDriveOutput(cheesyDriveHelper->cheesyDrive(autoSteps.at(i)->getThrottle(), autoSteps.at(i)->getHeading(), false, false));
-					else
-						setDriveOutput(autoSteps.at(i)->getThrottle(), autoSteps.at(i)->getHeading());
-
-					this_thread::sleep_for(chrono::milliseconds(MIN_DRIVE_LOOP_TIME));
-					timeoutEnd = Timer::GetFPGATimestamp();
-					timeoutElapsedTimeMS = (int)((timeoutEnd - timeoutStart) * 1000);
-				}
-
-				if (!(robot->IsEnabled() && robot->IsAutonomous())) {
-					break;
-				}
-			}
-		} catch (exception &e) {
-
-		}
-		threadLockMutex.lock();
-		runThread = false;
-		threadLockMutex.unlock();
-		return;
-	}
-
 	void setCheesyDriveOnOff(bool enable) {
 		if (!runThread) {
 			threadLockMutex.lock();
@@ -385,6 +357,34 @@ private:
 	void setDriveOutput(DriveSignal signal) {
 		setDriveOutput(signal.leftDrive, signal.rightDrive);
 	};
+
+	void runDrive() {
+		try {
+			for(unsigned int i = 0; i < autoSteps.size(); i++) {
+				timeoutStart = Timer::GetFPGATimestamp();
+				while (timeoutElapsedTimeMS < autoSteps.at(i)->getHoldTimeMS() && robot->IsEnabled() && robot->IsAutonomous()) {
+					if (useCheesyDrive)
+						setDriveOutput(cheesyDriveHelper->cheesyDrive(autoSteps.at(i)->getThrottle(), autoSteps.at(i)->getHeading(), false, false));
+					else
+						setDriveOutput(autoSteps.at(i)->getThrottle(), autoSteps.at(i)->getHeading());
+
+					this_thread::sleep_for(chrono::milliseconds(MIN_DRIVE_LOOP_TIME));
+					timeoutEnd = Timer::GetFPGATimestamp();
+					timeoutElapsedTimeMS = (int)((timeoutEnd - timeoutStart) * 1000);
+				}
+
+				if (!(robot->IsEnabled() && robot->IsAutonomous())) {
+					break;
+				}
+			}
+		} catch (exception &e) {
+
+		}
+		threadLockMutex.lock();
+		runThread = false;
+		threadLockMutex.unlock();
+		return;
+	}
 
 };
 #endif /* SRC_CKAUTOBUILDER_H_ */
