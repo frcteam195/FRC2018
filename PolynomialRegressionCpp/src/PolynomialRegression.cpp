@@ -44,6 +44,10 @@ MatrixXd PolynomialRegression::createMatrix(vector<double> y, int n) {
 	return matrix;
 }
 
+bool PolynomialRegression::isFullRank(CompleteOrthogonalDecomposition<MatrixXd> m) {
+	return m.rank() == min(m.rows(), m.cols());
+}
+
 void PolynomialRegression::solve(vector<double> x, vector<double> y, int degree) {
 	this->degree = degree;
 
@@ -64,7 +68,7 @@ void PolynomialRegression::solve(vector<double> x, vector<double> y, int degree)
 
 		qr = CompleteOrthogonalDecomposition<MatrixXd>(matrixX);
 
-		if(min(qr.rows(), qr.cols()) == qr.rank())
+		if(isFullRank(qr))
 			break;
 
 		this->degree--;

@@ -26,6 +26,7 @@ private:
 
 	MatrixXd createMatrix(vector<vector<double> > xy);
 	MatrixXd createMatrix(vector<double> y, int n);
+	bool isFullRank(CompleteOrthogonalDecomposition<MatrixXd> m);
 
 	void solve(vector<double> x, vector<double> y, int degree);
 public:
