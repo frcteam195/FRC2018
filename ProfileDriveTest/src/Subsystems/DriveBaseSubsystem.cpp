@@ -105,14 +105,14 @@ void DriveBaseSubsystem::runLeftDrive() {
 					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
 				else
 					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
-
+				cout << "MPModeL" << endl;
 				break;
 			default:
 				leftDrive->Set(ControlMode::PercentOutput, leftDriveSpeed);
 				break;
 		}
 /*
-		cout << "Left Speed: " << leftDrive->GetSpeed() << endl;
+		cout << "Left Speed: " << leftDrive->GetSelectedSensorVelocity(0) << endl;
 		cout << "Left Power: " << leftDriveSpeed << endl;
 		cout << "Gear: " << highGear << endl;*/
 
@@ -154,14 +154,14 @@ void DriveBaseSubsystem::runRightDrive() {
 					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
 				else
 					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
-
+				cout << "MPModeR" << endl;
 				break;
 			default:
 				rightDrive->Set(ControlMode::PercentOutput, rightDriveSpeed);
 				break;
 		}
 /*
-		cout << "Right Speed:" << rightDrive->GetSpeed() << endl;
+		cout << "Right Speed:" << rightDrive->GetSelectedSensorVelocity(0) << endl;
 		cout << "Right Power: " << rightDriveSpeed << endl;
 		cout << "Gear: " << highGear << endl;*/
 
@@ -261,17 +261,11 @@ void DriveBaseSubsystem::setDrivePID(double kP, double kI, double kD, double ff,
 }
 
 void DriveBaseSubsystem::setDriveSpeed(DriveMotorValues d) {
-	_subsystemMutex.lock();
-	this->leftDriveSpeed = d.leftDrive;
-	this->rightDriveSpeed = d.rightDrive;
-	_subsystemMutex.unlock();
+	setDriveSpeed(d.leftDrive, d.rightDrive, false);
 }
 
 void DriveBaseSubsystem::setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {
-	_subsystemMutex.lock();
-	this->leftDriveSpeed = leftDriveSpeed;
-	this->rightDriveSpeed = rightDriveSpeed;
-	_subsystemMutex.unlock();
+	setDriveSpeed(leftDriveSpeed, rightDriveSpeed, false);
 }
 
 void DriveBaseSubsystem::setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, bool slowDown) {

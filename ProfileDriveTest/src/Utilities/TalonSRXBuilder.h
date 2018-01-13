@@ -20,7 +20,7 @@ class Configuration {
 public:
 	double MAX_OUTPUT = 1;
 	double NOMINAL_OUTPUT = 0;
-	NeutralMode NEUTRAL_MODE = NeutralMode::Coast;
+	NeutralMode NEUTRAL_MODE = NeutralMode::Brake;
 	bool ENABLE_CURRENT_LIMIT = false;
 	bool ENABLE_SOFT_LIMIT = false;
 	bool ENABLE_LIMIT_SWITCH = false;
@@ -28,12 +28,7 @@ public:
 	bool INVERTED = false;
 
 	int CONTROL_FRAME_PERIOD_MS = 5;
-	int MOTION_CONTROL_FRAME_PERIOD_MS = 100;
 	int GENERAL_STATUS_FRAME_RATE_MS = 5;
-	int FEEDBACK_STATUS_FRAME_RATE_MS = 100;
-	int QUAD_ENCODER_STATUS_FRAME_RATE_MS = 100;
-	int ANALOG_TEMP_VBAT_STATUS_FRAME_RATE_MS = 100;
-	int PULSE_WIDTH_STATUS_FRAME_RATE_MS = 100;
 
 	VelocityMeasPeriod VELOCITY_MEASUREMENT_PERIOD = VelocityMeasPeriod::Period_100Ms;
 	int VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW = 64;
@@ -50,13 +45,6 @@ public:
     		kDefaultConfiguration = new Configuration();
 
     		kSlaveConfiguration = new Configuration();
-    		kSlaveConfiguration->CONTROL_FRAME_PERIOD_MS = 1000;
-		kSlaveConfiguration->MOTION_CONTROL_FRAME_PERIOD_MS = 1000;
-		kSlaveConfiguration->GENERAL_STATUS_FRAME_RATE_MS = 1000;
-		kSlaveConfiguration->FEEDBACK_STATUS_FRAME_RATE_MS = 1000;
-		kSlaveConfiguration->QUAD_ENCODER_STATUS_FRAME_RATE_MS = 1000;
-		kSlaveConfiguration->ANALOG_TEMP_VBAT_STATUS_FRAME_RATE_MS = 1000;
-		kSlaveConfiguration->PULSE_WIDTH_STATUS_FRAME_RATE_MS = 1000;
 	};
 	~TalonSRXBuilder() {};
 
@@ -72,13 +60,6 @@ public:
         TalonSRX *talon = createTalonSRX(id, kSlaveConfiguration);
 
         talon->Set(ControlMode::Follower, master_id);
-        talon->SetControlFramePeriod(ControlFrame::Control_3_General, kSlaveConfiguration->CONTROL_FRAME_PERIOD_MS);
-		talon->ChangeMotionControlFramePeriod(kSlaveConfiguration->MOTION_CONTROL_FRAME_PERIOD_MS);
-		talon->SetStatusFramePeriod(StatusFrame::Status_1_General_, kSlaveConfiguration->GENERAL_STATUS_FRAME_RATE_MS, kTimeoutMs);
-		talon->SetStatusFramePeriod(StatusFrame::Status_2_Feedback0_, kSlaveConfiguration->GENERAL_STATUS_FRAME_RATE_MS, kTimeoutMs);
-		talon->SetStatusFramePeriod(StatusFrame::Status_4_AinTempVbat_, kSlaveConfiguration->GENERAL_STATUS_FRAME_RATE_MS, kTimeoutMs);
-		talon->SetStatusFramePeriod(StatusFrame::Status_6_Misc_, kSlaveConfiguration->GENERAL_STATUS_FRAME_RATE_MS, kTimeoutMs);
-
         return talon;
     };
 
@@ -86,7 +67,6 @@ public:
         TalonSRX *talon = new TalonSRX(id);
 
         talon->SetControlFramePeriod(ControlFrame::Control_3_General, config->CONTROL_FRAME_PERIOD_MS);
-        talon->ChangeMotionControlFramePeriod(config->MOTION_CONTROL_FRAME_PERIOD_MS);
         talon->SetStatusFramePeriod(StatusFrame::Status_1_General_, config->GENERAL_STATUS_FRAME_RATE_MS, kTimeoutMs);
         talon->Set(ControlMode::PercentOutput, 0);
         talon->SetIntegralAccumulator(0, 0, kTimeoutMs);
