@@ -12,6 +12,6 @@
 using namespace std;
 
 int main() {
-	CKAutoBuilder<TalonEx> ckAuto = new CKAutoBuilder<TalonEx>(new TalonEx());
+	CKAutoBuilder<TalonEx> *ckAuto = new CKAutoBuilder<TalonEx>(new TalonEx());
 	return 0;
 }

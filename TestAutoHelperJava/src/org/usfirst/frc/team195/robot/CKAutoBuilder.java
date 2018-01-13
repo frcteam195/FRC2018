@@ -147,8 +147,8 @@ public class CKAutoBuilder<T> extends Thread {
 			} catch (Exception e) {
 				
 			}
+			driveForward();
 		}
-		driveForward();
 	}
 	
 	/**
