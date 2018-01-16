@@ -5,8 +5,8 @@
  *      Author: roberthilton
  */
 
-#ifndef SRC_UTILITIES_TALONSRXBUILDER_H_
-#define SRC_UTILITIES_TALONSRXBUILDER_H_
+#ifndef SRC_UTILITIES_CANSPEEDCONTROLLERBUILDER_H_
+#define SRC_UTILITIES_CANSPEEDCONTROLLERBUILDER_H_
 
 
 #include "WPILib.h"
@@ -34,19 +34,18 @@ public:
 	int VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW = 64;
 };
 
-class TalonSRXBuilder {
+class CANSpeedControllerBuilder {
 private:
 	Configuration *kDefaultConfiguration;
 	Configuration *kSlaveConfiguration;
 
-
 public:
-    TalonSRXBuilder() {
+    CANSpeedControllerBuilder() {
     		kDefaultConfiguration = new Configuration();
 
     		kSlaveConfiguration = new Configuration();
 	};
-	~TalonSRXBuilder() {};
+	~CANSpeedControllerBuilder() {};
 
     TalonSRX *createDefaultTalonSRX(int id) {
         return createTalonSRX(id, kDefaultConfiguration);
@@ -54,13 +53,24 @@ public:
 
     TalonSRX *createPermanentSlaveTalonSRX(int id, TalonSRX *masterTalon) {
     		return createPermanentSlaveTalonSRX(id, masterTalon->GetDeviceID());
-    }
+    };
 
     TalonSRX *createPermanentSlaveTalonSRX(int id, int master_id) {
         TalonSRX *talon = createTalonSRX(id, kSlaveConfiguration);
 
         talon->Set(ControlMode::Follower, master_id);
         return talon;
+    };
+
+    VictorSPX* createPermanentVictorSlaveToTalonSRX(int id, TalonSRX* masterTalon) {
+    		return createPermanentVictorSlaveToTalonSRX(id, masterTalon->GetDeviceID());
+    };
+
+    VictorSPX* createPermanentVictorSlaveToTalonSRX(int id, int master_id) {
+    		VictorSPX* victor = new VictorSPX(id);
+
+    		victor->Set(ControlMode::Follower, master_id);
+    		return victor;
     };
 
 	TalonSRX *createTalonSRX(int id, Configuration *config) {
@@ -92,4 +102,4 @@ public:
 
 };
 
-#endif /* SRC_UTILITIES_TALONSRXBUILDER_H_ */
+#endif /* SRC_UTILITIES_CANSPEEDCONTROLLERBUILDER_H_ */

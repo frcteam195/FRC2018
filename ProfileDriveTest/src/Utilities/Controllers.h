@@ -1,17 +1,17 @@
 #ifndef SRC_UTILITIES_CONTROLLERS_H_
 #define SRC_UTILITIES_CONTROLLERS_H_
 
+#include <Utilities/CANSpeedControllerBuilder.h>
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "AHRS.h"
-#include "Utilities/TalonSRXBuilder.h"
 #include "KnightJoystick.h"
 
 class Controllers {
 private:
 	KnightJoystick *driveJoystick;
 
-	TalonSRXBuilder *talonSRXBuilder;
+	CANSpeedControllerBuilder *canSpeedControllerBuilder;
 
 	TalonSRX *leftDrive1;
 	TalonSRX *leftDrive2;
@@ -20,6 +20,9 @@ private:
 	TalonSRX *rightDrive2;
 	TalonSRX *rightDrive3;
 	DoubleSolenoid *shiftSol;
+
+	TalonSRX* liftMotor;
+	VictorSPX* liftMotorSlave;
 
 	AHRS *navX;
 
@@ -36,6 +39,9 @@ public:
 	TalonSRX* getRightDrive2();
 	TalonSRX* getRightDrive3();
 	DoubleSolenoid* getShiftSol();
+
+	TalonSRX* getLiftMotor();
+	VictorSPX* getLiftMotorSlave();
 
 	AHRS*	getNavX();
 };

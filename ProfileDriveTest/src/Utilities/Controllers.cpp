@@ -6,20 +6,24 @@ Controllers::Controllers() {
 	//Drive Joystick Setup
 	driveJoystick = new KnightJoystick(0);
 
-	talonSRXBuilder = new TalonSRXBuilder();
+	canSpeedControllerBuilder = new CANSpeedControllerBuilder();
 
 	//Left Drive Setup
-	leftDrive1 = talonSRXBuilder->createDefaultTalonSRX(1);
-	leftDrive2 = talonSRXBuilder->createPermanentSlaveTalonSRX(2, leftDrive1);
-	leftDrive3 = talonSRXBuilder->createPermanentSlaveTalonSRX(3, leftDrive1);
+	leftDrive1 = canSpeedControllerBuilder->createDefaultTalonSRX(1);
+	leftDrive2 = canSpeedControllerBuilder->createPermanentSlaveTalonSRX(2, leftDrive1);
+	leftDrive3 = canSpeedControllerBuilder->createPermanentSlaveTalonSRX(3, leftDrive1);
 
 	//Right Drive Setup
-	rightDrive1 = talonSRXBuilder->createDefaultTalonSRX(4);
-	rightDrive2 = talonSRXBuilder->createPermanentSlaveTalonSRX(5, rightDrive1);
-	rightDrive3 = talonSRXBuilder->createPermanentSlaveTalonSRX(6, rightDrive1);
+	rightDrive1 = canSpeedControllerBuilder->createDefaultTalonSRX(4);
+	rightDrive2 = canSpeedControllerBuilder->createPermanentSlaveTalonSRX(5, rightDrive1);
+	rightDrive3 = canSpeedControllerBuilder->createPermanentSlaveTalonSRX(6, rightDrive1);
 
 	//Shift Solenoid Setup
 	shiftSol = new DoubleSolenoid(0, 1);
+
+	//Elevator setup
+	liftMotor = canSpeedControllerBuilder->createDefaultTalonSRX(7);
+	liftMotorSlave = canSpeedControllerBuilder->createPermanentVictorSlaveToTalonSRX(8, liftMotor);
 
     try {
         navX = new AHRS(SPI::Port::kMXP);
