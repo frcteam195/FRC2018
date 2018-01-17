@@ -49,6 +49,11 @@ DashboardReporterSubsystem *DashboardReporterSubsystem::getInstance() {
 	return instance;
 };
 
+DashboardReporterSubsystem* DashboardReporterSubsystem::getInstance(vector<CustomSubsystem *> *subsystemVector) {
+	subsystemVector->push_back(getInstance());
+	return instance;
+}
+
 void DashboardReporterSubsystem::init() {
 	//cout << "Init start for VisionReceiver!\n";
 	addrlen = sizeof(remoteAddr); /* length of addresses */
