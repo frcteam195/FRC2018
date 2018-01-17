@@ -12,6 +12,7 @@
 #define DASHBOARD_SEND_RATE_MS 25
 
 #include "Utilities/CustomSubsystem.h"
+#include "Subsystems/Elevator.h"
 #include "Subsystems/DriveBaseSubsystem.h"
 
 #include "WPILib.h"
@@ -63,7 +64,8 @@ private:
 	bool manualClimb;
 	double climbLevel;
 
-	Controllers *robotControllers;
+	Controllers* robotControllers;
+	Elevator* elevator;
 
 	void runUDPSend();
 

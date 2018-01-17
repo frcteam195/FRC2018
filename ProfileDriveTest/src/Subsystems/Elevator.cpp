@@ -7,11 +7,17 @@
 
 #include "Subsystems/Elevator.h"
 
-Elevator::Elevator() {
-	// TODO Auto-generated constructor stub
+Elevator::Elevator(Controllers* robotControllers, vector<CustomSubsystem*>* subsystemVector) {
+	subsystemVector->push_back(this);
 
+	this->liftMotor = robotControllers->getLiftMotor();
+	this->liftMotorSlave = robotControllers->getLiftMotorSlave();
 }
 
 bool Elevator::isElevatorFaulted() {
 	return true;
+}
+
+double Elevator::getElevatorPos() {
+
 }

@@ -14,6 +14,8 @@ DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort, Controllers 
 	this->udpPort = udpPort;
 	this->robotControllers = robotControllers;
 	subsystemVector->push_back(this);
+	this->elevator =
+	this->elevator =
 	recvlenReceive = 0;
 	recvlenSend = 0;
 	fd = 0;
@@ -24,10 +26,6 @@ DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort, Controllers 
 	dashboardSendThreadControlStart = 0;
 	dashboardSendThreadControlEnd = 0;
 	dashboardSendThreadControlElapsedTimeMS = 0;
-
-	visionEnabled = false;
-	onTarget = false;
-	jetsonOperational = false;
 }
 
 DashboardReporterSubsystem::~DashboardReporterSubsystem() {}
@@ -91,6 +89,14 @@ void DashboardReporterSubsystem::stop() {
 	if (udpSendThread.joinable())
 		udpSendThread.join();
 
+}
+
+void DashboardReporterSubsystem::runUDPSend() {
+	while(runThread) {
+		dashboardSendThreadControlStart = Timer::GetFPGATimestamp();
+		stringstream sendStr;
+		sendStr << "ElevatorIsFaulted:" << elevator->isElevatorFaulted();
+	}
 }
 
 void DashboardReporterSubsystem::runUDPSend() {

@@ -9,6 +9,7 @@
 #define SRC_SUBSYSTEMS_ELEVATOR_H_
 
 #include <vector>
+#include <sstream>
 #include "Utilities/CustomSubsystem.h"
 #include "Utilities/Controllers.h"
 #include "ctre/Phoenix.h"
@@ -17,13 +18,11 @@ using namespace std;
 
 class Elevator : CustomSubsystem {
 private:
-	vector<CustomSubsystem*>* customSubsystemVector;
-
 	TalonSRX* liftMotor;
 	VictorSPX* liftMotorSlave;
 
 public:
-	Elevator();
+	Elevator(Controllers* robotControllers, vector<CustomSubsystem*>* subsystemVector);
 	~Elevator() {}
 
 	void init() override;
@@ -32,6 +31,7 @@ public:
 	void stop() override;
 
 	bool isElevatorFaulted();
+	double getElevatorPos();
 };
 
 #endif /* SRC_SUBSYSTEMS_ELEVATOR_H_ */
