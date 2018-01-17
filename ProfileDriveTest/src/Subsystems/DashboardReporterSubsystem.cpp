@@ -13,13 +13,8 @@ using namespace frc;
 DashboardReporterSubsystem *DashboardReporterSubsystem::instance = NULL;
 DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort) {
 	this->udpPort = udpPort;
-	this->robotControllers = robotControllers;
-<<<<<<< HEAD
-=======
-	subsystemVector->push_back(this);
-	this->elevator =
-	this->elevator =
->>>>>>> branch 'master' of https://guitar24t@bitbucket.org/cyberknightsprogramming/frc2018.git
+	this->robotControllers = Controllers::getInstance();
+
 	recvlenReceive = 0;
 	recvlenSend = 0;
 	fd = 0;
@@ -33,7 +28,6 @@ DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort) {
 	dashboardSendThreadControlStart = 0;
 	dashboardSendThreadControlEnd = 0;
 	dashboardSendThreadControlElapsedTimeMS = 0;
-<<<<<<< HEAD
 
 	elevatorIsFaulted = false;
 	intakeOnChris = false;
@@ -44,8 +38,6 @@ DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort) {
 	frontCamera = true;
 	manualClimb = false;
 	climbLevel = 0;
-=======
->>>>>>> branch 'master' of https://guitar24t@bitbucket.org/cyberknightsprogramming/frc2018.git
 }
 
 DashboardReporterSubsystem::~DashboardReporterSubsystem() {}
@@ -119,39 +111,32 @@ void DashboardReporterSubsystem::stop() {
 }
 
 void DashboardReporterSubsystem::runUDPSend() {
-	while(runThread) {
-		dashboardSendThreadControlStart = Timer::GetFPGATimestamp();
-		stringstream sendStr;
-		sendStr << "ElevatorIsFaulted:" << elevator->isElevatorFaulted();
-	}
-}
-
-void DashboardReporterSubsystem::runUDPSend() {
 	while (runThread)
 	{
+		stringstream sendStr;
+		sendStr << "ElevatorIsFaulted:" << cubeHandlerSubsystem->isElevatorFaulted();
+
 		dashboardSendThreadControlStart = Timer::GetFPGATimestamp();
-		string sendStr = "ElevatorPos:" + to_string(cubeHandlerSubsystem->getElevatorPos()) +";";
-		if (cubeHandlerSubsystem->isElevatorFaulted()) {
-			sendStr += "ElevatorFault:True;";
-		} else {
-			sendStr += "ElevatorFault:False;";
-		}
+		sendStr << "ElevatorPos:" << cubeHandlerSubsystem->getElevatorPos() << ";";
+		sendStr << "ElevatorFault:" << cubeHandlerSubsystem->isElevatorFaulted() << ";";
+
 		if (robotControllers->getDriveJoystick()->GetRawAxis(2) < -0.5) {
-			sendStr += "IntakeOnChris:True;";
+			sendStr << "IntakeOnChris:True;";
 		} else {
-			sendStr += "IntakeOnChris:False;";
+			sendStr << "IntakeOnChris:False;";
 		}
 		if (robotControllers->getDriveJoystick()->GetRawButton(0)) {
-			sendStr += "IntakeOnMatt:True;";
+			sendStr << "IntakeOnMatt:True;";
 		} else {
-			sendStr += "IntakeOnMatt:False;";
+			sendStr << "IntakeOnMatt:False;";
 		}
 
 		//_mutex.lock();
 
 		//_mutex.unlock();
 
-		recvlenSend = sendto(fd, sendStr.c_str(), sendStr.length()+1, 0, (sockaddr *) &remoteAddr, addrlen);
+		const string tmp = sendStr.str();
+		recvlenSend = sendto(fd, tmp.c_str(), tmp.length()+1, 0, (sockaddr *) &remoteAddr, addrlen);
 		if (recvlenSend > 0) {
 			//cout << "Packet Sent!" << endl;;
 		} else {
@@ -168,3 +153,4 @@ void DashboardReporterSubsystem::runUDPSend() {
 		//cout << "loop rate: " << elapsedTimeMS << endl;
 	}
 }
+

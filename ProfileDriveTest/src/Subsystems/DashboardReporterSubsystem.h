@@ -14,7 +14,6 @@
 #define DEFAULT_DASHBOARD_UDP_PORT 5804
 
 #include "Utilities/CustomSubsystem.h"
-#include "Subsystems/Elevator.h"
 #include "Subsystems/DriveBaseSubsystem.h"
 #include <Subsystems/CubeHandlerSubsystem.h>
 
@@ -36,6 +35,9 @@ using namespace std;
 
 class DashboardReporterSubsystem: public CustomSubsystem {
 private:
+	DashboardReporterSubsystem(int udpPort);
+	~DashboardReporterSubsystem();
+
 	double dashboardSendThreadControlStart, dashboardSendThreadControlEnd;
 	int dashboardSendThreadControlElapsedTimeMS;
 
@@ -67,21 +69,12 @@ private:
 	bool manualClimb;
 	double climbLevel;
 
-<<<<<<< HEAD
 	Controllers *robotControllers;
 	DriveBaseSubsystem *driveBaseSubsystem;
 	CubeHandlerSubsystem *cubeHandlerSubsystem;
-=======
-	Controllers* robotControllers;
-	Elevator* elevator;
->>>>>>> branch 'master' of https://guitar24t@bitbucket.org/cyberknightsprogramming/frc2018.git
-
 	void runUDPSend();
 
 	static DashboardReporterSubsystem *instance;
-
-	DashboardReporterSubsystem(int udpPort);
-	~DashboardReporterSubsystem();
 
 public:
 	void init() override;
