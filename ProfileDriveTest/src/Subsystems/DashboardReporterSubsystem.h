@@ -12,6 +12,7 @@
 #define DASHBOARD_SEND_RATE_MS 25
 
 #define DEFAULT_DASHBOARD_UDP_PORT 5804
+#define DEFAULT_DASHBOARD_IP "10.1.95.14"
 
 #include "Utilities/CustomSubsystem.h"
 #include "Subsystems/DriveBaseSubsystem.h"

@@ -85,7 +85,7 @@ void DashboardReporterSubsystem::init() {
 	remoteAddr.sin_family = AF_INET;
 	//remoteAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	//remoteAddr.sin_port = htons(0);
-	inet_aton("10.1.95.14", &(remoteAddr.sin_addr));
+	inet_aton(DEFAULT_DASHBOARD_IP, &(remoteAddr.sin_addr));
 	remoteAddr.sin_port = htons(udpPort);
 
 	if (bind(fd, (struct sockaddr *) &localAddr, sizeof(localAddr)) < 0) {
