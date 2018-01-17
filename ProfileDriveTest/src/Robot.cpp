@@ -11,6 +11,7 @@ void Robot::RobotInit() {
 	robotControllers = Controllers::getInstance();
 
 	driveBaseSubsystem = DriveBaseSubsystem::getInstance(&subsystemVector);
+	cubeHandlerSubsystem = CubeHandlerSubsystem::getInstance(&subsystemVector);
 	hidControllerSubsystem = HIDControllerSubsystem::getInstance(&subsystemVector);
 
 	for(unsigned int i = 0; i < subsystemVector.size(); i++)

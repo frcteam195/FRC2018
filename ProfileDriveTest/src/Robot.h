@@ -13,6 +13,7 @@
 #include "Utilities/Controllers.h"
 #include "Utilities/CustomSubsystem.h"
 #include "Subsystems/DriveBaseSubsystem.h"
+#include "Subsystems/CubeHandlerSubsystem.h"
 #include "Subsystems/HIDControllerSubsystem.h"
 #include "Utilities/CKAutoBuilder.h"
 #include <vector>
@@ -26,7 +27,9 @@ public:
 private:
 	Controllers *robotControllers;
 	vector<CustomSubsystem*> subsystemVector;
+
 	DriveBaseSubsystem *driveBaseSubsystem;
+	CubeHandlerSubsystem *cubeHandlerSubsystem;
 	HIDControllerSubsystem *hidControllerSubsystem;
 
 	CKAutoBuilder<TalonSRX> *ckAuto;
