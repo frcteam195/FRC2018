@@ -14,6 +14,7 @@
 #define DEFAULT_DASHBOARD_UDP_PORT 5804
 
 #include "Utilities/CustomSubsystem.h"
+#include "Subsystems/Elevator.h"
 #include "Subsystems/DriveBaseSubsystem.h"
 #include <Subsystems/CubeHandlerSubsystem.h>
 
@@ -66,9 +67,14 @@ private:
 	bool manualClimb;
 	double climbLevel;
 
+<<<<<<< HEAD
 	Controllers *robotControllers;
 	DriveBaseSubsystem *driveBaseSubsystem;
 	CubeHandlerSubsystem *cubeHandlerSubsystem;
+=======
+	Controllers* robotControllers;
+	Elevator* elevator;
+>>>>>>> branch 'master' of https://guitar24t@bitbucket.org/cyberknightsprogramming/frc2018.git
 
 	void runUDPSend();
 

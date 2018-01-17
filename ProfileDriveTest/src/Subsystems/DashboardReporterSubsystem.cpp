@@ -14,6 +14,12 @@ DashboardReporterSubsystem *DashboardReporterSubsystem::instance = NULL;
 DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort) {
 	this->udpPort = udpPort;
 	this->robotControllers = robotControllers;
+<<<<<<< HEAD
+=======
+	subsystemVector->push_back(this);
+	this->elevator =
+	this->elevator =
+>>>>>>> branch 'master' of https://guitar24t@bitbucket.org/cyberknightsprogramming/frc2018.git
 	recvlenReceive = 0;
 	recvlenSend = 0;
 	fd = 0;
@@ -27,6 +33,7 @@ DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort) {
 	dashboardSendThreadControlStart = 0;
 	dashboardSendThreadControlEnd = 0;
 	dashboardSendThreadControlElapsedTimeMS = 0;
+<<<<<<< HEAD
 
 	elevatorIsFaulted = false;
 	intakeOnChris = false;
@@ -37,6 +44,8 @@ DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort) {
 	frontCamera = true;
 	manualClimb = false;
 	climbLevel = 0;
+=======
+>>>>>>> branch 'master' of https://guitar24t@bitbucket.org/cyberknightsprogramming/frc2018.git
 }
 
 DashboardReporterSubsystem::~DashboardReporterSubsystem() {}
@@ -107,6 +116,14 @@ void DashboardReporterSubsystem::stop() {
 	if (udpSendThread.joinable())
 		udpSendThread.join();
 
+}
+
+void DashboardReporterSubsystem::runUDPSend() {
+	while(runThread) {
+		dashboardSendThreadControlStart = Timer::GetFPGATimestamp();
+		stringstream sendStr;
+		sendStr << "ElevatorIsFaulted:" << elevator->isElevatorFaulted();
+	}
 }
 
 void DashboardReporterSubsystem::runUDPSend() {
