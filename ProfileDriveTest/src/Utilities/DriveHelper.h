@@ -3,7 +3,7 @@
  *
  *  Created on: Jan 10, 2018
  *      Author: roberthilton
- *      Ported from 254
+ *      Ported from FRC Team 254 code
  */
 
 #ifndef SRC_UTILITIES_DRIVEHELPER_H_

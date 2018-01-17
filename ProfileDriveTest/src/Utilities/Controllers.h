@@ -26,6 +26,10 @@ private:
 
 	TalonSRX* liftMotor;
 	VictorSPX* liftMotorSlave;
+	TalonSRX* intakeMotor;
+	VictorSPX* intakeMotorSlave;
+	TalonSRX* intakeActuatorMotor;
+	TalonSRX* intakeRotationMotor;
 
 	AHRS *navX;
 
@@ -46,6 +50,10 @@ public:
 
 	TalonSRX* getLiftMotor();
 	VictorSPX* getLiftMotorSlave();
+	TalonSRX* getIntakeMotor();
+	VictorSPX* getIntakeMotorSlave();
+	TalonSRX* getIntakeActuatorMotor();
+	TalonSRX* getIntakeRotationMotor();
 
 	AHRS*	getNavX();
 };

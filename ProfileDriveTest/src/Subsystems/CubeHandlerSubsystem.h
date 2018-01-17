@@ -22,6 +22,10 @@ private:
 
 	TalonSRX* liftMotor;
 	VictorSPX* liftMotorSlave;
+	TalonSRX* intakeMotor;
+	VictorSPX* intakeMotorSlave;
+	TalonSRX* intakeActuatorMotor;
+	TalonSRX* intakeRotationMotor;
 
 	DriverStation *ds;
 

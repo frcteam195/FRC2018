@@ -25,6 +25,10 @@ Controllers::Controllers() {
 	//Elevator setup
 	liftMotor = canSpeedControllerBuilder->createDefaultTalonSRX(7);
 	liftMotorSlave = canSpeedControllerBuilder->createPermanentVictorSlaveToTalonSRX(8, liftMotor);
+	intakeMotor = canSpeedControllerBuilder->createDefaultTalonSRX(9);
+	intakeMotorSlave = canSpeedControllerBuilder->createPermanentVictorSlaveToTalonSRX(10, intakeMotor);
+	intakeActuatorMotor = canSpeedControllerBuilder->createDefaultTalonSRX(11);
+	intakeRotationMotor = canSpeedControllerBuilder->createDefaultTalonSRX(12);
 
     try {
         navX = new AHRS(SPI::Port::kMXP);
@@ -33,6 +37,9 @@ Controllers::Controllers() {
         err_string += ex.what();
         DriverStation::ReportError(err_string.c_str());
     }
+}
+
+Controllers::~Controllers() {
 }
 
 Controllers *Controllers::getInstance() {
@@ -72,6 +79,22 @@ TalonSRX* Controllers::getRightDrive3() {
 
 DoubleSolenoid* Controllers::getShiftSol() {
 	return shiftSol;
+}
+
+TalonSRX* Controllers::getIntakeMotor() {
+	return intakeMotor;
+}
+
+VictorSPX* Controllers::getIntakeMotorSlave() {
+	return intakeMotorSlave;
+}
+
+TalonSRX* Controllers::getIntakeActuatorMotor() {
+	return intakeActuatorMotor;
+}
+
+TalonSRX* Controllers::getIntakeRotationMotor() {
+	return intakeRotationMotor;
 }
 
 AHRS* Controllers::getNavX() {

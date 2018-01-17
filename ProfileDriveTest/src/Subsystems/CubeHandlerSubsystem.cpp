@@ -14,6 +14,10 @@ CubeHandlerSubsystem::CubeHandlerSubsystem() {
 
 	liftMotor = robotControllers->getLiftMotor();
 	liftMotorSlave = robotControllers->getLiftMotorSlave();
+	intakeMotor = robotControllers->getIntakeMotor();
+	intakeMotorSlave = robotControllers->getIntakeMotorSlave();
+	intakeActuatorMotor = robotControllers->getIntakeActuatorMotor();
+	intakeRotationMotor = robotControllers->getIntakeRotationMotor();
 
 	requestedElevatorPos = 0;
 }
