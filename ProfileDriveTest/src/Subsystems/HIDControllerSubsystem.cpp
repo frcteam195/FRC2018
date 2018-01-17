@@ -10,22 +10,17 @@
 using namespace frc;
 using namespace std;
 
-HIDControllerSubsystem::HIDControllerSubsystem(Controllers *robotControllers, vector<CustomSubsystem*> *subsystemVector) {
-	subsystemVector->push_back(this);
+HIDControllerSubsystem *HIDControllerSubsystem::instance = NULL;
+HIDControllerSubsystem::HIDControllerSubsystem() {
 
 	ds = &DriverStation::GetInstance();
 
-	this->subsystemVector = subsystemVector;
-
-	this->robotControllers = robotControllers;
+	Controllers *robotControllers = Controllers::getInstance();
 	driveJoystick = robotControllers->getDriveJoystick();
 
-	shiftAction = new ShiftAction(robotControllers, subsystemVector);
+	shiftAction = new ShiftAction();
 
-	for (unsigned int i = 0; i < subsystemVector->size(); i++) {
-		if (dynamic_cast<DriveBaseSubsystem*>(subsystemVector->at(i)) != NULL)
-			driveBaseSubsystem = dynamic_cast<DriveBaseSubsystem*>(subsystemVector->at(i));
-	}
+	driveBaseSubsystem = DriveBaseSubsystem::getInstance();
 
 	driveHelper = new DriveHelper();
 
@@ -38,6 +33,18 @@ HIDControllerSubsystem::HIDControllerSubsystem(Controllers *robotControllers, ve
 	driveJoystickThreadControlEnd = 0;
 	driveJoystickThreadControlElapsedTimeMS = 0;
 
+}
+
+HIDControllerSubsystem* HIDControllerSubsystem::getInstance() {
+	if(instance == NULL)
+		instance = new HIDControllerSubsystem();
+
+	return instance;
+}
+
+HIDControllerSubsystem* HIDControllerSubsystem::getInstance(vector<CustomSubsystem *> *subsystemVector) {
+	subsystemVector->push_back(getInstance());
+	return instance;
 }
 
 
@@ -81,14 +88,14 @@ void HIDControllerSubsystem::runDriveJoystickThread() {
 		y = -driveJoystick->GetRawAxis(DRIVE_Y_AXIS);
 
 		driveBaseSubsystem->setDriveSpeed(driveHelper->calculateOutput(y, x, driveJoystick->GetRawButton(DRIVE_IMM_TURN), driveBaseSubsystem->isHighGear()));
-		//driveBaseSubsystem->setDriveSpeed(y, -x);
-	}
 
-	do {
-		driveJoystickThreadControlEnd = Timer::GetFPGATimestamp();
-		driveJoystickThreadControlElapsedTimeMS = (int) ((driveJoystickThreadControlEnd - driveJoystickThreadControlStart) * 1000);
-		if (driveJoystickThreadControlElapsedTimeMS < MIN_HID_THREAD_LOOP_TIME_MS)
-			this_thread::sleep_for(chrono::milliseconds(MIN_HID_THREAD_LOOP_TIME_MS - driveJoystickThreadControlElapsedTimeMS));
-	} while(driveJoystickThreadControlElapsedTimeMS < MIN_HID_THREAD_LOOP_TIME_MS);
+		do {
+			driveJoystickThreadControlEnd = Timer::GetFPGATimestamp();
+			driveJoystickThreadControlElapsedTimeMS = (int) ((driveJoystickThreadControlEnd - driveJoystickThreadControlStart) * 1000);
+			if (driveJoystickThreadControlElapsedTimeMS < MIN_HID_THREAD_LOOP_TIME_MS)
+				this_thread::sleep_for(chrono::milliseconds(MIN_HID_THREAD_LOOP_TIME_MS - driveJoystickThreadControlElapsedTimeMS));
+		} while(driveJoystickThreadControlElapsedTimeMS < MIN_HID_THREAD_LOOP_TIME_MS);
+
+	}
 }
 

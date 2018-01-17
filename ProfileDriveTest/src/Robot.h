@@ -26,13 +26,10 @@ public:
 private:
 	Controllers *robotControllers;
 	vector<CustomSubsystem*> subsystemVector;
-	DriveBaseSubsystem *robotDrive;
+	DriveBaseSubsystem *driveBaseSubsystem;
 	HIDControllerSubsystem *hidControllerSubsystem;
 
 	CKAutoBuilder<TalonSRX> *ckAuto;
-
-	//HIDControllerSubsystem *hid;
-
 };
 
 

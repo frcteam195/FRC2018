@@ -8,10 +8,10 @@
 #include "Robot.h"
 
 void Robot::RobotInit() {
-	robotControllers = new Controllers();
+	robotControllers = Controllers::getInstance();
 
-	robotDrive = new DriveBaseSubsystem(robotControllers, &subsystemVector);
-	hidControllerSubsystem = new HIDControllerSubsystem(robotControllers, &subsystemVector);
+	driveBaseSubsystem = DriveBaseSubsystem::getInstance(&subsystemVector);
+	hidControllerSubsystem = HIDControllerSubsystem::getInstance(&subsystemVector);
 
 	for(unsigned int i = 0; i < subsystemVector.size(); i++)
 		subsystemVector.at(i)->init();

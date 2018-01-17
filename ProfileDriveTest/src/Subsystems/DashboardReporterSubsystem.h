@@ -11,8 +11,11 @@
 #define BUFSIZE 2048
 #define DASHBOARD_SEND_RATE_MS 25
 
+#define DEFAULT_DASHBOARD_UDP_PORT 5804
+
 #include "Utilities/CustomSubsystem.h"
 #include "Subsystems/DriveBaseSubsystem.h"
+#include <Subsystems/CubeHandlerSubsystem.h>
 
 #include "WPILib.h"
 
@@ -64,17 +67,24 @@ private:
 	double climbLevel;
 
 	Controllers *robotControllers;
+	DriveBaseSubsystem *driveBaseSubsystem;
+	CubeHandlerSubsystem *cubeHandlerSubsystem;
 
 	void runUDPSend();
 
-public:
-	DashboardReporterSubsystem(int udpPort, Controllers *robotControllers, vector<CustomSubsystem *> *subsystemVector);
+	static DashboardReporterSubsystem *instance;
+
+	DashboardReporterSubsystem(int udpPort);
 	~DashboardReporterSubsystem();
 
+public:
 	void init() override;
 	void start() override;
 	void stop() override;
 	void subsystemHome() override {};
+
+	static DashboardReporterSubsystem *getInstance();
+	static DashboardReporterSubsystem *getInstance(vector<CustomSubsystem *> *subsystemVector);
 };
 
 #endif /* SRC_SUBSYSTEMS_DASHBOARDREPORTERSUBSYSTEM_H_ */

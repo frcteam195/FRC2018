@@ -223,12 +223,12 @@ public:
 		timeoutElapsedTimeMS = 0;
 		runThread = false;
 	};
-	CKAutoBuilder(T *leftDrive1, T *leftDrive2, T *rightDrive1, T *rightDrive2, RobotBase *robot) {
+	CKAutoBuilder(T *leftDrive1, T *leftDrive2, T *rightDrive1, T *rightDrive2, RobotBase *robot) { // @suppress("Class members should be properly initialized")
 		CKAutoBuilder(leftDrive1, rightDrive1, robot);
 		this->leftDrive.push_back(leftDrive2);
 		this->rightDrive.push_back(rightDrive2);
 	};
-	CKAutoBuilder(T *leftDrive1, T *leftDrive2, T *leftDrive3, T *rightDrive1, T *rightDrive2, T *rightDrive3, RobotBase *robot) {
+	CKAutoBuilder(T *leftDrive1, T *leftDrive2, T *leftDrive3, T *rightDrive1, T *rightDrive2, T *rightDrive3, RobotBase *robot) { // @suppress("Class members should be properly initialized")
 		CKAutoBuilder(leftDrive1, leftDrive2, rightDrive1, rightDrive2, robot);
 		this->leftDrive.push_back(leftDrive3);
 		this->rightDrive.push_back(rightDrive3);

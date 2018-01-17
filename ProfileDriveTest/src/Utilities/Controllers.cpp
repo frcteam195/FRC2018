@@ -2,6 +2,7 @@
 
 using namespace frc;
 
+Controllers* Controllers::instance = NULL;
 Controllers::Controllers() {
 	//Drive Joystick Setup
 	driveJoystick = new KnightJoystick(0);
@@ -33,6 +34,13 @@ Controllers::Controllers() {
         DriverStation::ReportError(err_string.c_str());
     }
 }
+
+Controllers *Controllers::getInstance() {
+	if (instance == NULL)
+		instance = new Controllers();
+
+	return instance;
+};
 
 KnightJoystick* Controllers::getDriveJoystick() {
 	return driveJoystick;
@@ -68,4 +76,12 @@ DoubleSolenoid* Controllers::getShiftSol() {
 
 AHRS* Controllers::getNavX() {
 	return navX;
+}
+
+TalonSRX* Controllers::getLiftMotor() {
+	return liftMotor;
+}
+
+VictorSPX* Controllers::getLiftMotorSlave() {
+	return liftMotorSlave;
 }

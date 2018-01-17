@@ -23,16 +23,21 @@ using namespace std;
 
 class HIDControllerSubsystem: public CustomSubsystem {
 public:
-	HIDControllerSubsystem(Controllers *robotControllers, vector<CustomSubsystem*> *subsystemVector);
-	~HIDControllerSubsystem() {}
+
 
 	void init() override;
 	void start() override;
 	void subsystemHome() override;
 	void stop() override;
 
+	static HIDControllerSubsystem *getInstance();
+	static HIDControllerSubsystem *getInstance(vector<CustomSubsystem *> *subsystemVector);
+
 private:
-	vector<CustomSubsystem*> *subsystemVector;
+	HIDControllerSubsystem();
+	~HIDControllerSubsystem() {}
+
+	static HIDControllerSubsystem *instance;
 
 	ShiftAction *shiftAction;
 
@@ -47,8 +52,6 @@ private:
 	bool runThread;
 
 	bool comingFromAuto;
-
-	Controllers *robotControllers;
 
 	double x, y, absLeft, absRight,normalLeft,normalRight, left, right;
 

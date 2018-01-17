@@ -3,10 +3,11 @@
 using namespace std;
 using namespace frc;
 
-DriveBaseSubsystem::DriveBaseSubsystem(Controllers *robotControllers, vector<CustomSubsystem *> *subsystemVector) {
+DriveBaseSubsystem *DriveBaseSubsystem::instance = NULL;
+DriveBaseSubsystem::DriveBaseSubsystem() {
 	ds = &DriverStation::GetInstance();
-	subsystemVector->push_back(this);
 
+	Controllers *robotControllers = Controllers::getInstance();
 	leftDrive = robotControllers->getLeftDrive1();
 	leftDriveSlave1 = robotControllers->getLeftDrive2();
 	leftDriveSlave2 = robotControllers->getLeftDrive3();
@@ -50,6 +51,18 @@ DriveBaseSubsystem::DriveBaseSubsystem(Controllers *robotControllers, vector<Cus
 }
 
 DriveBaseSubsystem::~DriveBaseSubsystem() {}
+
+DriveBaseSubsystem* DriveBaseSubsystem::getInstance() {
+	if(instance == NULL)
+		instance = new DriveBaseSubsystem();
+
+	return instance;
+}
+
+DriveBaseSubsystem* DriveBaseSubsystem::getInstance(vector<CustomSubsystem *> *subsystemVector) {
+	subsystemVector->push_back(getInstance());
+	return instance;
+}
 
 void DriveBaseSubsystem::init() {
 	rightDrive->SetInverted(true);

@@ -15,11 +15,8 @@
 
 class SampleAction: public CustomAction {
 public:
-	SampleAction(Controllers *robotControllers, vector<CustomSubsystem*> *subsystemVector): CustomAction(robotControllers, subsystemVector) {
-		for (unsigned int i = 0; i < subsystemVector->size(); i++) {
-			if (dynamic_cast<DriveBaseSubsystem*>(subsystemVector->at(i)) != NULL)
-				driveBaseSubsystem = dynamic_cast<DriveBaseSubsystem*>(subsystemVector->at(i));
-		}
+	SampleAction(): CustomAction() {
+		driveBaseSubsystem = DriveBaseSubsystem::getInstance();
 
 		avgPosTmp = 0;
 	};

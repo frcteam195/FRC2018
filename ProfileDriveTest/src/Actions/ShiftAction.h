@@ -14,11 +14,8 @@
 
 class ShiftAction: public CustomAction {
 public:
-	ShiftAction(Controllers *robotControllers, vector<CustomSubsystem*> *subsystemVector):CustomAction(robotControllers, subsystemVector) {
-		for (unsigned int i = 0; i < subsystemVector->size(); i++) {
-			if (dynamic_cast<DriveBaseSubsystem*>(subsystemVector->at(i)) != NULL)
-				driveBaseSubsystem = dynamic_cast<DriveBaseSubsystem*>(subsystemVector->at(i));
-		}
+	ShiftAction():CustomAction() {
+		driveBaseSubsystem = DriveBaseSubsystem::getInstance();
 	};
 	~ShiftAction() {};
 

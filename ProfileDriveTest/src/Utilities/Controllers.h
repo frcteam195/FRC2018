@@ -9,6 +9,9 @@
 
 class Controllers {
 private:
+	Controllers();
+	~Controllers();
+
 	KnightJoystick *driveJoystick;
 
 	CANSpeedControllerBuilder *canSpeedControllerBuilder;
@@ -26,9 +29,10 @@ private:
 
 	AHRS *navX;
 
+	static Controllers *instance;
+
 public:
-	Controllers();
-	~Controllers();
+	static Controllers *getInstance();
 
 	KnightJoystick* getDriveJoystick();
 

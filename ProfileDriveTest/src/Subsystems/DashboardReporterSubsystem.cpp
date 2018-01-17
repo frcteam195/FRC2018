@@ -10,10 +10,10 @@
 using namespace std;
 using namespace frc;
 
-DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort, Controllers *robotControllers, vector<CustomSubsystem *> *subsystemVector) {
+DashboardReporterSubsystem *DashboardReporterSubsystem::instance = NULL;
+DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort) {
 	this->udpPort = udpPort;
 	this->robotControllers = robotControllers;
-	subsystemVector->push_back(this);
 	recvlenReceive = 0;
 	recvlenSend = 0;
 	fd = 0;
@@ -21,16 +21,32 @@ DashboardReporterSubsystem::DashboardReporterSubsystem(int udpPort, Controllers 
 	status = 0;
 	runThread = false;
 
+	driveBaseSubsystem = DriveBaseSubsystem::getInstance();
+	cubeHandlerSubsystem = CubeHandlerSubsystem::getInstance();
+
 	dashboardSendThreadControlStart = 0;
 	dashboardSendThreadControlEnd = 0;
 	dashboardSendThreadControlElapsedTimeMS = 0;
 
-	visionEnabled = false;
-	onTarget = false;
-	jetsonOperational = false;
+	elevatorIsFaulted = false;
+	intakeOnChris = false;
+	intakeOnJake = false;
+	hasCube = false;
+	elevatorPos = 0;
+	intakeRot = 0;
+	frontCamera = true;
+	manualClimb = false;
+	climbLevel = 0;
 }
 
 DashboardReporterSubsystem::~DashboardReporterSubsystem() {}
+
+DashboardReporterSubsystem *DashboardReporterSubsystem::getInstance() {
+	if (instance == NULL)
+		instance = new DashboardReporterSubsystem(DEFAULT_DASHBOARD_UDP_PORT);
+
+	return instance;
+};
 
 void DashboardReporterSubsystem::init() {
 	//cout << "Init start for VisionReceiver!\n";
@@ -97,41 +113,25 @@ void DashboardReporterSubsystem::runUDPSend() {
 	while (runThread)
 	{
 		dashboardSendThreadControlStart = Timer::GetFPGATimestamp();
-		string sendStr = "WheelSpeed:" + to_string(shooterSubsystem->getSetpoint()) +";";
-		sendStr += "HoodPos:" + to_string(shooterSubsystem->getHoodSetpoint()) +";";
-		sendStr += "TurretPos:" + to_string(turretSubsystem->getTurretPos()) +";";
-		if (turretSubsystem->hasError()) {
-			sendStr += "TurretError:True;";
+		string sendStr = "ElevatorPos:" + to_string(cubeHandlerSubsystem->getElevatorPos()) +";";
+		if (cubeHandlerSubsystem->isElevatorFaulted()) {
+			sendStr += "ElevatorFault:True;";
 		} else {
-			sendStr += "TurretError:False;";
+			sendStr += "ElevatorFault:False;";
 		}
 		if (robotControllers->getDriveJoystick()->GetRawAxis(2) < -0.5) {
 			sendStr += "IntakeOnChris:True;";
 		} else {
 			sendStr += "IntakeOnChris:False;";
 		}
-		if (robotControllers->getButtonBox1()->GetRawButton(INTAKE_IN_BUTTON) || robotControllers->getArmJoystick()->GetRawButton(ARM_INTAKE_IN_BUTTON)) {
+		if (robotControllers->getDriveJoystick()->GetRawButton(0)) {
 			sendStr += "IntakeOnMatt:True;";
 		} else {
 			sendStr += "IntakeOnMatt:False;";
 		}
 
 		//_mutex.lock();
-		if (onTarget) {
-			sendStr += "OnTarget:True;";
-		} else {
-			sendStr += "OnTarget:False;";
-		}
-		if (jetsonOperational) {
-			sendStr += "JetsonOperational:True;";
-		} else {
-			sendStr += "JetsonOperational:False;";
-		}
-		if (visionEnabled) {
-			sendStr += "VisionEnabled:True;";
-		} else {
-			sendStr += "VisionEnabled:False;";
-		}
+
 		//_mutex.unlock();
 
 		recvlenSend = sendto(fd, sendStr.c_str(), sendStr.length()+1, 0, (sockaddr *) &remoteAddr, addrlen);

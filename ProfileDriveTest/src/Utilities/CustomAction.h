@@ -17,9 +17,7 @@ using namespace std;
 
 class CustomAction {
 public:
-	CustomAction(Controllers *robotControllers, vector<CustomSubsystem*> *subsystemVector) {
-		this->robotControllers = robotControllers;
-		this->subsystemVector = subsystemVector;
+	CustomAction() {
 		running = false;
 
 		timeoutStart = 0;
@@ -36,8 +34,6 @@ public:
 	virtual void stop() = 0;
 
 protected:
-	Controllers *robotControllers;
-	vector<CustomSubsystem*> *subsystemVector;
 	double timeoutStart, timeoutEnd;
 	int timeoutElapsedTimeMS;
 	bool running;

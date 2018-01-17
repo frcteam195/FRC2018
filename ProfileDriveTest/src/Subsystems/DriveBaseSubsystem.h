@@ -23,9 +23,6 @@ using namespace frc;
 
 class DriveBaseSubsystem : public CustomSubsystem {
 public:
-	DriveBaseSubsystem(Controllers *robotControllers, vector<CustomSubsystem *> *subsystemVector);
-	~DriveBaseSubsystem();
-
 	void init() override;
 	void start() override;
 	void subsystemHome() override;
@@ -54,7 +51,15 @@ public:
 
 	void setMotionMagicVelocityAccel(double vel, double accel);
 
+	static DriveBaseSubsystem *getInstance();
+	static DriveBaseSubsystem *getInstance(vector<CustomSubsystem *> *subsystemVector);
+
 private:
+	DriveBaseSubsystem();
+	~DriveBaseSubsystem();
+
+	static DriveBaseSubsystem *instance;
+
 	void processMPLeft();
 	void processMPRight();
 	void processMP(TalonSRX *talonSRX, vector<vector< double> *> *mpBuffer);
