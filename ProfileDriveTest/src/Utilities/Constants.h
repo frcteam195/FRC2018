@@ -9,6 +9,7 @@
 #define SRC_UTILITIES_CONSTANTS_H_
 
 const int kTimeoutMs = 10;
+const double kMotorDeadband = 0.01;
 
 
 

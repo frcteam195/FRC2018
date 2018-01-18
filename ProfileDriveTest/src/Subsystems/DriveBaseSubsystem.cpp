@@ -77,6 +77,18 @@ void DriveBaseSubsystem::init() {
 	rightDrive->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms, kTimeoutMs);
 	rightDrive->ConfigVelocityMeasurementWindow(32, kTimeoutMs);
 
+	leftDrive->ConfigMotionProfileTrajectoryPeriod(10, kTimeoutMs);
+	leftDrive->SetStatusFramePeriod(StatusFrameEnhanced::Status_10_MotionMagic, 10, kTimeoutMs);
+	rightDrive->ConfigMotionProfileTrajectoryPeriod(10, kTimeoutMs);
+	rightDrive->SetStatusFramePeriod(StatusFrameEnhanced::Status_10_MotionMagic, 10, kTimeoutMs);
+
+	leftDrive->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
+	leftDriveSlave1->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
+	leftDriveSlave2->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
+	rightDrive->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
+	rightDriveSlave1->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
+	rightDriveSlave2->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
+
 	leftDrive->SetSelectedSensorPosition(0, 0, kTimeoutMs);
 	rightDrive->SetSelectedSensorPosition(0, 0, kTimeoutMs);
 	this_thread::sleep_for(chrono::milliseconds(20));
@@ -108,6 +120,10 @@ void DriveBaseSubsystem::runLeftDrive() {
 		switch (ctrlMode) {
 			case ControlMode::MotionProfile:
 				leftDrive->GetMotionProfileStatus(mpStatusLeft);
+
+				if(mpStatusLeft.hasUnderrun){
+					leftDrive->ClearMotionProfileHasUnderrun(kTimeoutMs);
+				}
 
 				leftDrive->ProcessMotionProfileBuffer();
 
@@ -165,6 +181,10 @@ void DriveBaseSubsystem::runRightDrive() {
 		switch (ctrlMode) {
 			case ControlMode::MotionProfile:
 				rightDrive->GetMotionProfileStatus(mpStatusRight);
+
+				if(mpStatusRight.hasUnderrun){
+					rightDrive->ClearMotionProfileHasUnderrun(kTimeoutMs);
+				}
 
 				rightDrive->ProcessMotionProfileBuffer();
 
