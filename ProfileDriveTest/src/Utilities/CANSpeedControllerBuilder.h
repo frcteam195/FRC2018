@@ -30,8 +30,8 @@ public:
 	int CONTROL_FRAME_PERIOD_MS = 5;
 	int GENERAL_STATUS_FRAME_RATE_MS = 5;
 
-	VelocityMeasPeriod VELOCITY_MEASUREMENT_PERIOD = VelocityMeasPeriod::Period_100Ms;
-	int VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW = 64;
+	//VelocityMeasPeriod VELOCITY_MEASUREMENT_PERIOD = VelocityMeasPeriod::Period_100Ms;
+	//int VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW = 64;
 };
 
 class CANSpeedControllerBuilder {
@@ -52,24 +52,14 @@ public:
     };
 
     TalonSRX *createPermanentSlaveTalonSRX(int id, TalonSRX *masterTalon) {
-    		return createPermanentSlaveTalonSRX(id, masterTalon->GetDeviceID());
-    };
-
-    TalonSRX *createPermanentSlaveTalonSRX(int id, int master_id) {
-        TalonSRX *talon = createTalonSRX(id, kSlaveConfiguration);
-
-        talon->Set(ControlMode::Follower, master_id);
-        return talon;
+    		TalonSRX *talon = createTalonSRX(id, kSlaveConfiguration);
+    		talon->Follow(*masterTalon);
+    		return talon;
     };
 
     VictorSPX* createPermanentVictorSlaveToTalonSRX(int id, TalonSRX* masterTalon) {
-    		return createPermanentVictorSlaveToTalonSRX(id, masterTalon->GetDeviceID());
-    };
-
-    VictorSPX* createPermanentVictorSlaveToTalonSRX(int id, int master_id) {
     		VictorSPX* victor = new VictorSPX(id);
-
-    		victor->Set(ControlMode::Follower, master_id);
+    		victor->Follow(*masterTalon);
     		return victor;
     };
 
@@ -94,8 +84,8 @@ public:
         talon->ConfigReverseSoftLimitEnable(config->ENABLE_SOFT_LIMIT, kTimeoutMs);
         talon->SetInverted(config->INVERTED);
         talon->SetSelectedSensorPosition(0, 0, kTimeoutMs);
-        talon->ConfigVelocityMeasurementPeriod(config->VELOCITY_MEASUREMENT_PERIOD, kTimeoutMs);
-        talon->ConfigVelocityMeasurementWindow(config->VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW, kTimeoutMs);
+        //talon->ConfigVelocityMeasurementPeriod(config->VELOCITY_MEASUREMENT_PERIOD, kTimeoutMs);
+        //talon->ConfigVelocityMeasurementWindow(config->VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW, kTimeoutMs);
 
         return talon;
     }
