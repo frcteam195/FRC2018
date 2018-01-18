@@ -12,6 +12,7 @@
 #include "Utilities/CustomSubsystem.h"
 #include "Utilities/Controllers.h"
 #include "Utilities/DriveHelper.h"
+#include "Utilities/GlobalDefines.h"
 #include "Utilities/KnightJoystick.h"
 #include "Actions/ActionIncludes.h"
 #include <thread>

@@ -9,6 +9,7 @@
 #define SRC_UTILITIES_KNIGHTJOYSTICK_H_
 
 #include "WPILib.h"
+#include "Utilities/GlobalDefines.h"
 
 using namespace frc;
 using namespace std;

@@ -127,9 +127,11 @@ void DriveBaseSubsystem::runLeftDrive() {
 
 				leftDrive->ProcessMotionProfileBuffer();
 
+#ifdef DEBUG
 				cout << "Left Buffer count" << mpStatusLeft.topBufferCnt << endl;
 				cout << "Left Bottom Buffer count" << mpStatusLeft.btmBufferCnt << endl;
 				cout << "Left Point valid: " << mpStatusLeft.activePointValid << endl;
+#endif
 
 				if (mpStatusLeft.activePointValid && mpStatusLeft.isLast)
 					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
@@ -146,10 +148,12 @@ void DriveBaseSubsystem::runLeftDrive() {
 					leftDrive->Set(ControlMode::PercentOutput, leftDriveSpeed);
 				break;
 		}
-/*
+
+#ifdef DEBUG
 		cout << "Left Speed: " << leftDrive->GetSelectedSensorVelocity(0) << endl;
 		cout << "Left Power: " << leftDriveSpeed << endl;
-		cout << "Gear: " << highGear << endl;*/
+		cout << "Gear: " << highGear << endl;
+#endif
 
 		int loopRate = (ctrlMode == ControlMode::MotionProfile ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
 
@@ -188,10 +192,11 @@ void DriveBaseSubsystem::runRightDrive() {
 
 				rightDrive->ProcessMotionProfileBuffer();
 
-
+#ifdef DEBUG
 				cout << "Right Buffer count" << mpStatusRight.topBufferCnt << endl;
 				cout << "Right Bottom Buffer count" << mpStatusRight.btmBufferCnt << endl;
 				cout << "Right Point valid: " << mpStatusRight.activePointValid << endl;
+#endif
 
 				if (mpStatusRight.activePointValid && mpStatusRight.isLast)
 					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
@@ -207,10 +212,12 @@ void DriveBaseSubsystem::runRightDrive() {
 					rightDrive->Set(ControlMode::PercentOutput, rightDriveSpeed);
 				break;
 		}
-/*
+
+#ifdef DEBUG
 		cout << "Right Speed:" << rightDrive->GetSelectedSensorVelocity(0) << endl;
 		cout << "Right Power: " << rightDriveSpeed << endl;
-		cout << "Gear: " << highGear << endl;*/
+		cout << "Gear: " << highGear << endl;
+#endif
 
 		int loopRate = (ctrlMode == ControlMode::MotionProfile ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
 

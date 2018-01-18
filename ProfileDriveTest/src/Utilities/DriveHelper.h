@@ -10,6 +10,7 @@
 #define SRC_UTILITIES_DRIVEHELPER_H_
 
 #include "WPILib.h"
+#include "Utilities/GlobalDefines.h"
 #include <Utilities/DriveMotorValues.h>
 
 using namespace std;

@@ -11,6 +11,7 @@
 #include <vector>
 #include "Utilities/CustomSubsystem.h"
 #include "Utilities/Controllers.h"
+#include "Utilities/GlobalDefines.h"
 #include "ctre/Phoenix.h"
 
 using namespace std;

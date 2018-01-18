@@ -2,6 +2,7 @@
 #define SRC_SUBSYSTEMS_CUSTOMSUBSYSTEM_H_
 
 #include <mutex>
+#include "Utilities/GlobalDefines.h"
 
 using namespace std;
 

@@ -9,6 +9,7 @@
 #define SRC_UTILITIES_MPTRAJECTORYHELPER_H_
 
 #include <vector>
+#include "Utilities/GlobalDefines.h"
 
 using namespace std;
 

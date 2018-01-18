@@ -11,6 +11,7 @@
 
 #include "WPILib.h"
 #include "Utilities/Constants.h"
+#include "Utilities/GlobalDefines.h"
 #include "ctre/Phoenix.h"
 
 using namespace std;

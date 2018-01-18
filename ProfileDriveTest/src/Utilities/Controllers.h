@@ -3,6 +3,7 @@
 
 #include <Utilities/CANSpeedControllerBuilder.h>
 #include "WPILib.h"
+#include "Utilities/GlobalDefines.h"
 #include "ctre/Phoenix.h"
 #include "AHRS.h"
 #include "KnightJoystick.h"
