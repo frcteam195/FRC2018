@@ -13,7 +13,8 @@
 #include <vector>
 #include <iostream>
 
-#define MIN_DRIVE_LOOP_TIME 10
+#define MIN_DRIVE_LOOP_TIME_STANDARD 10
+#define MIN_DRIVE_LOOP_TIME_MP 3
 #define MIN_SHIFT_LOOP_TIME 50
 
 #define DRIVE_JOYSTICK_DEADBAND 0.1
@@ -63,6 +64,8 @@ private:
 	void processMPLeft();
 	void processMPRight();
 	void processMP(TalonSRX *talonSRX, vector<vector< double> *> *mpBuffer);
+
+	TrajectoryDuration GetTrajectoryDuration(int durationMs);
 
 	double leftDriveThreadControlStart, leftDriveThreadControlEnd;
 	int leftDriveThreadControlElapsedTimeMS;

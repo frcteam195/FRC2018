@@ -103,23 +103,28 @@ void DriveBaseSubsystem::runLeftDrive() {
 			_subsystemMutex.unlock();
 		}
 
-		switch (leftDrive->GetControlMode()) {
+		ControlMode ctrlMode = leftDrive->GetControlMode();
+
+		switch (ctrlMode) {
 			case ControlMode::MotionProfile:
 				leftDrive->GetMotionProfileStatus(mpStatusLeft);
 
 				leftDrive->ProcessMotionProfileBuffer();
 
-
 				cout << "Left Buffer count" << mpStatusLeft.topBufferCnt << endl;
 				cout << "Left Bottom Buffer count" << mpStatusLeft.btmBufferCnt << endl;
 				cout << "Left Point valid: " << mpStatusLeft.activePointValid << endl;
 
-				if (mpStatusLeft.btmBufferCnt > 0)
-					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
-				else
+				if (mpStatusLeft.activePointValid && mpStatusLeft.isLast)
 					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
+				else if (mpStatusLeft.btmBufferCnt > 5)
+					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
+				else if (mpStatusLeft.btmBufferCnt == 0)
+					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+
 				cout << "MPModeL" << endl;
 				break;
+			case ControlMode::PercentOutput:
 			default:
 				if (!ds->IsAutonomous())
 					leftDrive->Set(ControlMode::PercentOutput, leftDriveSpeed);
@@ -130,12 +135,14 @@ void DriveBaseSubsystem::runLeftDrive() {
 		cout << "Left Power: " << leftDriveSpeed << endl;
 		cout << "Gear: " << highGear << endl;*/
 
+		int loopRate = (ctrlMode == ControlMode::MotionProfile ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
+
 		do {
 			leftDriveThreadControlEnd = Timer::GetFPGATimestamp();
 			leftDriveThreadControlElapsedTimeMS = (int) ((leftDriveThreadControlEnd - leftDriveThreadControlStart) * 1000);
-			if (leftDriveThreadControlElapsedTimeMS < MIN_DRIVE_LOOP_TIME)
-				this_thread::sleep_for(chrono::milliseconds(MIN_DRIVE_LOOP_TIME - leftDriveThreadControlElapsedTimeMS));
-		} while(leftDriveThreadControlElapsedTimeMS < MIN_DRIVE_LOOP_TIME);
+			if (leftDriveThreadControlElapsedTimeMS < loopRate)
+				this_thread::sleep_for(chrono::milliseconds(loopRate - leftDriveThreadControlElapsedTimeMS));
+		} while(leftDriveThreadControlElapsedTimeMS < loopRate);
 	}
 }
 
@@ -153,7 +160,9 @@ void DriveBaseSubsystem::runRightDrive() {
 			_subsystemMutex.unlock();
 		}
 
-		switch (rightDrive->GetControlMode()) {
+		ControlMode ctrlMode = rightDrive->GetControlMode();
+
+		switch (ctrlMode) {
 			case ControlMode::MotionProfile:
 				rightDrive->GetMotionProfileStatus(mpStatusRight);
 
@@ -164,10 +173,13 @@ void DriveBaseSubsystem::runRightDrive() {
 				cout << "Right Bottom Buffer count" << mpStatusRight.btmBufferCnt << endl;
 				cout << "Right Point valid: " << mpStatusRight.activePointValid << endl;
 
-				if (mpStatusRight.btmBufferCnt > 0)
-					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
-				else
+				if (mpStatusRight.activePointValid && mpStatusRight.isLast)
 					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
+				else if (mpStatusRight.btmBufferCnt > 5)
+					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
+				else if (mpStatusRight.btmBufferCnt == 0)
+					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+
 				cout << "MPModeR" << endl;
 				break;
 			default:
@@ -180,12 +192,14 @@ void DriveBaseSubsystem::runRightDrive() {
 		cout << "Right Power: " << rightDriveSpeed << endl;
 		cout << "Gear: " << highGear << endl;*/
 
+		int loopRate = (ctrlMode == ControlMode::MotionProfile ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
+
 		do {
 			rightDriveThreadControlEnd = Timer::GetFPGATimestamp();
 			rightDriveThreadControlElapsedTimeMS = (int) ((rightDriveThreadControlEnd - rightDriveThreadControlStart) * 1000);
-			if (rightDriveThreadControlElapsedTimeMS < MIN_DRIVE_LOOP_TIME)
-				this_thread::sleep_for(chrono::milliseconds(MIN_DRIVE_LOOP_TIME - rightDriveThreadControlElapsedTimeMS));
-		} while(rightDriveThreadControlElapsedTimeMS < MIN_DRIVE_LOOP_TIME);
+			if (rightDriveThreadControlElapsedTimeMS < loopRate)
+				this_thread::sleep_for(chrono::milliseconds(loopRate - rightDriveThreadControlElapsedTimeMS));
+		} while(rightDriveThreadControlElapsedTimeMS < loopRate);
 	}
 }
 
@@ -233,23 +247,24 @@ void DriveBaseSubsystem::processMPRight() {
 
 void DriveBaseSubsystem::processMP(TalonSRX *talonSRX, vector<vector< double> *> *mpBuffer) {
 	talonSRX->ClearMotionProfileTrajectories();
-	TrajectoryPoint point;
 
 	for (int i = 0; i < (int) mpBuffer->size(); i++) {
+		TrajectoryPoint point;
 		try {
 			point.position = mpBuffer->at(i)->at(0);
 			point.velocity = mpBuffer->at(i)->at(1);
-			//point.timeDurMs = (int)mpBuffer->at(i)->at(2);
+			point.headingDeg = 0;
+			point.timeDur = GetTrajectoryDuration((int)mpBuffer->at(i)->at(2));
+			point.profileSlotSelect0 = 0;
 		} catch (exception &ex) {
 			cout << "Error processing motion profile buffer" << endl;
 		}
-		//point.velocityOnly = false;
 
 		/*
 		if (highGear)
-			point.profileSlotSelect = 1;
+			point.profileSlotSelect0 = 1;
 		else
-			point.profileSlotSelect = 0;
+			point.profileSlotSelect0 = 0;
 		 */
 
 		if (i == 0)
@@ -264,6 +279,22 @@ void DriveBaseSubsystem::processMP(TalonSRX *talonSRX, vector<vector< double> *>
 
 		talonSRX->PushMotionProfileTrajectory(point);
 	}
+}
+
+TrajectoryDuration DriveBaseSubsystem::GetTrajectoryDuration(int durationMs) {
+	/* lookup and return valid value */
+	switch (durationMs) {
+		case 0:		return TrajectoryDuration_0ms;
+		case 5:		return TrajectoryDuration_5ms;
+		case 10: 	return TrajectoryDuration_10ms;
+		case 20: 	return TrajectoryDuration_20ms;
+		case 30: 	return TrajectoryDuration_30ms;
+		case 40: 	return TrajectoryDuration_40ms;
+		case 50: 	return TrajectoryDuration_50ms;
+		case 100: 	return TrajectoryDuration_100ms;
+	}
+	printf("Trajectory Duration not supported - use configMotionProfileTrajectoryPeriod instead\n");
+	return TrajectoryDuration_100ms;
 }
 
 void DriveBaseSubsystem::setDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
