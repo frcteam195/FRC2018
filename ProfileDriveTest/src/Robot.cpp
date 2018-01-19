@@ -11,8 +11,10 @@ void Robot::RobotInit() {
 	robotControllers = Controllers::getInstance();
 
 	driveBaseSubsystem = DriveBaseSubsystem::getInstance(&subsystemVector);
-	cubeHandlerSubsystem = CubeHandlerSubsystem::getInstance(&subsystemVector);
+	//cubeHandlerSubsystem = CubeHandlerSubsystem::getInstance(&subsystemVector);
 	hidControllerSubsystem = HIDControllerSubsystem::getInstance(&subsystemVector);
+	autoProfileTest = new AutoProfileTest();
+	autoProfileTest->init();
 
 	for(unsigned int i = 0; i < subsystemVector.size(); i++)
 		subsystemVector.at(i)->init();
@@ -25,17 +27,20 @@ void Robot::RobotInit() {
 
 
 void Robot::Autonomous() {
-	ckAuto->addAutoStep(0, 0, 2000);	//Delay for two seconds
-	ckAuto->addAutoStep(1, 0.25, 1000);	//Drive forward while turning right for one second
-	ckAuto->addAutoStep(0.8, -0.5, 700);	//Drive forward while turning left for 600 milliseconds
-	ckAuto->addAutoStep(0.75, 0, 500);	//Drive forward for half a second
-	ckAuto->addAutoStep(0, 0, 200);	//Stop
-	ckAuto->start();
+//	ckAuto->addAutoStep(0, 0, 2000);	//Delay for two seconds
+//	ckAuto->addAutoStep(1, 0.25, 1000);	//Drive forward while turning right for one second
+//	ckAuto->addAutoStep(0.8, -0.5, 700);	//Drive forward while turning left for 600 milliseconds
+//	ckAuto->addAutoStep(0.75, 0, 500);	//Drive forward for half a second
+//	ckAuto->addAutoStep(0, 0, 200);	//Stop
+//	ckAuto->start();
+
+	autoProfileTest->start();
 	while(!IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
 }
 
 
 void Robot::OperatorControl() {
+	driveBaseSubsystem->setControlMode(ControlMode::Velocity);
 	while(IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
 }
 

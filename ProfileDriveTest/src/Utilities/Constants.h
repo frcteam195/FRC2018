@@ -10,6 +10,7 @@
 
 const int kTimeoutMs = 10;
 const double kMotorDeadband = 0.01;
+const double kSensorUnitsPerRotation = 4096;
 
 
 

@@ -64,9 +64,11 @@ public:
 	};
 	~DriveHelper() {};
 
-
-
 	DriveMotorValues calculateOutput(double throttle, double wheel, bool isQuickTurn, bool isHighGear) {
+		return calculateOutput(throttle, wheel, isQuickTurn, isHighGear, 3.5);
+	};
+
+	DriveMotorValues calculateOutput(double throttle, double wheel, bool isQuickTurn, bool isHighGear, double maxOutputMultiplier) {
 
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
@@ -169,8 +171,8 @@ public:
         }
 
         DriveMotorValues d;
-        d.leftDrive = leftOutput;
-        d.rightDrive = rightOutput;
+        d.leftDrive = leftOutput * maxOutputMultiplier;
+        d.rightDrive = rightOutput * maxOutputMultiplier;
         return d;
 	};
 

@@ -4,7 +4,8 @@ using namespace std;
 using namespace frc;
 
 DriveBaseSubsystem *DriveBaseSubsystem::instance = NULL;
-DriveBaseSubsystem::DriveBaseSubsystem() {
+DriveBaseSubsystem::DriveBaseSubsystem()
+: TuneablePID("LeftDrive", Controllers::getInstance()->getLeftDrive1(), Controllers::getInstance()->getRightDrive1(), &rightDriveSpeed, 5808, true, false) {
 	ds = &DriverStation::GetInstance();
 
 	Controllers *robotControllers = Controllers::getInstance();
@@ -48,6 +49,10 @@ DriveBaseSubsystem::DriveBaseSubsystem() {
 	requestSetLeftPosition = false;
 	requestSetRightPosition = false;
 	position = 0;
+
+	requestedControlMode = ControlMode::MotionProfile;
+	startMPLeft = false;
+	startMPRight = false;
 }
 
 DriveBaseSubsystem::~DriveBaseSubsystem() {}
@@ -82,12 +87,17 @@ void DriveBaseSubsystem::init() {
 	rightDrive->ConfigMotionProfileTrajectoryPeriod(10, kTimeoutMs);
 	rightDrive->SetStatusFramePeriod(StatusFrameEnhanced::Status_10_MotionMagic, 10, kTimeoutMs);
 
+/*
 	leftDrive->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
 	leftDriveSlave1->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
 	leftDriveSlave2->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
 	rightDrive->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
 	rightDriveSlave1->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
 	rightDriveSlave2->ConfigNeutralDeadband(kMotorDeadband, kTimeoutMs);
+
+	*/
+
+	setDrivePID(0, 0, 0, 2, 0);
 
 	leftDrive->SetSelectedSensorPosition(0, 0, kTimeoutMs);
 	rightDrive->SetSelectedSensorPosition(0, 0, kTimeoutMs);
@@ -117,12 +127,32 @@ void DriveBaseSubsystem::runLeftDrive() {
 
 		ControlMode ctrlMode = leftDrive->GetControlMode();
 
+		if(ctrlMode != requestedControlMode) {
+#ifdef DEBUG
+			cout << "Changing Control Mode!" << endl;
+#endif
+
+			switch (requestedControlMode) {
+				case ControlMode::MotionProfile:
+					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+					break;
+				case ControlMode::Velocity:
+					leftDrive->Set(ControlMode::Velocity, 0);
+					break;
+				default:
+					leftDrive->Set(ControlMode::PercentOutput, 0);
+					break;
+			}
+			ctrlMode = leftDrive->GetControlMode();
+		}
+
 		switch (ctrlMode) {
 			case ControlMode::MotionProfile:
 				leftDrive->GetMotionProfileStatus(mpStatusLeft);
 
 				if(mpStatusLeft.hasUnderrun){
 					leftDrive->ClearMotionProfileHasUnderrun(kTimeoutMs);
+					cout << "Left Drive Underrun" << endl;
 				}
 
 				leftDrive->ProcessMotionProfileBuffer();
@@ -133,14 +163,27 @@ void DriveBaseSubsystem::runLeftDrive() {
 				cout << "Left Point valid: " << mpStatusLeft.activePointValid << endl;
 #endif
 
-				if (mpStatusLeft.activePointValid && mpStatusLeft.isLast)
+				if (mpStatusLeft.activePointValid && mpStatusLeft.isLast) {
 					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
-				else if (mpStatusLeft.btmBufferCnt > 5)
+					cout << "Bad1Left" << endl;
+				}
+				else if (startMPLeft) {
+					_subsystemMutex.lock();
+					startMPLeft = false;
+					_subsystemMutex.unlock();
 					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
-				else if (mpStatusLeft.btmBufferCnt == 0)
-					leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
-
+					cout << "Enabling Left Motion Profile" << endl;
+				}
+				else if (mpStatusLeft.topBufferCnt == 0 && mpStatusLeft.btmBufferCnt == 0) {
+					//leftDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+					//cout << "Bad2Left" << endl;
+				}
+#ifdef DEBUG
 				cout << "MPModeL" << endl;
+#endif
+				break;
+			case ControlMode::Velocity:
+				leftDrive->Set(ControlMode::Velocity, leftDriveSpeed * kSensorUnitsPerRotation / 60);
 				break;
 			case ControlMode::PercentOutput:
 			default:
@@ -182,12 +225,28 @@ void DriveBaseSubsystem::runRightDrive() {
 
 		ControlMode ctrlMode = rightDrive->GetControlMode();
 
+		if(ctrlMode != requestedControlMode) {
+			switch (requestedControlMode) {
+				case ControlMode::MotionProfile:
+					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+					break;
+				case ControlMode::Velocity:
+					rightDrive->Set(ControlMode::Velocity, 0);
+					break;
+				default:
+					rightDrive->Set(ControlMode::PercentOutput, 0);
+					break;
+			}
+			ctrlMode = rightDrive->GetControlMode();
+		}
+
 		switch (ctrlMode) {
 			case ControlMode::MotionProfile:
 				rightDrive->GetMotionProfileStatus(mpStatusRight);
 
 				if(mpStatusRight.hasUnderrun){
 					rightDrive->ClearMotionProfileHasUnderrun(kTimeoutMs);
+					cout << "Right Drive Underrun" << endl;
 				}
 
 				rightDrive->ProcessMotionProfileBuffer();
@@ -198,15 +257,29 @@ void DriveBaseSubsystem::runRightDrive() {
 				cout << "Right Point valid: " << mpStatusRight.activePointValid << endl;
 #endif
 
-				if (mpStatusRight.activePointValid && mpStatusRight.isLast)
+				if (mpStatusRight.activePointValid && mpStatusRight.isLast) {
 					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Hold);
-				else if (mpStatusRight.btmBufferCnt > 5)
+					cout << "Bad1Right" << endl;
+				}
+				else if (startMPRight) {
+					_subsystemMutex.lock();
+					startMPRight = false;
+					_subsystemMutex.unlock();
 					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Enable);
-				else if (mpStatusRight.btmBufferCnt == 0)
-					rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
-
+					cout << "Enabling Right Motion Profile" << endl;
+				}
+				else if (mpStatusRight.topBufferCnt == 0 && mpStatusRight.btmBufferCnt == 0) {
+					//rightDrive->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+					//cout << "Bad2Right" << endl;
+				}
+#ifdef DEBUG
 				cout << "MPModeR" << endl;
+#endif
 				break;
+			case ControlMode::Velocity:
+				rightDrive->Set(ControlMode::Velocity, rightDriveSpeed * kSensorUnitsPerRotation / 60);
+				break;
+			case ControlMode::PercentOutput:
 			default:
 				if (!ds->IsAutonomous())
 					rightDrive->Set(ControlMode::PercentOutput, rightDriveSpeed);
@@ -253,7 +326,20 @@ void DriveBaseSubsystem::shift() {
 	}
 }
 
-void DriveBaseSubsystem::processMotionProfile(vector<vector< double> *> *mpLeftBuffer, vector<vector< double> *> *mpRightBuffer) {
+void DriveBaseSubsystem::setControlMode(ControlMode controlMode) {
+	_subsystemMutex.lock();
+	requestedControlMode = controlMode;
+	_subsystemMutex.unlock();
+}
+
+void DriveBaseSubsystem::startMPTrajectory() {
+	_subsystemMutex.lock();
+	startMPLeft = true;
+	startMPRight = true;
+	_subsystemMutex.unlock();
+}
+
+void DriveBaseSubsystem::setMotionProfileTrajectory(vector<vector< double> *> *mpLeftBuffer, vector<vector< double> *> *mpRightBuffer) {
 	this->mpLeftBuffer = mpLeftBuffer;
 	this->mpRightBuffer = mpRightBuffer;
 	leftMPBufferProcess = thread(&DriveBaseSubsystem::processMPLeft, this);
@@ -278,13 +364,15 @@ void DriveBaseSubsystem::processMP(TalonSRX *talonSRX, vector<vector< double> *>
 	for (int i = 0; i < (int) mpBuffer->size(); i++) {
 		TrajectoryPoint point;
 		try {
-			point.position = mpBuffer->at(i)->at(0);
-			point.velocity = mpBuffer->at(i)->at(1);
+			point.position = mpBuffer->at(i)->at(0) * kSensorUnitsPerRotation;
+			point.velocity = mpBuffer->at(i)->at(1) * kSensorUnitsPerRotation / 600;
 			point.headingDeg = 0;
 			point.timeDur = GetTrajectoryDuration((int)mpBuffer->at(i)->at(2));
 			point.profileSlotSelect0 = 0;
 		} catch (exception &ex) {
+#ifdef DEBUG
 			cout << "Error processing motion profile buffer" << endl;
+#endif
 		}
 
 		/*

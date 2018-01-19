@@ -1,7 +1,7 @@
 #ifndef SRC_UTILITIES_GLOBALDEFINES_H_
 #define SRC_UTILITIES_GLOBALDEFINES_H_
 
-//#define TUNING_PIDS
+#define TUNING_PIDS
 //#define DEBUG
 
 //Drive Config

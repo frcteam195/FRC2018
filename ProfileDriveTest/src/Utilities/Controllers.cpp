@@ -23,13 +23,14 @@ Controllers::Controllers() {
 	shiftSol = new DoubleSolenoid(0, 1);
 
 	//Elevator setup
+	/*
 	liftMotor = canSpeedControllerBuilder->createDefaultTalonSRX(7);
 	liftMotorSlave = canSpeedControllerBuilder->createPermanentVictorSlaveToTalonSRX(8, liftMotor);
 	intakeMotor = canSpeedControllerBuilder->createDefaultTalonSRX(9);
 	intakeMotorSlave = canSpeedControllerBuilder->createPermanentVictorSlaveToTalonSRX(10, intakeMotor);
 	intakeActuatorMotor = canSpeedControllerBuilder->createDefaultTalonSRX(11);
 	intakeRotationMotor = canSpeedControllerBuilder->createDefaultTalonSRX(12);
-
+*/
     try {
         navX = new AHRS(SPI::Port::kMXP);
     } catch (std::exception& ex ) {

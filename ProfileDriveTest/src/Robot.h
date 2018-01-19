@@ -10,6 +10,7 @@
 
 #include "WPILib.h"
 #include "AHRS.h"
+#include "Autonomous/AutoProfileTest.h"
 #include "Utilities/Controllers.h"
 #include "Utilities/CustomSubsystem.h"
 #include "Subsystems/DriveBaseSubsystem.h"
@@ -27,6 +28,8 @@ public:
 private:
 	Controllers *robotControllers;
 	vector<CustomSubsystem*> subsystemVector;
+
+	AutoProfileTest *autoProfileTest;
 
 	DriveBaseSubsystem *driveBaseSubsystem;
 	CubeHandlerSubsystem *cubeHandlerSubsystem;

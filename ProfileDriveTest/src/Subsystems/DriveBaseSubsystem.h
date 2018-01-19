@@ -5,6 +5,7 @@
 #include "Utilities/Controllers.h"
 #include "Utilities/GlobalDefines.h"
 #include "Utilities/CustomSubsystem.h"
+#include "Utilities/TuneablePID.h"
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "Utilities/DriveMotorValues.h"
@@ -22,7 +23,7 @@
 using namespace std;
 using namespace frc;
 
-class DriveBaseSubsystem : public CustomSubsystem {
+class DriveBaseSubsystem : public CustomSubsystem, public TuneablePID {
 public:
 	void init() override;
 	void start() override;
@@ -39,13 +40,14 @@ public:
 	void setHoldLowGear(bool holdLowGear);
 	void setGear(bool highGear);
 	void setPosition(double position);
+	void startMPTrajectory();
 	bool isHighGear();
 
 	MotionProfileStatus getLeftMPStatus();
 	MotionProfileStatus getRightMPStatus();
 
-	void processMotionProfile(vector<vector< double> *> *mpLeftBuffer, vector<vector< double> *> *mpRightBuffer);
-	void changeControlMode(ControlMode controlMode);
+	void setMotionProfileTrajectory(vector<vector< double> *> *mpLeftBuffer, vector<vector< double> *> *mpRightBuffer);
+	void setControlMode(ControlMode controlMode);
 
 	void setDrivePID(double kP, double kI, double kD, double ff, int profileNum);
 	bool isPositionWithinRange(double range);
@@ -60,6 +62,11 @@ private:
 	~DriveBaseSubsystem();
 
 	static DriveBaseSubsystem *instance;
+
+	ControlMode requestedControlMode;
+
+	bool startMPLeft;
+	bool startMPRight;
 
 	void processMPLeft();
 	void processMPRight();

@@ -30,18 +30,21 @@
 #include "Constants.h"
 #include "PIDValues.h"
 #include "Utilities/GlobalDefines.h"
+#include <vector>
 
 using namespace std;
 
 class TuneablePID {
 private:
 	string name;
-	TalonSRX *tuningTalon;
+	vector<TalonSRX *> *tuningVector;
 	uint16_t portNumber;
 	PIDValues pidValues;
 	sockaddr_in localAddr; /* our address */
 	sockaddr_in remoteAddr; /* remote address */
 	socklen_t addrlen;
+
+	double *setpointReq;
 
 	int recvlen;
 	int fd;
@@ -76,24 +79,23 @@ private:
 				pidValues = processUDPPacket(buf, recvlen);
 				_tuneablePIDMutex.unlock();
 				//cout << "Running Tuneable PID for " << name << endl;
-				if (autoUpdate) {
-					tuningTalon->Config_kP(0, pidValues.kP, kTimeoutMs);
-					tuningTalon->Config_kI(0, pidValues.kI, kTimeoutMs);
-					tuningTalon->Config_kD(0, pidValues.kD, kTimeoutMs);
-					tuningTalon->Config_kF(0, pidValues.f, kTimeoutMs);
-					if (tuningTalon->GetControlMode() == ControlMode::MotionMagic) {
-						tuningTalon->ConfigMotionCruiseVelocity(pidValues.cruiseVelocity, kTimeoutMs);
-						tuningTalon->ConfigMotionAcceleration(pidValues.acceleration, kTimeoutMs);
-					}
+				for (unsigned int i = 0; i < tuningVector->size(); i++) {
+					if (autoUpdate) {
+						tuningVector->at(i)->Config_kP(0, pidValues.kP, kTimeoutMs);
+						tuningVector->at(i)->Config_kI(0, pidValues.kI, kTimeoutMs);
+						tuningVector->at(i)->Config_kD(0, pidValues.kD, kTimeoutMs);
+						tuningVector->at(i)->Config_kF(0, pidValues.f, kTimeoutMs);
+						if (tuningVector->at(i)->GetControlMode() == ControlMode::MotionMagic) {
+							tuningVector->at(i)->ConfigMotionCruiseVelocity(pidValues.cruiseVelocity, kTimeoutMs);
+							tuningVector->at(i)->ConfigMotionAcceleration(pidValues.acceleration, kTimeoutMs);
+						}
 
-					if (autoUpdateSetpoint)
-						tuningTalon->Set(tuningTalon->GetControlMode(), pidValues.setpoint);
+						if (autoUpdateSetpoint)
+							tuningVector->at(i)->Set(tuningVector->at(i)->GetControlMode(), pidValues.setpoint);
+					}
 				}
-				/*	Code for implementing in classes that do not use autoUpdate
-					#ifdef TUNING_PIDS
-							shooterWheel->SetPID(TuneablePID::getPIDValues().kP, TuneablePID::getPIDValues().kI, TuneablePID::getPIDValues().kD, TuneablePID::getPIDValues().f);
-					#endif
-				 */
+
+
 
 			} else
 				;//cout << "uh oh - something went wrong!\n";
@@ -106,6 +108,7 @@ private:
 					this_thread::sleep_for(chrono::milliseconds(PID_RECEIVE_RATE_MS - pidReceiveThreadControlElapsedTimeMS));
 			} while(pidReceiveThreadControlElapsedTimeMS < PID_RECEIVE_RATE_MS);
 		}
+
 	};
 
 	void runUDPSend()
@@ -114,25 +117,35 @@ private:
 		{
 			pidSendThreadControlStart = Timer::GetFPGATimestamp();
 
-			double setpoint = tuningTalon->GetClosedLoopTarget(0);
+			double setpoint = *setpointReq;
 			double actualValue = 0;
-
-			switch(tuningTalon->GetControlMode()) {
-				case ControlMode::Position:
-					actualValue = tuningTalon->GetSelectedSensorPosition(0);
-					break;
-				case ControlMode::Current:
-					actualValue = tuningTalon->GetOutputCurrent();
-					break;
-				case ControlMode::Velocity:
-					actualValue = tuningTalon->GetSelectedSensorVelocity(0);
-					break;
-				case ControlMode::MotionMagic:
-					actualValue = tuningTalon->GetSelectedSensorPosition(0);
-					break;
-				default:
-					actualValue = -1;
-					break;
+			int sensorSelect = 1;
+			if (tuningVector->size() > 0) {
+			//for (unsigned int i = 0; i < tuningVector->size(); i++) {
+				switch(tuningVector->at(sensorSelect)->GetControlMode()) {
+					case ControlMode::Position:
+						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorPosition(0) / kSensorUnitsPerRotation;
+						//setpoint = tuningVector->at(sensorSelect)->GetClosedLoopTarget(0) / kSensorUnitsPerRotation;
+						break;
+					case ControlMode::Current:
+						actualValue = tuningVector->at(sensorSelect)->GetOutputCurrent();
+						//setpoint = tuningVector->at(sensorSelect)->GetClosedLoopTarget(0);
+						break;
+					case ControlMode::Velocity:
+						setpoint = *setpointReq * kSensorUnitsPerRotation / 60;
+						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorVelocity(0) / kSensorUnitsPerRotation * 60;
+						//setpoint = tuningVector->at(sensorSelect)->GetClosedLoopTarget(0) / kSensorUnitsPerRotation;
+						break;
+					case ControlMode::MotionMagic:
+						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorPosition(0) / kSensorUnitsPerRotation;
+						//setpoint = tuningVector->at(sensorSelect)->GetClosedLoopTarget(0) / kSensorUnitsPerRotation;
+						break;
+					default:
+						//setpoint = tuningVector->at(sensorSelect)->GetMotorOutputPercent();
+						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorVelocity(0) / kSensorUnitsPerRotation * 60;
+						break;
+				}
+			//}
 			}
 
 			string sendStr = "Name:" + name + ";DesiredValue:" + to_string(setpoint) + ";ActualValue:" + to_string(actualValue) + ";";
@@ -150,6 +163,7 @@ private:
 					this_thread::sleep_for(chrono::milliseconds(PID_SEND_RATE_MS - pidSendThreadControlElapsedTimeMS));
 			} while(pidSendThreadControlElapsedTimeMS < PID_SEND_RATE_MS);
 		}
+
 	};
 
 	PIDValues processUDPPacket(unsigned char* buf, int recvlen) {
@@ -196,23 +210,49 @@ public:
 	 * @param portNumber The UDP port to listen and send on.
 	 * @param autoUpdate Auto update the CANTalon. If set to true, will auto start threads. If false, threads must be started and stopped manually
 	 */
-	TuneablePID(string name, TalonSRX *tuningTalon,  int portNumber, bool autoUpdate, bool autoUpdateSetpoint) {
+	TuneablePID(string name, TalonSRX *tuningTalon, double *setpointReq, int portNumber, bool autoUpdate, bool autoUpdateSetpoint) { // @suppress("Class members should be properly initialized")
+		vector<TalonSRX *> *tuningVector = new vector<TalonSRX *>();
+		tuningVector->push_back(tuningTalon);
 		this->name = name;
-		this->tuningTalon = tuningTalon;
+		this->tuningVector = tuningVector;
 		this->portNumber = portNumber;
 		this->autoUpdate = autoUpdate;
 		this->autoUpdateSetpoint = autoUpdateSetpoint;
+		this->setpointReq = setpointReq;
+		initVars();
+	};
+	TuneablePID(string name, TalonSRX *tuningTalon, TalonSRX *tuningTalon2, double *setpointReq, int portNumber, bool autoUpdate, bool autoUpdateSetpoint) { // @suppress("Class members should be properly initialized")
+		vector<TalonSRX *> *tuningVector = new vector<TalonSRX *>();
+		tuningVector->push_back(tuningTalon);
+		tuningVector->push_back(tuningTalon2);
+		this->name = name;
+		this->tuningVector = tuningVector;
+		this->portNumber = portNumber;
+		this->autoUpdate = autoUpdate;
+		this->autoUpdateSetpoint = autoUpdateSetpoint;
+		this->setpointReq = setpointReq;
+		initVars();
+	};
+	TuneablePID(string name, vector<TalonSRX *> *tuningVector, double *setpointReq, int portNumber, bool autoUpdate, bool autoUpdateSetpoint) {
+		this->name = name;
+		this->tuningVector = tuningVector;
+		this->portNumber = portNumber;
+		this->autoUpdate = autoUpdate;
+		this->autoUpdateSetpoint = autoUpdateSetpoint;
+		this->setpointReq = setpointReq;
+		initVars();
+	};
+
+	void initVars() {
 		recvlen = 0;
 		fd = 0;
 		addrlen = 0;
 		runThread = false;
 		status = 0;
-
 		if (autoUpdate) {
 			init();
 			start();
 		}
-
 		pidReceiveThreadControlStart = 0;
 		pidReceiveThreadControlEnd = 0;
 		pidReceiveThreadControlElapsedTimeMS = 0;
@@ -220,8 +260,8 @@ public:
 		pidSendThreadControlStart = 0;
 		pidSendThreadControlEnd = 0;
 		pidSendThreadControlElapsedTimeMS = 0;
+	}
 
-	};
 	~TuneablePID() {};
 
 	void init()

@@ -34,15 +34,15 @@ public:
 	}
 
 	bool GetFallingEdgeButton(int button) {
-			try {
-				bool currentButton = Joystick::GetRawButton(button);
-				bool retVal = (currentButton != prevButtonVal[button-1]) && !currentButton;
-				prevButtonVal[button-1] = currentButton;
-				return retVal;
-			} catch(exception &ex) {
-				return false;
-			}
+		try {
+			bool currentButton = Joystick::GetRawButton(button);
+			bool retVal = (currentButton != prevButtonVal[button-1]) && !currentButton;
+			prevButtonVal[button-1] = currentButton;
+			return retVal;
+		} catch(exception &ex) {
+			return false;
 		}
+	}
 
 private:
 	bool prevButtonVal[16];
