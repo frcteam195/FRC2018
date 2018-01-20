@@ -17,7 +17,7 @@
 #include "Actions/ActionIncludes.h"
 #include <thread>
 
-#define MIN_HID_THREAD_LOOP_TIME_MS 45
+#define MIN_HID_THREAD_LOOP_TIME_MS 20
 
 using namespace frc;
 using namespace std;

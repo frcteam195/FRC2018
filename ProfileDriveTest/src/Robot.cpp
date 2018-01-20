@@ -40,7 +40,7 @@ void Robot::Autonomous() {
 
 
 void Robot::OperatorControl() {
-	driveBaseSubsystem->setControlMode(ControlMode::Velocity);
+	driveBaseSubsystem->setControlMode(ControlMode::PercentOutput);
 	while(IsOperatorControl() && IsEnabled()) {this_thread::sleep_for(chrono::milliseconds(100));}
 }
 

@@ -87,8 +87,10 @@ void HIDControllerSubsystem::runDriveJoystickThread() {
 		x = driveJoystick->GetRawAxis(DRIVE_X_AXIS);
 		y = -driveJoystick->GetRawAxis(DRIVE_Y_AXIS);
 
-		driveBaseSubsystem->setDriveSpeed(driveHelper->calculateOutput(y, x, driveJoystick->GetRawButton(DRIVE_IMM_TURN), driveBaseSubsystem->isHighGear()));
-		//driveBaseSubsystem->setDriveSpeed((y + x) * 3.5, (y - x) * 3.5);
+		if (!driveBaseSubsystem->isAutoUpdate()) {
+			driveBaseSubsystem->setDriveSpeed(driveHelper->calculateOutput(y, x, driveJoystick->GetRawButton(DRIVE_IMM_TURN), driveBaseSubsystem->isHighGear()));
+			//driveBaseSubsystem->setDriveSpeed((y + x) * 2300, (y - x) * 2300);
+		}
 
 		do {
 			driveJoystickThreadControlEnd = Timer::GetFPGATimestamp();

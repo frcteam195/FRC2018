@@ -48,8 +48,11 @@ public:
 
 	void setMotionProfileTrajectory(vector<vector< double> *> *mpLeftBuffer, vector<vector< double> *> *mpRightBuffer);
 	void setControlMode(ControlMode controlMode);
+	ControlMode getControlMode();
 
 	void setDrivePID(double kP, double kI, double kD, double ff, int profileNum);
+	void setLeftDrivePID(double kP, double kI, double kD, double ff, int profileNum);
+	void setRightDrivePID(double kP, double kI, double kD, double ff, int profileNum);
 	bool isPositionWithinRange(double range);
 
 	void setMotionMagicVelocityAccel(double vel, double accel);
@@ -74,11 +77,8 @@ private:
 
 	TrajectoryDuration GetTrajectoryDuration(int durationMs);
 
-	double leftDriveThreadControlStart, leftDriveThreadControlEnd;
-	int leftDriveThreadControlElapsedTimeMS;
-
-	double rightDriveThreadControlStart, rightDriveThreadControlEnd;
-	int rightDriveThreadControlElapsedTimeMS;
+	double driveThreadControlStart, driveThreadControlEnd;
+	int driveThreadControlElapsedTimeMS;
 
 	double shiftThreadControlStart, shiftThreadControlEnd;
 	int shiftThreadControlElapsedTimeMS;
@@ -111,8 +111,7 @@ private:
 
 	DoubleSolenoid *shiftSol;
 
-	thread leftDriveThread;
-	thread rightDriveThread;
+	thread driveThread;
 	thread shiftThread;
 
 	thread leftMPBufferProcess;
@@ -123,7 +122,7 @@ private:
 
 	bool runThread;
 
-	void runLeftDrive();
+	void runDrive();
 	void runRightDrive();
 	void shift();
 };

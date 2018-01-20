@@ -12,6 +12,7 @@
 #include "WPILib.h"
 #include "Utilities/GlobalDefines.h"
 #include <Utilities/DriveMotorValues.h>
+#include <Subsystems/DriveBaseSubsystem.h>
 
 using namespace std;
 using namespace frc;
@@ -65,14 +66,14 @@ public:
 	~DriveHelper() {};
 
 	DriveMotorValues calculateOutput(double throttle, double wheel, bool isQuickTurn, bool isHighGear) {
-		return calculateOutput(throttle, wheel, isQuickTurn, isHighGear, 3.5);
+		return calculateOutput(throttle, wheel, isQuickTurn, isHighGear, DriveBaseSubsystem::getInstance()->getControlMode() == ControlMode::Velocity ? 2300.0 : 1.0);
 	};
 
 	DriveMotorValues calculateOutput(double throttle, double wheel, bool isQuickTurn, bool isHighGear, double maxOutputMultiplier) {
 
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
-        isQuickTurn |= throttle == 0;
+        //isQuickTurn |= throttle == 0;
 
         double negInertia = wheel - mOldWheel;
         mOldWheel = wheel;
@@ -171,8 +172,8 @@ public:
         }
 
         DriveMotorValues d;
-        d.leftDrive = leftOutput * maxOutputMultiplier;
-        d.rightDrive = rightOutput * maxOutputMultiplier;
+        d.leftDrive = leftOutput * (double)maxOutputMultiplier;
+        d.rightDrive = rightOutput * (double)maxOutputMultiplier;
         return d;
 	};
 

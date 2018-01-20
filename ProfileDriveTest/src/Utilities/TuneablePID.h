@@ -91,7 +91,14 @@ private:
 						}
 
 						if (autoUpdateSetpoint)
-							tuningVector->at(i)->Set(tuningVector->at(i)->GetControlMode(), pidValues.setpoint);
+							switch(tuningVector->at(i)->GetControlMode()) {
+								case ControlMode::Velocity:
+									tuningVector->at(i)->Set(tuningVector->at(i)->GetControlMode(), pidValues.setpoint * kSensorUnitsPerRotation / 600);
+									break;
+								default:
+									tuningVector->at(i)->Set(tuningVector->at(i)->GetControlMode(), pidValues.setpoint);
+									break;
+							}
 					}
 				}
 
@@ -119,7 +126,7 @@ private:
 
 			double setpoint = *setpointReq;
 			double actualValue = 0;
-			int sensorSelect = 1;
+			int sensorSelect = 0;
 			if (tuningVector->size() > 0) {
 			//for (unsigned int i = 0; i < tuningVector->size(); i++) {
 				switch(tuningVector->at(sensorSelect)->GetControlMode()) {
@@ -132,8 +139,7 @@ private:
 						//setpoint = tuningVector->at(sensorSelect)->GetClosedLoopTarget(0);
 						break;
 					case ControlMode::Velocity:
-						setpoint = *setpointReq * kSensorUnitsPerRotation / 60;
-						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorVelocity(0) / kSensorUnitsPerRotation * 60;
+						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorVelocity(0) / kSensorUnitsPerRotation * 600;
 						//setpoint = tuningVector->at(sensorSelect)->GetClosedLoopTarget(0) / kSensorUnitsPerRotation;
 						break;
 					case ControlMode::MotionMagic:
@@ -142,11 +148,14 @@ private:
 						break;
 					default:
 						//setpoint = tuningVector->at(sensorSelect)->GetMotorOutputPercent();
-						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorVelocity(0) / kSensorUnitsPerRotation * 60;
+						actualValue = tuningVector->at(sensorSelect)->GetSelectedSensorVelocity(0) / kSensorUnitsPerRotation * 600;
 						break;
 				}
 			//}
 			}
+
+			if (autoUpdateSetpoint)
+				setpoint = pidValues.setpoint;
 
 			string sendStr = "Name:" + name + ";DesiredValue:" + to_string(setpoint) + ";ActualValue:" + to_string(actualValue) + ";";
 			recvlen = sendto(fd, sendStr.c_str(), sendStr.length()+1, 0, (sockaddr *) &remoteAddr, addrlen);
@@ -249,10 +258,10 @@ public:
 		addrlen = 0;
 		runThread = false;
 		status = 0;
-		if (autoUpdate) {
+		//if (autoUpdate) {
 			init();
 			start();
-		}
+		//}
 		pidReceiveThreadControlStart = 0;
 		pidReceiveThreadControlEnd = 0;
 		pidReceiveThreadControlElapsedTimeMS = 0;
@@ -341,6 +350,10 @@ public:
 	 */
 	PIDValues getPIDValues() {
 		return pidValues;
+	};
+
+	bool isAutoUpdate() {
+		return autoUpdate;
 	};
 };
 
