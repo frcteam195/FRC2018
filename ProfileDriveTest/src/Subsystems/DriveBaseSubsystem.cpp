@@ -208,12 +208,12 @@ void DriveBaseSubsystem::runDrive() {
 				break;
 			case ControlMode::Velocity:
 				leftDrive->Set(ControlMode::Velocity, leftDriveSpeed * kSensorUnitsPerRotation / 600);
-				rightDrive->Set(ControlMode::Velocity, leftDriveSpeed * kSensorUnitsPerRotation / 600);
+				rightDrive->Set(ControlMode::Velocity, rightDriveSpeed * kSensorUnitsPerRotation / 600);
 				break;
 			case ControlMode::PercentOutput:
 			default:
 				leftDrive->Set(ControlMode::PercentOutput, leftDriveSpeed);
-				rightDrive->Set(ControlMode::PercentOutput, leftDriveSpeed);
+				rightDrive->Set(ControlMode::PercentOutput, rightDriveSpeed);
 				break;
 		}
 
@@ -415,6 +415,7 @@ void DriveBaseSubsystem::stop() {
 	runThread = false;
 	if (driveThread.joinable())
 		driveThread.join();
+
 
 	if (shiftThread.joinable())
 		shiftThread.join();
