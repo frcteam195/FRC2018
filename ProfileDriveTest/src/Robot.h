@@ -19,6 +19,11 @@
 #include "Utilities/CKAutoBuilder.h"
 #include <vector>
 
+#include "Utilities/Path/Translation2d.h"
+#include "Utilities/Path/Rotation2d.h"
+#include "Utilities/Path/RigidTransform2d.h"
+#include "Utilities/Path/Arc.h"
+
 class Robot: public SampleRobot {
 public:
 	void RobotInit() override;
