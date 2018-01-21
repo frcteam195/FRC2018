@@ -11,18 +11,24 @@ import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.DriveHelper;
 import org.usfirst.frc.team195.robot.Utilities.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Reportable;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
-public class HIDControllerSubsystem implements CustomSubsystem, Reportable {
+public class HIDControllerSubsystem implements CustomSubsystem {
 	
 	private static HIDControllerSubsystem instance = null;
 	private static final int MIN_HID_THREAD_LOOP_TIME_MS = 20;
 
 	public static HIDControllerSubsystem getInstance() {
-		if(instance == null)
-			instance = new HIDControllerSubsystem();
+		if(instance == null) {
+			try {
+				instance = new HIDControllerSubsystem();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 		
 		return instance;
 	}
@@ -50,12 +56,12 @@ public class HIDControllerSubsystem implements CustomSubsystem, Reportable {
 		driveJoyStickThread.start();
 	}
 	
-	@Override
-	public String toString() {
-		return generateReport();
-	}
+//	@Override
+//	public String toString() {
+//		return generateReport();
+//	}
 	
-	private HIDControllerSubsystem() {
+	private HIDControllerSubsystem() throws Exception {
 		super();
 		ds = DriverStation.getInstance();
 
@@ -63,6 +69,7 @@ public class HIDControllerSubsystem implements CustomSubsystem, Reportable {
 		driveJoystick = robotControllers.getDriveJoystick();
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
+		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
 
 		runThread = false;
 		comingFromAuto = true;
@@ -77,6 +84,7 @@ public class HIDControllerSubsystem implements CustomSubsystem, Reportable {
 	private DriveJoyStickThread driveJoyStickThread;
 	
 	protected DriveBaseSubsystem driveBaseSubsystem;
+	protected CubeHandlerSubsystem cubeHandlerSubsystem;
 	protected DriverStation ds;
 	protected KnightJoystick driveJoystick;
 	
@@ -108,8 +116,8 @@ public class HIDControllerSubsystem implements CustomSubsystem, Reportable {
 		@Override
 		public String toString() {
 			String retVal = "";
-			retVal += "DriverXAxis:" + driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS) + ";";
-			retVal += "DriverYAxis:" + driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS) + ";";
+			//retVal += "DriverXAxis:" + driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS) + ";";
+			//retVal += "DriverYAxis:" + driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS) + ";";
 			return retVal;
 		}
 		
@@ -127,6 +135,17 @@ public class HIDControllerSubsystem implements CustomSubsystem, Reportable {
 					shiftAction.start(false);
 				} else if (driveJoystick.GetRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
 					shiftAction.start(true);
+				}
+				
+				if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_RUN)) {
+					shiftAction.start(false);
+					cubeHandlerSubsystem.setIntakeControl(IntakeControl.FORWARD);
+				} else if (driveJoystick.GetRisingEdgeButton(Constants.INTAKE_OPEN)) {
+					shiftAction.start(true);
+				} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
+					cubeHandlerSubsystem.setIntakeControl(IntakeControl.REVERSE);
+				} else {
+					cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 				}
 
 				x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
@@ -146,12 +165,12 @@ public class HIDControllerSubsystem implements CustomSubsystem, Reportable {
 		}
 	}
 
-	@Override
-	public String generateReport() {
-		String retVal = "";
-		retVal += driveJoyStickThread.toString();
-		return retVal;
-	}
+//	@Override
+//	public String generateReport() {
+//		String retVal = "";
+//		retVal += driveJoyStickThread.toString();
+//		return retVal;
+//	}
 }
 
 

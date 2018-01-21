@@ -14,10 +14,10 @@
   <!-- <property name="version" value=""/> -->
 
   <!-- By default the system team number is used -->
-  <!-- <property name="team-number" value=""/> -->
+  <property name="team-number" value="195"/>
 
   <!-- By default the target is set to 10.TE.AM.2 -->
-  <!-- <property name="target" value=""/> -->
+  <property name="target" value="10.1.95.22"/>
 
   <!-- Any other property in build.properties can also be overridden. -->
 

@@ -22,9 +22,9 @@ public class Controllers {
 	private TalonSRX liftMotor;
 	private VictorSPX liftMotorSlave;
 	private TalonSRX intakeMotor;
-	private VictorSPX intakeMotorSlave;
-	private TalonSRX intakeActuatorMotor;
-	private TalonSRX intakeRotationMotor;
+	private TalonSRX intakeMotorSlave;
+	private TalonSRX intakeShoulderMotor;
+	private TalonSRX intakeElbowMotor;
 	
 	private AHRS navX;
 	
@@ -50,13 +50,15 @@ public class Controllers {
 		shiftSol = new DoubleSolenoid(0, 1);
 
 		//Elevator setup
+		
+		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
+		intakeMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(8, intakeMotor);
 		/*
 		liftMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
 		liftMotorSlave = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(8, liftMotor);
-		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(9);
-		intakeMotorSlave = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(10, intakeMotor);
-		intakeActuatorMotor = canSpeedControllerBuilder.createDefaultTalonSRX(11);
-		intakeRotationMotor = canSpeedControllerBuilder.createDefaultTalonSRX(12);
+		
+		intakeShoulderMotor = canSpeedControllerBuilder.createDefaultTalonSRX(11);
+		intakeElbowMotor = canSpeedControllerBuilder.createDefaultTalonSRX(12);
 	*/
 	    try {
 	        navX = new AHRS(Port.kMXP);
@@ -118,16 +120,16 @@ public class Controllers {
 		return intakeMotor;
 	}
 	
-	public VictorSPX getIntakeMotorSlave() {
+	public TalonSRX getIntakeMotorSlave() {
 		return intakeMotorSlave;
 	}
 	
-	public TalonSRX getIntakeActuatorMotor() {
-		return intakeActuatorMotor;
+	public TalonSRX getIntakeShoulderMotor() {
+		return intakeShoulderMotor;
 	}
 	
-	public TalonSRX getIntakeRotationMotor() {
-		return intakeRotationMotor;
+	public TalonSRX getIntakeElbowMotor() {
+		return intakeElbowMotor;
 	}
 
 	public AHRS	getNavX() {

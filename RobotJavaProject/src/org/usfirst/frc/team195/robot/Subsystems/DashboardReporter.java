@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class DashboardReporter extends Thread {
 
-	private static final int MIN_DASHBOARD_SEND_RATE_MS = 25;
+	private static final int MIN_DASHBOARD_SEND_RATE_MS = 250;
 	
 	private static final int SEND_PORT = 5801;
 	
-	private static final String SEND_IP = "10.1.95,14";
+	private static final String SEND_IP = "10.1.95.14";
 	
 	private InetAddress IPAddress;
 
@@ -40,7 +40,7 @@ public class DashboardReporter extends Thread {
 			try {
 				instance = new DashboardReporter(subsystemList);
 			} catch (Exception ex) {
-				
+				ex.printStackTrace();
 			}
 		}
 		
@@ -57,6 +57,7 @@ public class DashboardReporter extends Thread {
 	    	dashboardSendThreadControlElapsedTimeMS = 0;
         
 	    	IPAddress = InetAddress.getByName(SEND_IP);
+
         
         this.subsystemList = subsystemList;
 	}

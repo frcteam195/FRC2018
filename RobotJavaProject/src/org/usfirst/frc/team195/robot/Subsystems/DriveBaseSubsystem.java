@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Reportable {
 	public static final int MIN_DRIVE_LOOP_TIME_STANDARD = 10;
 	public static final int MIN_DRIVE_LOOP_TIME_MP = 3;
-	public static final int MIN_SHIFT_LOOP_TIME = 3;
 	public static final double DRIVE_JOYSTICK_DEADBAND = 0.1;
 	
 	@Override
@@ -342,8 +341,13 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	}
 
 	public static DriveBaseSubsystem getInstance() {
-		if(instance == null)
-			instance = new DriveBaseSubsystem();
+		if(instance == null) {
+			try {
+				instance = new DriveBaseSubsystem();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 		
 		return instance;
 	}
@@ -358,7 +362,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		return generateReport();
 	}
 
-	private DriveBaseSubsystem() {
+	private DriveBaseSubsystem() throws Exception {
 		super();
 		ds = DriverStation.getInstance();
 
@@ -497,13 +501,17 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		
 		retVal += "LeftDrivePos:" + leftDrive.getSelectedSensorVelocity(0) + ";";
 		retVal += "LeftDriveVel:" + leftDrive.getSelectedSensorPosition(0) + ";";
-		retVal += "LeftDriveCurrent:" + leftDrive.getOutputCurrent() + ";";
 		retVal += "LeftDriveOutput:" + leftDriveSpeed + ";";
+		retVal += "LeftDrive1Current:" + leftDrive.getOutputCurrent() + ";";
+		retVal += "LeftDrive2Current:" + leftDriveSlave1.getOutputCurrent() + ";";
+		retVal += "LeftDrive3Current:" + leftDriveSlave2.getOutputCurrent() + ";";
 		
 		retVal += "RightDrivePos:" + rightDrive.getSelectedSensorVelocity(0) + ";";
 		retVal += "RightDriveVel:" + rightDrive.getSelectedSensorPosition(0) + ";";
-		retVal += "RightDriveCurrent:" + rightDrive.getOutputCurrent() + ";";
 		retVal += "RightDriveOutput:" + rightDriveSpeed + ";";
+		retVal += "RightDrive1Current:" + rightDrive.getOutputCurrent() + ";";
+		retVal += "RightDrive2Current:" + rightDriveSlave1.getOutputCurrent() + ";";
+		retVal += "RightDrive3Current:" + rightDriveSlave2.getOutputCurrent() + ";";
 		
 		return retVal;
 	}
