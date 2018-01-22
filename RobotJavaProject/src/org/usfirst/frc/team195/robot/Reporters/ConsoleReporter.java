@@ -1,6 +1,8 @@
 package org.usfirst.frc.team195.robot.Reporters;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Utilities.Constants;
 
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
@@ -55,8 +57,14 @@ public class ConsoleReporter extends Thread {
 			try {
 				_reporterMutex.lock();
 				try {
-					while (sendMessageQueue.peek() != null)
-						System.out.println(sendMessageQueue.poll());
+					if (Constants.REPORTING_ENABLED) {
+						while (sendMessageQueue.peek() != null) {
+							if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE)
+								DriverStation.reportError(sendMessageQueue.poll(), false);
+							else
+								System.out.println(sendMessageQueue.poll());
+						}
+					}
 				} finally {
 					_reporterMutex.unlock();
 				}
@@ -72,14 +80,15 @@ public class ConsoleReporter extends Thread {
 		}
 	}
 
-	public static synchronized void report(String message) {
-		_reporterMutex.lock();
-		try {
-			sendMessageQueue.add(message + "\n\r");
-		} finally {
-			_reporterMutex.unlock();
+	public static void report(String message) {
+		if (Constants.REPORTING_ENABLED) {
+			_reporterMutex.lock();
+			try {
+				sendMessageQueue.add(message + "\n\r");
+			} finally {
+				_reporterMutex.unlock();
+			}
 		}
 	}
-
 
 }

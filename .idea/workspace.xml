@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a6c4234-4227-40c6-800f-338f58e70ba5" name="Default" comment="Added ConsoleReporter class to pace sending of console messages">
+    <list default="true" id="6a6c4234-4227-40c6-800f-338f58e70ba5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/RobbieRobot.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/RobbieRobot.java" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TuneablePID.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TuneablePID.java" />
     </list>
     <ignored path="$PROJECT_DIR$/CKAutoHelperCPP/bin/" />
     <ignored path="$PROJECT_DIR$/CKAutoHelperJava/bin/" />
@@ -23,23 +27,7 @@
     <favorites_list name="frc2018" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ConsoleReporter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#512#520#0" expanded="true" />
-                <element signature="e#1147#1148#0" expanded="true" />
-                <element signature="e#1171#1172#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -90,15 +78,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DashboardReporter.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TuneablePID.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/HIDControllerSubsystem.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/DashboardReporter.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TuneablePID.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
       </list>
     </option>
   </component>
@@ -247,10 +235,11 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -390,14 +379,30 @@
       <option name="project" value="LOCAL" />
       <updated>1516602013424</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Change console reporter to use a queue">
+      <created>1516603070553</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1516603070553</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="957" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.495116" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -409,19 +414,20 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1984127" sideWeight="0.49307957" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1984127" sideWeight="0.48615918" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25579977" sideWeight="0.5069204" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1984127" sideWeight="0.51384085" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -430,7 +436,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update all" />
     <MESSAGE value="Added ConsoleReporter class to pace sending of console messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ConsoleReporter class to pace sending of console messages" />
+    <MESSAGE value="Change console reporter to use a queue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change console reporter to use a queue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -462,9 +469,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#512#520#0" expanded="true" />
-            <element signature="e#1147#1148#0" expanded="true" />
-            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#614#622#0" expanded="true" />
+            <element signature="e#1249#1250#0" expanded="true" />
+            <element signature="e#1273#1274#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -491,11 +498,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="16" column="4" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2841#2842#0" expanded="false" />
-            <element signature="e#2865#2866#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -513,11 +516,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="40" column="29" lean-forward="false" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2841#2842#0" expanded="false" />
-            <element signature="e#2865#2866#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -551,11 +550,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2841#2842#0" expanded="false" />
-            <element signature="e#2865#2866#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -563,6 +558,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="42" column="6" lean-forward="false" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -570,6 +566,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="122" column="30" lean-forward="false" selection-start-line="122" selection-start-column="30" selection-end-line="122" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -592,28 +589,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/RobbieRobot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-14">
           <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TuneablePID.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="301" column="65" lean-forward="false" selection-start-line="301" selection-start-column="28" selection-end-line="301" selection-end-column="65" />
           <folding />
         </state>
       </provider>
@@ -658,14 +637,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DriveHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="3" column="36" lean-forward="false" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CustomSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -706,34 +677,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="42" lean-forward="false" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CANSpeedControllerBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-117">
           <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/HIDControllerSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="79" column="22" lean-forward="false" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -754,30 +701,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/DashboardReporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="13" lean-forward="true" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2841#2842#0" expanded="false" />
-            <element signature="e#2865#2866#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/AutoProfileTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="332" column="36" lean-forward="false" selection-start-line="332" selection-start-column="36" selection-end-line="332" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -790,16 +717,89 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TuneablePID.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4365">
+          <caret line="314" column="25" lean-forward="true" selection-start-line="314" selection-start-column="25" selection-end-line="314" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/DashboardReporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="106" column="4" lean-forward="true" selection-start-line="106" selection-start-column="4" selection-end-line="106" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="79" column="22" lean-forward="false" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="91" column="5" lean-forward="true" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+        <state relative-caret-position="415">
+          <caret line="92" column="4" lean-forward="false" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#512#520#0" expanded="true" />
-            <element signature="e#1147#1148#0" expanded="true" />
-            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#614#622#0" expanded="true" />
+            <element signature="e#1249#1250#0" expanded="true" />
+            <element signature="e#1273#1274#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="423" column="36" lean-forward="true" selection-start-line="423" selection-start-column="36" selection-end-line="423" selection-end-column="36" />
+          <folding>
+            <element signature="e#9740#9741#0" expanded="true" />
+            <element signature="e#9774#9775#0" expanded="true" />
+            <element signature="e#11365#11366#0" expanded="true" />
+            <element signature="e#11395#11396#0" expanded="true" />
+            <element signature="e#12630#12631#0" expanded="true" />
+            <element signature="e#12671#12672#0" expanded="true" />
+            <element signature="e#12717#12718#0" expanded="true" />
+            <element signature="e#12760#12761#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DriveHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="43" lean-forward="false" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/HIDControllerSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2535">
+          <caret line="191" column="0" lean-forward="true" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

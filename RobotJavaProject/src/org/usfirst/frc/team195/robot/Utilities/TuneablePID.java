@@ -154,7 +154,7 @@ public class TuneablePID {
 			double setpoint = setpointReq;
 			double actualValue = 0;
 			int sensorSelect = 0;
-			if (talonArrList.size() >= sensorSelect) {
+			if (talonArrList.size() > sensorSelect) {
 				switch(talonArrList.get(sensorSelect).getControlMode()) {
 					case Position:
 						actualValue = talonArrList.get(sensorSelect).getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation;
@@ -309,13 +309,13 @@ public class TuneablePID {
 	}
 
 	private class TuneablePIDData {
-		private double kP = -1;
-		private double kI = -1;
-		private double kD = -1;
-		private double f = -1;
-		private double setpoint = -1;
-		private double cruiseVelocity = -1;
-		private double accel = -1;
+		private double kP;
+		private double kI;
+		private double kD;
+		private double f;
+		private double setpoint;
+		private double cruiseVelocity;
+		private double accel;
 		
 		public TuneablePIDData(double kP, double kI, double kD, double f, double setpoint, double cruiseVelocity, double accel) {
 			this.kP = kP;

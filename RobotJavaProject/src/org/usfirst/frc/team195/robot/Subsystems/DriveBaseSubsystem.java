@@ -27,8 +27,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Reportable {
 	public static final int MIN_DRIVE_LOOP_TIME_STANDARD = 10;
 	public static final int MIN_DRIVE_LOOP_TIME_MP = 3;
-	public static final double DRIVE_JOYSTICK_DEADBAND = 0.1;
-	
+
 	@Override
 	public void init() {
 		rightDrive.setInverted(true);
@@ -54,7 +53,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	}
 	
 	@Override
-	public synchronized void start() {
+	public void start() {
 		runThread = true;
 		super.start();
 	}
@@ -164,7 +163,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 							
 						}
 						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						ConsoleReporter.report("Enabling Left Motion Profile");
+						ConsoleReporter.report("Enabling Right Motion Profile");
 					}
 					else if (mpStatusRight.topBufferCnt == 0 && mpStatusRight.btmBufferCnt == 0) {
 						//rightDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
@@ -212,14 +211,14 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		return rightDrive.getSelectedSensorPosition(0);
 	}
 
-	public void setDriveSpeed(DriveMotorValues d) {
+	public synchronized void setDriveSpeed(DriveMotorValues d) {
 		setDriveSpeed(d.leftDrive, d.rightDrive, false);
 	}
-	public void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {
+	public synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {
 		setDriveSpeed(leftDriveSpeed, rightDriveSpeed, false);
 	}
 	
-	public void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, boolean slowDown) {
+	public synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, boolean slowDown) {
 		try {
 			_subsystemMutex.acquire();
 			if(slowDown) {
@@ -244,7 +243,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		this.highGear = highGear;
 	}
 	
-	public void setPosition(double position) {
+	public synchronized void setPosition(double position) {
 		try {
 			_subsystemMutex.acquire();
 			requestSetPosition = true;
@@ -255,7 +254,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		}
 	}
 	
-	public void startMPTrajectory() {
+	public synchronized void startMPTrajectory() {
 		try {
 			_subsystemMutex.acquire();
 			startMPLeft = true;
@@ -277,18 +276,26 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		return mpStatusRight;
 	}
 
-	public void setMotionProfileTrajectory(double[][] mpLeftBuffer, double[][] mpRightBuffer) {
+	public synchronized void setMotionProfileTrajectory(double[][] mpLeftBuffer, double[][] mpRightBuffer) {
 		this.mpLeftBuffer = mpLeftBuffer;
 		this.mpRightBuffer = mpRightBuffer;
-//		leftMPBufferProcess = thread(&DriveBaseSubsystem::processMPLeft, this);
-//		rightMPBufferProcess = thread(&DriveBaseSubsystem::processMPRight, this);
-//		if (leftMPBufferProcess.joinable())
-//			leftMPBufferProcess.join();
-//		if (rightMPBufferProcess.joinable())
-//			rightMPBufferProcess.join();
+		Thread leftMPBufferThread = new Thread(() -> {
+			processMPLeft();
+		});
+		Thread rightMPBufferThread = new Thread(() -> {
+			processMPRight();
+		});
+		leftMPBufferThread.start();
+		rightMPBufferThread.start();
+		try {
+			leftMPBufferThread.join();
+			rightMPBufferThread.join();
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex.toString());
+		}
 	}
 	
-	public void setControlMode(ControlMode controlMode) {
+	public synchronized void setControlMode(ControlMode controlMode) {
 		try {
 			_subsystemMutex.acquire();
 			requestedControlMode = controlMode;
@@ -302,23 +309,23 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		return requestedControlMode;
 	}
 
-	public void setDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
+	public synchronized void setDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
 		setLeftDrivePID(kP, kI, kD, ff, profileNum);
 		setRightDrivePID(kP, kI, kD, ff, profileNum);
 	}
 	
-	public void setLeftDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
+	public synchronized void setLeftDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
 		TalonHelper.setPIDGains(leftDrive, profileNum, kP, kI, kD, ff);
 	}
 	
-	public void setRightDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
+	public synchronized void setRightDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
 		TalonHelper.setPIDGains(rightDrive, profileNum, kP, kI, kD, ff);
 	}
 	public boolean isPositionWithinRange(double range) {
 		return ((Math.abs(leftDrive.getSelectedSensorPosition(0)) - Math.abs(leftDriveSpeed)) < range && (Math.abs(rightDrive.getSelectedSensorPosition(0)) - Math.abs(rightDriveSpeed)) < range);
 	}
 
-	public void setMotionMagicVelocityAccel(double vel, double accel) {
+	public synchronized void setMotionMagicVelocityAccel(double vel, double accel) {
 		leftDrive.configMotionCruiseVelocity((int)vel, Constants.kTimeoutMs);
 		leftDrive.configMotionAcceleration((int)accel, Constants.kTimeoutMs);
 		rightDrive.configMotionCruiseVelocity((int)vel, Constants.kTimeoutMs);
@@ -396,10 +403,10 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	private boolean startMPLeft;
 	private boolean startMPRight;
 
-	private void processMPLeft() {
+	private synchronized void processMPLeft() {
 		processMP(leftDrive, mpLeftBuffer);
 	}
-	private void processMPRight() {
+	private synchronized void processMPRight() {
 		processMP(rightDrive, mpRightBuffer);
 	}
 	private void processMP(TalonSRX talonSRX, double[][] mpBuffer) {
@@ -425,15 +432,11 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 				point.profileSlotSelect0 = 0;
 			 */
 
-			if (i == 0)
-				point.zeroPos = true;	//Set at start
-			else
-				point.zeroPos = false;
+			//Set at start
+			point.zeroPos = i == 0;
 
-			if((i + 1) == mpBuffer.length)
-				point.isLastPoint = true;
-			else
-				point.isLastPoint = false;
+			//Set at end
+			point.isLastPoint = (i + 1) == mpBuffer.length;
 
 			talonSRX.pushMotionProfileTrajectory(point);
 		}
@@ -444,7 +447,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		TrajectoryDuration retval = TrajectoryDuration.Trajectory_Duration_0ms;
 		retval = retval.valueOf(durationMs);
 		if (retval.value != durationMs) {
-			DriverStation.reportError("Trajectory Duration not supported - use configMotionProfileTrajectoryPeriod instead", false);		
+			ConsoleReporter.report("Trajectory Duration not supported - use configMotionProfileTrajectoryPeriod instead");
 		}
 		return retval;
 	}

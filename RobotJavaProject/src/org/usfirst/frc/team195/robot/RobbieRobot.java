@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * yourself.
  *
  */
+@SuppressWarnings("ALL")
 public class RobbieRobot extends RobotBase {
   private boolean m_robotMainOverridden = true;
 
