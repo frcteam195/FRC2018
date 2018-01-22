@@ -2,7 +2,7 @@ package org.usfirst.frc.team195.robot.Reporters;
 
 import edu.wpi.first.wpilibj.Timer;
 
-import java.util.concurrent.Semaphore;
+import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConsoleReporter extends Thread {
@@ -13,8 +13,8 @@ public class ConsoleReporter extends Thread {
 	private double consoleSendThreadControlStart;
 	private double consoleSendThreadControlEnd;
 	private int consoleSendThreadControlElapsedTimeMS;
-	private static String sendMessage;
-	private static ReentrantLock _reporterMutex;
+	private static LinkedList<String> sendMessageQueue = new LinkedList<String>();
+	private static ReentrantLock _reporterMutex = new ReentrantLock();
 
 	private static ConsoleReporter instance = null;
 
@@ -24,8 +24,6 @@ public class ConsoleReporter extends Thread {
 		consoleSendThreadControlStart = 0;
 		consoleSendThreadControlEnd = 0;
 		consoleSendThreadControlElapsedTimeMS = 0;
-		_reporterMutex = new ReentrantLock();
-		sendMessage = "";
 	}
 
 	public static ConsoleReporter getInstance() {
@@ -55,14 +53,12 @@ public class ConsoleReporter extends Thread {
 		while (runThread) {
 			consoleSendThreadControlStart = Timer.getFPGATimestamp();
 			try {
-				if(!sendMessage.isEmpty()) {
-					_reporterMutex.lock();
-					try {
-						System.out.println(sendMessage);
-						sendMessage = "";
-					} finally {
-						_reporterMutex.unlock();
-					}
+				_reporterMutex.lock();
+				try {
+					while (sendMessageQueue.peek() != null)
+						System.out.println(sendMessageQueue.poll());
+				} finally {
+					_reporterMutex.unlock();
 				}
 			} catch (Exception ex) {
 
@@ -79,7 +75,7 @@ public class ConsoleReporter extends Thread {
 	public static synchronized void report(String message) {
 		_reporterMutex.lock();
 		try {
-			sendMessage += message + "\n\r";
+			sendMessageQueue.add(message + "\n\r");
 		} finally {
 			_reporterMutex.unlock();
 		}
