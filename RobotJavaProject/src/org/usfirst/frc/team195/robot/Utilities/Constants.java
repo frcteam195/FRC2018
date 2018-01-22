@@ -24,7 +24,7 @@ public class Constants {
 	public static final int INTAKE_RUN_REVERSE = 4;
 	public static final int INTAKE_CLOSE_HALF = 3;
 	
-	public static final int kTimeoutMs = 10;
+	public static final int kTimeoutMs = 20;
 	public static final double kMotorDeadband = 0.01;
 	public static final double kSensorUnitsPerRotation = 4096;
 }

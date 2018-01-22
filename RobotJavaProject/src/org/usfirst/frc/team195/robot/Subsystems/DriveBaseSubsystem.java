@@ -5,6 +5,7 @@ import java.lang.Thread;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
@@ -57,6 +58,10 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		runThread = true;
 		super.start();
 	}
+
+	public void terminate() {
+		runThread = false;
+	}
 	
 	@Override
 	public void subsystemHome() {
@@ -89,7 +94,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 			ControlMode ctrlMode = leftDrive.getControlMode();
 
 			if(ctrlMode != requestedControlMode) {
-				System.out.println("Changing Control Modes!");
+				ConsoleReporter.report("Changing Control Modes!");
 
 				switch (requestedControlMode) {
 					case MotionProfile:
@@ -115,12 +120,12 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 					if(mpStatusLeft.hasUnderrun){
 						leftDrive.clearMotionProfileHasUnderrun(Constants.kTimeoutMs);
-						System.out.println("Left Drive Underrun");
+						ConsoleReporter.report("Left Drive Underrun");
 					}
 
 					if(mpStatusRight.hasUnderrun){
 						rightDrive.clearMotionProfileHasUnderrun(Constants.kTimeoutMs);
-						System.out.println("Right Drive Underrun");
+						ConsoleReporter.report("Right Drive Underrun");
 					}
 
 					leftDrive.processMotionProfileBuffer();
@@ -128,7 +133,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 					if (mpStatusLeft.activePointValid && mpStatusLeft.isLast) {
 						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
-						System.out.println("Hold Left");
+						ConsoleReporter.report("Hold Left");
 					}
 					else if (startMPLeft) {
 						try {
@@ -139,7 +144,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 						}
 						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						System.out.println("Enabling Left Motion Profile");
+						ConsoleReporter.report("Enabling Left Motion Profile");
 					}
 					else if (mpStatusLeft.topBufferCnt == 0 && mpStatusLeft.btmBufferCnt == 0) {
 						//leftDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
@@ -148,7 +153,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 					if (mpStatusRight.activePointValid && mpStatusRight.isLast) {
 						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
-						System.out.println("Hold Right");
+						ConsoleReporter.report("Hold Right");
 					}
 					else if (startMPRight) {
 						try {
@@ -159,7 +164,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 							
 						}
 						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						System.out.println("Enabling Left Motion Profile");
+						ConsoleReporter.report("Enabling Left Motion Profile");
 					}
 					else if (mpStatusRight.topBufferCnt == 0 && mpStatusRight.btmBufferCnt == 0) {
 						//rightDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
@@ -325,7 +330,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 			try {
 				instance = new DriveBaseSubsystem();
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				ConsoleReporter.report(ex.toString());
 			}
 		}
 		

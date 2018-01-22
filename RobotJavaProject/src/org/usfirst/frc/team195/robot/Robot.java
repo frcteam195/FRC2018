@@ -3,6 +3,8 @@ package org.usfirst.frc.team195.robot;
 import java.util.ArrayList;
 
 import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Subsystems.*;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
@@ -24,11 +26,13 @@ public class Robot extends RobbieRobot {
 	
 	
 	public Robot() {
-
+		;
 	}
 
 	@Override
 	public void robotInit() {
+		ConsoleReporter.getInstance().start();
+
 		robotControllers = Controllers.getInstance();
 		subsystemVector = new ArrayList<CustomSubsystem>();
 		
@@ -73,7 +77,7 @@ public class Robot extends RobbieRobot {
 	
 	@Override
 	protected void disabled() {
-		super.disabled();
+		;
 	}
 
 	@Override
@@ -84,5 +88,6 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void test() {
+		;
 	}
 }

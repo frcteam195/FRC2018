@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
 import org.usfirst.frc.team195.robot.Actions.ShiftAction;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
@@ -27,7 +28,7 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 			try {
 				instance = new HIDControllerSubsystem();
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				ConsoleReporter.report(ex.toString());
 			}
 		}
 		
@@ -55,6 +56,10 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 	public void start() {
 		runThread = true;
 		driveJoyStickThread.start();
+	}
+
+	public void terminate() {
+		runThread = false;
 	}
 	
 //	@Override

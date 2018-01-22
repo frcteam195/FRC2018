@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 
 public class TuneablePID {
 	public static final int MIN_PID_SEND_RATE_MS = 10;
@@ -81,13 +82,22 @@ public class TuneablePID {
 	
 	public void start() {
 		if (Constants.TUNING_PIDS && !DriverStation.getInstance().isFMSAttached()) {
-			udpReceiver.start();
-			udpSender.start();
-			System.out.println("Starting PID Tuner for " + name);
+			if (udpReceiver != null && udpSender != null) {
+				udpReceiver.start();
+				udpSender.start();
+				ConsoleReporter.report("Starting PID Tuner for " + name);
+			}
 		}
 	}
 
-	protected synchronized InetAddress getIPAddress() {
+	public void terminate() {
+		if (udpReceiver != null && udpSender != null) {
+			udpReceiver.terminate();
+			udpSender.terminate();
+		}
+	}
+
+	protected InetAddress getIPAddress() {
 		return IPAddress;
 	}
 
@@ -111,6 +121,10 @@ public class TuneablePID {
 		public void start() {
 			runThread = true;
 			super.start();
+		}
+
+		public void terminate() {
+			runThread = false;
 		}
 
 		@Override
@@ -187,6 +201,10 @@ public class TuneablePID {
 			super.start();
 		}
 
+		public void terminate() {
+			runThread = false;
+		}
+
 		@Override
 		public void run() {
 			while (runThread) {
@@ -229,7 +247,7 @@ public class TuneablePID {
 			}
 		}
 		
-		public synchronized TuneablePIDData getTuneablePIDData() {
+		public TuneablePIDData getTuneablePIDData() {
 			return tuneablePIDData;
 		}
 
@@ -281,7 +299,7 @@ public class TuneablePID {
 						}
 					} catch (Exception ex) {
 						if (Constants.DEBUG)
-							ex.printStackTrace();
+							ConsoleReporter.report(ex.toString());
 					}
 				}
 			}

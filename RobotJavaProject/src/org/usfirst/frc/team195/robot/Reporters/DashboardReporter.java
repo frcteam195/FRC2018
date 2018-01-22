@@ -1,8 +1,9 @@
-package org.usfirst.frc.team195.robot.Subsystems;
+package org.usfirst.frc.team195.robot.Reporters;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.List;
 
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
@@ -39,7 +40,7 @@ public class DashboardReporter extends Thread {
 			try {
 				instance = new DashboardReporter(subsystemList);
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				ConsoleReporter.report(ex.toString());
 			}
 		}
 		
@@ -51,18 +52,25 @@ public class DashboardReporter extends Thread {
 		runThread = false;
         clientSocket = new DatagramSocket(SEND_PORT);
         
-	    	dashboardSendThreadControlStart = 0;
-	    	dashboardSendThreadControlEnd = 0;
-	    	dashboardSendThreadControlElapsedTimeMS = 0;
-        
-	    	IPAddress = InetAddress.getByName(SEND_IP);
+        dashboardSendThreadControlStart = 0;
+        dashboardSendThreadControlEnd = 0;
+        dashboardSendThreadControlElapsedTimeMS = 0;
 
-        
+        IPAddress = InetAddress.getByName(SEND_IP);
+
         this.subsystemList = subsystemList;
 	}
 	
 	@Override
 	public void run() {
+		if(clientSocket.isClosed() || clientSocket == null) {
+			try {
+				clientSocket = new DatagramSocket(SEND_PORT);
+			} catch (SocketException e) {
+				e.printStackTrace();
+			}
+		}
+
 		while (runThread) {
 			dashboardSendThreadControlStart = Timer.getFPGATimestamp();
             try {
@@ -83,7 +91,11 @@ public class DashboardReporter extends Thread {
 		if(!clientSocket.isClosed())
 			clientSocket.close();
 	}
-	
+
+	public void terminate() {
+		runThread = false;
+	}
+
 	private byte[] createSendData() {
 		String sendStr = "";
 		for (CustomSubsystem customSubsystem : subsystemList) {
