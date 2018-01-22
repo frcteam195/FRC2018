@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="navx_frc">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/wpilib/user/java/lib/navx_frc.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/wpilib/user/java/lib/navx_frc.jar!/docs" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

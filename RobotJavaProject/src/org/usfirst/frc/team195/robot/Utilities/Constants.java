@@ -17,9 +17,12 @@ public class Constants {
 	public static final int DRIVE_IMM_TURN = 7;
 	public static final int DRIVE_SHIFT_LOW = 5;
 	public static final int DRIVE_SHIFT_HIGH = 6;
-	public static final int INTAKE_CLOSE_RUN = 8;
-	public static final int INTAKE_OPEN = 1;
+	public static final int INTAKE_CLOSE_RUN = 5;
+	public static final int INTAKE_RUN = 8;
+	public static final int INTAKE_CLOSE = 1;
+	public static final int INTAKE_OPEN = 2;
 	public static final int INTAKE_RUN_REVERSE = 4;
+	public static final int INTAKE_CLOSE_HALF = 3;
 	
 	public static final int kTimeoutMs = 10;
 	public static final double kMotorDeadband = 0.01;

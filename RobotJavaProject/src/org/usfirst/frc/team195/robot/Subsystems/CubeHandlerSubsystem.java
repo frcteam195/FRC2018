@@ -6,6 +6,8 @@ import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.Reportable;
+import org.usfirst.frc.team195.robot.Utilities.TalonHelper;
+import org.usfirst.frc.team195.robot.Utilities.TuneablePID;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
 import com.ctre.phoenix.motion.SetValueMotionProfile;
@@ -15,11 +17,14 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Reportable {
 	
 	private static final int MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS = 20;
+	
+	private TuneablePID tuneableIntake;
 	
 	private CubeHandlerSubsystem() throws Exception {
 		super();
@@ -28,26 +33,32 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 
 		liftMotor = robotControllers.getLiftMotor();
 		liftMotorSlave = robotControllers.getLiftMotorSlave();
-		intakeMotor = robotControllers.getIntakeMotor();
-		intakeMotorSlave = robotControllers.getIntakeMotorSlave();
+		intakeMotor1 = robotControllers.getIntakeMotor();
+		intakeMotor2 = robotControllers.getIntakeMotor2();
 		intakeShoulderMotor = robotControllers.getIntakeShoulderMotor();
 		intakeElbowMotor = robotControllers.getIntakeElbowMotor();
+		
+		ginoSol = robotControllers.getGinoSol();
 
 		requestedElevatorPos = 0;
 		
 		runThread = false;
 		
 		intakeControl = IntakeControl.OFF;
+		
+		tuneableIntake = new TuneablePID("Intake", intakeMotor2, 0, 5807, false, false);
 	}
 	
 	private IntakeControl intakeControl;
 
 	private TalonSRX liftMotor;
 	private VictorSPX liftMotorSlave;
-	private TalonSRX intakeMotor;
-	private TalonSRX intakeMotorSlave;
+	private TalonSRX intakeMotor1;
+	private TalonSRX intakeMotor2;
 	private TalonSRX intakeShoulderMotor;
 	private TalonSRX intakeElbowMotor;
+	
+	private Solenoid ginoSol;
 
 	private DriverStation ds;
 	
@@ -79,7 +90,13 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 
 	@Override
 	public void init() {
-		intakeMotorSlave.setInverted(true);
+		intakeMotor2.setInverted(true);
+		
+		TalonHelper.setPIDGains(intakeMotor1, 0, 0.2, 0, 0, 0.06);
+		TalonHelper.setPIDGains(intakeMotor2, 0, 0.2, 0, 0, 0.06);
+		intakeMotor1.set(ControlMode.Current, 0);
+		intakeMotor2.set(ControlMode.Current, 0);
+		
 		try {Thread.sleep(20);} catch (Exception ex) {}
 	}
 
@@ -93,6 +110,7 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 	public void start() {
 		runThread = true;
 		super.start();
+		tuneableIntake.start();
 	}
 	
 	@Override
@@ -102,19 +120,24 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 
 		while(runThread) {
 			cubeHandlerThreadControlStart = Timer.getFPGATimestamp();
-
+			
+			
 			switch(intakeControl) {
 				case FORWARD:
-					intakeMotor.set(ControlMode.PercentOutput, 1);
+					intakeMotor1.set(ControlMode.Current, 25);
+					intakeMotor2.set(ControlMode.Current, 25);
 					break;
 				case REVERSE:
-					intakeMotor.set(ControlMode.PercentOutput, -1);
+					intakeMotor1.set(ControlMode.Current, -35);
+					intakeMotor2.set(ControlMode.Current, -35);
 					break;
 				case OFF:
 				default:
-					intakeMotor.set(ControlMode.PercentOutput, 0);
+					intakeMotor1.set(ControlMode.Current, 0);
+					intakeMotor2.set(ControlMode.Current, 0);
 					break;
 			}
+			
 			
 			do {
 				cubeHandlerThreadControlEnd = Timer.getFPGATimestamp();
@@ -123,6 +146,10 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 					try{Thread.sleep(MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS - cubeHandlerThreadControlElapsedTimeMS);}catch(Exception ex) {};
 			} while(cubeHandlerThreadControlElapsedTimeMS < MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS);
 		}
+	}
+	
+	public synchronized void setIntakeOpen(boolean open) {
+		ginoSol.set(open);
 	}
 	
 	public boolean isElevatorFaulted() {

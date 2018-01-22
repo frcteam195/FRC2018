@@ -4,6 +4,7 @@ import java.lang.Thread;
 
 import java.util.List;
 
+import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
 import org.usfirst.frc.team195.robot.Actions.ShiftAction;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
@@ -101,12 +102,14 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 		
 		private DriveHelper driveHelper;
 		private ShiftAction shiftAction;
+		private IntakePositionAction intakePositionAction;
 
 		private double x, y;
 		
 		public DriveJoyStickThread() {
 			driveHelper = new DriveHelper();
 			shiftAction = new ShiftAction();
+			intakePositionAction = new IntakePositionAction();
 			
 			driveJoystickThreadControlStart = 0;
 			driveJoystickThreadControlEnd = 0;
@@ -137,13 +140,34 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 					shiftAction.start(true);
 				}
 				
-				if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_RUN)) {
+				/*if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_RUN)) {
 					shiftAction.start(false);
 					cubeHandlerSubsystem.setIntakeControl(IntakeControl.FORWARD);
 				} else if (driveJoystick.GetRisingEdgeButton(Constants.INTAKE_OPEN)) {
 					shiftAction.start(true);
 				} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
 					cubeHandlerSubsystem.setIntakeControl(IntakeControl.REVERSE);
+				} else if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE)) {
+					shiftAction.start(false);
+				} else if(driveJoystick.getRawButton(Constants.INTAKE_RUN)) {
+					cubeHandlerSubsystem.setIntakeControl(IntakeControl.FORWARD);
+				} else {
+					cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
+				}*/
+				
+				if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE)) {
+					shiftAction.start(true);
+					intakePositionAction.start(false);
+				} else if (driveJoystick.getRawButton(Constants.INTAKE_OPEN)) {
+					intakePositionAction.start(true);
+					shiftAction.start(false);
+				} else if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_HALF)) {
+					intakePositionAction.start(true);
+					shiftAction.start(true);
+				} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
+					cubeHandlerSubsystem.setIntakeControl(IntakeControl.REVERSE);
+				} else if(driveJoystick.getRawButton(Constants.INTAKE_RUN)) {
+					cubeHandlerSubsystem.setIntakeControl(IntakeControl.FORWARD);
 				} else {
 					cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 				}

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <varelement var="file://$wpilib$" value="wpilib" />
+    <varelement var="file://$wpilib.sources$" kind="src:" value="wpilib.sources" />
+    <varelement var="file://$networktables$" value="networktables" />
+    <varelement var="file://$ntcore.sources$" kind="src:" value="ntcore.sources" />
+    <varelement var="file://$opencv$" value="opencv" />
+    <varelement var="file://$opencv.sources$" kind="src:" value="opencv.sources" />
+    <varelement var="file://$cscore$" value="cscore" />
+    <varelement var="file://$cscore.sources$" kind="src:" value="cscore.sources" />
+    <varelement var="file://$wpiutil$" value="wpiutil" />
+    <varelement var="file://$wpiutil.sources$" kind="src:" value="wpiutil.sources" />
+    <varelement var="file://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar" value="USERLIBS_DIR/CTRE_Phoenix-sources.jar" />
+    <varelement var="file://$USERLIBS_DIR$/navx_frc.jar" value="USERLIBS_DIR/navx_frc.jar" />
+    <varelement var="file://$USERLIBS_DIR$/CTRE_Phoenix.jar" value="USERLIBS_DIR/CTRE_Phoenix.jar" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="wpilib">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/ntcore.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/wpiutil.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USER_HOME$/wpilib/java/current/javadoc" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore-sources.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/ntcore-sources.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv-sources.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib-sources.jar!/" />
+          <root url="jar://$USER_HOME$/wpilib/java/current/lib/wpiutil-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="jdk" jdkName="1.8 (1)" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library name="navx_frc.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/wpilib/user/java/lib/navx_frc.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$USER_HOME$/wpilib/user/java/lib/navx_frc.jar!/docs" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="CTRE_Phoenix.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/wpilib/user/java/lib/CTRE_Phoenix.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+        </NATIVE>
+        <SOURCES>
+          <root url="jar://$USER_HOME$/wpilib/user/java/lib/CTRE_Phoenix-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

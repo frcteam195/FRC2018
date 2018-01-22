@@ -50,7 +50,7 @@ public class RobbieRobot extends RobotBase {
    * <p>Called once each time the robot enters the disabled state.
    */
   protected void disabled() {
-    System.out.println("Default disabled() method running, consider providing your own");
+    //System.out.println("Default disabled() method running, consider providing your own");
   }
 
   /**

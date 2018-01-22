@@ -20,6 +20,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Reportable {
@@ -193,11 +194,11 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 			}
 			
 			if (holdLow) {
-				shiftSol.set(DoubleSolenoid.Value.kReverse);
+				shiftSol.set(false);
 			} else if (highGear) {
-				shiftSol.set(DoubleSolenoid.Value.kForward);
+				shiftSol.set(true);
 			} else {
-				shiftSol.set(DoubleSolenoid.Value.kReverse);
+				shiftSol.set(false);
 			}
 
 			int loopRate = (ctrlMode == ControlMode.MotionProfile ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
@@ -317,17 +318,11 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	}
 	
 	public void setLeftDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
-		leftDrive.config_kP(profileNum, kP, Constants.kTimeoutMs);
-		leftDrive.config_kI(profileNum, kI, Constants.kTimeoutMs);
-		leftDrive.config_kD(profileNum, kD, Constants.kTimeoutMs);
-		leftDrive.config_kF(profileNum, ff, Constants.kTimeoutMs);
+		TalonHelper.setPIDGains(leftDrive, profileNum, kP, kI, kD, ff);
 	}
 	
 	public void setRightDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
-		rightDrive.config_kP(profileNum, kP, Constants.kTimeoutMs);
-		rightDrive.config_kI(profileNum, kI, Constants.kTimeoutMs);
-		rightDrive.config_kD(profileNum, kD, Constants.kTimeoutMs);
-		rightDrive.config_kF(profileNum, ff, Constants.kTimeoutMs);
+		TalonHelper.setPIDGains(rightDrive, profileNum, kP, kI, kD, ff);
 	}
 	public boolean isPositionWithinRange(double range) {
 		return ((Math.abs(leftDrive.getSelectedSensorPosition(0)) - Math.abs(leftDriveSpeed)) < range && (Math.abs(rightDrive.getSelectedSensorPosition(0)) - Math.abs(rightDriveSpeed)) < range);
@@ -378,7 +373,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 		navX = robotControllers.getNavX();
 
-		shiftSol.set(DoubleSolenoid.Value.kReverse);
+		shiftSol.set(false);
 		highGear = false;
 
 		holdLow = false;
@@ -489,7 +484,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 	private AHRS navX;
 
-	private DoubleSolenoid shiftSol;
+	private Solenoid shiftSol;
 
 	private boolean runThread;
 	

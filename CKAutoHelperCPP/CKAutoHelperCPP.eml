@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component jdk="1.8 (1)" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="wpilib" value="project"/>
+		<level name="javadoc" value="project"/>
+	</levels>
+</component>

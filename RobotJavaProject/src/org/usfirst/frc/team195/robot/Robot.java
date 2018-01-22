@@ -70,6 +70,11 @@ public class Robot extends RobbieRobot {
 		
 		while (isAutonomous() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
+	
+	@Override
+	protected void disabled() {
+		super.disabled();
+	}
 
 	@Override
 	public void operatorControl() {

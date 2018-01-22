@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI.Port;
 
@@ -17,12 +17,13 @@ public class Controllers {
 	private TalonSRX rightDrive1;
 	private TalonSRX rightDrive2;
 	private TalonSRX rightDrive3;
-	private DoubleSolenoid shiftSol;
+	private Solenoid shiftSol;
+	private Solenoid ginoSol;
 	
 	private TalonSRX liftMotor;
 	private VictorSPX liftMotorSlave;
 	private TalonSRX intakeMotor;
-	private TalonSRX intakeMotorSlave;
+	private TalonSRX intakeMotor2;
 	private TalonSRX intakeShoulderMotor;
 	private TalonSRX intakeElbowMotor;
 	
@@ -47,12 +48,13 @@ public class Controllers {
 		rightDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(6, rightDrive1);
 
 		//Shift Solenoid Setup
-		shiftSol = new DoubleSolenoid(0, 1);
+		shiftSol = new Solenoid(1);
+		ginoSol = new Solenoid(0);
 
 		//Elevator setup
 		
 		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
-		intakeMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(8, intakeMotor);
+		intakeMotor2 = canSpeedControllerBuilder.createDefaultTalonSRX(8);
 		/*
 		liftMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
 		liftMotorSlave = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(8, liftMotor);
@@ -104,8 +106,12 @@ public class Controllers {
 		return rightDrive3;
 	}
 	
-	public DoubleSolenoid getShiftSol() {
+	public Solenoid getShiftSol() {
 		return shiftSol;
+	}
+	
+	public Solenoid getGinoSol() {
+		return ginoSol;
 	}
 
 	public TalonSRX getLiftMotor() {
@@ -120,8 +126,8 @@ public class Controllers {
 		return intakeMotor;
 	}
 	
-	public TalonSRX getIntakeMotorSlave() {
-		return intakeMotorSlave;
+	public TalonSRX getIntakeMotor2() {
+		return intakeMotor2;
 	}
 	
 	public TalonSRX getIntakeShoulderMotor() {

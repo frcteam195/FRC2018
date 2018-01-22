@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component jdk="1.8 (1)" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="wpilib" scope="COMPILE">
+		<srcroot url="file://$wpilib.sources$"/>
+	</lib>
+	<lib name="networktables" scope="COMPILE">
+		<srcroot url="file://$ntcore.sources$"/>
+	</lib>
+	<lib name="opencv" scope="COMPILE">
+		<srcroot url="file://$opencv.sources$"/>
+	</lib>
+	<lib name="cscore" scope="COMPILE">
+		<srcroot url="file://$cscore.sources$"/>
+	</lib>
+	<lib name="wpiutil" scope="COMPILE">
+		<srcroot url="file://$wpiutil.sources$"/>
+	</lib>
+	<levels>
+		<level name="javadoc" value="project"/>
+	</levels>
+</component>
