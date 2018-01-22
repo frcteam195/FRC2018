@@ -96,14 +96,11 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 		TalonHelper.setPIDGains(intakeMotor2, 0, 0.2, 0, 0, 0.06);
 		intakeMotor1.set(ControlMode.Current, 0);
 		intakeMotor2.set(ControlMode.Current, 0);
-		
-		try {Thread.sleep(20);} catch (Exception ex) {}
 	}
 
 	@Override
 	public void subsystemHome() {
-		
-		try {Thread.sleep(20);} catch (Exception ex) {}
+		;
 	}
 
 	@Override

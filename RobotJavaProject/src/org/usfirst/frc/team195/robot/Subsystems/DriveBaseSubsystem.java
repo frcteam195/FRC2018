@@ -48,23 +48,8 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		rightDrive.configMotionProfileTrajectoryPeriod(0, Constants.kTimeoutMs);
 		rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, Constants.kTimeoutMs);
 
-	/*
-		leftDrive.ConfigNeutralDeadband(kMotorDeadband, Constants.kTimeoutMs);
-		leftDriveSlave1.ConfigNeutralDeadband(kMotorDeadband, Constants.kTimeoutMs);
-		leftDriveSlave2.ConfigNeutralDeadband(kMotorDeadband, Constants.kTimeoutMs);
-		rightDrive.ConfigNeutralDeadband(kMotorDeadband, Constants.kTimeoutMs);
-		rightDriveSlave1.ConfigNeutralDeadband(kMotorDeadband, Constants.kTimeoutMs);
-		rightDriveSlave2.ConfigNeutralDeadband(kMotorDeadband, Constants.kTimeoutMs);
-
-		*/
-
 		setLeftDrivePID(0.2, 0, 2, 0.06, 0);
 		setRightDrivePID(0.1, 0, 2, 0.0635, 0);
-		//setDrivePID(0, 0, 0, 0, 0);
-
-		leftDrive.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		rightDrive.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		try {Thread.sleep(20);} catch (Exception ex) {}
 	}
 	
 	@Override
@@ -78,7 +63,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		navX.zeroYaw();
 		leftDrive.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
 		rightDrive.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		try {Thread.sleep(25);} catch (Exception ex) {}
+		try {Thread.sleep(20);} catch (Exception ex) {}
 	}
 	
 	@Override

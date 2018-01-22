@@ -11,6 +11,7 @@ import java.util.Arrays;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 public class TuneablePID {
@@ -79,7 +80,7 @@ public class TuneablePID {
 	}
 	
 	public void start() {
-		if (Constants.TUNING_PIDS) {
+		if (Constants.TUNING_PIDS && !DriverStation.getInstance().isFMSAttached()) {
 			udpReceiver.start();
 			udpSender.start();
 			System.out.println("Starting PID Tuner for " + name);
