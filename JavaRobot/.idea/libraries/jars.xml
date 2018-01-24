@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jars">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/jars/opencv.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/jars/WPILib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/jars/wpiutil.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/jars/cscore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/jars/ntcore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/jars/CTRE_Phoenix.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
