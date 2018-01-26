@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="FRCUserProgram">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/FRCUserProgram.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
