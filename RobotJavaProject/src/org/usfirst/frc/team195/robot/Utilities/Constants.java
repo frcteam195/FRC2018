@@ -4,7 +4,7 @@ public class Constants {
 	public static final boolean TUNING_PIDS = false;
 	public static final boolean DEBUG = false;
 	public static final boolean REPORTING_ENABLED = true;
-	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
+	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = true;
 
 	//Drive Config Attack 3
 //	public static final int DRIVE_X_AXIS = 0;

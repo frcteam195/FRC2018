@@ -52,6 +52,8 @@ public class Robot extends RobbieRobot {
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
+		ConsoleReporter.report("Console Reporter Running!");
+
 //		try {
 //			ckAuto = new CKAutoBuilder<TalonSRX>(robotControllers.getLeftDrive1(), robotControllers.getRightDrive1(), this);
 //		} catch (Exception ex) {

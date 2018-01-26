@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot.Reporters;
 
+import java.io.Console;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -70,15 +71,16 @@ public class DashboardReporter extends Thread {
 				e.printStackTrace();
 			}
 		}
-
+		ConsoleReporter.report("Entering Dashboard Thread!");
 		while (runThread) {
 			dashboardSendThreadControlStart = Timer.getFPGATimestamp();
             try {
                 sendData = createSendData();
+                ConsoleReporter.report(new String(sendData));
                 sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, SEND_PORT);
                 clientSocket.send(sendPacket);
             } catch (Exception ex) {
-	        		
+				ConsoleReporter.report("Failed Send");
 	        }
 			do {
 				dashboardSendThreadControlEnd = Timer.getFPGATimestamp();
@@ -97,17 +99,22 @@ public class DashboardReporter extends Thread {
 	}
 
 	private byte[] createSendData() {
+		//ConsoleReporter.report("Creating send data!");
 		String sendStr = "";
 		for (CustomSubsystem customSubsystem : subsystemList) {
 			if (customSubsystem instanceof Reportable)
-				sendStr += ((Reportable) customSubsystem).generateReport();
+				ConsoleReporter.report("Is a reportable");//sendStr += ((Reportable) customSubsystem).generateReport();
+			else
+				ConsoleReporter.report("Not a reportable");
 		}
+		ConsoleReporter.report(sendStr);
 		return sendStr.getBytes();
 	}
 	
 	@Override
 	public void start() {
 		runThread = true;
+		ConsoleReporter.report("Dashboard Reporter Started!");
 		super.start();
 	}
 	

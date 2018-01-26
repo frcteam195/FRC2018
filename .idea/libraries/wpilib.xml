@@ -7,7 +7,6 @@
       <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib.jar!/" />
       <root url="jar://$USER_HOME$/wpilib/java/current/lib/wpiutil.jar!/" />
     </CLASSES>
-    <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore-sources.jar!/" />
       <root url="jar://$USER_HOME$/wpilib/java/current/lib/ntcore-sources.jar!/" />

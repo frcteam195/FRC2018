@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="JOGL">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/gluegen-rt-natives-macosx-universal.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/gluegen-rt.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/gluegen.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/joal-natives-macosx-universal.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/joal.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/jocl-natives-macosx-universal.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/jocl.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/jogl-all-natives-macosx-universal.jar!/" />
+      <root url="jar://$USER_HOME$/JavaLibs/JOGL/jogl-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
