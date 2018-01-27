@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="wpilib">
+    <CLASSES>
+      <root url="jar://$cscore$!/" />
+      <root url="jar://$networktables$!/" />
+      <root url="jar://$opencv$!/" />
+      <root url="jar://$wpilib$!/" />
+      <root url="jar://$wpiutil$!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$cscore.sources$!/" />
+      <root url="jar://$ntcore.sources$!/" />
+      <root url="jar://$opencv.sources$!/" />
+      <root url="jar://$wpilib.sources$!/" />
+      <root url="jar://$wpiutil.sources$!/" />
+    </SOURCES>
+  </library>
+</component>
