@@ -281,9 +281,12 @@ function addPoint(x, y, radius) {
 
     if(typeof radius === "undefined") {
   		radius = 0;
-  		if ($("table tr").length > 1) {
-  			var idx = parseInt($('tbody').children().length) - 1;
-            $($($($('tbody').children()[idx]).children()[2]).children()).val(15);
+  		if ($("table tr").length > 1 && waypoints.length > 1) {
+            if (x !== waypoints[waypoints.length - 1].position.x && x !== waypoints[waypoints.length - 2].position.x &&
+				y !== waypoints[waypoints.length - 1].position.y && y !== waypoints[waypoints.length - 2].position.y) {
+                var idx = parseInt($('tbody').children().length) - 1;
+                $($($($('tbody').children()[idx]).children()[2]).children()).val(15);
+            }
 		}
   	}
 
@@ -311,6 +314,13 @@ function addPoint(x, y, radius) {
 }
 
 function update() {
+    if ($("table tr").length > 1) {
+        var idx = parseInt($('tbody').children().length) - 1;
+    	if ($($($($('tbody').children()[idx]).children()[2]).children()).val() !== 0) {
+            $($($($('tbody').children()[idx]).children()[2]).children()).val(0);
+        }
+    }
+
 	waypoints = [];
 	$('tbody').children('tr').each(function () {
         var x = parseInt( $($($(this).children()).children()[0]).val() );
