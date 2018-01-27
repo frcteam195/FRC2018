@@ -1,4 +1,5 @@
 var waypoints = [];
+var arcArr = [];
 var ctx;
 var width = 1656; //pixels
 var height = 823; //pixels
@@ -20,6 +21,13 @@ var maxSpeedColor = [0, 255, 0];
 var minSpeed = 0;
 var minSpeedColor = [255, 0, 0];
 var pathFillColor = "rgba(150, 150, 150, 0.5)";
+
+const wheelDiameter = 5;	//Wheel Diameter in inches
+const accelValue = 20; 	//Inches/second^2
+const maxVelocity = 40; //Inches/second
+const timeStep = 0.01;	//Time step in seconds
+
+
 
 class Translation2d {
 	constructor(x, y) {
@@ -184,8 +192,8 @@ class Arc {
 	draw() {
 		var sTrans = Translation2d.diff(this.center, this.lineA.end);
 		var eTrans = Translation2d.diff(this.center, this.lineB.start);
-		console.log(sTrans);
-		console.log(eTrans);
+		//console.log(sTrans);
+		//console.log(eTrans);
 		var sAngle, eAngle;
 		if(Translation2d.cross(sTrans, eTrans) > 0) {
 			eAngle = -Math.atan2(sTrans.y, sTrans.x);
@@ -218,8 +226,60 @@ class Arc {
 
 	}
 
+	length() {
+		if (typeof this.lineA !== 'undefined' && typeof this.lineB !== 'undefined') {
+            return 2 * this.radius * Math.asin(this.pointDistance(this.lineA.start.x, this.lineA.start.y, this.lineB.end.x, this.lineB.end.y) / (2 * this.radius));
+        }
+		else
+			console.log("Error calculating length");
+	}
+
+	getPointsFromArc(initialPosition, initialVelocity, decelerate) {
+		var points = [];
+        var posCurrent = 0;
+        var myLength = this.length();
+
+        if (typeof decelerate === "undefined")
+        	decelerate = 1;
+        else
+        	decelerate = 1;
+
+        for (var i = 0; posCurrent < myLength; i++) {
+        	var tCurrent = i * timeStep;
+            var currentAccel = 0;
+
+            currentAccel = velCurrent >= maxVelocity ? 0 : accelValue;
+
+        	if (decelerate === 1)
+        		currentAccel = velCurrent >= maxVelocity ? 0 : accelValue;
+        	else
+        		currentAccel = velCurrent < 0 ? 0 : accelValue * decelerate;
+
+        	posCurrent = Math.min(currentAccel * Math.pow(tCurrent,2) * 0.5 + initialVelocity * tCurrent + initialPosition, myLength);
+        	var velCurrent = currentAccel * tCurrent + initialVelocity;
+        	velCurrent = velCurrent > maxVelocity ? maxVelocity : velCurrent;
+        	//velCurrent = velCurrent < 0 ? 0 : velCurrent;
+        	points.push(new TalonSRXPoint(posCurrent, velCurrent, timeStep));
+        	initialVelocity = velCurrent;
+        	initialPosition = posCurrent;
+		}
+		return points;
+	}
+
+    pointDistance(x1, y1, x2, y2) {
+        return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+    }
+
 	static fromPoints(a, b, c) {
 		return new Arc( new Line(a, b), new Line(b, c));
+	}
+}
+
+class TalonSRXPoint {
+	constructor (pos, vel, time) {
+		this.pos = pos;
+		this.vel = vel;
+		this.time = time;
 	}
 }
 
@@ -238,8 +298,8 @@ function init() {
         ctx.drawImage(image, 0, 0, width, height);
         update();
     }
-    imageFlipped = new Image();
-    imageFlipped.src = 'fieldflipped.png';
+    //imageFlipped = new Image();
+    //imageFlipped.src = 'fieldflipped.png';
     $('input').bind("change paste keyup", function() {
 		console.log("change");
 		clearTimeout(wto);
@@ -324,7 +384,7 @@ function update() {
 	waypoints = [];
 	$('tbody').children('tr').each(function () {
         var x = parseInt( $($($(this).children()).children()[0]).val() );
-        console.log(x);
+        //console.log(x);
         var y = parseInt( $($($(this).children()).children()[1]).val() );
         var radius = parseInt( $($($(this).children()).children()[2]).val() );
         var speed = parseInt( $($($(this).children()).children()[3]).val() );
@@ -375,6 +435,7 @@ function drawRotatedRect(pos,w,h,angle,strokeColor,fillColor,noFill){
 
 function drawPoints() {
 	clear();
+	arcArr = [];
 	var i = 0;
 	ctx.beginPath();
 	do {
@@ -386,9 +447,42 @@ function drawPoints() {
 	i=0;
 	do {
 		var a = Arc.fromPoints(getPoint(i), getPoint(i+1), getPoint(i+2));
+		arcArr.push(a);
 		a.draw();
 		i++;
 	} while(i < waypoints.length - 2);
+
+}
+
+function doStuff() {
+	var points = [];
+	console.log(arcArr);
+	for (var i = 0; i < arcArr.length; i++) {
+		console.log("i: " + i);
+
+         var tmp = arcArr[i];
+        if (i === 0) {
+            console.log("Beginning zero arc");
+			var tmpPoints = tmp.getPointsFromArc(0, 0);
+
+			for (var j = 0; j < tmpPoints.length; j++) {
+				points.push(tmpPoints[j]);
+			}
+        } else {
+			console.log("Beginning non zero arc");
+			var lastPoint = points[points.length-1];
+			console.log(lastPoint);
+			if (i === arcArr.length - 1)
+            	var tmpPoints = tmp.getPointsFromArc(lastPoint.pos, lastPoint.vel, true);
+			else
+                var tmpPoints = tmp.getPointsFromArc(lastPoint.pos, lastPoint.vel);
+
+            for (var j = 0; j < tmpPoints.length; j++) {
+                points.push(tmpPoints[j]);
+            }
+        }
+        console.log(points);
+	}
 
 }
 
@@ -410,7 +504,7 @@ function importData() {
 			let re = /(?:\/\/\sWAYPOINT_DATA:\s)(.*)/gm;
 			let reversed = /(?:\/\/\sIS_REVERSED:\s)(.*)/gm;
 			let title = /(?:\/\/\sFILE_NAME:\s)(.*)/gm;
-			console.log();
+			//console.log();
 			$("#title").val(title.exec(c)[1]);
 			$("#isReversed").prop('checked', reversed.exec(c)[1].includes("true"));
 			let jde = re.exec(c)[1];
@@ -460,7 +554,7 @@ import java.util.ArrayList;
 import org.usfirst.frc.team195.robot.auto.paths.PathBuilder.Waypoint;
 import org.usfirst.frc.team195.robot.util.control.Path;
 import org.usfirst.frc.team195.robot.util.math.RigidTransform2d;
-importorg.usfirst.frc.team195.robot.util.math.Rotation2d;
+import org.usfirst.frc.team195.robot.util.math.Rotation2d;
 import org.usfirst.frc.team195.robot.util.math.Translation2d;
 
 public class ${title} implements PathContainer {
