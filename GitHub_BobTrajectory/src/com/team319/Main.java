@@ -36,28 +36,28 @@ public class Main {
 		
 		
 		
-		BobPath ThreeFeet = new BobPath(standardConfig, "ThreeFeet", 1);
-		ThreeFeet.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
-		ThreeFeet.addWaypoint(new WaypointSequence.Waypoint(48, -36, Math.toRadians(-10.0)));
-		ThreeFeet.addWaypoint(new WaypointSequence.Waypoint(96, 0, Math.toRadians(30.0)));
-		ThreeFeet.addWaypoint(new WaypointSequence.Waypoint(120, 24, Math.toRadians(10.0)));
+		BobPath cp = new BobPath(standardConfig, "ThreeFeet", 1);
+		cp.addPoint(0, 0, 0);
+		cp.addPoint(18, 0, 0);
+		cp.addPoint(65, -36, 0);
+		cp.addPoint(80, -36, 0);
 		
-		BobPath FourFeet = new BobPath(standardConfig, "FourFeet", 1);
+		/*BobPath FourFeet = new BobPath(standardConfig, "FourFeet", 1);
 		FourFeet.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		FourFeet.addWaypoint(new WaypointSequence.Waypoint(4.0, 4.0, Math.toRadians(15.0)));
 		FourFeet.addWaypoint(new WaypointSequence.Waypoint(8.0, 5.0, Math.toRadians(0.0)));
-		FourFeet.addWaypoint(new WaypointSequence.Waypoint(8.0, 5.0, Math.toRadians(0.0)));
+		FourFeet.addWaypoint(new WaypointSequence.Waypoint(8.0, 5.0, Math.toRadians(0.0)));*/
 		
 //		BobPath OneFoot = new BobPath(standardConfig, "OneFoot", 1);
 //		OneFoot.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 //		OneFoot.addWaypoint(new WaypointSequence.Waypoint(1.0, 0.0, Math.toRadians(0.0)));
 //		
 		SrxTranslator sx = new SrxTranslator();
-		SrxTrajectory st = sx.getSrxTrajectoryFromChezyPath(BobPathGenerator.makePath(ThreeFeet), standardConfig);
+		SrxTrajectory st = sx.getSrxTrajectoryFromChezyPath(BobPathGenerator.makePath(cp), standardConfig);
 		System.out.println(st.leftProfile.getTalonTrajectory("Left"));
 		System.out.println(st.rightProfile.getTalonTrajectory("Right"));
 
-				BobPathGenerator.exportPath("Paths", ThreeFeet);
+				BobPathGenerator.exportPath("Paths", cp);
 				//BobPathGenerator.exportPath("Paths", FourFeet);
 				
 				while (true) {;}

@@ -24,6 +24,10 @@ public class BobPath {
 		waypointSequence = toCopy.waypointSequence;
 	}
 	
+	public void addPoint(double x, double y, double theta) {
+		waypointSequence.addWaypoint(new Waypoint(x, y, Math.toRadians(theta)));
+	}
+	
 	public void setWaypointSequence(WaypointSequence wps){
 		waypointSequence = wps;
 	}

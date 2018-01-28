@@ -19,9 +19,9 @@ public class AutoProfileTest3 implements CustomAuto {
 	 	driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 	 	cp = new CyberPath();
 	 	cp.addPoint(0, 0, 0);
-	 	cp.addPoint(48, -36, -10);
-	 	cp.addPoint(96, 0, 30);
-	 	cp.addPoint(100, 24, 10);
+	 	cp.addPoint(18, 0, 0);
+	 	cp.addPoint(65, -36, 0);
+	 	cp.addPoint(80, -36, 0);
 
 		preprocessedPoints = cp.getSRXTrajectory();
 		if (preprocessedPoints.getLeftWheelTrajectory().length > 350 || preprocessedPoints.getRightWheelTrajectory().length > 350)

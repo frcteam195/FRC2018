@@ -10,14 +10,14 @@ public class Constants {
 	public static final SRXTrajectoryConfig SXC = new SRXTrajectoryConfig();
 	static {
 		SXC.name = "StandardConfig";
-		SXC.dt = .01;
-		SXC.max_acc = 60.0;
-		SXC.max_jerk = 720.0;
-		SXC.max_vel = 84.0;
-		SXC.wheelbaseWidthInches = 24.5;
-		SXC.wheelDiameterInches = 4.88;
-		SXC.encoderRotToWheelRotFactor = 1;
-		SXC.encoderTicksPerRev = 4096;
+		SXC.dt = .01;   //Time step in seconds
+		SXC.max_acc = 30;   //Inches per sec^2
+		SXC.max_jerk = 720.0;   //Inches per sec^3
+		SXC.max_vel = 54.0; //Inches per sec
+		SXC.wheelbaseWidthInches = 24.5;    //Inches
+		SXC.wheelDiameterInches = 4.88; //Inches
+		SXC.encoderRotToWheelRotFactor = 1; //Conversion from encoder rotations to wheel rotations
+		SXC.encoderTicksPerRev = 4096;  //Encoder ticks per revolution of encoder
 	}
 
 	//Drive Config Attack 3

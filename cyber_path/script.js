@@ -23,11 +23,10 @@ var minSpeedColor = [255, 0, 0];
 var pathFillColor = "rgba(150, 150, 150, 0.5)";
 
 const wheelDiameter = 5;	//Wheel Diameter in inches
-const accelValue = 20; 	//Inches/second^2
-const maxVelocity = 40; //Inches/second
+const accelValue = 10; 	//Inches/second^2
+const maxVelocity = 20; //Inches/second
 const timeStep = 0.01;	//Time step in seconds
-
-
+const encoderTicksPerRev = 4096;
 
 class Translation2d {
 	constructor(x, y) {
@@ -152,6 +151,10 @@ class Line {
 		}
 	}
 
+	length() {
+        return Math.sqrt(Math.pow(this.end.x-this.start.x, 2) + Math.pow(this.end.y-this.start.y, 2));
+	}
+
 	translation() {
 		return new Translation2d(this.pointB.position.y - this.pointA.position.y, this.pointB.position.x - this.pointA.position.x)
 	}
@@ -226,43 +229,72 @@ class Arc {
 
 	}
 
-	length() {
+	arcLength() {
 		if (typeof this.lineA !== 'undefined' && typeof this.lineB !== 'undefined') {
-            return 2 * this.radius * Math.asin(this.pointDistance(this.lineA.start.x, this.lineA.start.y, this.lineB.end.x, this.lineB.end.y) / (2 * this.radius));
+            return 2 * this.radius * Math.asin(this.pointDistance(this.lineA.end.x, this.lineA.end.y, this.lineB.start.x, this.lineB.start.y) / (2 * this.radius));
         }
 		else
 			console.log("Error calculating length");
 	}
 
-	getPointsFromArc(initialPosition, initialVelocity, decelerate) {
+	getPointsFromArc(initialPosition, initialVelocity) {
 		var points = [];
-        var posCurrent = 0;
-        var myLength = this.length();
+        var posCurrent = initialPosition;
 
-        if (typeof decelerate === "undefined")
-        	decelerate = 1;
-        else
-        	decelerate = 1;
-
-        for (var i = 0; posCurrent < myLength; i++) {
-        	var tCurrent = i * timeStep;
+        var i = 0;
+        var lineALength = this.lineA.length() + posCurrent;
+        console.log("Line A Length: " + lineALength);
+        for (; posCurrent < lineALength; i++) {
+            var tCurrent = i * timeStep;
             var currentAccel = 0;
 
             currentAccel = velCurrent >= maxVelocity ? 0 : accelValue;
 
-        	if (decelerate === 1)
-        		currentAccel = velCurrent >= maxVelocity ? 0 : accelValue;
-        	else
-        		currentAccel = velCurrent < 0 ? 0 : accelValue * decelerate;
-
-        	posCurrent = Math.min(currentAccel * Math.pow(tCurrent,2) * 0.5 + initialVelocity * tCurrent + initialPosition, myLength);
-        	var velCurrent = currentAccel * tCurrent + initialVelocity;
-        	velCurrent = velCurrent > maxVelocity ? maxVelocity : velCurrent;
-        	//velCurrent = velCurrent < 0 ? 0 : velCurrent;
-        	points.push(new TalonSRXPoint(posCurrent, velCurrent, timeStep));
-        	initialVelocity = velCurrent;
-        	initialPosition = posCurrent;
+            posCurrent = Math.min(currentAccel * Math.pow(tCurrent,2) * 0.5 + initialVelocity * tCurrent + initialPosition, lineALength);
+            var velCurrent = currentAccel * tCurrent + initialVelocity;
+            velCurrent = velCurrent > maxVelocity ? maxVelocity : velCurrent;
+            //velCurrent = velCurrent < 0 ? 0 : velCurrent;
+            points.push(new TalonSRXPoint(convertInchestoRotations(posCurrent), convertInchesPerSecondToNativeUnitsPer100ms(velCurrent), timeStep));
+            initialVelocity = velCurrent;
+            initialPosition = posCurrent;
 		}
+
+		if (!((this.lineA.start.x === this.lineA.end.x || this.lineB.start.x === this.lineB.end.x) || (this.lineA.start.y === this.lineA.end.y || this.lineB.start.y === this.lineB.end.y))) {
+            var currArcLength = this.arcLength() + posCurrent;
+            console.log("Arc Length: " + currArcLength);
+            for (; posCurrent < currArcLength; i++) {
+                var tCurrent = i * timeStep;
+                var currentAccel = 0;
+
+                currentAccel = velCurrent >= maxVelocity ? 0 : accelValue;
+
+                posCurrent = Math.min(currentAccel * Math.pow(tCurrent, 2) * 0.5 + initialVelocity * tCurrent + initialPosition, currArcLength);
+                var velCurrent = currentAccel * tCurrent + initialVelocity;
+                velCurrent = velCurrent > maxVelocity ? maxVelocity : velCurrent;
+                //velCurrent = velCurrent < 0 ? 0 : velCurrent;
+                points.push(new TalonSRXPoint(convertInchestoRotations(posCurrent), convertInchesPerSecondToNativeUnitsPer100ms(velCurrent), timeStep));
+                initialVelocity = velCurrent;
+                initialPosition = posCurrent;
+            }
+        }
+
+        var lineBLength = this.lineB.length() + posCurrent;
+        console.log("Line B Length: " + lineBLength);
+        for (; posCurrent < lineBLength; i++) {
+            var tCurrent = i * timeStep;
+            var currentAccel = 0;
+
+            currentAccel = velCurrent >= maxVelocity ? 0 : accelValue;
+
+            posCurrent = Math.min(currentAccel * Math.pow(tCurrent,2) * 0.5 + initialVelocity * tCurrent + initialPosition, lineBLength);
+            var velCurrent = currentAccel * tCurrent + initialVelocity;
+            velCurrent = velCurrent > maxVelocity ? maxVelocity : velCurrent;
+            //velCurrent = velCurrent < 0 ? 0 : velCurrent;
+            points.push(new TalonSRXPoint(convertInchestoRotations(posCurrent), convertInchesPerSecondToNativeUnitsPer100ms(velCurrent), timeStep));
+            initialVelocity = velCurrent;
+            initialPosition = posCurrent;
+        }
+
 		return points;
 	}
 
@@ -283,6 +315,21 @@ class TalonSRXPoint {
 	}
 }
 
+function convertInchestoRotations(inches) {
+    return inches / (wheelDiameter * Math.PI);
+}
+
+function convertInchesPerSecondToNativeUnitsPer100ms(ips) {
+	return (ips * 60) / (wheelDiameter * Math.PI) * encoderTicksPerRev / 600;
+}
+
+function convertRotationstoInches(rotations) {
+    return rotations * (wheelDiameter * Math.PI);
+}
+
+function convertNativeUnitsPer100msToInchesPerSecond(ips) {
+    return (ips / 60) * (wheelDiameter * Math.PI) / encoderTicksPerRev * 600;
+}
 
 function init() { 
 	$("#field").css("width", (width / 1.5) + "px");
@@ -458,7 +505,7 @@ function doStuff() {
 	var points = [];
 	console.log(arcArr);
 	for (var i = 0; i < arcArr.length; i++) {
-		console.log("i: " + i);
+		console.log(arcArr[i]);
 
          var tmp = arcArr[i];
         if (i === 0) {
@@ -473,9 +520,9 @@ function doStuff() {
 			var lastPoint = points[points.length-1];
 			console.log(lastPoint);
 			if (i === arcArr.length - 1)
-            	var tmpPoints = tmp.getPointsFromArc(lastPoint.pos, lastPoint.vel, true);
+            	var tmpPoints = tmp.getPointsFromArc(convertRotationstoInches(lastPoint.pos), convertNativeUnitsPer100msToInchesPerSecond(lastPoint.vel));
 			else
-                var tmpPoints = tmp.getPointsFromArc(lastPoint.pos, lastPoint.vel);
+                var tmpPoints = tmp.getPointsFromArc(convertRotationstoInches(lastPoint.pos), convertNativeUnitsPer100msToInchesPerSecond(lastPoint.vel));
 
             for (var j = 0; j < tmpPoints.length; j++) {
                 points.push(tmpPoints[j]);
