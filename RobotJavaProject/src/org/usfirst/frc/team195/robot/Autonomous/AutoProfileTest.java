@@ -11,16 +11,13 @@ public class AutoProfileTest implements CustomAuto {
 	 public AutoProfileTest() {
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 	}
-	
-	@Override
-	public void init() {
-		;
-	}
 
 	@Override
 	public void start() {
 		driveBaseSubsystem.setMotionProfileTrajectory(kMotionProfile, kMotionProfile);
 		driveBaseSubsystem.setControlMode(ControlMode.MotionProfile);
+		driveBaseSubsystem.setBrakeMode(true);
+		driveBaseSubsystem.setGear(false);
 		driveBaseSubsystem.startMPTrajectory();
 	}
 	

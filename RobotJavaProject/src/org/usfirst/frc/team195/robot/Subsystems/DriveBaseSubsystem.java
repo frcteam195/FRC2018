@@ -1,21 +1,23 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
+import java.io.Console;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.Thread;
 
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import com.ctre.phoenix.motorcontrol.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -23,17 +25,24 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Utilities.Motion.SRX.SRXDriveBaseTrajectory;
 
 public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Reportable {
 	public static final int MIN_DRIVE_LOOP_TIME_STANDARD = 10;
 	public static final int MIN_DRIVE_LOOP_TIME_MP = 3;
 
+	private TuneablePID tuneableDrive;
+	private boolean mPrevShiftVal;
+	private boolean mPrevBrakeModeVal;
+
 	@Override
 	public void init() {
+		leftDrive.setSensorPhase(true);
+
 		rightDrive.setInverted(true);
 		rightDriveSlave1.setInverted(true);
 		rightDriveSlave2.setInverted(true);
-		rightDrive.setSensorPhase(false);
+		rightDrive.setSensorPhase(true);
 
 		leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
 		leftDrive.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
@@ -48,14 +57,25 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		rightDrive.configMotionProfileTrajectoryPeriod(0, Constants.kTimeoutMs);
 		rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, Constants.kTimeoutMs);
 
-		setLeftDrivePID(0.2, 0, 2, 0.06, 0);
-		setRightDrivePID(0.1, 0, 2, 0.0635, 0);
+		boolean leftSensorPresent = leftDrive.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		boolean rightSensorPresent = rightDrive.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		if (!leftSensorPresent || !rightSensorPresent) {
+			String msg = "Could not detect encoder! \r\n\tLeft Encoder Detected: " + leftSensorPresent + "\r\n\tRight Encoder Detected: " + rightSensorPresent;
+			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
+			DriverStation.reportError(msg, false);
+		}
+
+		setLeftDrivePID(0.2, 0, 2, 0.1, 0); //setLeftDrivePID(0.4, 0, 4, 0.35, 0);
+		setLeftDrivePID(0.2, 0, 2, 0.121, 1); //setLeftDrivePID(0.2, 0, 2, 0.121, 1);
+		setRightDrivePID(0.2, 0, 2, 0.1, 0); //setRightDrivePID(0.4, 0, 4, 0.37, 0);
+		setRightDrivePID(0.2, 0, 2, 0.134, 1); //setRightDrivePID(0.2, 0, 2, 0.134, 1);
 	}
 	
 	@Override
 	public void start() {
 		runThread = true;
 		super.start();
+		//tuneableDrive.start();
 	}
 
 	public void terminate() {
@@ -86,23 +106,26 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 					requestSetPosition = false;
 					_subsystemMutex.release();
 				} catch (Exception ex) {
-					
+					ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 				}
 			}
 
 			ControlMode ctrlMode = leftDrive.getControlMode();
 
 			if(ctrlMode != requestedControlMode) {
-				ConsoleReporter.report("Changing Control Modes!");
+				ConsoleReporter.report("Changing Control Modes!", MessageLevel.INFO);
 
 				switch (requestedControlMode) {
 					case MotionProfile:
+						ConsoleReporter.report("Set to motion profile disabled!", MessageLevel.INFO);
 						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable.value);
 						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable.value);
+						setBrakeMode(true);
 						break;
 					case Velocity:
 						leftDrive.set(ControlMode.Velocity, 0);
 						rightDrive.set(ControlMode.Velocity, 0);
+						setBrakeMode(true);
 						break;
 					default:
 						leftDrive.set(ControlMode.PercentOutput, 0);
@@ -119,12 +142,11 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 					if(mpStatusLeft.hasUnderrun){
 						leftDrive.clearMotionProfileHasUnderrun(Constants.kTimeoutMs);
-						ConsoleReporter.report("Left Drive Underrun");
+						ConsoleReporter.report("Left Drive Underrun", MessageLevel.ERROR);
 					}
-
 					if(mpStatusRight.hasUnderrun){
 						rightDrive.clearMotionProfileHasUnderrun(Constants.kTimeoutMs);
-						ConsoleReporter.report("Right Drive Underrun");
+						ConsoleReporter.report("Right Drive Underrun", MessageLevel.ERROR);
 					}
 
 					leftDrive.processMotionProfileBuffer();
@@ -132,7 +154,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 					if (mpStatusLeft.activePointValid && mpStatusLeft.isLast) {
 						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
-						ConsoleReporter.report("Hold Left");
+						ConsoleReporter.report("Hold Left", MessageLevel.INFO);
 					}
 					else if (startMPLeft) {
 						try {
@@ -140,10 +162,10 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 							startMPLeft = false;
 							_subsystemMutex.release();
 						} catch (Exception ex) {
-
+							ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 						}
 						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						ConsoleReporter.report("Enabling Left Motion Profile");
+						ConsoleReporter.report("Enabling Left Motion Profile", MessageLevel.INFO);
 					}
 					else if (mpStatusLeft.topBufferCnt == 0 && mpStatusLeft.btmBufferCnt == 0) {
 						//leftDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
@@ -152,7 +174,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 					if (mpStatusRight.activePointValid && mpStatusRight.isLast) {
 						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
-						ConsoleReporter.report("Hold Right");
+						ConsoleReporter.report("Hold Right", MessageLevel.INFO);
 					}
 					else if (startMPRight) {
 						try {
@@ -160,16 +182,16 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 							startMPRight = false;
 							_subsystemMutex.release();
 						} catch (Exception ex) {
-							
+							ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 						}
 						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						ConsoleReporter.report("Enabling Right Motion Profile");
+						ConsoleReporter.report("Enabling Right Motion Profile", MessageLevel.INFO);
 					}
 					else if (mpStatusRight.topBufferCnt == 0 && mpStatusRight.btmBufferCnt == 0) {
 						//rightDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
 						//cout << "Bad2Right" << endl;
 					}
-
+					//ConsoleReporter.report("Motion Loop!", MessageLevel.INFO);
 					break;
 				case Velocity:
 					leftDrive.set(ControlMode.Velocity, leftDriveSpeed * Constants.kSensorUnitsPerRotation / 600);
@@ -181,13 +203,13 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 					rightDrive.set(ControlMode.PercentOutput, rightDriveSpeed);
 					break;
 			}
-			
+
 			if (holdLow) {
-				shiftSol.set(false);
+				shift(false);
 			} else if (highGear) {
-				shiftSol.set(true);
+				shift(true);
 			} else {
-				shiftSol.set(false);
+				shift(false);
 			}
 
 			int loopRate = (ctrlMode == ControlMode.MotionProfile ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
@@ -217,6 +239,31 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	public synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {
 		setDriveSpeed(leftDriveSpeed, rightDriveSpeed, false);
 	}
+
+	private void shift(boolean highGear) {
+		try {
+			_subsystemMutex.acquire();
+			if (mPrevShiftVal != highGear) {
+				if (highGear) {
+					ConsoleReporter.report("Setting drive gains for high gear!", MessageLevel.INFO);
+					leftDrive.selectProfileSlot(0, 1);
+					rightDrive.selectProfileSlot(0, 1);
+				} else {
+					ConsoleReporter.report("Setting drive gains for low gear!", MessageLevel.INFO);
+					leftDrive.selectProfileSlot(0, 0);
+					rightDrive.selectProfileSlot(0, 0);
+				}
+
+				shiftSol.set(highGear);
+				mPrevShiftVal = highGear;
+			}
+			_subsystemMutex.release();
+		} catch (Exception ex) {
+			StringWriter s = new StringWriter();
+			ex.printStackTrace(new PrintWriter(s));
+			ConsoleReporter.report(s.toString(), MessageLevel.ERROR);
+		}
+	}
 	
 	public synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, boolean slowDown) {
 		try {
@@ -231,7 +278,9 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 			}
 			_subsystemMutex.release();
 		} catch (Exception ex) {
-
+			StringWriter s = new StringWriter();
+			ex.printStackTrace(new PrintWriter(s));
+			ConsoleReporter.report(s.toString(), MessageLevel.ERROR);
 		}
 	}
 	
@@ -250,18 +299,19 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 			this.position = position;
 			_subsystemMutex.release();
 		} catch (Exception ex) {
-
+			ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 		}
 	}
 	
-	public synchronized void startMPTrajectory() {
+	public void startMPTrajectory() {
 		try {
+			ConsoleReporter.report("Starting Motion!", MessageLevel.INFO);
 			_subsystemMutex.acquire();
 			startMPLeft = true;
 			startMPRight = true;
 			_subsystemMutex.release();
 		} catch (Exception ex) {
-
+			ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 		}
 	}
 	
@@ -274,6 +324,10 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	}
 	public MotionProfileStatus getRightMPStatus() {
 		return mpStatusRight;
+	}
+
+	public synchronized void setMotionProfileTrajectory(SRXDriveBaseTrajectory srxDriveBaseTrajectory) {
+		setMotionProfileTrajectory(srxDriveBaseTrajectory.getLeftWheelTrajectory(), srxDriveBaseTrajectory.getRightWheelTrajectory());
 	}
 
 	public synchronized void setMotionProfileTrajectory(double[][] mpLeftBuffer, double[][] mpRightBuffer) {
@@ -291,18 +345,20 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 			leftMPBufferThread.join();
 			rightMPBufferThread.join();
 		} catch (Exception ex) {
-			ConsoleReporter.report(ex.toString());
+			ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 		}
 	}
 	
-	public synchronized void setControlMode(ControlMode controlMode) {
-		try {
-			_subsystemMutex.acquire();
-			requestedControlMode = controlMode;
-			_subsystemMutex.release();
-		} catch (Exception ex) {
-
-		}	
+	public void setControlMode(ControlMode controlMode) {
+		if (controlMode != requestedControlMode) {
+			try {
+				_subsystemMutex.acquire();
+				requestedControlMode = controlMode;
+				_subsystemMutex.release();
+			} catch (Exception ex) {
+				ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
+			}
+		}
 	}
 	
 	public ControlMode getControlMode() {
@@ -337,7 +393,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 			try {
 				instance = new DriveBaseSubsystem();
 			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString());
+				ConsoleReporter.report(ex.toString(), MessageLevel.DEFCON1);
 			}
 		}
 		
@@ -348,6 +404,18 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		subsystemList.add(getInstance());
 		return instance;
 	}
+
+	public synchronized void setBrakeMode(boolean brakeMode) {
+		if (mPrevBrakeModeVal != brakeMode) {
+			leftDrive.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			leftDriveSlave1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			leftDriveSlave2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			rightDrive.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			rightDriveSlave1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			rightDriveSlave2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			mPrevBrakeModeVal = brakeMode;
+		}
+	}
 	
 	@Override
 	public String toString() {
@@ -357,6 +425,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	private DriveBaseSubsystem() throws Exception {
 		super();
 		ds = DriverStation.getInstance();
+		_subsystemMutex = new Semaphore(1);
 
 		Controllers robotControllers = Controllers.getInstance();
 		leftDrive = robotControllers.getLeftDrive1();
@@ -370,8 +439,13 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 
 		navX = robotControllers.getNavX();
 
-		shiftSol.set(false);
+
 		highGear = false;
+		mPrevShiftVal = false;
+		shift(false);
+
+		mPrevBrakeModeVal = false;
+		setBrakeMode(true);
 
 		holdLow = false;
 		leftDriveSpeed = 0;
@@ -392,8 +466,11 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		requestedControlMode = ControlMode.MotionProfile;
 		startMPLeft = false;
 		startMPRight = false;
-		
-		_subsystemMutex = new Semaphore(1);
+
+		mpStatusLeft = new MotionProfileStatus();
+		mpStatusRight = new MotionProfileStatus();
+
+		//tuneableDrive = new TuneablePID("RightDrive", rightDrive, 0, 5808, true, true);
 	}
 
 	private static DriveBaseSubsystem instance = null;
@@ -403,10 +480,10 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	private boolean startMPLeft;
 	private boolean startMPRight;
 
-	private synchronized void processMPLeft() {
+	private void processMPLeft() {
 		processMP(leftDrive, mpLeftBuffer);
 	}
-	private synchronized void processMPRight() {
+	private void processMPRight() {
 		processMP(rightDrive, mpRightBuffer);
 	}
 	private void processMP(TalonSRX talonSRX, double[][] mpBuffer) {
@@ -422,7 +499,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 				point.profileSlotSelect0 = 0;
 				point.profileSlotSelect1 = 0;
 			} catch (Exception ex) {
-
+				ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 			}
 
 			/*
@@ -447,7 +524,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		TrajectoryDuration retval = TrajectoryDuration.Trajectory_Duration_0ms;
 		retval = retval.valueOf(durationMs);
 		if (retval.value != durationMs) {
-			ConsoleReporter.report("Trajectory Duration not supported - use configMotionProfileTrajectoryPeriod instead");
+			ConsoleReporter.report("Motion Duration not supported - use configMotionProfileTrajectoryPeriod instead", MessageLevel.ERROR);
 		}
 		return retval;
 	}

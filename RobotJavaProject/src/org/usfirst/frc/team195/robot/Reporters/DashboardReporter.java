@@ -41,7 +41,7 @@ public class DashboardReporter extends Thread {
 			try {
 				instance = new DashboardReporter(subsystemList);
 			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString());
+				ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 			}
 		}
 		
@@ -71,16 +71,16 @@ public class DashboardReporter extends Thread {
 				e.printStackTrace();
 			}
 		}
-		ConsoleReporter.report("Entering Dashboard Thread!");
+		ConsoleReporter.report("Entering Dashboard Thread!", MessageLevel.INFO);
 		while (runThread) {
 			dashboardSendThreadControlStart = Timer.getFPGATimestamp();
             try {
                 sendData = createSendData();
-                ConsoleReporter.report(new String(sendData));
+                //ConsoleReporter.report(new String(sendData));
                 sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, SEND_PORT);
                 clientSocket.send(sendPacket);
             } catch (Exception ex) {
-				ConsoleReporter.report("Failed Send");
+				ConsoleReporter.report("Failed Send", MessageLevel.ERROR);
 	        }
 			do {
 				dashboardSendThreadControlEnd = Timer.getFPGATimestamp();
@@ -103,18 +103,18 @@ public class DashboardReporter extends Thread {
 		String sendStr = "";
 		for (CustomSubsystem customSubsystem : subsystemList) {
 			if (customSubsystem instanceof Reportable)
-				ConsoleReporter.report("Is a reportable");//sendStr += ((Reportable) customSubsystem).generateReport();
+				;//ConsoleReporter.report("Is a reportable");//sendStr += ((Reportable) customSubsystem).generateReport();
 			else
-				ConsoleReporter.report("Not a reportable");
+				;//ConsoleReporter.report("Not a reportable");
 		}
-		ConsoleReporter.report(sendStr);
+		//ConsoleReporter.report(sendStr);
 		return sendStr.getBytes();
 	}
 	
 	@Override
 	public void start() {
 		runThread = true;
-		ConsoleReporter.report("Dashboard Reporter Started!");
+		ConsoleReporter.report("Dashboard Reporter Started!", MessageLevel.INFO);
 		super.start();
 	}
 	

@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="navx_frc">
     <CLASSES>
-      <root url="jar://$USER_HOME$/wpilib/user/java/lib/navx_frc.jar!/" />
+      <root url="jar://$USERLIBS_DIR$/navx_frc.jar!/" />
     </CLASSES>
+    <JAVADOC />
     <SOURCES />
   </library>
 </component>

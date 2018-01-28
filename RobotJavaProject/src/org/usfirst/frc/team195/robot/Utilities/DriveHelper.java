@@ -34,6 +34,10 @@ public class DriveHelper {
     private double mNegInertiaAccumlator = 0.0;
 
     public DriveMotorValues calculateOutput(double throttle, double wheel, boolean isQuickTurn, boolean isHighGear) {
+        return calculateOutput(throttle, wheel, isQuickTurn, isHighGear, 1.0);
+    }
+
+    public DriveMotorValues calculateOutput(double throttle, double wheel, boolean isQuickTurn, boolean isHighGear, double scalingFactor) {
 
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
@@ -133,7 +137,7 @@ public class DriveHelper {
             leftPwm += overPower * (-1.0 - rightPwm);
             rightPwm = -1.0;
         }
-        return new DriveMotorValues(leftPwm, rightPwm);
+        return new DriveMotorValues(leftPwm * scalingFactor, rightPwm * scalingFactor);
     }
 
     public double handleDeadband(double val, double deadband) {

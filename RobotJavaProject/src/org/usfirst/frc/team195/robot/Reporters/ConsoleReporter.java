@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConsoleReporter extends Thread {
+
+	private static MessageLevel reportingLevel = MessageLevel.ERROR;
+
 	private static final int MIN_CONSOLE_SEND_RATE_MS = 250;
 
 	private boolean runThread;
@@ -15,7 +18,7 @@ public class ConsoleReporter extends Thread {
 	private double consoleSendThreadControlStart;
 	private double consoleSendThreadControlEnd;
 	private int consoleSendThreadControlElapsedTimeMS;
-	private static LinkedList<String> sendMessageQueue = new LinkedList<String>();
+	private static LinkedList<CKMessage> sendMessageQueue = new LinkedList<CKMessage>();
 	private static ReentrantLock _reporterMutex = new ReentrantLock();
 
 	private static ConsoleReporter instance = null;
@@ -59,17 +62,32 @@ public class ConsoleReporter extends Thread {
 				try {
 					if (Constants.REPORTING_ENABLED) {
 						while (sendMessageQueue.peek() != null) {
-							if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE)
-								DriverStation.reportError(sendMessageQueue.poll(), false);
-							else
-								System.out.println(sendMessageQueue.poll());
+							CKMessage ckm = sendMessageQueue.poll();
+							if (ckm.messageLevel.ordinal() <= reportingLevel.ordinal()) {
+								if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE) {
+									switch (ckm.messageLevel) {
+										case DEFCON1:
+										case ERROR:
+											DriverStation.reportError(ckm.message, false);
+											break;
+										case WARNING:
+										case INFO:
+											DriverStation.reportWarning(ckm.message, false);
+											break;
+										default:
+											break;
+									}
+								} else {
+									System.out.println(ckm.message);
+								}
+							}
 						}
 					}
 				} finally {
 					_reporterMutex.unlock();
 				}
 			} catch (Exception ex) {
-
+				ex.printStackTrace();
 			}
 			do {
 				consoleSendThreadControlEnd = Timer.getFPGATimestamp();
@@ -81,10 +99,32 @@ public class ConsoleReporter extends Thread {
 	}
 
 	public static void report(String message) {
+		report(message, MessageLevel.WARNING);
+	}
+
+	public static void setReportingLevel(MessageLevel messageLevel) {
+		ConsoleReporter.reportingLevel = messageLevel;
+	}
+
+	public static void report(String message, MessageLevel msgLvl) {
 		if (Constants.REPORTING_ENABLED) {
 			_reporterMutex.lock();
 			try {
-				sendMessageQueue.add(message + "\n\r");
+				switch (msgLvl) {
+					case DEFCON1:
+						message = "DEFCON1: " + message;
+						break;
+					case ERROR:
+						message = "ERROR: " + message;
+						break;
+					case WARNING:
+						message = "WARNING: " + message;
+						break;
+					case INFO:
+					default:
+						break;
+				}
+				sendMessageQueue.add(new CKMessage(message + "\n\r", msgLvl));
 			} finally {
 				_reporterMutex.unlock();
 			}

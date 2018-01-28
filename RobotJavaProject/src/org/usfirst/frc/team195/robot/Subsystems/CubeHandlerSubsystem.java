@@ -3,6 +3,7 @@ package org.usfirst.frc.team195.robot.Subsystems;
 import java.util.List;
 
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
@@ -77,7 +78,7 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 			try {
 				instance = new CubeHandlerSubsystem();
 			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString());
+				ConsoleReporter.report(ex.toString(), MessageLevel.DEFCON1);
 			}
 		}
 		

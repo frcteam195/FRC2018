@@ -40,10 +40,10 @@ public class SrxMotionProfile {
 		}
 	}
 
-	public String getTalonTrajectory() {
-		String retVal = "{";
+	public String getTalonTrajectory(String side) {
+		String retVal = "public static double[][] kMotionProfile"+side+" = new double[][] {";
 		for (int i = 0; i < points.length; i++) {
-			retVal += "{" + points[i][0] + ",\t" + points[i][1] + ",\t" + points[i][2] + "}\n";
+			retVal += "{" + points[i][0] + ",\t" + points[i][1] + ",\t" + points[i][2] + "},\n";
 		}
 		retVal += "};";
 		return retVal;

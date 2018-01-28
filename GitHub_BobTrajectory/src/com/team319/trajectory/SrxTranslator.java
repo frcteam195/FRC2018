@@ -39,7 +39,7 @@ public class SrxTranslator {
 				// Fill that array
 				for (int i = 0; i < traj.getSegments().length; i++) {
 					// translate from feet to encoder ticks
-					points[i][0] = convertFeetToEncoderTicks(traj.getSegment(i).pos, wheelDiameterInches, scaleFactor, encoderTicksPerRev);
+					points[i][0] = convertFeetToEncoderRotations(traj.getSegment(i).pos, wheelDiameterInches, scaleFactor);
 
 					// translate from fps to rpm
 					points[i][1] = convertFpsToEncoderTicksPer100ms(traj.getSegment(i).vel, wheelDiameterInches, scaleFactor, encoderTicksPerRev);
@@ -76,7 +76,7 @@ public class SrxTranslator {
 		// feet per minute
 		double fpm = fps * 60;
 		// wheel rpm
-		double rpm = fpm * 12 / (wheelDiameterInches * Math.PI);
+		double rpm = fpm / (wheelDiameterInches * Math.PI);
 		// encoder rpm
 		double encoderRpm = rpm * scaleFactor;
 
@@ -87,7 +87,7 @@ public class SrxTranslator {
 		// feet per minute
 		double fpm = fps * 60;
 		// wheel rpm
-		double rpm = fpm * 12 / (wheelDiameterInches * Math.PI);
+		double rpm = fpm / (wheelDiameterInches * Math.PI);
 		// encoder rpm
 		double encoderRpm = rpm * scaleFactor;
 
@@ -100,7 +100,7 @@ public class SrxTranslator {
 	// rotations
 	public double convertFeetToEncoderRotations(double feet, double wheelDiameterInches, double scaleFactor) {
 		// convert feet to wheel rotations using the circumference of the wheel
-		double wheelRotations = feet * 12 / (wheelDiameterInches * Math.PI);
+		double wheelRotations = feet / (wheelDiameterInches * Math.PI);
 
 		// convert wheel rotations to encoder rotations using the reduction
 		// between the two
@@ -112,7 +112,7 @@ public class SrxTranslator {
 		// rotations
 		public double convertFeetToEncoderTicks(double feet, double wheelDiameterInches, double scaleFactor, int encoderTicksPerRev) {
 			// convert feet to wheel rotations using the circumference of the wheel
-			double wheelRotations = feet * 12 / (wheelDiameterInches * Math.PI);
+			double wheelRotations = feet / (wheelDiameterInches * Math.PI);
 
 			// convert wheel rotations to encoder rotations using the reduction
 			// between the two

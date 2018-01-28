@@ -18,6 +18,11 @@
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
   </component>
+  <component name="FacetManager">
+    <facet type="FRC_FACET" name="FRC">
+      <configuration />
+    </facet>
+  </component>
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/bin" />
     <exclude-output />
@@ -28,32 +33,32 @@
     <orderEntry type="module-library">
       <library name="wpilib">
         <CLASSES>
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/ntcore.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/wpiutil.jar!/" />
+          <root url="jar://$cscore$!/" />
+          <root url="jar://$networktables$!/" />
+          <root url="jar://$opencv$!/" />
+          <root url="jar://$wpilib$!/" />
+          <root url="jar://$wpiutil$!/" />
         </CLASSES>
         <JAVADOC>
           <root url="file://$USER_HOME$/wpilib/java/current/javadoc" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore-sources.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/ntcore-sources.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv-sources.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib-sources.jar!/" />
-          <root url="jar://$USER_HOME$/wpilib/java/current/lib/wpiutil-sources.jar!/" />
+          <root url="jar://$cscore.sources$!/" />
+          <root url="jar://$ntcore.sources$!/" />
+          <root url="jar://$opencv.sources$!/" />
+          <root url="jar://$wpilib.sources$!/" />
+          <root url="jar://$wpiutil.sources$!/" />
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="jdk" jdkName="1.8 (1)" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
       <library name="navx_frc.jar">
         <CLASSES>
-          <root url="jar://$USER_HOME$/wpilib/user/java/lib/navx_frc.jar!/" />
+          <root url="jar://$USERLIBS_DIR$/navx_frc.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$USER_HOME$/wpilib/user/java/lib/navx_frc.jar!/docs" />
+          <root url="jar://$USERLIBS_DIR$/navx_frc.jar!/docs" />
         </JAVADOC>
         <SOURCES />
       </library>
@@ -61,14 +66,14 @@
     <orderEntry type="module-library">
       <library name="CTRE_Phoenix.jar">
         <CLASSES>
-          <root url="jar://$USER_HOME$/wpilib/user/java/lib/CTRE_Phoenix.jar!/" />
+          <root url="jar://$USERLIBS_DIR$/CTRE_Phoenix.jar!/" />
         </CLASSES>
         <JAVADOC />
         <NATIVE>
-          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+          <root url="file://$USERLIBS_DIR$" />
         </NATIVE>
         <SOURCES>
-          <root url="jar://$USER_HOME$/wpilib/user/java/lib/CTRE_Phoenix-sources.jar!/" />
+          <root url="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>

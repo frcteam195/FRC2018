@@ -7,6 +7,7 @@ import java.util.List;
 import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
 import org.usfirst.frc.team195.robot.Actions.ShiftAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
@@ -28,7 +29,7 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 			try {
 				instance = new HIDControllerSubsystem();
 			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString());
+				ConsoleReporter.report(ex.toString(), MessageLevel.DEFCON1);
 			}
 		}
 		
@@ -179,6 +180,8 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 
 				x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
 				y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);
+
+				driveBaseSubsystem.setBrakeMode(driveJoystick.getRawButton(Constants.DRIVE_HOLD_BRAKE));
 
 				driveBaseSubsystem.setDriveSpeed(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
 				//driveBaseSubsystem.setDriveSpeed((y + x) * 2300, (y - x) * 2300);

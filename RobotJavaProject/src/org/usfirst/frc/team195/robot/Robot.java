@@ -3,8 +3,11 @@ package org.usfirst.frc.team195.robot;
 import java.util.ArrayList;
 
 import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest;
+import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest2;
+import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest3;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.*;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
@@ -15,7 +18,7 @@ public class Robot extends RobbieRobot {
 	private Controllers robotControllers;
 	private ArrayList<CustomSubsystem> subsystemVector;
 
-	private AutoProfileTest autoProfileTest;
+	private AutoProfileTest3 autoProfileTest;
 
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
@@ -31,13 +34,15 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void robotInit() {
+		ConsoleReporter.setReportingLevel(MessageLevel.INFO);
 		ConsoleReporter.getInstance().start();
+		ConsoleReporter.report("Console Reporter Running!", MessageLevel.INFO);
 
 		robotControllers = Controllers.getInstance();
 		subsystemVector = new ArrayList<CustomSubsystem>();
 		
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance(subsystemVector);
-		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
+		//cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
 		hidControllerSubsystem = HIDControllerSubsystem.getInstance(subsystemVector);
 		
 		for (CustomSubsystem customSubsystem : subsystemVector) {
@@ -52,7 +57,7 @@ public class Robot extends RobbieRobot {
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
-		ConsoleReporter.report("Console Reporter Running!");
+
 
 //		try {
 //			ckAuto = new CKAutoBuilder<TalonSRX>(robotControllers.getLeftDrive1(), robotControllers.getRightDrive1(), this);
@@ -60,7 +65,7 @@ public class Robot extends RobbieRobot {
 //
 //		}
 		
-		autoProfileTest = new AutoProfileTest();
+		autoProfileTest = new AutoProfileTest3();
 	}
 
 	@Override

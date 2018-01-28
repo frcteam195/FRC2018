@@ -1,18 +1,19 @@
 <component name="libraryTable">
   <library name="wpilib">
     <CLASSES>
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/ntcore.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/wpiutil.jar!/" />
+      <root url="jar://$cscore$!/" />
+      <root url="jar://$networktables$!/" />
+      <root url="jar://$opencv$!/" />
+      <root url="jar://$wpilib$!/" />
+      <root url="jar://$wpiutil$!/" />
     </CLASSES>
+    <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/cscore-sources.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/ntcore-sources.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/opencv-sources.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/WPILib-sources.jar!/" />
-      <root url="jar://$USER_HOME$/wpilib/java/current/lib/wpiutil-sources.jar!/" />
+      <root url="jar://$cscore.sources$!/" />
+      <root url="jar://$ntcore.sources$!/" />
+      <root url="jar://$opencv.sources$!/" />
+      <root url="jar://$wpilib.sources$!/" />
+      <root url="jar://$wpiutil.sources$!/" />
     </SOURCES>
   </library>
 </component>

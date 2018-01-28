@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot.Utilities;
 
+import java.io.Console;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -14,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 
 public class TuneablePID {
 	public static final int MIN_PID_SEND_RATE_MS = 10;
@@ -85,7 +87,7 @@ public class TuneablePID {
 			if (udpReceiver != null && udpSender != null) {
 				udpReceiver.start();
 				udpSender.start();
-				ConsoleReporter.report("Starting PID Tuner for " + name);
+				ConsoleReporter.report("Starting PID Tuner for " + name, MessageLevel.INFO);
 			}
 		}
 	}
@@ -172,7 +174,6 @@ public class TuneablePID {
 					default:
 						//actualValue = talonArrList.get(sensorSelect).getSelectedSensorVelocity(0) / Constants.kSensorUnitsPerRotation * 600;
 						actualValue = talonArrList.get(sensorSelect).getOutputCurrent();
-						setpoint = talonArrList.get(sensorSelect).getOutputCurrent();
 						break;
 				}
 			}
@@ -299,7 +300,7 @@ public class TuneablePID {
 						}
 					} catch (Exception ex) {
 						if (Constants.DEBUG)
-							ConsoleReporter.report(ex.toString());
+							ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 					}
 				}
 			}

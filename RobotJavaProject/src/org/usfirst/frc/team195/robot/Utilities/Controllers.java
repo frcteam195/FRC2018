@@ -53,8 +53,8 @@ public class Controllers {
 
 		//Elevator setup
 		
-		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
-		intakeMotor2 = canSpeedControllerBuilder.createDefaultTalonSRX(8);
+		//intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
+		//intakeMotor2 = canSpeedControllerBuilder.createDefaultTalonSRX(8);
 		/*
 		liftMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
 		liftMotorSlave = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(8, liftMotor);
