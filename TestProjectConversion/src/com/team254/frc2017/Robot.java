@@ -1,5 +1,6 @@
 package com.team254.frc2017;
 
+import com.team254.frc2017.auto.modes.SwitchCubeThenScaleMode;
 import com.team254.frc2017.auto.modes.TestMode;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -195,11 +196,11 @@ public class Robot extends IterativeRobot {
             double throttle = mControlBoard.getThrottle();
             double turn = mControlBoard.getTurn();
 
-            //mDrive.setOpenLoop(mCheesyDriveHelper.cheesyDrive(throttle, turn, mControlBoard.getQuickTurn(),
-             //       !mControlBoard.getLowGear()));
-            DriveSignal ds = mCheesyDriveHelper.cheesyDrive(throttle, turn, mControlBoard.getQuickTurn(),
-                    !mControlBoard.getLowGear());
-            mDrive.setVelocitySetpoint(-ds.getLeft() * 100.0, -ds.getRight() * 100.0);
+            mDrive.setOpenLoop(mCheesyDriveHelper.cheesyDrive(throttle, turn, mControlBoard.getQuickTurn(),
+                    !mControlBoard.getLowGear()));
+//            DriveSignal ds = mCheesyDriveHelper.cheesyDrive(throttle, turn, mControlBoard.getQuickTurn(),
+//                    !mControlBoard.getLowGear());
+//            mDrive.setVelocitySetpoint(ds.getLeft() * 100, ds.getRight() * 100);
             boolean wantLowGear = mControlBoard.getLowGear();
             mDrive.setHighGear(!wantLowGear);
 

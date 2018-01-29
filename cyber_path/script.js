@@ -240,7 +240,7 @@ class Arc {
 	getPointsFromArc(initialPosition, initialVelocity) {
 		var points = [];
         var posCurrent = initialPosition;
-
+		//TODO: Fix overlapping segment issue
         var i = 0;
         var lineALength = this.lineA.length() + posCurrent;
         console.log("Line A Length: " + lineALength);

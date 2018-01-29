@@ -36,6 +36,31 @@ public class PathFollower {
         public double lookahead_point_x;
         public double lookahead_point_y;
         public double lookahead_point_velocity;
+
+        @Override
+        public String toString() {
+            String retVal = "";
+            retVal += "T: " + t + "\r\n";
+            retVal += "Pose X: " + pose_x + "\r\n";
+            retVal += "Pose Y: " + pose_y + "\r\n";
+            retVal += "Pose Theta: " + pose_theta + "\r\n";
+            retVal += "Linear Displacement: " + linear_displacement + "\r\n";
+            retVal += "Linear Velocity: " + linear_velocity + "\r\n";
+            retVal += "Profile Displacement: " + profile_displacement + "\r\n";
+            retVal += "Profile Velocity: " + profile_velocity + "\r\n";
+            retVal += "Velocity Command dx: " + velocity_command_dx + "\r\n";
+            retVal += "Velocity Command dy: " + velocity_command_dy + "\r\n";
+            retVal += "Velocity Command dtheta: " + velocity_command_dtheta + "\r\n";
+            retVal += "Steering Command dx: " + steering_command_dx + "\r\n";
+            retVal += "Steering Command dy: " + steering_command_dy + "\r\n";
+            retVal += "Steering Cmomand dtheta: " + steering_command_dtheta + "\r\n";
+            retVal += "Cross Track Error: " + cross_track_error + "\r\n";
+            retVal += "Along Track Error: " + along_track_error + "\r\n";
+            retVal += "Lookahead Point X: " + lookahead_point_x + "\r\n";
+            retVal += "Lookahead Point Y: " + lookahead_point_y + "\r\n";
+            retVal += "Lookahead Point Velocity: " + lookahead_point_velocity + "\r\n";
+            return retVal;
+        }
     }
 
     public static class Parameters {

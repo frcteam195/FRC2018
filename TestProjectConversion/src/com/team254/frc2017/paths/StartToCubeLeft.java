@@ -16,22 +16,17 @@ import java.util.ArrayList;
  * @see CenterGearToShootBlue
  * @see PathContainer
  */
-public class TestPath implements PathContainer {
+public class StartToCubeLeft implements PathContainer {
 
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-//		sWaypoints.add(new Waypoint(20,260,0,0));
-//		sWaypoints.add(new Waypoint(220,260,25,60));
-//		sWaypoints.add(new Waypoint(236,225,15,60));
-//		sWaypoints.add(new Waypoint(242,180,0,60));
 
 		sWaypoints.add(new Waypoint(20,260,0,0));
-		sWaypoints.add(new Waypoint(200,266,30,60));
-		sWaypoints.add(new Waypoint(243,212,30,60));
-		sWaypoints.add(new Waypoint(227,130,30,60));
-		sWaypoints.add(new Waypoint(257,60,30,60));
-		sWaypoints.add(new Waypoint(324,59,0,60));
+		sWaypoints.add(new Waypoint(81,264,25,60));
+		sWaypoints.add(new Waypoint(120,292,25,60));
+		sWaypoints.add(new Waypoint(215,293,30,60));
+		sWaypoints.add(new Waypoint(217,245,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
