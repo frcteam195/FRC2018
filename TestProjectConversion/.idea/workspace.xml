@@ -25,12 +25,34 @@
       <file leaf-file-name="Drive.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/team254/frc2017/subsystems/Drive.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="152" column="17" lean-forward="true" selection-start-line="152" selection-start-column="17" selection-end-line="152" selection-end-column="17" />
+            <state relative-caret-position="-3298">
+              <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#9105#9106#0" expanded="true" />
+                <element signature="e#9139#9140#0" expanded="true" />
+                <element signature="e#9874#9875#0" expanded="true" />
+                <element signature="e#9908#9909#0" expanded="true" />
+                <element signature="e#10324#10325#0" expanded="true" />
+                <element signature="e#10359#10360#0" expanded="true" />
+                <element signature="e#11055#11056#0" expanded="true" />
+                <element signature="e#11103#11104#0" expanded="true" />
+                <element signature="e#17643#17644#0" expanded="true" />
+                <element signature="e#17693#17694#0" expanded="true" />
+                <element signature="e#18019#18020#0" expanded="true" />
+                <element signature="e#18106#18107#0" expanded="true" />
                 <element signature="e#18152#18153#0" expanded="true" />
                 <element signature="e#18240#18241#0" expanded="true" />
+                <element signature="e#18603#18604#0" expanded="true" />
+                <element signature="e#18645#18646#0" expanded="true" />
+                <element signature="e#18692#18693#0" expanded="true" />
+                <element signature="e#18725#18726#0" expanded="true" />
+                <element signature="e#18933#18934#0" expanded="true" />
+                <element signature="e#18992#18993#0" expanded="true" />
+                <element signature="e#25213#25214#0" expanded="true" />
+                <element signature="e#25287#25288#0" expanded="true" />
+                <element signature="e#29227#29228#0" expanded="true" />
+                <element signature="e#29264#29265#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -39,8 +61,8 @@
       <file leaf-file-name="Robot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/team254/frc2017/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1845">
-              <caret line="141" column="53" lean-forward="false" selection-start-line="141" selection-start-column="53" selection-end-line="141" selection-end-column="53" />
+            <state relative-caret-position="575">
+              <caret line="140" column="53" lean-forward="false" selection-start-line="140" selection-start-column="53" selection-end-line="140" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -194,9 +216,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -303,6 +322,9 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -456,11 +478,12 @@
       <workItem from="1517194340130" duration="14000" />
       <workItem from="1517195530358" duration="1482000" />
       <workItem from="1517272941908" duration="17000" />
+      <workItem from="1517276681680" duration="501000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26829000" />
+    <option name="totallyTimeSpent" value="27330000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -487,7 +510,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2832723" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2863248" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -918,20 +941,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team254/frc2017/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="141" column="53" lean-forward="false" selection-start-line="141" selection-start-column="53" selection-end-line="141" selection-end-column="53" />
+        <state relative-caret-position="575">
+          <caret line="140" column="53" lean-forward="false" selection-start-line="140" selection-start-column="53" selection-end-line="140" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/team254/frc2017/subsystems/Drive.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="152" column="17" lean-forward="true" selection-start-line="152" selection-start-column="17" selection-end-line="152" selection-end-column="17" />
+        <state relative-caret-position="-3298">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#9105#9106#0" expanded="true" />
+            <element signature="e#9139#9140#0" expanded="true" />
+            <element signature="e#9874#9875#0" expanded="true" />
+            <element signature="e#9908#9909#0" expanded="true" />
+            <element signature="e#10324#10325#0" expanded="true" />
+            <element signature="e#10359#10360#0" expanded="true" />
+            <element signature="e#11055#11056#0" expanded="true" />
+            <element signature="e#11103#11104#0" expanded="true" />
+            <element signature="e#17643#17644#0" expanded="true" />
+            <element signature="e#17693#17694#0" expanded="true" />
+            <element signature="e#18019#18020#0" expanded="true" />
+            <element signature="e#18106#18107#0" expanded="true" />
             <element signature="e#18152#18153#0" expanded="true" />
             <element signature="e#18240#18241#0" expanded="true" />
+            <element signature="e#18603#18604#0" expanded="true" />
+            <element signature="e#18645#18646#0" expanded="true" />
+            <element signature="e#18692#18693#0" expanded="true" />
+            <element signature="e#18725#18726#0" expanded="true" />
+            <element signature="e#18933#18934#0" expanded="true" />
+            <element signature="e#18992#18993#0" expanded="true" />
+            <element signature="e#25213#25214#0" expanded="true" />
+            <element signature="e#25287#25288#0" expanded="true" />
+            <element signature="e#29227#29228#0" expanded="true" />
+            <element signature="e#29264#29265#0" expanded="true" />
           </folding>
         </state>
       </provider>
