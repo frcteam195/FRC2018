@@ -39,7 +39,7 @@ public class Constants extends ConstantsBase {
     /* ROBOT PHYSICAL CONSTANTS */
 
     // Wheels
-    public static double kDriveWheelDiameterInches = 3.5;
+    public static double kDriveWheelDiameterInches = 3.97;
     public static double kTrackWidthInches = 19.5;
     public static double kTrackScrubFactor = 1; // 0.924 ?
 
@@ -69,7 +69,7 @@ public class Constants extends ConstantsBase {
     public static int kDriveHighGearVelocityIZone = 0;
     public static double kDriveHighGearVelocityRampRate = 240.0;
     public static double kDriveHighGearNominalOutput = 0.5;
-    public static double kDriveHighGearMaxSetpoint = 17.0 * 12.0; // 17 fps
+    public static double kDriveHighGearMaxSetpoint = 10.0 * 12.0; // 17 fps
 
     // PID gains for drive velocity loop (LOW GEAR)
     // Units: setpoint, error, and output are in inches per second.
@@ -205,16 +205,16 @@ public class Constants extends ConstantsBase {
     public static double kDeltaLookAhead = kMaxLookAhead - kMinLookAhead;
     public static double kDeltaLookAheadSpeed = kMaxLookAheadSpeed - kMinLookAheadSpeed;
 
-    public static double kInertiaSteeringGain = 0.02; // angular velocity command is multiplied by this gain *
+    public static double kInertiaSteeringGain = -0.004; // angular velocity command is multiplied by this gain *
                                                      // our speed
                                                      // in inches per sec
     public static double kSegmentCompletionTolerance = 2; // inches
     public static double kPathFollowingMaxAccel = 30.0; // inches per second^2
     public static double kPathFollowingMaxVel = 60.0; // inches per second
 
-    public static double kPathFollowingProfileKp = 3.0;
+    public static double kPathFollowingProfileKp = 1.2;
     public static double kPathFollowingProfileKi = 0.03;
-    public static double kPathFollowingProfileKv = 0.02;
+    public static double kPathFollowingProfileKv = 0.9;
     public static double kPathFollowingProfileKffv = 1.0;
     public static double kPathFollowingProfileKffa = 0.05;
     public static double kPathFollowingGoalPosTolerance = 2;

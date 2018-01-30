@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -549,11 +550,11 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	private MotionProfileStatus mpStatusLeft;
 	private MotionProfileStatus mpStatusRight;
 	private TalonSRX leftDrive;
-	private TalonSRX leftDriveSlave1;
-	private TalonSRX leftDriveSlave2;
+	private VictorSPX leftDriveSlave1;
+	private VictorSPX leftDriveSlave2;
 	private TalonSRX rightDrive;
-	private TalonSRX rightDriveSlave1;
-	private TalonSRX rightDriveSlave2;
+	private VictorSPX rightDriveSlave1;
+	private VictorSPX rightDriveSlave2;
 
 	private AHRS navX;
 
