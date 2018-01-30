@@ -166,7 +166,7 @@ public class Drive extends Subsystem {
         mLeftMaster = CANTalonFactory.createDefaultTalonSRX(Constants.kLeftDriveMasterId);
         mLeftMaster.set(ControlMode.PercentOutput, 0);
         mLeftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kLowGearPositionControlSlot, Constants.kTimeoutMs);
-        mLeftMaster.setSensorPhase(true);
+        mLeftMaster.setSensorPhase(false);
         mLeftMaster.setInverted(false);
 
         boolean leftSensorPresent = mLeftMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
@@ -182,7 +182,7 @@ public class Drive extends Subsystem {
 
         mRightMaster = CANTalonFactory.createDefaultTalonSRX(Constants.kRightDriveMasterId);
         mRightMaster.set(ControlMode.PercentOutput, 0);
-        mRightMaster.setSensorPhase(true);
+        mRightMaster.setSensorPhase(false);
         mRightMaster.setInverted(true);
         mRightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kLowGearPositionControlSlot, Constants.kTimeoutMs);
 
@@ -719,10 +719,10 @@ public class Drive extends Subsystem {
 //                Constants.kDriveHighGearVelocityIZone, Constants.kDriveHighGearVelocityRampRate,
 //                kHighGearVelocityControlSlot);
 
-        setPIDGains(mLeftMaster, 0.4, 0, 4, 0.35, Constants.kDriveLowGearPositionIZone, Constants.kDriveLowGearPositionRampRate, kLowGearPositionControlSlot);
-        setPIDGains(mRightMaster, 0.2, 0, 2, 0.121, Constants.kDriveHighGearVelocityIZone, Constants.kDriveLowGearPositionRampRate, kHighGearVelocityControlSlot);
-        setPIDGains(mLeftMaster, 0.4, 0, 4, 0.37, Constants.kDriveLowGearPositionIZone, Constants.kDriveHighGearVelocityRampRate, kLowGearPositionControlSlot);
-        setPIDGains(mRightMaster, 0.2, 0, 2, 0.134, Constants.kDriveHighGearVelocityIZone, Constants.kDriveHighGearVelocityRampRate, kHighGearVelocityControlSlot);
+        setPIDGains(mLeftMaster, 0.4, 0.00001, 4, 0.195, Constants.kDriveLowGearPositionIZone, Constants.kDriveLowGearPositionRampRate, kLowGearPositionControlSlot);
+        setPIDGains(mLeftMaster, 0.4, 0.00001, 4, 0.195, Constants.kDriveHighGearVelocityIZone, Constants.kDriveHighGearVelocityRampRate, kHighGearVelocityControlSlot);
+        setPIDGains(mRightMaster, 0.3, 0.00001, 4, 0.2, Constants.kDriveLowGearPositionIZone, Constants.kDriveLowGearPositionRampRate, kLowGearPositionControlSlot);
+        setPIDGains(mRightMaster, 0.3, 0.00001, 4, 0.2, Constants.kDriveHighGearVelocityIZone, Constants.kDriveHighGearVelocityRampRate, kHighGearVelocityControlSlot);
 
         //mLeftMaster.setVoltageCompensationRampRate(Constants.kDriveVoltageCompensationRampRate);
         //mRightMaster.setVoltageCompensationRampRate(Constants.kDriveVoltageCompensationRampRate);

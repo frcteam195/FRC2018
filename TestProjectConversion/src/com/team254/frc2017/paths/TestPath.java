@@ -27,11 +27,7 @@ public class TestPath implements PathContainer {
 //		sWaypoints.add(new Waypoint(242,180,0,60));
 
 		sWaypoints.add(new Waypoint(20,260,0,0));
-		sWaypoints.add(new Waypoint(200,266,30,60));
-		sWaypoints.add(new Waypoint(243,212,30,60));
-		sWaypoints.add(new Waypoint(227,130,30,60));
-		sWaypoints.add(new Waypoint(257,60,30,60));
-		sWaypoints.add(new Waypoint(324,59,0,60));
+		sWaypoints.add(new Waypoint(100,260,0,10));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

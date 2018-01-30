@@ -6,9 +6,9 @@ import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.CustomAuto;
-import org.usfirst.frc.team195.robot.Utilities.Motion.CyberPath;
-import org.usfirst.frc.team195.robot.Utilities.Motion.SRX.SRXDriveBaseTrajectory;
-import org.usfirst.frc.team195.robot.Utilities.Motion.SRX.SRXTrajectoryConfig;
+import org.usfirst.frc.team195.robot.Utilities.SplineMotion.CyberPath;
+import org.usfirst.frc.team195.robot.Utilities.SplineMotion.SRX.SRXDriveBaseTrajectory;
+import org.usfirst.frc.team195.robot.Utilities.SplineMotion.SRX.SRXTrajectoryConfig;
 
 public class AutoProfileTest3 implements CustomAuto {
 	private DriveBaseSubsystem driveBaseSubsystem;

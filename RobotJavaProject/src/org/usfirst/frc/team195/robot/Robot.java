@@ -65,7 +65,7 @@ public class Robot extends RobbieRobot {
 //
 //		}
 		
-		autoProfileTest = new AutoProfileTest3();
+		//autoProfileTest = new AutoProfileTest3();
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class Robot extends RobbieRobot {
 //		ckAuto.addAutoStep(0, 0, 200);	//Stop
 //		ckAuto.start();
 
-		autoProfileTest.start();
+		//autoProfileTest.start();
 		
 		while (isAutonomous() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
@@ -89,7 +89,7 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void operatorControl() {
-		driveBaseSubsystem.setControlMode(ControlMode.PercentOutput);
+		driveBaseSubsystem.setControlMode(ControlMode.Velocity);
 		while (isOperatorControl() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
 

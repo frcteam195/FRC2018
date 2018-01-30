@@ -25,13 +25,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team195.robot.Utilities.Motion.SRX.SRXDriveBaseTrajectory;
+import org.usfirst.frc.team195.robot.Utilities.SplineMotion.SRX.SRXDriveBaseTrajectory;
 
 public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Reportable {
 	public static final int MIN_DRIVE_LOOP_TIME_STANDARD = 10;
 	public static final int MIN_DRIVE_LOOP_TIME_MP = 3;
 
-	private TuneablePID tuneableDrive;
+	private TuneablePID tuneableLeftDrive;
+	private TuneablePID tuneableRightDrive;
 	private boolean mPrevShiftVal;
 	private boolean mPrevBrakeModeVal;
 
@@ -74,8 +75,9 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	@Override
 	public void start() {
 		runThread = true;
+		tuneableLeftDrive.start();
+		tuneableRightDrive.start();
 		super.start();
-		//tuneableDrive.start();
 	}
 
 	public void terminate() {
@@ -165,7 +167,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 							ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 						}
 						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						ConsoleReporter.report("Enabling Left Motion Profile", MessageLevel.INFO);
+						ConsoleReporter.report("Enabling Left SplineMotion Profile", MessageLevel.INFO);
 					}
 					else if (mpStatusLeft.topBufferCnt == 0 && mpStatusLeft.btmBufferCnt == 0) {
 						//leftDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
@@ -185,22 +187,22 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 							ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 						}
 						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						ConsoleReporter.report("Enabling Right Motion Profile", MessageLevel.INFO);
+						ConsoleReporter.report("Enabling Right SplineMotion Profile", MessageLevel.INFO);
 					}
 					else if (mpStatusRight.topBufferCnt == 0 && mpStatusRight.btmBufferCnt == 0) {
 						//rightDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
 						//cout << "Bad2Right" << endl;
 					}
-					//ConsoleReporter.report("Motion Loop!", MessageLevel.INFO);
+					//ConsoleReporter.report("SplineMotion Loop!", MessageLevel.INFO);
 					break;
 				case Velocity:
-					leftDrive.set(ControlMode.Velocity, leftDriveSpeed * Constants.kSensorUnitsPerRotation / 600);
-					rightDrive.set(ControlMode.Velocity, rightDriveSpeed * Constants.kSensorUnitsPerRotation / 600);
+					//leftDrive.set(ControlMode.Velocity, leftDriveSpeed * Constants.kSensorUnitsPerRotation / 600);
+					//rightDrive.set(ControlMode.Velocity, rightDriveSpeed * Constants.kSensorUnitsPerRotation / 600);
 					break;
 				case PercentOutput:
 				default:
-					leftDrive.set(ControlMode.PercentOutput, leftDriveSpeed);
-					rightDrive.set(ControlMode.PercentOutput, rightDriveSpeed);
+					//leftDrive.set(ControlMode.PercentOutput, leftDriveSpeed);
+					//rightDrive.set(ControlMode.PercentOutput, rightDriveSpeed);
 					break;
 			}
 
@@ -305,7 +307,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 	
 	public void startMPTrajectory() {
 		try {
-			ConsoleReporter.report("Starting Motion!", MessageLevel.INFO);
+			ConsoleReporter.report("Starting SplineMotion!", MessageLevel.INFO);
 			_subsystemMutex.acquire();
 			startMPLeft = true;
 			startMPRight = true;
@@ -470,7 +472,8 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		mpStatusLeft = new MotionProfileStatus();
 		mpStatusRight = new MotionProfileStatus();
 
-		//tuneableDrive = new TuneablePID("RightDrive", rightDrive, 0, 5808, true, true);
+		tuneableLeftDrive = new TuneablePID("LeftDrive", leftDrive, 0, 5808, true, true);
+		tuneableRightDrive = new TuneablePID("RightDrive", rightDrive, 0, 5809, true, true);
 	}
 
 	private static DriveBaseSubsystem instance = null;
@@ -524,7 +527,7 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		TrajectoryDuration retval = TrajectoryDuration.Trajectory_Duration_0ms;
 		retval = retval.valueOf(durationMs);
 		if (retval.value != durationMs) {
-			ConsoleReporter.report("Motion Duration not supported - use configMotionProfileTrajectoryPeriod instead", MessageLevel.ERROR);
+			ConsoleReporter.report("SplineMotion Duration not supported - use configMotionProfileTrajectoryPeriod instead", MessageLevel.ERROR);
 		}
 		return retval;
 	}
