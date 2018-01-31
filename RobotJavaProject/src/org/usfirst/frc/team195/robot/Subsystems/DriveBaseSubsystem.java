@@ -1,220 +1,192 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
-import java.io.Console;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.Thread;
-
-import java.util.List;
-import java.util.concurrent.Semaphore;
-
 import com.ctre.phoenix.motorcontrol.*;
-import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
-import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
-import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Utilities.*;
-
-import com.ctre.phoenix.motion.MotionProfileStatus;
-import com.ctre.phoenix.motion.SetValueMotionProfile;
-import com.ctre.phoenix.motion.TrajectoryPoint;
-import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team195.robot.Utilities.SplineMotion.SRX.SRXDriveBaseTrajectory;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
+import org.usfirst.frc.team195.robot.Utilities.*;
+import org.usfirst.frc.team195.robot.Utilities.PathFollowingMotion.*;
 
-public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Reportable {
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
+	private static final int kLowGearPIDSlot = 0;
+	private static final int kHighGearPIDSlot = 1;
 	public static final int MIN_DRIVE_LOOP_TIME_STANDARD = 10;
 	public static final int MIN_DRIVE_LOOP_TIME_MP = 3;
-
-	private TuneablePID tuneableLeftDrive;
-	private TuneablePID tuneableRightDrive;
+	private static DriveBaseSubsystem instance = null;
+	private static ReentrantLock _subsystemMutex = new ReentrantLock();
+	private PathFollowerRobotState mRobotState = PathFollowerRobotState.getInstance();
+	private DriveControlState mControlMode;
+	private DriveControlState mPrevControlMode;
+	private TalonSRX mLeftMaster, mRightMaster;
+	private TalonSRX leftDriveSlave1, leftDriveSlave2, rightDriveSlave1, rightDriveSlave2;
+	private double driveThreadControlStart, driveThreadControlEnd;
+	private int driveThreadControlElapsedTimeMS;
+	private DriverStation ds;
+	private NavX mNavXBoard;
+	private Solenoid shiftSol;
 	private boolean mPrevShiftVal;
 	private boolean mPrevBrakeModeVal;
+	private double leftDriveSpeed, rightDriveSpeed;
+	private boolean runThread;
+	private Path mCurrentPath = null;
+	private PathFollower mPathFollower;
+
+	private DriveBaseSubsystem() throws Exception {
+		super();
+		ds = DriverStation.getInstance();
+		_subsystemMutex = new ReentrantLock();
+
+		Controllers robotControllers = Controllers.getInstance();
+		mLeftMaster = robotControllers.getLeftDrive1();
+		leftDriveSlave1 = robotControllers.getLeftDrive2();
+		leftDriveSlave2 = robotControllers.getLeftDrive3();
+		mRightMaster = robotControllers.getRightDrive1();
+		rightDriveSlave1 = robotControllers.getRightDrive2();
+		rightDriveSlave2 = robotControllers.getRightDrive3();
+		mNavXBoard = robotControllers.getNavX();
+
+		shiftSol = robotControllers.getShiftSol();
+		mPrevShiftVal = false;
+		setGear(true);
+
+		leftDriveSpeed = 0;
+		rightDriveSpeed = 0;
+
+		mPrevBrakeModeVal = false;
+		setBrakeMode(true);
+
+		runThread = false;
+
+		driveThreadControlStart = 0;
+		driveThreadControlEnd = 0;
+		driveThreadControlElapsedTimeMS = 0;
+
+		mControlMode = DriveControlState.PATH_FOLLOWING;
+		mPrevControlMode = DriveControlState.OPEN_LOOP;
+	}
+
+	public static DriveBaseSubsystem getInstance() {
+		if(instance == null) {
+			try {
+				instance = new DriveBaseSubsystem();
+			} catch (Exception ex) {
+				ConsoleReporter.report(ex, MessageLevel.DEFCON1);
+			}
+		}
+
+		return instance;
+	}
+
+	public static DriveBaseSubsystem getInstance(List<CustomSubsystem> subsystemList) {
+		subsystemList.add(getInstance());
+		return instance;
+	}
 
 	@Override
 	public void init() {
-		leftDrive.setSensorPhase(true);
+		mLeftMaster.setSensorPhase(true);
 
-		rightDrive.setInverted(true);
+		mRightMaster.setSensorPhase(true);
+		mRightMaster.setInverted(true);
 		rightDriveSlave1.setInverted(true);
 		rightDriveSlave2.setInverted(true);
-		rightDrive.setSensorPhase(true);
 
-		leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-		leftDrive.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
-		leftDrive.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
 
-		rightDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-		rightDrive.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
-		rightDrive.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
-		
-		leftDrive.configMotionProfileTrajectoryPeriod(0, Constants.kTimeoutMs);
-		leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, Constants.kTimeoutMs);
-		rightDrive.configMotionProfileTrajectoryPeriod(0, Constants.kTimeoutMs);
-		rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, Constants.kTimeoutMs);
+		mLeftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
+		mLeftMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
+		mLeftMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
 
-		boolean leftSensorPresent = leftDrive.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
-		boolean rightSensorPresent = rightDrive.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		mRightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
+		mRightMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
+		mRightMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
+
+		boolean leftSensorPresent = mLeftMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		boolean rightSensorPresent = mRightMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 		if (!leftSensorPresent || !rightSensorPresent) {
 			String msg = "Could not detect encoder! \r\n\tLeft Encoder Detected: " + leftSensorPresent + "\r\n\tRight Encoder Detected: " + rightSensorPresent;
 			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
 			DriverStation.reportError(msg, false);
 		}
 
-		setLeftDrivePID(0.2, 0, 2, 0.1, 0); //setLeftDrivePID(0.4, 0, 4, 0.35, 0);
-		setLeftDrivePID(0.2, 0, 2, 0.121, 1); //setLeftDrivePID(0.2, 0, 2, 0.121, 1);
-		setRightDrivePID(0.2, 0, 2, 0.1, 0); //setRightDrivePID(0.4, 0, 4, 0.37, 0);
-		setRightDrivePID(0.2, 0, 2, 0.134, 1); //setRightDrivePID(0.2, 0, 2, 0.134, 1);
+		TalonHelper.setPIDGains(mLeftMaster, kLowGearPIDSlot, 0.2, 0, 2, 0.1);
+		TalonHelper.setPIDGains(mLeftMaster, kHighGearPIDSlot, 0.2, 0, 2, 0.121);
+		TalonHelper.setPIDGains(mRightMaster, kLowGearPIDSlot, 0.2, 0, 2, 0.1);
+		TalonHelper.setPIDGains(mRightMaster, kHighGearPIDSlot, 0.2, 0, 2, 0.121);
 	}
-	
+
 	@Override
 	public void start() {
 		runThread = true;
-		tuneableLeftDrive.start();
-		tuneableRightDrive.start();
-		super.start();
+		if (!super.isAlive())
+			super.start();
 	}
 
+	@Override
 	public void terminate() {
 		runThread = false;
+		try {
+			super.join(Constants.kThreadJoinTimeout);
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex);
+		}
 	}
-	
-	@Override
-	public void subsystemHome() {
-		navX.zeroYaw();
-		leftDrive.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		rightDrive.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		try {Thread.sleep(20);} catch (Exception ex) {}
-	}
-	
+
 	@Override
 	public void run() {
-		while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
-		subsystemHome();
-
 		while(runThread) {
 			driveThreadControlStart = Timer.getFPGATimestamp();
 
-			if (requestSetPosition) {
-				leftDrive.setSelectedSensorPosition((int)position, 0, Constants.kTimeoutMs);
-				rightDrive.setSelectedSensorPosition((int)position, 0, Constants.kTimeoutMs);
-				try {
-					_subsystemMutex.acquire();
-					requestSetPosition = false;
-					_subsystemMutex.release();
-				} catch (Exception ex) {
-					ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-				}
-			}
-
-			ControlMode ctrlMode = leftDrive.getControlMode();
-
-			if(ctrlMode != requestedControlMode) {
+			if(mPrevControlMode != mControlMode) {
 				ConsoleReporter.report("Changing Control Modes!", MessageLevel.INFO);
 
-				switch (requestedControlMode) {
-					case MotionProfile:
-						ConsoleReporter.report("Set to motion profile disabled!", MessageLevel.INFO);
-						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable.value);
-						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable.value);
+				switch (mControlMode) {
+					case PATH_FOLLOWING:
+					case VELOCITY:
+						mLeftMaster.set(ControlMode.Velocity, 0);
+						mRightMaster.set(ControlMode.Velocity, 0);
 						setBrakeMode(true);
 						break;
-					case Velocity:
-						leftDrive.set(ControlMode.Velocity, 0);
-						rightDrive.set(ControlMode.Velocity, 0);
+					case POSITION:
+						mLeftMaster.set(ControlMode.Position, mLeftMaster.getSelectedSensorPosition(0));
+						mRightMaster.set(ControlMode.Position, mRightMaster.getSelectedSensorPosition(0));
 						setBrakeMode(true);
 						break;
+					case OPEN_LOOP:
 					default:
-						leftDrive.set(ControlMode.PercentOutput, 0);
-						rightDrive.set(ControlMode.PercentOutput, 0);
+						mLeftMaster.set(ControlMode.PercentOutput, 0);
+						mRightMaster.set(ControlMode.PercentOutput, 0);
+						setBrakeMode(false);
 						break;
 				}
-				ctrlMode = leftDrive.getControlMode();
+				_subsystemMutex.lock();
+				mPrevControlMode = mControlMode;
+				_subsystemMutex.unlock();
 			}
 
-			switch (ctrlMode) {
-				case MotionProfile:
-					leftDrive.getMotionProfileStatus(mpStatusLeft);
-					rightDrive.getMotionProfileStatus(mpStatusRight);
-
-					if(mpStatusLeft.hasUnderrun){
-						leftDrive.clearMotionProfileHasUnderrun(Constants.kTimeoutMs);
-						ConsoleReporter.report("Left Drive Underrun", MessageLevel.ERROR);
-					}
-					if(mpStatusRight.hasUnderrun){
-						rightDrive.clearMotionProfileHasUnderrun(Constants.kTimeoutMs);
-						ConsoleReporter.report("Right Drive Underrun", MessageLevel.ERROR);
-					}
-
-					leftDrive.processMotionProfileBuffer();
-					rightDrive.processMotionProfileBuffer();
-
-					if (mpStatusLeft.activePointValid && mpStatusLeft.isLast) {
-						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
-						ConsoleReporter.report("Hold Left", MessageLevel.INFO);
-					}
-					else if (startMPLeft) {
-						try {
-							_subsystemMutex.acquire();
-							startMPLeft = false;
-							_subsystemMutex.release();
-						} catch (Exception ex) {
-							ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-						}
-						leftDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						ConsoleReporter.report("Enabling Left SplineMotion Profile", MessageLevel.INFO);
-					}
-					else if (mpStatusLeft.topBufferCnt == 0 && mpStatusLeft.btmBufferCnt == 0) {
-						//leftDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
-						//cout << "Bad2Left" << endl;
-					}
-
-					if (mpStatusRight.activePointValid && mpStatusRight.isLast) {
-						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
-						ConsoleReporter.report("Hold Right", MessageLevel.INFO);
-					}
-					else if (startMPRight) {
-						try {
-							_subsystemMutex.acquire();
-							startMPRight = false;
-							_subsystemMutex.release();
-						} catch (Exception ex) {
-							ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-						}
-						rightDrive.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
-						ConsoleReporter.report("Enabling Right SplineMotion Profile", MessageLevel.INFO);
-					}
-					else if (mpStatusRight.topBufferCnt == 0 && mpStatusRight.btmBufferCnt == 0) {
-						//rightDrive.Set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
-						//cout << "Bad2Right" << endl;
-					}
-					//ConsoleReporter.report("SplineMotion Loop!", MessageLevel.INFO);
+			switch (mControlMode) {
+				case PATH_FOLLOWING:
+					if (mPathFollower != null)
+						updatePathFollower();
+				case VELOCITY:
+					mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(leftDriveSpeed));
+					mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(rightDriveSpeed));
 					break;
-				case Velocity:
-					//leftDrive.set(ControlMode.Velocity, leftDriveSpeed * Constants.kSensorUnitsPerRotation / 600);
-					//rightDrive.set(ControlMode.Velocity, rightDriveSpeed * Constants.kSensorUnitsPerRotation / 600);
+				case POSITION:
 					break;
-				case PercentOutput:
+				case OPEN_LOOP:
 				default:
-					//leftDrive.set(ControlMode.PercentOutput, leftDriveSpeed);
-					//rightDrive.set(ControlMode.PercentOutput, rightDriveSpeed);
+					mLeftMaster.set(ControlMode.PercentOutput, leftDriveSpeed);
+					mRightMaster.set(ControlMode.PercentOutput, rightDriveSpeed);
 					break;
 			}
 
-			if (holdLow) {
-				shift(false);
-			} else if (highGear) {
-				shift(true);
-			} else {
-				shift(false);
-			}
-
-			int loopRate = (ctrlMode == ControlMode.MotionProfile ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
+			int loopRate = (mControlMode == DriveControlState.PATH_FOLLOWING ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
 
 			do {
 				driveThreadControlEnd = Timer.getFPGATimestamp();
@@ -225,362 +197,269 @@ public class DriveBaseSubsystem extends Thread implements CustomSubsystem, Repor
 		}
 	}
 
-	public double getAveragePosition() {
-		return (Math.abs(leftDrive.getSelectedSensorPosition(0)) + Math.abs(rightDrive.getSelectedSensorPosition(0))) / 2;
-	}
-	public double getLeftDrivePosition() {
-		return leftDrive.getSelectedSensorPosition(0);
-	}
-	public double getRightDrivePosition() {
-		return rightDrive.getSelectedSensorPosition(0);
+	@Override
+	public void subsystemHome() {
+		mNavXBoard.zeroYaw();
+		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
 	}
 
-	public synchronized void setDriveSpeed(DriveMotorValues d) {
-		setDriveSpeed(d.leftDrive, d.rightDrive, false);
-	}
-	public synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {
-		setDriveSpeed(leftDriveSpeed, rightDriveSpeed, false);
-	}
-
-	private void shift(boolean highGear) {
-		try {
-			_subsystemMutex.acquire();
-			if (mPrevShiftVal != highGear) {
-				if (highGear) {
-					ConsoleReporter.report("Setting drive gains for high gear!", MessageLevel.INFO);
-					leftDrive.selectProfileSlot(0, 1);
-					rightDrive.selectProfileSlot(0, 1);
-				} else {
-					ConsoleReporter.report("Setting drive gains for low gear!", MessageLevel.INFO);
-					leftDrive.selectProfileSlot(0, 0);
-					rightDrive.selectProfileSlot(0, 0);
-				}
-
-				shiftSol.set(highGear);
-				mPrevShiftVal = highGear;
-			}
-			_subsystemMutex.release();
-		} catch (Exception ex) {
-			StringWriter s = new StringWriter();
-			ex.printStackTrace(new PrintWriter(s));
-			ConsoleReporter.report(s.toString(), MessageLevel.ERROR);
-		}
-	}
-	
-	public synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, boolean slowDown) {
-		try {
-			_subsystemMutex.acquire();
-			if(slowDown) {
-				this.leftDriveSpeed = leftDriveSpeed / 2.2;
-				this.rightDriveSpeed = rightDriveSpeed / 2.2;
-			}
-			else {
-				this.leftDriveSpeed = leftDriveSpeed;
-				this.rightDriveSpeed = rightDriveSpeed;
-			}
-			_subsystemMutex.release();
-		} catch (Exception ex) {
-			StringWriter s = new StringWriter();
-			ex.printStackTrace(new PrintWriter(s));
-			ConsoleReporter.report(s.toString(), MessageLevel.ERROR);
-		}
-	}
-	
-	public synchronized void setHoldLowGear(boolean holdLowGear) {
-		this.holdLow = holdLowGear;
-	}
-	
-	public synchronized void setGear(boolean highGear) {
-		this.highGear = highGear;
-	}
-	
-	public synchronized void setPosition(double position) {
-		try {
-			_subsystemMutex.acquire();
-			requestSetPosition = true;
-			this.position = position;
-			_subsystemMutex.release();
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-		}
-	}
-	
-	public void startMPTrajectory() {
-		try {
-			ConsoleReporter.report("Starting SplineMotion!", MessageLevel.INFO);
-			_subsystemMutex.acquire();
-			startMPLeft = true;
-			startMPRight = true;
-			_subsystemMutex.release();
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-		}
-	}
-	
-	public boolean isHighGear() {
-		return highGear;
-	}
-
-	public MotionProfileStatus getLeftMPStatus() {
-		return mpStatusLeft;
-	}
-	public MotionProfileStatus getRightMPStatus() {
-		return mpStatusRight;
-	}
-
-	public synchronized void setMotionProfileTrajectory(SRXDriveBaseTrajectory srxDriveBaseTrajectory) {
-		setMotionProfileTrajectory(srxDriveBaseTrajectory.getLeftWheelTrajectory(), srxDriveBaseTrajectory.getRightWheelTrajectory());
-	}
-
-	public synchronized void setMotionProfileTrajectory(double[][] mpLeftBuffer, double[][] mpRightBuffer) {
-		this.mpLeftBuffer = mpLeftBuffer;
-		this.mpRightBuffer = mpRightBuffer;
-		Thread leftMPBufferThread = new Thread(() -> {
-			processMPLeft();
-		});
-		Thread rightMPBufferThread = new Thread(() -> {
-			processMPRight();
-		});
-		leftMPBufferThread.start();
-		rightMPBufferThread.start();
-		try {
-			leftMPBufferThread.join();
-			rightMPBufferThread.join();
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-		}
-	}
-	
-	public void setControlMode(ControlMode controlMode) {
-		if (controlMode != requestedControlMode) {
-			try {
-				_subsystemMutex.acquire();
-				requestedControlMode = controlMode;
-				_subsystemMutex.release();
-			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-			}
-		}
-	}
-	
-	public ControlMode getControlMode() {
-		return requestedControlMode;
-	}
-
-	public synchronized void setDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
-		setLeftDrivePID(kP, kI, kD, ff, profileNum);
-		setRightDrivePID(kP, kI, kD, ff, profileNum);
-	}
-	
-	public synchronized void setLeftDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
-		TalonHelper.setPIDGains(leftDrive, profileNum, kP, kI, kD, ff);
-	}
-	
-	public synchronized void setRightDrivePID(double kP, double kI, double kD, double ff, int profileNum) {
-		TalonHelper.setPIDGains(rightDrive, profileNum, kP, kI, kD, ff);
-	}
-	public boolean isPositionWithinRange(double range) {
-		return ((Math.abs(leftDrive.getSelectedSensorPosition(0)) - Math.abs(leftDriveSpeed)) < range && (Math.abs(rightDrive.getSelectedSensorPosition(0)) - Math.abs(rightDriveSpeed)) < range);
-	}
-
-	public synchronized void setMotionMagicVelocityAccel(double vel, double accel) {
-		leftDrive.configMotionCruiseVelocity((int)vel, Constants.kTimeoutMs);
-		leftDrive.configMotionAcceleration((int)accel, Constants.kTimeoutMs);
-		rightDrive.configMotionCruiseVelocity((int)vel, Constants.kTimeoutMs);
-		rightDrive.configMotionAcceleration((int)accel, Constants.kTimeoutMs);	
-	}
-
-	public static DriveBaseSubsystem getInstance() {
-		if(instance == null) {
-			try {
-				instance = new DriveBaseSubsystem();
-			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString(), MessageLevel.DEFCON1);
-			}
-		}
-		
-		return instance;
-	}
-	
-	public static DriveBaseSubsystem getInstance(List<CustomSubsystem> subsystemList) {
-		subsystemList.add(getInstance());
-		return instance;
-	}
-
-	public synchronized void setBrakeMode(boolean brakeMode) {
-		if (mPrevBrakeModeVal != brakeMode) {
-			leftDrive.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-			leftDriveSlave1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-			leftDriveSlave2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-			rightDrive.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-			rightDriveSlave1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-			rightDriveSlave2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-			mPrevBrakeModeVal = brakeMode;
-		}
-	}
-	
 	@Override
 	public String toString() {
 		return generateReport();
 	}
 
-	private DriveBaseSubsystem() throws Exception {
-		super();
-		ds = DriverStation.getInstance();
-		_subsystemMutex = new Semaphore(1);
-
-		Controllers robotControllers = Controllers.getInstance();
-		leftDrive = robotControllers.getLeftDrive1();
-		leftDriveSlave1 = robotControllers.getLeftDrive2();
-		leftDriveSlave2 = robotControllers.getLeftDrive3();
-		rightDrive = robotControllers.getRightDrive1();
-		rightDriveSlave1 = robotControllers.getRightDrive2();
-		rightDriveSlave2 = robotControllers.getRightDrive3();
-
-		shiftSol = robotControllers.getShiftSol();
-
-		navX = robotControllers.getNavX();
-
-
-		highGear = false;
-		mPrevShiftVal = false;
-		shift(false);
-
-		mPrevBrakeModeVal = false;
-		setBrakeMode(true);
-
-		holdLow = false;
-		leftDriveSpeed = 0;
-		rightDriveSpeed = 0;
-
-		runThread = false;
-
-		driveThreadControlStart = 0;
-		driveThreadControlEnd = 0;
-		driveThreadControlElapsedTimeMS = 0;
-
-		mpLeftBuffer = null;
-		mpRightBuffer = null;
-
-		requestSetPosition = false;
-		position = 0;
-
-		requestedControlMode = ControlMode.MotionProfile;
-		startMPLeft = false;
-		startMPRight = false;
-
-		mpStatusLeft = new MotionProfileStatus();
-		mpStatusRight = new MotionProfileStatus();
-
-		tuneableLeftDrive = new TuneablePID("LeftDrive", leftDrive, 0, 5808, true, true);
-		tuneableRightDrive = new TuneablePID("RightDrive", rightDrive, 0, 5809, true, true);
-	}
-
-	private static DriveBaseSubsystem instance = null;
-
-	private ControlMode requestedControlMode;
-
-	private boolean startMPLeft;
-	private boolean startMPRight;
-
-	private void processMPLeft() {
-		processMP(leftDrive, mpLeftBuffer);
-	}
-	private void processMPRight() {
-		processMP(rightDrive, mpRightBuffer);
-	}
-	private void processMP(TalonSRX talonSRX, double[][] mpBuffer) {
-		talonSRX.clearMotionProfileTrajectories();
-
-		for (int i = 0; i < mpBuffer.length; i++) {
-			TrajectoryPoint point = new TrajectoryPoint();
-			try {
-				point.position = mpBuffer[i][0] * Constants.kSensorUnitsPerRotation;
-				point.velocity = mpBuffer[i][1] * Constants.kSensorUnitsPerRotation / 600;
-				point.headingDeg = 0;
-				point.timeDur = GetTrajectoryDuration((int)mpBuffer[i][2]);
-				point.profileSlotSelect0 = 0;
-				point.profileSlotSelect1 = 0;
-			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
-			}
-
-			/*
-			if (highGear)
-				point.profileSlotSelect0 = 1;
-			else
-				point.profileSlotSelect0 = 0;
-			 */
-
-			//Set at start
-			point.zeroPos = i == 0;
-
-			//Set at end
-			point.isLastPoint = (i + 1) == mpBuffer.length;
-
-			talonSRX.pushMotionProfileTrajectory(point);
-		}
-	}
-
-	private TrajectoryDuration GetTrajectoryDuration(int durationMs)
-	{	 
-		TrajectoryDuration retval = TrajectoryDuration.Trajectory_Duration_0ms;
-		retval = retval.valueOf(durationMs);
-		if (retval.value != durationMs) {
-			ConsoleReporter.report("SplineMotion Duration not supported - use configMotionProfileTrajectoryPeriod instead", MessageLevel.ERROR);
-		}
-		return retval;
-	}
-
-	private double driveThreadControlStart, driveThreadControlEnd;
-	private int driveThreadControlElapsedTimeMS;
-
-	private DriverStation ds;
-
-	private double leftDriveSpeed;
-	private double rightDriveSpeed;
-	private boolean highGear, holdLow;
-	private double[][] mpLeftBuffer;
-	private double[][] mpRightBuffer;
-
-	private boolean requestSetPosition;
-	private double position;
-
-	private MotionProfileStatus mpStatusLeft;
-	private MotionProfileStatus mpStatusRight;
-	private TalonSRX leftDrive;
-	private TalonSRX leftDriveSlave1;
-	private TalonSRX leftDriveSlave2;
-	private TalonSRX rightDrive;
-	private TalonSRX rightDriveSlave1;
-	private TalonSRX rightDriveSlave2;
-
-	private AHRS navX;
-
-	private Solenoid shiftSol;
-
-	private boolean runThread;
-	
-	protected Semaphore _subsystemMutex;
-
 	@Override
 	public String generateReport() {
 		String retVal = "";
-		
-		retVal += "LeftDrivePos:" + leftDrive.getSelectedSensorVelocity(0) + ";";
-		retVal += "LeftDriveVel:" + leftDrive.getSelectedSensorPosition(0) + ";";
+
+		retVal += "LeftDrivePos:" + mLeftMaster.getSelectedSensorVelocity(0) + ";";
+		retVal += "LeftDriveVel:" + mLeftMaster.getSelectedSensorPosition(0) + ";";
 		retVal += "LeftDriveOutput:" + leftDriveSpeed + ";";
-		retVal += "LeftDrive1Current:" + leftDrive.getOutputCurrent() + ";";
+		retVal += "LeftDrive1Current:" + mLeftMaster.getOutputCurrent() + ";";
 		retVal += "LeftDrive2Current:" + leftDriveSlave1.getOutputCurrent() + ";";
 		retVal += "LeftDrive3Current:" + leftDriveSlave2.getOutputCurrent() + ";";
-		
-		retVal += "RightDrivePos:" + rightDrive.getSelectedSensorVelocity(0) + ";";
-		retVal += "RightDriveVel:" + rightDrive.getSelectedSensorPosition(0) + ";";
+
+		retVal += "RightDrivePos:" + mRightMaster.getSelectedSensorVelocity(0) + ";";
+		retVal += "RightDriveVel:" + mRightMaster.getSelectedSensorPosition(0) + ";";
 		retVal += "RightDriveOutput:" + rightDriveSpeed + ";";
-		retVal += "RightDrive1Current:" + rightDrive.getOutputCurrent() + ";";
+		retVal += "RightDrive1Current:" + mRightMaster.getOutputCurrent() + ";";
 		retVal += "RightDrive2Current:" + rightDriveSlave1.getOutputCurrent() + ";";
 		retVal += "RightDrive3Current:" + rightDriveSlave2.getOutputCurrent() + ";";
-		
+
 		return retVal;
+	}
+
+	@Override
+	public boolean runDiagnostics() {
+		//TODO: Add diagnostic code
+		return false;
+	}
+
+	@Override
+	public boolean isSystemFaulted() {
+		//TODO: Add system fault checking
+		return false;
+	}
+
+	public boolean isHighGear() {
+		return mPrevShiftVal;
+	}
+
+	public void setGear(boolean highGear) {
+		try {
+			if (shiftSol != null) {
+				_subsystemMutex.lock();
+				if (mPrevShiftVal != highGear) {
+					if (highGear) {
+						ConsoleReporter.report("Setting drive gains for high gear!", MessageLevel.INFO);
+						mLeftMaster.selectProfileSlot(0, kHighGearPIDSlot);
+						mRightMaster.selectProfileSlot(0, kHighGearPIDSlot);
+					} else {
+						ConsoleReporter.report("Setting drive gains for low gear!", MessageLevel.INFO);
+						mLeftMaster.selectProfileSlot(0, kLowGearPIDSlot);
+						mRightMaster.selectProfileSlot(0, kLowGearPIDSlot);
+					}
+
+					shiftSol.set(highGear);
+					mPrevShiftVal = highGear;
+				}
+				_subsystemMutex.unlock();
+			}
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex);
+		}
+	}
+
+	public DriveControlState getControlMode() {
+		return mControlMode;
+	}
+
+	public void setControlMode(DriveControlState controlMode) {
+		if (controlMode != mControlMode) {
+			try {
+				_subsystemMutex.lock();
+				mControlMode = controlMode;
+				_subsystemMutex.unlock();
+			} catch (Exception ex) {
+				ConsoleReporter.report(ex);
+			}
+		}
+	}
+
+	public synchronized void setDriveOpenLoop(DriveMotorValues d) {
+		setControlMode(DriveControlState.OPEN_LOOP);
+		setDriveSpeed(d);
+	}
+
+	public synchronized void setDriveVelocity(DriveMotorValues d) {
+		setControlMode(DriveControlState.VELOCITY);
+		setDriveSpeed(d);
+	}
+
+	private synchronized void setDriveSpeed(DriveMotorValues d) {
+		setDriveSpeed(d.leftDrive, d.rightDrive, false);
+	}
+
+	private synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {
+		setDriveSpeed(leftDriveSpeed, rightDriveSpeed, false);
+	}
+
+	private synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, boolean slowDown) {
+		try {
+			_subsystemMutex.lock();
+
+			this.leftDriveSpeed = leftDriveSpeed;
+			this.rightDriveSpeed = rightDriveSpeed;
+
+			if(slowDown) {
+				this.leftDriveSpeed /= 2.2;
+				this.rightDriveSpeed /= 2.2;
+			}
+
+			_subsystemMutex.unlock();
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex);
+		}
+	}
+
+	public void setBrakeMode(boolean brakeMode) {
+		if (mPrevBrakeModeVal != brakeMode) {
+			_subsystemMutex.lock();
+			mLeftMaster.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			leftDriveSlave1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			leftDriveSlave2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			mRightMaster.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			rightDriveSlave1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			rightDriveSlave2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+			mPrevBrakeModeVal = brakeMode;
+			_subsystemMutex.unlock();
+		}
+	}
+
+	/**
+	 * Called periodically when the robot is in path following mode. Updates the path follower with the robots latest
+	 * pose, distance driven, and velocity, then updates the wheel velocity setpoints.
+	 */
+	private void updatePathFollower() {
+		RigidTransform2d robot_pose = mRobotState.getLatestFieldToVehicle().getValue();
+		Twist2d command = mPathFollower.update(Timer.getFPGATimestamp(), robot_pose,
+				PathFollowerRobotState.getInstance().getDistanceDriven(), PathFollowerRobotState.getInstance().getPredictedVelocity().dx);
+
+		if (!mPathFollower.isFinished()) {
+			Kinematics.DriveVelocity setpoint = Kinematics.inverseKinematics(command);
+			updatePathVelocitySetpoint(setpoint.left, setpoint.right);
+
+			//ConsoleReporter.report(mPathFollower.getDebug());
+			//ConsoleReporter.report("Left: " + inchesPerSecondToRpm(setpoint.left) + ", Right: " + inchesPerSecondToRpm(setpoint.right));
+			//ConsoleReporter.report("Left Actual: " + Util.convertNativeUnitsToRPM(mLeftMaster.getSelectedSensorVelocity(0)) + ", Right Actual: " + Util.convertNativeUnitsToRPM(mRightMaster.getSelectedSensorVelocity(0)));
+		} else {
+			updatePathVelocitySetpoint(0, 0);
+			ConsoleReporter.report("Completed path!");
+			setControlMode(DriveControlState.VELOCITY);
+		}
+	}
+
+	private void updatePathVelocitySetpoint(double left_inches_per_sec, double right_inches_per_sec) {
+		final double max_desired = Math.max(Math.abs(left_inches_per_sec), Math.abs(right_inches_per_sec));
+		final double scale = max_desired > Constants.kDriveHighGearMaxSetpoint ? Constants.kDriveHighGearMaxSetpoint / max_desired : 1.0;
+		try {
+			_subsystemMutex.lock();
+			leftDriveSpeed = Util.convertRPMToNativeUnits(inchesPerSecondToRpm(left_inches_per_sec * scale));
+			rightDriveSpeed = Util.convertRPMToNativeUnits(inchesPerSecondToRpm(right_inches_per_sec * scale));
+			_subsystemMutex.unlock();
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex);
+		}
+		//ConsoleReporter.report("Requested Drive Velocity Left/Right: " + left_inches_per_sec + "/" + right_inches_per_sec);
+		//ConsoleReporter.report("Actual Drive Velocity Left/Right: " + getLeftVelocityInchesPerSec() + "/" + getRightVelocityInchesPerSec());
+	}
+
+	private static double rotationsToInches(double rotations) {
+		return rotations * (Constants.kDriveWheelDiameterInches * Math.PI);
+	}
+
+	private static double rpmToInchesPerSecond(double rpm) {
+		return rotationsToInches(rpm) / 60;
+	}
+
+	private static double inchesToRotations(double inches) {
+		return inches / (Constants.kDriveWheelDiameterInches * Math.PI);
+	}
+
+	private static double inchesPerSecondToRpm(double inches_per_second) {
+		return inchesToRotations(inches_per_second) * 60;
+	}
+
+	public double getLeftDistanceInches() {
+		return rotationsToInches(mLeftMaster.getSelectedSensorPosition(0)/Constants.kSensorUnitsPerRotation);
+	}
+
+	public double getRightDistanceInches() {
+		return rotationsToInches(mRightMaster.getSelectedSensorPosition(0)/Constants.kSensorUnitsPerRotation);
+	}
+
+	public double getLeftVelocityInchesPerSec() { return rpmToInchesPerSecond(Util.convertNativeUnitsToRPM(mLeftMaster.getSelectedSensorVelocity(0))); }
+
+	public double getRightVelocityInchesPerSec() { return rpmToInchesPerSecond(Util.convertNativeUnitsToRPM(mRightMaster.getSelectedSensorVelocity(0))); }
+
+	public synchronized Rotation2d getGyroAngle() {
+		return mNavXBoard.getYaw();
+	}
+
+	public synchronized NavX getNavXBoard() {
+		return mNavXBoard;
+	}
+
+	public synchronized void setGyroAngle(Rotation2d angle) {
+		mNavXBoard.reset();
+		mNavXBoard.setAngleAdjustment(angle);
+	}
+
+	public synchronized double getGyroVelocityDegreesPerSec() {
+		return mNavXBoard.getYawRateDegreesPerSec();
+	}
+
+	/**
+	 * Configures the drivebase to drive a path. Used for autonomous driving
+	 *
+	 * @see Path
+	 */
+	public synchronized void setWantDrivePath(Path path, boolean reversed) {
+		if (mCurrentPath != path || mControlMode != DriveControlState.PATH_FOLLOWING) {
+			setControlMode(DriveControlState.PATH_FOLLOWING);
+			PathFollowerRobotState.getInstance().resetDistanceDriven();
+			mPathFollower = new PathFollower(path, reversed,
+					new PathFollower.Parameters(
+							new Lookahead(Constants.kMinLookAhead, Constants.kMaxLookAhead,
+									Constants.kMinLookAheadSpeed, Constants.kMaxLookAheadSpeed),
+							Constants.kInertiaSteeringGain, Constants.kPathFollowingProfileKp,
+							Constants.kPathFollowingProfileKi, Constants.kPathFollowingProfileKv,
+							Constants.kPathFollowingProfileKffv, Constants.kPathFollowingProfileKffa,
+							Constants.kPathFollowingMaxVel, Constants.kPathFollowingMaxAccel,
+							Constants.kPathFollowingGoalPosTolerance, Constants.kPathFollowingGoalVelTolerance,
+							Constants.kPathStopSteeringDistance));
+
+			mCurrentPath = path;
+		} else {
+			ConsoleReporter.report("Error setting path for drive!", MessageLevel.ERROR);
+		}
+	}
+
+	public synchronized boolean isDoneWithPath() {
+		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
+			return mPathFollower.isFinished();
+		} else {
+			ConsoleReporter.report("Robot is not in path following mode");
+			return true;
+		}
+	}
+
+	public synchronized void forceDoneWithPath() {
+		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
+			mPathFollower.forceFinish();
+		} else {
+			ConsoleReporter.report("Robot is not in path following mode");
+		}
 	}
 }

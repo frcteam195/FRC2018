@@ -1,14 +1,14 @@
 package org.usfirst.frc.team195.robot.Actions;
 
-import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystemOld;
 import org.usfirst.frc.team195.robot.Utilities.CustomAction;
 
 public class ShiftAction extends CustomAction {
-	private DriveBaseSubsystem driveBaseSubsystem;
+	private DriveBaseSubsystemOld driveBaseSubsystem;
 	
 	public ShiftAction() {
 		super();
-		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
+		driveBaseSubsystem = DriveBaseSubsystemOld.getInstance();
 	}
 
 	@Override

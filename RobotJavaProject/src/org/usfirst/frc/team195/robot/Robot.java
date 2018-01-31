@@ -2,8 +2,6 @@ package org.usfirst.frc.team195.robot;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest;
-import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest2;
 import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest3;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
@@ -21,12 +19,10 @@ public class Robot extends RobbieRobot {
 	private AutoProfileTest3 autoProfileTest;
 
 	private DriveBaseSubsystem driveBaseSubsystem;
+	private RobotStateEstimator robotStateEstimator;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
 	private HIDControllerSubsystem hidControllerSubsystem;
 	private DashboardReporter dashboardReporter;
-
-	private CKAutoBuilder<TalonSRX> ckAuto;
-	
 	
 	public Robot() {
 		;
@@ -34,6 +30,7 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void robotInit() {
+		//Setup the ConsoleReporter first so that subsystems can report errors if they occur
 		ConsoleReporter.setReportingLevel(MessageLevel.INFO);
 		ConsoleReporter.getInstance().start();
 		ConsoleReporter.report("Console Reporter Running!", MessageLevel.INFO);
@@ -42,6 +39,7 @@ public class Robot extends RobbieRobot {
 		subsystemVector = new ArrayList<CustomSubsystem>();
 		
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance(subsystemVector);
+		robotStateEstimator = RobotStateEstimator.getInstance(subsystemVector);
 		//cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
 		hidControllerSubsystem = HIDControllerSubsystem.getInstance(subsystemVector);
 		
@@ -49,33 +47,21 @@ public class Robot extends RobbieRobot {
 			customSubsystem.init();
 		}
 		
-		for (CustomSubsystem customSubsystem : subsystemVector) {
-			customSubsystem.start();
-		}
-		
-		//Setup the DashboardReporter once all other subsystems have been instantiated
+		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
 
-
-//		try {
-//			ckAuto = new CKAutoBuilder<TalonSRX>(robotControllers.getLeftDrive1(), robotControllers.getRightDrive1(), this);
-//		} catch (Exception ex) {
-//
-//		}
 		
 		//autoProfileTest = new AutoProfileTest3();
 	}
 
 	@Override
 	public void autonomous() {
-//		ckAuto.addAutoStep(0, 0, 2000);	//Delay for two seconds
-//		ckAuto.addAutoStep(1, 0.25, 1000);	//Drive forward while turning right for one second
-//		ckAuto.addAutoStep(0.8, -0.5, 700);	//Drive forward while turning left for 600 milliseconds
-//		ckAuto.addAutoStep(0.75, 0, 500);	//Drive forward for half a second
-//		ckAuto.addAutoStep(0, 0, 200);	//Stop
-//		ckAuto.start();
+		for (CustomSubsystem customSubsystem : subsystemVector) {
+			customSubsystem.subsystemHome();
+			customSubsystem.start();
+		}
 
 		//autoProfileTest.start();
 		
@@ -84,17 +70,31 @@ public class Robot extends RobbieRobot {
 	
 	@Override
 	protected void disabled() {
-		;
+		for (CustomSubsystem customSubsystem : subsystemVector) {
+			customSubsystem.terminate();
+		};
 	}
 
 	@Override
 	public void operatorControl() {
-		driveBaseSubsystem.setControlMode(ControlMode.Velocity);
+		for (CustomSubsystem customSubsystem : subsystemVector) {
+			customSubsystem.start();
+		}
+
+		driveBaseSubsystem.setControlMode(DriveControlState.OPEN_LOOP);
 		while (isOperatorControl() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
 
 	@Override
 	public void test() {
-		;
+		boolean retVal = true;
+
+		for (CustomSubsystem customSubsystem : subsystemVector) {
+			if (customSubsystem instanceof DiagnosableSubsystem)
+				retVal &= ((DiagnosableSubsystem) customSubsystem).runDiagnostics();
+		}
+
+		if (!retVal)
+			ConsoleReporter.report("Robot has failed self diagnostics! Check the logs for more info.", MessageLevel.DEFCON1);
 	}
 }

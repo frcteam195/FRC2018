@@ -13,7 +13,6 @@ import org.usfirst.frc.team195.robot.Utilities.Controllers;
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.DriveHelper;
 import org.usfirst.frc.team195.robot.Utilities.KnightJoystick;
-import org.usfirst.frc.team195.robot.Utilities.Reportable;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -29,7 +28,7 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 			try {
 				instance = new HIDControllerSubsystem();
 			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString(), MessageLevel.DEFCON1);
+				ConsoleReporter.report(ex, MessageLevel.DEFCON1);
 			}
 		}
 		
@@ -40,8 +39,6 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 		subsystemList.add(getInstance());
 		return instance;
 	}
-	
-	
 	
 	@Override
 	public void init() {
@@ -56,11 +53,18 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 	@Override
 	public void start() {
 		runThread = true;
-		driveJoyStickThread.start();
+		if (!driveBaseSubsystem.isAlive())
+			driveJoyStickThread.start();
 	}
 
+	@Override
 	public void terminate() {
 		runThread = false;
+		try {
+			driveJoyStickThread.join(Constants.kThreadJoinTimeout);
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex);
+		}
 	}
 	
 //	@Override
@@ -132,9 +136,6 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 		
 		@Override
 		public void run() {
-			while (!ds.isEnabled()) {try {Thread.sleep(20);} catch (Exception ex) {}}
-			subsystemHome();
-
 			while (ds.isAutonomous()) {try {Thread.sleep(100);} catch (Exception ex) {}}
 
 			while(runThread) {
@@ -183,7 +184,7 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 
 				driveBaseSubsystem.setBrakeMode(driveJoystick.getRawButton(Constants.DRIVE_HOLD_BRAKE));
 
-				driveBaseSubsystem.setDriveSpeed(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
+				driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
 				//driveBaseSubsystem.setDriveSpeed((y + x) * 2300, (y - x) * 2300);
 
 				do {

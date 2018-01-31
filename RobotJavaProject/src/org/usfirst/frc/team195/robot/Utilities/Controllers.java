@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI.Port;
@@ -27,7 +28,7 @@ public class Controllers {
 	private TalonSRX intakeShoulderMotor;
 	private TalonSRX intakeElbowMotor;
 	
-	private AHRS navX;
+	private NavX navX;
 	
 	private static Controllers instance = null;
 	
@@ -63,7 +64,7 @@ public class Controllers {
 		intakeElbowMotor = canSpeedControllerBuilder.createDefaultTalonSRX(12);
 	*/
 	    try {
-	        navX = new AHRS(Port.kMXP);
+	        navX = new NavX(SPI.Port.kMXP);
 	    } catch (Exception ex) {
 	        String err_string = "Error instantiating navX MXP:  ";
 	        err_string += ex.toString();
@@ -138,7 +139,7 @@ public class Controllers {
 		return intakeElbowMotor;
 	}
 
-	public AHRS	getNavX() {
+	public NavX	getNavX() {
 		return navX;
 	}
 }

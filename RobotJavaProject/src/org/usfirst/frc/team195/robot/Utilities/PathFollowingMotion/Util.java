@@ -1,5 +1,7 @@
 package org.usfirst.frc.team195.robot.Utilities.PathFollowingMotion;
 
+import org.usfirst.frc.team195.robot.Utilities.Constants;
+
 import java.util.List;
 
 /**
@@ -45,10 +47,10 @@ public class Util {
     }
 
     public static int convertRPMToNativeUnits(double rpm) {
-        return (int)(rpm * 4096.0 / 600.0);
+        return (int)(rpm * Constants.kSensorUnitsPerRotation / Constants.k100msPerMinute);
     }
 
     public static int convertNativeUnitsToRPM(double nativeUnits) {
-        return (int)(nativeUnits / 4096.0 * 600.0);
+        return (int)(nativeUnits / Constants.kSensorUnitsPerRotation * Constants.k100msPerMinute);
     }
 }

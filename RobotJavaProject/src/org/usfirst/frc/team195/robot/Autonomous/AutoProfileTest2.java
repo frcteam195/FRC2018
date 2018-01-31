@@ -1,16 +1,15 @@
 package org.usfirst.frc.team195.robot.Autonomous;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
-import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystemOld;
 import org.usfirst.frc.team195.robot.Utilities.CustomAuto;
 
+@Deprecated
 public class AutoProfileTest2 implements CustomAuto {
-	private DriveBaseSubsystem driveBaseSubsystem;
+	private DriveBaseSubsystemOld driveBaseSubsystem;
 
 	 public AutoProfileTest2() {
-		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
+		driveBaseSubsystem = DriveBaseSubsystemOld.getInstance();
 	}
 
 	@Override

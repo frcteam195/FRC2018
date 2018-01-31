@@ -92,6 +92,10 @@ public class TuneablePID {
 		}
 	}
 
+	public boolean isAlive() {
+		return udpReceiver.isAlive() || udpSender.isAlive();
+	}
+
 	public void terminate() {
 		if (udpReceiver != null && udpSender != null) {
 			udpReceiver.terminate();

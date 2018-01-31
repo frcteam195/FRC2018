@@ -47,8 +47,6 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 		runThread = false;
 		
 		intakeControl = IntakeControl.OFF;
-		
-		tuneableIntake = new TuneablePID("Intake", intakeMotor2, 0, 5807, false, false);
 	}
 	
 	private IntakeControl intakeControl;
@@ -78,7 +76,7 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 			try {
 				instance = new CubeHandlerSubsystem();
 			} catch (Exception ex) {
-				ConsoleReporter.report(ex.toString(), MessageLevel.DEFCON1);
+				ConsoleReporter.report(ex, MessageLevel.DEFCON1);
 			}
 		}
 		
@@ -108,19 +106,22 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 	@Override
 	public void start() {
 		runThread = true;
-		super.start();
-		tuneableIntake.start();
+		if (!super.isAlive())
+			super.start();
 	}
 
+	@Override
 	public void terminate() {
 		runThread = false;
+		try {
+			super.join(Constants.kThreadJoinTimeout);
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex);
+		}
 	}
 	
 	@Override
 	public void run() {
-		while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
-		subsystemHome();
-
 		while(runThread) {
 			cubeHandlerThreadControlStart = Timer.getFPGATimestamp();
 			
