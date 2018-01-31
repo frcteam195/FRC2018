@@ -13,11 +13,11 @@ public class Controllers {
 	private KnightJoystick driveJoystick;
 	private CANSpeedControllerBuilder canSpeedControllerBuilder;
 	private TalonSRX leftDrive1;
-	private TalonSRX leftDrive2;
-	private TalonSRX leftDrive3;
+	private VictorSPX leftDrive2;
+	private VictorSPX leftDrive3;
 	private TalonSRX rightDrive1;
-	private TalonSRX rightDrive2;
-	private TalonSRX rightDrive3;
+	private VictorSPX rightDrive2;
+	private VictorSPX rightDrive3;
 	private Solenoid shiftSol;
 	private Solenoid ginoSol;
 	
@@ -40,13 +40,13 @@ public class Controllers {
 
 		//Left Drive Setup
 		leftDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(1);
-		leftDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(2, leftDrive1);
-		leftDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(3, leftDrive1);
+		leftDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(2, leftDrive1);
+		leftDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(3, leftDrive1);
 
 		//Right Drive Setup
 		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(4);
-		rightDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(5, rightDrive1);
-		rightDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(6, rightDrive1);
+		rightDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(5, rightDrive1);
+		rightDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(6, rightDrive1);
 
 		//Shift Solenoid Setup
 		shiftSol = new Solenoid(1);
@@ -87,11 +87,11 @@ public class Controllers {
 		return leftDrive1;
 	}
 	
-	public TalonSRX getLeftDrive2() {
+	public VictorSPX getLeftDrive2() {
 		return leftDrive2;
 	}
 	
-	public TalonSRX getLeftDrive3() {
+	public VictorSPX getLeftDrive3() {
 		return leftDrive3;
 	}
 	
@@ -99,11 +99,11 @@ public class Controllers {
 		return rightDrive1;
 	}
 	
-	public TalonSRX getRightDrive2() {
+	public VictorSPX getRightDrive2() {
 		return rightDrive2;
 	}
 	
-	public TalonSRX getRightDrive3() {
+	public VictorSPX getRightDrive3() {
 		return rightDrive3;
 	}
 	
