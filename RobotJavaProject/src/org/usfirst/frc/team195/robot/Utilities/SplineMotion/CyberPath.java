@@ -6,6 +6,7 @@ import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.SplineMotion.SRX.SRXDriveBaseTrajectory;
 import org.usfirst.frc.team195.robot.Utilities.SplineMotion.SRX.SRXTrajectoryConfig;
 
+@Deprecated
 public class CyberPath {
 	private SRXTrajectoryConfig srxTrajectoryConfig;
 	private WaypointSequence waypointSequence;

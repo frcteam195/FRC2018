@@ -1,25 +1,30 @@
 package org.usfirst.frc.team195.robot.Utilities;
 
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI.Port;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.CANSpeedControllerBuilder;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
 
 public class Controllers {
 	private KnightJoystick driveJoystick;
 	private CANSpeedControllerBuilder canSpeedControllerBuilder;
 	private TalonSRX leftDrive1;
-	private VictorSPX leftDrive2;
-	private VictorSPX leftDrive3;
+	private BaseMotorController leftDrive2;
+	private BaseMotorController leftDrive3;
 	private TalonSRX rightDrive1;
-	private VictorSPX rightDrive2;
-	private VictorSPX rightDrive3;
+	private BaseMotorController rightDrive2;
+	private BaseMotorController rightDrive3;
 	private Solenoid shiftSol;
 	private Solenoid ginoSol;
+	private DigitalOutput mLED;
 	
 	private TalonSRX liftMotor;
 	private VictorSPX liftMotorSlave;
@@ -38,37 +43,39 @@ public class Controllers {
 
 		canSpeedControllerBuilder = new CANSpeedControllerBuilder();
 
+		//Choose whether to create Victor or Talon slaves here
 		//Left Drive Setup
-		leftDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(1);
-		leftDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(2, leftDrive1);
-		leftDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(3, leftDrive1);
+		leftDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kLeftDriveMasterId);
+		leftDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kLeftDriveSlaveId, leftDrive1);
+		leftDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kLeftDriveSlaveId2, leftDrive1);
 
 		//Right Drive Setup
-		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(4);
-		rightDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(5, rightDrive1);
-		rightDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(6, rightDrive1);
+		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kRightDriveMasterId);
+		rightDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kRightDriverSlaveId, rightDrive1);
+		rightDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kRightDriverSlaveId2, rightDrive1);
 
 		//Shift Solenoid Setup
-		shiftSol = new Solenoid(1);
-		ginoSol = new Solenoid(0);
+		shiftSol = new Solenoid(Constants.kShifterSolenoidId);
+		ginoSol = new Solenoid(Constants.kShifterSolenoidId2);
+
+		//LED Setup
+		mLED = new DigitalOutput(Constants.kLEDId);
 
 		//Elevator setup
 		
-		//intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
-		//intakeMotor2 = canSpeedControllerBuilder.createDefaultTalonSRX(8);
-		/*
-		liftMotor = canSpeedControllerBuilder.createDefaultTalonSRX(7);
-		liftMotorSlave = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(8, liftMotor);
-		
-		intakeShoulderMotor = canSpeedControllerBuilder.createDefaultTalonSRX(11);
-		intakeElbowMotor = canSpeedControllerBuilder.createDefaultTalonSRX(12);
-	*/
+		//intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeLeftId);
+		//intakeMotor2 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeRightId);
+
+//		liftMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElevatorMasterId);
+//		liftMotorSlave = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kElevatorSlaveId, liftMotor);
+//
+//		intakeShoulderMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kShoulderMotorId);
+//		intakeElbowMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElbowMotorId);
+
 	    try {
 	        navX = new NavX(SPI.Port.kMXP);
 	    } catch (Exception ex) {
-	        String err_string = "Error instantiating navX MXP:  ";
-	        err_string += ex.toString();
-	        DriverStation.reportError(err_string, false);
+			ConsoleReporter.report(ex, MessageLevel.DEFCON1);
 	    }
 	}
 	
@@ -87,11 +94,11 @@ public class Controllers {
 		return leftDrive1;
 	}
 	
-	public VictorSPX getLeftDrive2() {
+	public BaseMotorController getLeftDrive2() {
 		return leftDrive2;
 	}
 	
-	public VictorSPX getLeftDrive3() {
+	public BaseMotorController getLeftDrive3() {
 		return leftDrive3;
 	}
 	
@@ -99,11 +106,11 @@ public class Controllers {
 		return rightDrive1;
 	}
 	
-	public VictorSPX getRightDrive2() {
+	public BaseMotorController getRightDrive2() {
 		return rightDrive2;
 	}
 	
-	public VictorSPX getRightDrive3() {
+	public BaseMotorController getRightDrive3() {
 		return rightDrive3;
 	}
 	
@@ -142,4 +149,6 @@ public class Controllers {
 	public NavX	getNavX() {
 		return navX;
 	}
+
+	public DigitalOutput getLED() { return mLED; }
 }

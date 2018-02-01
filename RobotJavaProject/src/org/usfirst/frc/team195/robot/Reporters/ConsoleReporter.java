@@ -50,11 +50,11 @@ public class ConsoleReporter extends Thread {
 		ConsoleReporter.reportingLevel = messageLevel;
 	}
 
-	public static void report(Exception ex) { report(ex, MessageLevel.ERROR); }
+	public static void report(Throwable t) { report(t, MessageLevel.ERROR); }
 
-	public static void report(Exception ex, MessageLevel messageLevel) {
+	public static void report(Throwable t, MessageLevel messageLevel) {
 		StringWriter s = new StringWriter();
-		ex.printStackTrace(new PrintWriter(s));
+		t.printStackTrace(new PrintWriter(s));
 		report(s.toString(), messageLevel);
 	}
 

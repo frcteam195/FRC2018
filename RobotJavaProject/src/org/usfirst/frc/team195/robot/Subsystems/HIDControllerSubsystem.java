@@ -8,11 +8,7 @@ import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
 import org.usfirst.frc.team195.robot.Actions.ShiftAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Utilities.Constants;
-import org.usfirst.frc.team195.robot.Utilities.Controllers;
-import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
-import org.usfirst.frc.team195.robot.Utilities.DriveHelper;
-import org.usfirst.frc.team195.robot.Utilities.KnightJoystick;
+import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -53,18 +49,19 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 	@Override
 	public void start() {
 		runThread = true;
-		if (!driveBaseSubsystem.isAlive())
+		if (!driveJoyStickThread.isAlive())
 			driveJoyStickThread.start();
 	}
 
 	@Override
 	public void terminate() {
-		runThread = false;
-		try {
-			driveJoyStickThread.join(Constants.kThreadJoinTimeout);
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex);
-		}
+		ConsoleReporter.report("CAN'T STOP, WON'T STOP, DON'T CALL ME!", MessageLevel.ERROR);
+//		runThread = false;
+//		try {
+//			driveJoyStickThread.join(Constants.kThreadJoinTimeout);
+//		} catch (Exception ex) {
+//			ConsoleReporter.report(ex);
+//		}
 	}
 	
 //	@Override
@@ -84,10 +81,6 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 
 		runThread = false;
 		comingFromAuto = true;
-
-		driveJoystickThreadControlStart = 0;
-		driveJoystickThreadControlEnd = 0;
-		driveJoystickThreadControlElapsedTimeMS = 0;
 		
 		driveJoyStickThread = new DriveJoyStickThread();
 	}
@@ -102,13 +95,9 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 	protected boolean runThread;
 
 	protected boolean comingFromAuto;
-
-	protected double driveJoystickThreadControlStart, driveJoystickThreadControlEnd;
-	protected int driveJoystickThreadControlElapsedTimeMS;
 	
 	private class DriveJoyStickThread extends Thread {
-		private double driveJoystickThreadControlStart, driveJoystickThreadControlEnd;
-		private int driveJoystickThreadControlElapsedTimeMS;
+		private ThreadRateControl threadRateControl = new ThreadRateControl();
 		
 		private DriveHelper driveHelper;
 		private ShiftAction shiftAction;
@@ -120,10 +109,6 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 			driveHelper = new DriveHelper();
 			shiftAction = new ShiftAction();
 			intakePositionAction = new IntakePositionAction();
-			
-			driveJoystickThreadControlStart = 0;
-			driveJoystickThreadControlEnd = 0;
-			driveJoystickThreadControlElapsedTimeMS = 0;
 		}
 		
 		@Override
@@ -136,17 +121,19 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 		
 		@Override
 		public void run() {
+			while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
+
 			while (ds.isAutonomous()) {try {Thread.sleep(100);} catch (Exception ex) {}}
 
-			while(runThread) {
-				driveJoystickThreadControlStart = Timer.getFPGATimestamp();
+			threadRateControl.start();
 
+			while(runThread) {
 				if (driveJoystick.GetRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
 					shiftAction.start(false);
 				} else if (driveJoystick.GetRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
 					shiftAction.start(true);
 				}
-				
+
 				/*if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_RUN)) {
 					shiftAction.start(false);
 					cubeHandlerSubsystem.setIntakeControl(IntakeControl.FORWARD);
@@ -162,22 +149,22 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 					cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 				}*/
 				
-				if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE)) {
-					shiftAction.start(true);
-					intakePositionAction.start(false);
-				} else if (driveJoystick.getRawButton(Constants.INTAKE_OPEN)) {
-					intakePositionAction.start(true);
-					shiftAction.start(false);
-				} else if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_HALF)) {
-					intakePositionAction.start(true);
-					shiftAction.start(true);
-				} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
-					cubeHandlerSubsystem.setIntakeControl(IntakeControl.REVERSE);
-				} else if(driveJoystick.getRawButton(Constants.INTAKE_RUN)) {
-					cubeHandlerSubsystem.setIntakeControl(IntakeControl.FORWARD);
-				} else {
-					cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
-				}
+//				if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE)) {
+//					shiftAction.start(true);
+//					intakePositionAction.start(false);
+//				} else if (driveJoystick.getRawButton(Constants.INTAKE_OPEN)) {
+//					intakePositionAction.start(true);
+//					shiftAction.start(false);
+//				} else if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_HALF)) {
+//					intakePositionAction.start(true);
+//					shiftAction.start(true);
+//				} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
+//					cubeHandlerSubsystem.setIntakeControl(IntakeControl.REVERSE);
+//				} else if(driveJoystick.getRawButton(Constants.INTAKE_RUN)) {
+//					cubeHandlerSubsystem.setIntakeControl(IntakeControl.FORWARD);
+//				} else {
+//					cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
+//				}
 
 				x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
 				y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);
@@ -187,13 +174,7 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 				driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
 				//driveBaseSubsystem.setDriveSpeed((y + x) * 2300, (y - x) * 2300);
 
-				do {
-					driveJoystickThreadControlEnd = Timer.getFPGATimestamp();
-					driveJoystickThreadControlElapsedTimeMS = (int) ((driveJoystickThreadControlEnd - driveJoystickThreadControlStart) * 1000);
-					if (driveJoystickThreadControlElapsedTimeMS < MIN_HID_THREAD_LOOP_TIME_MS)
-						try{Thread.sleep(MIN_HID_THREAD_LOOP_TIME_MS - driveJoystickThreadControlElapsedTimeMS);}catch(Exception ex) {};
-				} while(driveJoystickThreadControlElapsedTimeMS < MIN_HID_THREAD_LOOP_TIME_MS);
-
+				threadRateControl.doRateControl(MIN_HID_THREAD_LOOP_TIME_MS);
 			}
 		}
 	}

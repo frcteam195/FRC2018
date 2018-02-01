@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -8,10 +9,16 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
-import org.usfirst.frc.team195.robot.Utilities.PathFollowingMotion.*;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
 	private static final int kLowGearPIDSlot = 0;
@@ -24,9 +31,7 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 	private DriveControlState mControlMode;
 	private DriveControlState mPrevControlMode;
 	private TalonSRX mLeftMaster, mRightMaster;
-	private TalonSRX leftDriveSlave1, leftDriveSlave2, rightDriveSlave1, rightDriveSlave2;
-	private double driveThreadControlStart, driveThreadControlEnd;
-	private int driveThreadControlElapsedTimeMS;
+	private BaseMotorController leftDriveSlave1, leftDriveSlave2, rightDriveSlave1, rightDriveSlave2;
 	private DriverStation ds;
 	private NavX mNavXBoard;
 	private Solenoid shiftSol;
@@ -36,6 +41,7 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 	private boolean runThread;
 	private Path mCurrentPath = null;
 	private PathFollower mPathFollower;
+	private ThreadRateControl threadRateControl = new ThreadRateControl();
 
 	private DriveBaseSubsystem() throws Exception {
 		super();
@@ -62,10 +68,6 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 		setBrakeMode(true);
 
 		runThread = false;
-
-		driveThreadControlStart = 0;
-		driveThreadControlEnd = 0;
-		driveThreadControlElapsedTimeMS = 0;
 
 		mControlMode = DriveControlState.PATH_FOLLOWING;
 		mPrevControlMode = DriveControlState.OPEN_LOOP;
@@ -106,18 +108,12 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 		mRightMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
 		mRightMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
 
-		boolean leftSensorPresent = mLeftMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
-		boolean rightSensorPresent = mRightMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
-		if (!leftSensorPresent || !rightSensorPresent) {
-			String msg = "Could not detect encoder! \r\n\tLeft Encoder Detected: " + leftSensorPresent + "\r\n\tRight Encoder Detected: " + rightSensorPresent;
-			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
-			DriverStation.reportError(msg, false);
-		}
-
 		TalonHelper.setPIDGains(mLeftMaster, kLowGearPIDSlot, 0.2, 0, 2, 0.1);
 		TalonHelper.setPIDGains(mLeftMaster, kHighGearPIDSlot, 0.2, 0, 2, 0.121);
 		TalonHelper.setPIDGains(mRightMaster, kLowGearPIDSlot, 0.2, 0, 2, 0.1);
 		TalonHelper.setPIDGains(mRightMaster, kHighGearPIDSlot, 0.2, 0, 2, 0.121);
+
+		isSystemFaulted();
 	}
 
 	@Override
@@ -129,19 +125,22 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 
 	@Override
 	public void terminate() {
-		runThread = false;
-		try {
-			super.join(Constants.kThreadJoinTimeout);
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex);
-		}
+		ConsoleReporter.report("CAN'T STOP, WON'T STOP, DON'T CALL ME!", MessageLevel.ERROR);
+//		runThread = false;
+//		try {
+//			super.join(Constants.kThreadJoinTimeout);
+//		} catch (Exception ex) {
+//			ConsoleReporter.report(ex);
+//		}
 	}
 
 	@Override
 	public void run() {
-		while(runThread) {
-			driveThreadControlStart = Timer.getFPGATimestamp();
+		while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
+		subsystemHome();
+		threadRateControl.start();
 
+		while(runThread) {
 			if(mPrevControlMode != mControlMode) {
 				ConsoleReporter.report("Changing Control Modes!", MessageLevel.INFO);
 
@@ -186,14 +185,7 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 					break;
 			}
 
-			int loopRate = (mControlMode == DriveControlState.PATH_FOLLOWING ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
-
-			do {
-				driveThreadControlEnd = Timer.getFPGATimestamp();
-				driveThreadControlElapsedTimeMS = (int) ((driveThreadControlEnd - driveThreadControlStart) * 1000);
-				if (driveThreadControlElapsedTimeMS < loopRate)
-					try{Thread.sleep(loopRate - driveThreadControlElapsedTimeMS);}catch(Exception ex) {};
-			} while(driveThreadControlElapsedTimeMS < loopRate);
+			threadRateControl.doRateControl(mControlMode == DriveControlState.PATH_FOLLOWING ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
 		}
 	}
 
@@ -232,14 +224,87 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 
 	@Override
 	public boolean runDiagnostics() {
-		//TODO: Add diagnostic code
-		return false;
+        ConsoleReporter.report("Testing DRIVE---------------------------------");
+        final double kLowCurrentThres = 0.5;
+        final double kLowRpmThres = 300;
+
+		ArrayList<MotorDiagnostics> mAllMotorsDiagArr = new ArrayList<MotorDiagnostics>();
+		ArrayList<MotorDiagnostics> mLeftDiagArr = new ArrayList<MotorDiagnostics>();
+		ArrayList<MotorDiagnostics> mRightDiagArr = new ArrayList<MotorDiagnostics>();
+		mLeftDiagArr.add(new MotorDiagnostics("Drive Left Master", mLeftMaster));
+		mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 1", leftDriveSlave1, mLeftMaster));
+		mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 2", leftDriveSlave2, mLeftMaster));
+		mRightDiagArr.add(new MotorDiagnostics("Drive Right Master", mRightMaster));
+		mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 1", rightDriveSlave1, mRightMaster));
+		mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 2", rightDriveSlave2, mRightMaster));
+
+		mAllMotorsDiagArr.addAll(mLeftDiagArr);
+		mAllMotorsDiagArr.addAll(mRightDiagArr);
+
+		boolean failure = false;
+
+		for (MotorDiagnostics mD: mAllMotorsDiagArr) {
+			mD.runTest();
+
+			if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
+				failure = true;
+			}
+
+			if (mD.isRPMUnderThreshold(kLowRpmThres)) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " RPM Low !!!!!!!!!!");
+				failure = true;
+			}
+		}
+
+		if (mLeftDiagArr.size() > 0 && mRightDiagArr.size() > 0 && mAllMotorsDiagArr.size() > 0) {
+			List<Double> leftMotorCurrents = mLeftDiagArr.stream().map(u -> u.getMotorCurrent()).collect(Collectors.toList());
+			if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), 5.0)) {
+				failure = true;
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Left Currents Different !!!!!!!!!!");
+			}
+
+			List<Double> rightMotorCurrents = mRightDiagArr.stream().map(u -> u.getMotorCurrent()).collect(Collectors.toList());
+			if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), 5.0)) {
+				failure = true;
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Right Currents Different !!!!!!!!!!");
+			}
+
+			List<Double> driveMotorRPMs = mAllMotorsDiagArr.stream().map(u -> u.getMotorRPM()).collect(Collectors.toList());
+			if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), 250)) {
+				failure = true;
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
+			}
+		} else {
+			ConsoleReporter.report("Drive Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
+		}
+
+        return !failure;
 	}
 
 	@Override
 	public boolean isSystemFaulted() {
-		//TODO: Add system fault checking
-		return false;
+		boolean allSensorsPresent = true;
+
+		boolean leftSensorPresent = mLeftMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		boolean rightSensorPresent = mRightMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		allSensorsPresent &= leftSensorPresent;
+		allSensorsPresent &= rightSensorPresent;
+		if (!leftSensorPresent || !rightSensorPresent) {
+			String msg = "Could not detect encoder! \r\n\tLeft Encoder Detected: " + leftSensorPresent + "\r\n\tRight Encoder Detected: " + rightSensorPresent;
+			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
+			DriverStation.reportError(msg, false);
+		}
+
+		boolean navXPresent = mNavXBoard.isPresent();
+		allSensorsPresent &= navXPresent;
+		if (!navXPresent) {
+			String msg = "Could not detect navX!";
+			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
+			DriverStation.reportError(msg, false);
+		}
+
+		return !allSensorsPresent;
 	}
 
 	public boolean isHighGear() {
@@ -460,6 +525,15 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 			mPathFollower.forceFinish();
 		} else {
 			ConsoleReporter.report("Robot is not in path following mode");
+		}
+	}
+
+	public synchronized boolean hasPassedMarker(String marker) {
+		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
+			return mPathFollower.hasPassedMarker(marker);
+		} else {
+			ConsoleReporter.report("Robot is not in path following mode");
+			return false;
 		}
 	}
 }

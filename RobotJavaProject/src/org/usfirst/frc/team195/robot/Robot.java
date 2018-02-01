@@ -1,27 +1,27 @@
 package org.usfirst.frc.team195.robot;
 
+import java.io.Console;
 import java.util.ArrayList;
 
-import org.usfirst.frc.team195.robot.Autonomous.AutoProfileTest3;
+import edu.wpi.first.wpilibj.RobotState;
+import org.eclipse.jetty.io.Connection;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.*;
 import org.usfirst.frc.team195.robot.Utilities.*;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathFollowerRobotState;
 
 public class Robot extends RobbieRobot {
 	private Controllers robotControllers;
 	private ArrayList<CustomSubsystem> subsystemVector;
 
-	private AutoProfileTest3 autoProfileTest;
-
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private RobotStateEstimator robotStateEstimator;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
 	private HIDControllerSubsystem hidControllerSubsystem;
+	private LEDControllerSubsystem ledControllerSubsystem;
+	private ConnectionMonitorSubsystem connectionMonitorSubsystem;
 	private DashboardReporter dashboardReporter;
 	
 	public Robot() {
@@ -42,59 +42,55 @@ public class Robot extends RobbieRobot {
 		robotStateEstimator = RobotStateEstimator.getInstance(subsystemVector);
 		//cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
 		hidControllerSubsystem = HIDControllerSubsystem.getInstance(subsystemVector);
+		connectionMonitorSubsystem = ConnectionMonitorSubsystem.getInstance(subsystemVector);
+		ledControllerSubsystem = LEDControllerSubsystem.getInstance(subsystemVector);
 		
 		for (CustomSubsystem customSubsystem : subsystemVector) {
 			customSubsystem.init();
+		}
+
+		for (CustomSubsystem customSubsystem : subsystemVector) {
+			customSubsystem.start();
 		}
 		
 		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
-
-		
-		//autoProfileTest = new AutoProfileTest3();
 	}
 
 	@Override
 	public void autonomous() {
-		for (CustomSubsystem customSubsystem : subsystemVector) {
-			customSubsystem.subsystemHome();
-			customSubsystem.start();
-		}
 
-		//autoProfileTest.start();
-		
 		while (isAutonomous() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
 	
 	@Override
-	protected void disabled() {
-		for (CustomSubsystem customSubsystem : subsystemVector) {
-			customSubsystem.terminate();
-		};
-	}
+	protected void disabled() { ; }
 
 	@Override
 	public void operatorControl() {
-		for (CustomSubsystem customSubsystem : subsystemVector) {
-			customSubsystem.start();
-		}
-
 		driveBaseSubsystem.setControlMode(DriveControlState.OPEN_LOOP);
 		while (isOperatorControl() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
 
 	@Override
 	public void test() {
-		boolean retVal = true;
+		ConsoleReporter.report("TESTING MODE ENTERED!", MessageLevel.DEFCON1);
+		boolean systemPassedTest = true;
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
 			if (customSubsystem instanceof DiagnosableSubsystem)
-				retVal &= ((DiagnosableSubsystem) customSubsystem).runDiagnostics();
+				systemPassedTest &= ((DiagnosableSubsystem) customSubsystem).runDiagnostics();
 		}
 
-		if (!retVal)
+		if (!systemPassedTest)
 			ConsoleReporter.report("Robot has failed self diagnostics! Check the logs for more info.", MessageLevel.DEFCON1);
+		else
+			ConsoleReporter.report("SYSTEM PASSED TEST!", MessageLevel.DEFCON1);
+
+		//TODO: Test RIO crash code
+		//Crash the JVM and force the code to reset so we no longer have the motor controllers configured for testing
+		System.exit(1);
 	}
 }

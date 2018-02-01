@@ -1,54 +1,30 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Utilities.Constants;
-import org.usfirst.frc.team195.robot.Utilities.Controllers;
-import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
-import org.usfirst.frc.team195.robot.Utilities.Reportable;
-import org.usfirst.frc.team195.robot.Utilities.TalonHelper;
-import org.usfirst.frc.team195.robot.Utilities.TuneablePID;
+import org.usfirst.frc.team195.robot.Utilities.*;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.TuneablePID;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
-import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
-public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Reportable {
+public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, DiagnosableSubsystem, Reportable {
 	
 	private static final int MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS = 20;
-	
+	private static CubeHandlerSubsystem instance;
 	private TuneablePID tuneableIntake;
-	
-	private CubeHandlerSubsystem() throws Exception {
-		super();
-		ds = DriverStation.getInstance();
-		Controllers robotControllers = Controllers.getInstance();
-
-		liftMotor = robotControllers.getLiftMotor();
-		liftMotorSlave = robotControllers.getLiftMotorSlave();
-		intakeMotor1 = robotControllers.getIntakeMotor();
-		intakeMotor2 = robotControllers.getIntakeMotor2();
-		intakeShoulderMotor = robotControllers.getIntakeShoulderMotor();
-		intakeElbowMotor = robotControllers.getIntakeElbowMotor();
-		
-		ginoSol = robotControllers.getGinoSol();
-
-		requestedElevatorPos = 0;
-		
-		runThread = false;
-		
-		intakeControl = IntakeControl.OFF;
-	}
-	
 	private IntakeControl intakeControl;
 
 	private TalonSRX liftMotor;
@@ -63,13 +39,32 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 	private DriverStation ds;
 	
 	private boolean runThread;
-	
-	private double cubeHandlerThreadControlStart, cubeHandlerThreadControlEnd;
-	private int cubeHandlerThreadControlElapsedTimeMS;
 
 	private double requestedElevatorPos;
 
-	private static CubeHandlerSubsystem instance;
+	private ThreadRateControl threadRateControl = new ThreadRateControl();
+
+
+	private CubeHandlerSubsystem() throws Exception {
+		super();
+		ds = DriverStation.getInstance();
+		Controllers robotControllers = Controllers.getInstance();
+
+		liftMotor = robotControllers.getLiftMotor();
+		liftMotorSlave = robotControllers.getLiftMotorSlave();
+		intakeMotor1 = robotControllers.getIntakeMotor();
+		intakeMotor2 = robotControllers.getIntakeMotor2();
+		intakeShoulderMotor = robotControllers.getIntakeShoulderMotor();
+		intakeElbowMotor = robotControllers.getIntakeElbowMotor();
+
+		ginoSol = robotControllers.getGinoSol();
+
+		requestedElevatorPos = 0;
+
+		runThread = false;
+
+		intakeControl = IntakeControl.OFF;
+	}
 	
 	public static CubeHandlerSubsystem getInstance() {
 		if(instance == null) {
@@ -112,20 +107,23 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 
 	@Override
 	public void terminate() {
-		runThread = false;
-		try {
-			super.join(Constants.kThreadJoinTimeout);
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex);
-		}
+		ConsoleReporter.report("CAN'T STOP, WON'T STOP, DON'T CALL ME!", MessageLevel.ERROR);
+//		runThread = false;
+//		try {
+//			super.join(Constants.kThreadJoinTimeout);
+//		} catch (Exception ex) {
+//			ConsoleReporter.report(ex);
+//		}
 	}
 	
 	@Override
 	public void run() {
+		while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
+		subsystemHome();
+		threadRateControl.start();
+
 		while(runThread) {
-			cubeHandlerThreadControlStart = Timer.getFPGATimestamp();
-			
-			
+
 			switch(intakeControl) {
 				case FORWARD:
 					intakeMotor1.set(ControlMode.Current, 25);
@@ -141,14 +139,8 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 					intakeMotor2.set(ControlMode.Current, 0);
 					break;
 			}
-			
-			
-			do {
-				cubeHandlerThreadControlEnd = Timer.getFPGATimestamp();
-				cubeHandlerThreadControlElapsedTimeMS = (int) ((cubeHandlerThreadControlEnd - cubeHandlerThreadControlStart) * 1000);
-				if (cubeHandlerThreadControlElapsedTimeMS < MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS)
-					try{Thread.sleep(MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS - cubeHandlerThreadControlElapsedTimeMS);}catch(Exception ex) {};
-			} while(cubeHandlerThreadControlElapsedTimeMS < MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS);
+
+			threadRateControl.doRateControl(MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS);
 		}
 	}
 	
@@ -181,6 +173,43 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Rep
 		retVal += "ElevatorFault:" + isElevatorFaulted() + ";";
 		return retVal;
 	}
-	
+
+	@Override
+	public boolean runDiagnostics() {
+//		ConsoleReporter.report("Testing CubeHandler---------------------------------");
+//		final double kLowCurrentThres = 0.5;
+//		final double kLowRpmThres = 300;
+//
+//		ArrayList<MotorDiagnostics> mIntakeDiagArr = new ArrayList<MotorDiagnostics>();
+//		mIntakeDiagArr.add(new MotorDiagnostics("Intake Left", intakeMotor1));
+//		mIntakeDiagArr.add(new MotorDiagnostics("Intake Right", intakeMotor2));
+//
+//		boolean failure = false;
+//
+//		for (MotorDiagnostics mD: mIntakeDiagArr) {
+//			mD.runTest();
+//
+//			if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
+//				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
+//				failure = true;
+//			}
+//
+//		}
+//
+//		if (mIntakeDiagArr.size() > 0) {
+//			List<Double> intakeMotorCurrents = mIntakeDiagArr.stream().map(u -> u.getMotorCurrent()).collect(Collectors.toList());
+//			if (!Util.allCloseTo(intakeMotorCurrents, intakeMotorCurrents.get(0), 5.0)) {
+//				failure = true;
+//				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Intake Motor Currents Different !!!!!!!!!!");
+//			}
+//
+//		} else {
+//			ConsoleReporter.report("Intake Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
+//		}
+//
+//		return !failure;
+
+		return true;
+	}
 }
 

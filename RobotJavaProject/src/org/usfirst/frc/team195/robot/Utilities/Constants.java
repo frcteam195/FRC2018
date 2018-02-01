@@ -1,7 +1,5 @@
 package org.usfirst.frc.team195.robot.Utilities;
 
-import org.usfirst.frc.team195.robot.Utilities.SplineMotion.SRX.SRXTrajectoryConfig;
-
 public class Constants {
 	public static final boolean TUNING_PIDS = true;
 	public static final boolean DEBUG = false;
@@ -9,20 +7,20 @@ public class Constants {
 	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
 
 
-	//SplineMotion trajectory constants
-	@Deprecated
-	public static final SRXTrajectoryConfig SXC = new SRXTrajectoryConfig();
-	static {
-		SXC.name = "StandardConfig";
-		SXC.dt = .01;   //Time step in seconds
-		SXC.max_acc = 30;   //Inches per sec^2
-		SXC.max_jerk = 720.0;   //Inches per sec^3
-		SXC.max_vel = 54.0; //Inches per sec
-		SXC.wheelbaseWidthInches = 24.5;    //Inches
-		SXC.wheelDiameterInches = 4.88; //Inches
-		SXC.encoderRotToWheelRotFactor = 1; //Conversion from encoder rotations to wheel rotations
-		SXC.encoderTicksPerRev = 4096;  //Encoder ticks per revolution of encoder
-	}
+//	//SplineMotion trajectory constants
+//	@Deprecated
+//	public static final SRXTrajectoryConfig SXC = new SRXTrajectoryConfig();
+//	static {
+//		SXC.name = "StandardConfig";
+//		SXC.dt = .01;   //Time step in seconds
+//		SXC.max_acc = 30;   //Inches per sec^2
+//		SXC.max_jerk = 720.0;   //Inches per sec^3
+//		SXC.max_vel = 54.0; //Inches per sec
+//		SXC.wheelbaseWidthInches = 24.5;    //Inches
+//		SXC.wheelDiameterInches = 4.88; //Inches
+//		SXC.encoderRotToWheelRotFactor = 1; //Conversion from encoder rotations to wheel rotations
+//		SXC.encoderTicksPerRev = 4096;  //Encoder ticks per revolution of encoder
+//	}
 
 
 
@@ -49,26 +47,9 @@ public class Constants {
 	public static final int INTAKE_CLOSE_HALF = 3;
 	
 	public static final int kTimeoutMs = 20;
-	public static final int kThreadJoinTimeout = 500;
 	public static final double kMotorDeadband = 0.01;
 	public static final double kSensorUnitsPerRotation = 4096.0;
 	public static final double k100msPerMinute = 600.0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -81,12 +62,6 @@ public class Constants {
 	public static double kBoilerTargetTopHeight = 88.0;
 	public static double kBoilerRadius = 7.5;
 
-	// Shooter tuning parameters
-	public static boolean kIsShooterTuning = false;
-	public static double kShooterTuningRpmFloor = 2900;
-	public static double kShooterTuningRpmCeiling = 3500;
-	public static double kShooterTuningRpmStep = 50;
-	public static double kShooterTuningRpm = 3500.0;
 
 	/* ROBOT PHYSICAL CONSTANTS */
 
@@ -101,14 +76,6 @@ public class Constants {
 	public static double kCenterToRearBumperDistance = 15;
 	public static double kCenterToSideBumperDistance = 15;
 
-	// Shooting suggestions
-	public static double kOnTargetErrorThreshold = 3.0;
-
-	// Intake Voltages
-	public static double kIntakeVoltageMax = 7.5;
-	public static double kIntakeVoltageMin = 5.5;
-	public static double kIntakeShootingVoltage = 4.0;
-	public static final double kIntakeVoltageDifference = kIntakeVoltageMax - kIntakeVoltageMin;
 
 	/* CONTROL LOOP GAINS */
 
@@ -148,57 +115,8 @@ public class Constants {
 	public static double kDriveTurnMaxVel = 360.0;
 	public static double kDriveTurnMaxAcc = 720.0;
 
-	// Shooter gains
-	public static double kShooterTalonKP = 0.16;
-	public static double kShooterTalonKI = 0.00008;
-	public static double kShooterTalonKD = 0.0;
-	public static double kShooterTalonKF = 0.035;
-	public static double kShooterRampRate = 60.0;
 
-	public static double kShooterTalonHoldKP = 0.0;
-	public static double kShooterTalonHoldKI = 0.0;
-	public static double kShooterTalonHoldKD = 0.0;
-
-	public static double kShooterHoldRampRate = 720.0;
-
-	public static int kShooterTalonIZone = 1000;// 73 rpm
-	public static int kShooterOpenLoopCurrentLimit = 35;
-
-	public static double kShooterSetpointDeadbandRpm = 1.0;
-
-	// Used to determine when to switch to hold profile.
-	public static double kShooterMinTrackStability = 0.25;
-	public static double kShooterStartOnTargetRpm = 50.0;
-	public static double kShooterStopOnTargetRpm = 150.0;
-	public static int kShooterKfBufferSize = 20;
-	public static int kShooterMinOnTargetSamples = 20; // Should be <= kShooterKvBufferSize
-
-	public static int kShooterJamBufferSize = 30;
-	public static double kShooterDisturbanceThreshold = 25;
-	public static double kShooterJamTimeout = 1.5; // In secs
-	public static double kShooterUnjamDuration = 0.5; // In secs
-	public static double kShooterMinShootingTime = 1.0; // In secs
-
-	public static double kShooterSpinDownTime = 0.25;
-
-	// Feeder gains
-	public static double kFeederKP = 0.02;
-	public static double kFeederKI = 0.0;
-	public static double kFeederKD = 0.2;
-	public static double kFeederKF = 0.009;
-	public static double kFeederRampRate = 240.0;
-	public static double kFeederVoltageCompensationRampRate = 10.0;
-	public static double kFeederFeedSpeedRpm = 5400.0;
-	public static double kFeederSensorGearReduction = 3.0;
-
-	// Hopper gains
-	public static double kHopperRampRate = 48.0;
-
-	// Do not change anything after this line unless you rewire the robot and
-	// update the spreadsheet!
-	// Port assignments should match up with the spreadsheet here:
-	// https://docs.google.com/spreadsheets/d/12_Mrd6xKmxCjKtsWNpWZDqT7ukrB9-1KKFCuRrO4aPM/edit#gid=0
-
+	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
 	// (Note that if multiple talons are dedicated to a mechanism, any sensors
 	// are attached to the master)
@@ -211,43 +129,26 @@ public class Constants {
 	public static final int kRightDriverSlaveId = 5;
 	public static final int kRightDriverSlaveId2 = 6;
 
-	// Feeder
-	public static final int kFeederMasterId = 8;
-	public static final int kFeederSlaveId = 7;
-
 	// Intake
-	public static final int kIntakeMasterId = 5;
-	public static final int kIntakeSlaveId = 10;
+	public static final int kIntakeLeftId = 7;
+	public static final int kIntakeRightId = 8;
 
-	// Hopper / Floor
-	public static final int kHopperMasterId = 6;
-	public static final int kHopperSlaveId = 9;
+	// Elevator
+	public static final int kElevatorMasterId = 9;
+	public static final int kElevatorSlaveId = 10;
 
-	// Shooter
-	public static final int kRightShooterMasterId = 2;
-	public static final int kRightShooterSlaveId = 1;
-	public static final int kLeftShooterSlave1Id = 13;
-	public static final int kLeftShooterSlave2Id = 14;
+	// Arm
+	public static final int kShoulderMotorId = 11;
+	public static final int kElbowMotorId = 12;
 
-	// Gear Grabber
-	public static final int kGearGrabberId = 15;
+	////////////////////////////////////////////////////////////////////////////////////
 
 	// Solenoids
-	public static final int kShifterSolenoidId1 = 0; // PCM 0, Solenoid 0
-	public static final int kShifterSolenoidId2 = 1; // PCM 0, Solenoid 0
-	public static final int kIntakeDeploySolenoidId = 1; // PCM 0, Solenoid 1
-	public static final int kHopperSolenoidId = 2; // PCM 0, Solenoid 2
-	public static final int kGearWristSolenoid = 7; // PCM 0, Solenoid 7
-
-	// Analog Inputs
-	public static int kLEDOnId = 2;
+	public static final int kShifterSolenoidId = 1; // PCM 0, Solenoid 0
+	public static final int kShifterSolenoidId2 = 0; // PCM 0, Solenoid 0
 
 	// Digital Outputs
-	public static int kGreenLEDId = 9;
-	public static int kRangeLEDId = 8;
-
-	// Phone
-	public static int kAndroidAppTcpPort = 8254;
+	public static int kLEDId = 0;
 
 	// Path following constants
 	public static double kMinLookAhead = 12.0; // inches
