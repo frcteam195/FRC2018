@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
+import org.usfirst.frc.team195.robot.Utilities.SetpointValue;
 import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
 public class TuneablePID {
@@ -27,7 +28,7 @@ public class TuneablePID {
 	
 	private String name;
 	private ArrayList<TalonSRX> talonArrList;
-	private double setpointReq;
+	private SetpointValue setpointReq;
 	private int portNumber;
 	private boolean autoUpdate;
 	private boolean autoUpdateSetpoint;
@@ -39,19 +40,19 @@ public class TuneablePID {
 	private byte[] receiveData;
 	private DatagramPacket receivePacket;
 
-	public TuneablePID(String name, TalonSRX tuningTalon, double setpointReq, int portNumber, boolean autoUpdate,
-			boolean autoUpdateSetpoint) throws Exception {
+	public TuneablePID(String name, TalonSRX tuningTalon, SetpointValue setpointReq, int portNumber, boolean autoUpdate,
+					   boolean autoUpdateSetpoint) throws Exception {
 		this(name, new ArrayList<TalonSRX>(Arrays.asList(tuningTalon)), setpointReq, portNumber, autoUpdate,
 				autoUpdateSetpoint);
 	}
 
-	public TuneablePID(String name, TalonSRX tuningTalon, TalonSRX tuningTalon2, double setpointReq, int portNumber,
+	public TuneablePID(String name, TalonSRX tuningTalon, TalonSRX tuningTalon2, SetpointValue setpointReq, int portNumber,
 			boolean autoUpdate, boolean autoUpdateSetpoint) throws Exception {
 		this(name, new ArrayList<TalonSRX>(Arrays.asList(tuningTalon, tuningTalon2)), setpointReq, portNumber,
 				autoUpdate, autoUpdateSetpoint);
 	}
 
-	public TuneablePID(String name, ArrayList<TalonSRX> talonArrList, double setpointReq, int portNumber,
+	public TuneablePID(String name, ArrayList<TalonSRX> talonArrList, SetpointValue setpointReq, int portNumber,
 			boolean autoUpdate, boolean autoUpdateSetpoint) throws Exception {
 		this.name = name;
 		this.talonArrList = talonArrList;
@@ -121,8 +122,8 @@ public class TuneablePID {
 
 		@Override
 		public void run() {
+			threadRateControl.start();
 			while (runThread) {
-				threadRateControl.start();
 
 				if (getIPAddress() != null) {
 					sendData = createSendData();
@@ -139,7 +140,7 @@ public class TuneablePID {
 		}
 
 		private byte[] createSendData() {
-			double setpoint = setpointReq;
+			double setpoint = setpointReq.value;
 			double actualValue = 0;
 			int sensorSelect = 0;
 			if (talonArrList.size() > sensorSelect) {
@@ -149,7 +150,6 @@ public class TuneablePID {
 						break;
 					case Current:
 						actualValue = talonArrList.get(sensorSelect).getOutputCurrent();
-						setpoint = talonArrList.get(sensorSelect).getOutputCurrent();
 						break;
 					case Velocity:
 						actualValue = talonArrList.get(sensorSelect).getSelectedSensorVelocity(0) / Constants.kSensorUnitsPerRotation * 600;
@@ -164,10 +164,12 @@ public class TuneablePID {
 				}
 			}
 
+			double iAccum = talonArrList.get(sensorSelect).getIntegralAccumulator(0);
+
 			if (autoUpdateSetpoint)
 				setpoint = udpReceiver.getTuneablePIDData().getSetpoint();
 
-			String sendStr = "Name:" + name + ";DesiredValue:" + setpoint + ";ActualValue:" + actualValue + ";";
+			String sendStr = "Name:" + name + ";DesiredValue:" + setpoint + ";ActualValue:" + actualValue + ";IntegralAccum:" + iAccum + ";";
 			return sendStr.getBytes();
 		}
 	}
@@ -195,8 +197,8 @@ public class TuneablePID {
 
 		@Override
 		public void run() {
+			threadRateControl.start();
 			while (runThread) {
-				threadRateControl.start();
 				receiveData = new byte[1024];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length, new InetSocketAddress(0).getAddress(), portNumber);
 				try {
@@ -210,6 +212,12 @@ public class TuneablePID {
 								tuningTalon.configMotionCruiseVelocity((int)tuneablePIDData.getCruiseVelocity(), Constants.kTimeoutMs);
 								tuningTalon.configMotionAcceleration((int)tuneablePIDData.getAccel(), Constants.kTimeoutMs);
 							}
+
+							if (tuneablePIDData.getRampRate() > 0)
+								tuningTalon.configClosedloopRamp(tuneablePIDData.getRampRate(), Constants.kTimeoutMs);
+
+							if (tuneablePIDData.getiZone() > 0)
+								tuningTalon.config_IntegralZone(0, (int)tuneablePIDData.getiZone(), Constants.kTimeoutMs);
 
 							if (autoUpdateSetpoint)
 								switch(tuningTalon.getControlMode()) {
@@ -245,6 +253,8 @@ public class TuneablePID {
 			double kI = -1;
 			double kD = -1;
 			double f = -1;
+			double rampRate = -1;
+			double iZone = -1;
 			double setpoint = -1;
 			double cruiseVelocity = -1;
 			double accel = -1;
@@ -268,6 +278,12 @@ public class TuneablePID {
 						case "f":
 							f = Double.parseDouble(value);
 							break;
+						case "ramprate":
+							rampRate = Double.parseDouble(value);
+							break;
+						case "izone":
+							iZone = Double.parseDouble(value);
+							break;
 						case "setpoint":
 							setpoint = Double.parseDouble(value);
 							break;
@@ -287,7 +303,7 @@ public class TuneablePID {
 				}
 			}
 
-			return new TuneablePIDData(kP, kI, kD, f, setpoint, cruiseVelocity, accel);
+			return new TuneablePIDData(kP, kI, kD, f, setpoint, cruiseVelocity, accel, rampRate, iZone);
 		}
 	}
 
@@ -297,6 +313,8 @@ public class TuneablePID {
 		private double kD;
 		private double f;
 		private double setpoint;
+		private double rampRate;
+		private double iZone;
 		private double cruiseVelocity;
 		private double accel;
 		
@@ -308,6 +326,20 @@ public class TuneablePID {
 			this.setpoint = setpoint;
 			this.cruiseVelocity = cruiseVelocity;
 			this.accel = accel;
+			rampRate = 0;
+			iZone = 0;
+		}
+
+		public TuneablePIDData(double kP, double kI, double kD, double f, double setpoint, double cruiseVelocity, double accel, double rampRate, double iZone) {
+			this.kP = kP;
+			this.kI = kI;
+			this.kD = kD;
+			this.f = f;
+			this.setpoint = setpoint;
+			this.cruiseVelocity = cruiseVelocity;
+			this.accel = accel;
+			this.rampRate = rampRate;
+			this.iZone = iZone;
 		}
 		
 		public double getkP() {
@@ -325,6 +357,8 @@ public class TuneablePID {
 		public double getSetpoint() {
 			return setpoint;
 		}
+		public double getRampRate() { return rampRate; }
+		public double getiZone() { return iZone; }
 		public double getCruiseVelocity() {
 			return cruiseVelocity;
 		}

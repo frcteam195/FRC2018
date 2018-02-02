@@ -143,6 +143,18 @@ public class Constants {
 
 	////////////////////////////////////////////////////////////////////////////////////
 
+	/* PDP Channel IDs */
+
+	public static final int kLeftDriveMasterPDPChannel = -1;
+	public static final int kLeftDriveSlave1PDPChannel = -1;
+	public static final int kLeftDriveSlave2PDPChannel = -1;
+	public static final int kRightDriveMasterPDPChannel = -1;
+	public static final int kRightDriveSlave1PDPChannel = -1;
+	public static final int kRightDriveSlave2PDPChannel = -1;
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+
 	// Solenoids
 	public static final int kShifterSolenoidId = 1; // PCM 0, Solenoid 0
 	public static final int kShifterSolenoidId2 = 0; // PCM 0, Solenoid 0

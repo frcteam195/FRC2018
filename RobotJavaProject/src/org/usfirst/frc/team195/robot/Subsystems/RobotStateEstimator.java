@@ -16,7 +16,7 @@ import java.util.List;
  * orientation, and velocity, among various other factors. Similar to a car's odometer.
  */
 public class RobotStateEstimator extends Thread implements CustomSubsystem {
-    private static final int MIN_ROBOT_ESTIMATOR_LOOP_TIME = 5;
+    private static final int MIN_ROBOT_ESTIMATOR_LOOP_TIME = 7;
     static RobotStateEstimator instance = null;
     boolean runThread = false;
     PathFollowerRobotState robot_state_ = PathFollowerRobotState.getInstance();
@@ -79,6 +79,7 @@ public class RobotStateEstimator extends Thread implements CustomSubsystem {
     @Override
     public void run() {
         while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
+        while (ds.isTest()) {try{Thread.sleep(20);}catch(Exception ex) {}}
         subsystemHome();
         threadRateControl.start();
 

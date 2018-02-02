@@ -4,5 +4,6 @@ public enum DriveControlState {
 	OPEN_LOOP,
 	POSITION,
 	VELOCITY,
-	PATH_FOLLOWING
+	PATH_FOLLOWING,
+	TEST
 }

@@ -4,6 +4,7 @@ import java.io.Console;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.Timer;
 import org.eclipse.jetty.io.Connection;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
@@ -70,7 +71,7 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void operatorControl() {
-		driveBaseSubsystem.setControlMode(DriveControlState.OPEN_LOOP);
+		driveBaseSubsystem.setControlMode(DriveControlState.VELOCITY);
 		while (isOperatorControl() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
 
@@ -88,6 +89,8 @@ public class Robot extends RobbieRobot {
 			ConsoleReporter.report("Robot has failed self diagnostics! Check the logs for more info.", MessageLevel.DEFCON1);
 		else
 			ConsoleReporter.report("SYSTEM PASSED TEST!", MessageLevel.DEFCON1);
+
+		Timer.delay(4);
 
 		//TODO: Test RIO crash code
 		//Crash the JVM and force the code to reset so we no longer have the motor controllers configured for testing

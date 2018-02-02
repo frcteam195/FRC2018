@@ -45,9 +45,16 @@ public class CANSpeedControllerBuilder {
 		talon.follow(masterTalon);
 		return talon;
 	}
-	
+
+	@Deprecated
 	public VictorSPX createPermanentVictorSlaveToTalonSRX(int id, TalonSRX masterTalon) {
 		VictorSPX victor = new VictorSPX(id);
+		victor.follow(masterTalon);
+		return victor;
+	}
+
+	public CKVictorSPX createPermanentVictorSlaveToTalonSRX(int id, int pdpChannel, TalonSRX masterTalon) {
+		CKVictorSPX victor = new CKVictorSPX(id, pdpChannel);
 		victor.follow(masterTalon);
 		return victor;
 	}

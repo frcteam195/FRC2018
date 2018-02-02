@@ -123,7 +123,7 @@ public class HIDControllerSubsystem implements CustomSubsystem {
 		public void run() {
 			while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
 
-			while (ds.isAutonomous()) {try {Thread.sleep(100);} catch (Exception ex) {}}
+			while (ds.isAutonomous()||ds.isTest()) {try {Thread.sleep(100);} catch (Exception ex) {}}
 
 			threadRateControl.start();
 

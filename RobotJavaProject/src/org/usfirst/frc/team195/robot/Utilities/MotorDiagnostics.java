@@ -2,7 +2,9 @@ package org.usfirst.frc.team195.robot.Utilities;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class MotorDiagnostics {
@@ -30,6 +32,11 @@ public class MotorDiagnostics {
 		motorCurrent = testingSpeedController.getOutputCurrent();
 		motorRPM =  Util.convertNativeUnitsToRPM(masterSC == null ? testingSpeedController.getSelectedSensorVelocity(0)
 				: masterSC.getSelectedSensorVelocity(0));
+		Timer.delay(1);
+		testingSpeedController.set(ControlMode.PercentOutput, 0);
+	}
+
+	public void setZero() {
 		testingSpeedController.set(ControlMode.PercentOutput, 0);
 	}
 
@@ -55,6 +62,15 @@ public class MotorDiagnostics {
 
 	public boolean isRPMUnderThreshold(double threshold) {
 		return motorRPM < threshold;
+	}
+
+	@Override
+	public String toString() {
+		String retVal = "";
+		retVal += motorName + "\r\n";
+		retVal += "\tCurrent: " + motorCurrent + "\r\n";
+		retVal += "\tRPM: " + motorRPM + "\r\n";
+		return retVal;
 	}
 
 }

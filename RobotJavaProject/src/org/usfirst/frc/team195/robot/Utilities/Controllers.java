@@ -4,16 +4,15 @@ import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.CANSpeedControllerBuilder;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
 
 public class Controllers {
+	private Compressor compressor;
+	private PowerDistributionPanel powerDistributionPanel;
 	private KnightJoystick driveJoystick;
 	private CANSpeedControllerBuilder canSpeedControllerBuilder;
 	private TalonSRX leftDrive1;
@@ -38,6 +37,9 @@ public class Controllers {
 	private static Controllers instance = null;
 	
 	public Controllers() {
+		compressor = new Compressor();
+		powerDistributionPanel = new PowerDistributionPanel();
+
 		//Drive Joystick Setup
 		driveJoystick = new KnightJoystick(0);
 
@@ -46,13 +48,13 @@ public class Controllers {
 		//Choose whether to create Victor or Talon slaves here
 		//Left Drive Setup
 		leftDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kLeftDriveMasterId);
-		leftDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kLeftDriveSlaveId, leftDrive1);
-		leftDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kLeftDriveSlaveId2, leftDrive1);
+		leftDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kLeftDriveSlaveId, Constants.kLeftDriveSlave1PDPChannel, leftDrive1);
+		leftDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kLeftDriveSlaveId2, Constants.kLeftDriveSlave2PDPChannel, leftDrive1);
 
 		//Right Drive Setup
 		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kRightDriveMasterId);
-		rightDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kRightDriverSlaveId, rightDrive1);
-		rightDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kRightDriverSlaveId2, rightDrive1);
+		rightDrive2 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kRightDriverSlaveId, Constants.kRightDriveSlave1PDPChannel, rightDrive1);
+		rightDrive3 = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
 
 		//Shift Solenoid Setup
 		shiftSol = new Solenoid(Constants.kShifterSolenoidId);
@@ -151,4 +153,12 @@ public class Controllers {
 	}
 
 	public DigitalOutput getLED() { return mLED; }
+
+	public PowerDistributionPanel getPowerDistributionPanel() {
+		return powerDistributionPanel;
+	}
+
+	public Compressor getCompressor() {
+		return compressor;
+	}
 }

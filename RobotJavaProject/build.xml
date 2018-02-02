@@ -17,7 +17,7 @@
   <property name="team-number" value="195"/>
 
   <!-- By default the target is set to 10.TE.AM.2 -->
-  <property name="target" value="10.1.95.22"/>
+  <property name="target" value="10.1.95.2"/>
 
   <!-- Any other property in build.properties can also be overridden. -->
 
