@@ -75,7 +75,7 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 		mControlMode = DriveControlState.PATH_FOLLOWING;
 		mPrevControlMode = DriveControlState.OPEN_LOOP;
 
-		tuneableDrive = new TuneablePID("Left Drive Tuning", mLeftMaster, setpointValue, 5808, true, true);
+		tuneableDrive = new TuneablePID("Left Drive Tuning", mLeftMaster, null, 5808, true, true);
 	}
 
 	public static DriveBaseSubsystem getInstance() {
@@ -289,7 +289,7 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 				}
 
 				List<Double> driveMotorRPMs = mAllMotorsDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
-				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), 250)) {
+				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), 40)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
 				}

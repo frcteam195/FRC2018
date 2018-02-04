@@ -39,9 +39,19 @@ public class CANSpeedControllerBuilder {
 	public TalonSRX createDefaultTalonSRX(int id) {
         return createTalonSRX(id, kDefaultConfiguration);
     }
+
+	public CKTalonSRX createDefaultTalonSRX(int id, int pdpChannel) {
+		return createTalonSRX(id, pdpChannel, kDefaultConfiguration);
+	}
 	
 	public TalonSRX createPermanentSlaveTalonSRX(int id, TalonSRX masterTalon) {
 		TalonSRX talon = createTalonSRX(id, kSlaveConfiguration);
+		talon.follow(masterTalon);
+		return talon;
+	}
+
+	public CKTalonSRX createPermanentSlaveTalonSRX(int id, int pdpChannel, TalonSRX masterTalon) {
+		CKTalonSRX talon = createTalonSRX(id, pdpChannel, kSlaveConfiguration);
 		talon.follow(masterTalon);
 		return talon;
 	}
@@ -85,4 +95,31 @@ public class CANSpeedControllerBuilder {
 
         return talon;
     }
+
+	public CKTalonSRX createTalonSRX(int id, int pdpChannel, Configuration config) {
+		CKTalonSRX talon = new CKTalonSRX(id, pdpChannel);
+
+		talon.setControlFramePeriod(ControlFrame.Control_3_General, config.CONTROL_FRAME_PERIOD_MS);
+		talon.setStatusFramePeriod(StatusFrame.Status_1_General, config.GENERAL_STATUS_FRAME_RATE_MS, Constants.kTimeoutMs);
+		talon.set(ControlMode.PercentOutput, 0);
+		talon.setIntegralAccumulator(0, 0, Constants.kTimeoutMs);
+		talon.clearMotionProfileHasUnderrun(Constants.kTimeoutMs);
+		talon.clearMotionProfileTrajectories();
+		talon.clearStickyFaults(Constants.kTimeoutMs);
+		talon.configPeakOutputForward(config.MAX_OUTPUT, Constants.kTimeoutMs);
+		talon.configPeakOutputReverse(-config.MAX_OUTPUT, Constants.kTimeoutMs);
+		talon.configNominalOutputForward(config.NOMINAL_OUTPUT, Constants.kTimeoutMs);
+		talon.configNominalOutputReverse(-config.NOMINAL_OUTPUT, Constants.kTimeoutMs);
+		talon.setNeutralMode(config.NEUTRAL_MODE);
+		talon.enableCurrentLimit(config.ENABLE_CURRENT_LIMIT);
+		talon.configContinuousCurrentLimit(config.CURRENT_LIMIT, Constants.kTimeoutMs);
+		talon.configForwardSoftLimitEnable(config.ENABLE_SOFT_LIMIT, Constants.kTimeoutMs);
+		talon.configReverseSoftLimitEnable(config.ENABLE_SOFT_LIMIT, Constants.kTimeoutMs);
+		talon.setInverted(config.INVERTED);
+		talon.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+		//talon.configVelocityMeasurementPeriod(config.VELOCITY_MEASUREMENT_PERIOD, Constants.kTimeoutMs);
+		//talon.configVelocityMeasurementWindow(config.VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW, Constants.kTimeoutMs);
+
+		return talon;
+	}
 }

@@ -145,12 +145,12 @@ public class Constants {
 
 	/* PDP Channel IDs */
 
-	public static final int kLeftDriveMasterPDPChannel = -1;
-	public static final int kLeftDriveSlave1PDPChannel = -1;
-	public static final int kLeftDriveSlave2PDPChannel = -1;
-	public static final int kRightDriveMasterPDPChannel = -1;
-	public static final int kRightDriveSlave1PDPChannel = -1;
-	public static final int kRightDriveSlave2PDPChannel = -1;
+	public static final int kLeftDriveMasterPDPChannel = 14;
+	public static final int kLeftDriveSlave1PDPChannel = 12;
+	public static final int kLeftDriveSlave2PDPChannel = 13;
+	public static final int kRightDriveMasterPDPChannel = 3;
+	public static final int kRightDriveSlave1PDPChannel = 1;
+	public static final int kRightDriveSlave2PDPChannel = 2;
 
 
 	////////////////////////////////////////////////////////////////////////////////////

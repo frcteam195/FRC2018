@@ -140,7 +140,7 @@ public class TuneablePID {
 		}
 
 		private byte[] createSendData() {
-			double setpoint = setpointReq.value;
+			double setpoint = setpointReq != null ? setpointReq.value : 0;
 			double actualValue = 0;
 			int sensorSelect = 0;
 			if (talonArrList.size() > sensorSelect) {
