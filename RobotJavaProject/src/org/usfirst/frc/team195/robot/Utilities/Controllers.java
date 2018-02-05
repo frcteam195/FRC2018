@@ -23,7 +23,10 @@ public class Controllers {
 	private BaseMotorController rightDrive3;
 	private Solenoid shiftSol;
 	private Solenoid ginoSol;
-	private DigitalOutput mLED;
+
+	private DigitalOutput rLED;
+	private DigitalOutput gLED;
+	private DigitalOutput bLED;
 	
 	private TalonSRX liftMotor;
 	private VictorSPX liftMotorSlave;
@@ -61,7 +64,9 @@ public class Controllers {
 		ginoSol = new Solenoid(Constants.kShifterSolenoidId2);
 
 		//LED Setup
-		mLED = new DigitalOutput(Constants.kLEDId);
+		rLED = new DigitalOutput(Constants.kRedLEDId);
+		gLED = new DigitalOutput(Constants.kGreenLEDId);
+		bLED = new DigitalOutput(Constants.kBlueLEDId);
 
 		//Elevator setup
 		
@@ -152,7 +157,17 @@ public class Controllers {
 		return navX;
 	}
 
-	public DigitalOutput getLED() { return mLED; }
+	public DigitalOutput getRedLED() {
+		return rLED;
+	}
+
+	public DigitalOutput getGreenLED() {
+		return gLED;
+	}
+
+	public DigitalOutput getBlueLED() {
+		return bLED;
+	}
 
 	public PowerDistributionPanel getPowerDistributionPanel() {
 		return powerDistributionPanel;

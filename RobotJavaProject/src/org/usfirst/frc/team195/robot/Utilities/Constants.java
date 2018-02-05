@@ -160,7 +160,9 @@ public class Constants {
 	public static final int kShifterSolenoidId2 = 0; // PCM 0, Solenoid 0
 
 	// Digital Outputs
-	public static int kLEDId = 0;
+	public static int kRedLEDId = 0;
+	public static int kGreenLEDId = 1;
+	public static int kBlueLEDId = 2;
 
 	// Path following constants
 	public static double kMinLookAhead = 12.0; // inches

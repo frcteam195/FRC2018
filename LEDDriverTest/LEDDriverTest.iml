@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <varelement var="jar://$wpilib$!/" value="wpilib" />
+    <varelement var="jar://$wpilib.sources$!/" kind="src:" value="wpilib.sources" />
+    <varelement var="jar://$networktables$!/" value="networktables" />
+    <varelement var="jar://$networktables.sources$!/" kind="src:" value="ntcore.sources" />
+    <varelement var="jar://$opencv$!/" value="opencv" />
+    <varelement var="jar://$opencv.sources$!/" kind="src:" value="opencv.sources" />
+    <varelement var="jar://$cscore$!/" value="cscore" />
+    <varelement var="jar://$cscore.sources$!/" kind="src:" value="cscore.sources" />
+    <varelement var="jar://$wpiutil$!/" value="wpiutil" />
+    <varelement var="jar://$wpiutil.sources$!/" kind="src:" value="wpiutil.sources" />
+    <varelement var="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/" value="USERLIBS_DIR/CTRE_Phoenix-sources.jar" />
+    <varelement var="jar://$USERLIBS_DIR$/json-simple-1.1.1.jar!/" value="USERLIBS_DIR/json-simple-1.1.1.jar" />
+    <varelement var="jar://$USERLIBS_DIR$/Jama-1.0.3.jar!/" value="USERLIBS_DIR/Jama-1.0.3.jar" />
+    <varelement var="jar://$USERLIBS_DIR$/jetty-all-9.3.15.v20161220-uber.jar!/" value="USERLIBS_DIR/jetty-all-9.3.15.v20161220-uber.jar" />
+    <varelement var="jar://$USERLIBS_DIR$/navx_frc.jar!/" value="USERLIBS_DIR/navx_frc.jar" />
+    <varelement var="jar://$USERLIBS_DIR$/CTRE_Phoenix.jar!/" value="USERLIBS_DIR/CTRE_Phoenix.jar" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="FacetManager">
+    <facet type="FRC_FACET" name="FRC">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="jdk" jdkName="1.8.162SDK" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library name="WPILib Libraries">
+        <CLASSES>
+          <root url="file://$USER_HOME$/wpilib/java/current/lib" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USER_HOME$/wpilib/java/current/lib" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$USER_HOME$/wpilib/java/current/lib" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/wpilib/java/current/lib" recursive="true" />
+        <jarDirectory url="file://$USER_HOME$/wpilib/java/current/lib" recursive="true" type="JAVADOC" />
+        <jarDirectory url="file://$USER_HOME$/wpilib/java/current/lib" recursive="true" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="WPILib User Lib Directory">
+        <CLASSES>
+          <root url="file://$USERLIBS_DIR$" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USERLIBS_DIR$" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$USERLIBS_DIR$" />
+        </SOURCES>
+        <jarDirectory url="file://$USERLIBS_DIR$" recursive="true" />
+        <jarDirectory url="file://$USERLIBS_DIR$" recursive="true" type="JAVADOC" />
+        <jarDirectory url="file://$USERLIBS_DIR$" recursive="true" type="SOURCES" />
+      </library>
+    </orderEntry>
+  </component>
+</module>

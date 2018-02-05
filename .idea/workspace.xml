@@ -2,13 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a6c4234-4227-40c6-800f-338f58e70ba5" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/LEDDriverTest/.idea/ant.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/LEDDriverTest/.idea/vcs.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/LEDDriverTest/src/org/usfirst/frc/team195/robot/Controllers.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/LEDDriverTest/src/org/usfirst/frc/team195/robot/CustomSubsystem.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/LEDDriverTest/src/org/usfirst/frc/team195/robot/LEDControllerSubsystem.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/LEDDriverTest/src/org/usfirst/frc/team195/robot/LEDDriverRGB.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/LEDDriverTest/src/org/usfirst/frc/team195/robot/ThreadRateControl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverRGB.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/build.properties" afterPath="$PROJECT_DIR$/RobotJavaProject/build.properties" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/build.xml" afterPath="$PROJECT_DIR$/RobotJavaProject/build.xml" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/LEDControllerSubsystem.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/LEDControllerSubsystem.java" />
       <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
       <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CANSpeedControllerBuilder.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CANSpeedControllerBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java" />
+      <change beforePath="$PROJECT_DIR$/TestProjectConversion/.idea/workspace.xml" afterPath="$PROJECT_DIR$/TestProjectConversion/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/CKAutoHelperCPP/bin/" />
     <ignored path="$PROJECT_DIR$/CKAutoHelperJava/bin/" />
@@ -41,69 +51,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DriveBaseSubsystem.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="75" column="55" lean-forward="false" selection-start-line="75" selection-start-column="55" selection-end-line="75" selection-end-column="55" />
-              <folding>
-                <element signature="e#8499#8517#0" expanded="true" />
-                <element signature="e#8580#8598#0" expanded="true" />
-                <element signature="e#8662#8680#0" expanded="true" />
-                <element signature="e#12080#12081#0" expanded="true" />
-                <element signature="e#12107#12108#0" expanded="true" />
-                <element signature="e#12909#12910#0" expanded="true" />
-                <element signature="e#12935#12936#0" expanded="true" />
-                <element signature="e#13540#13541#0" expanded="true" />
-                <element signature="e#13594#13595#0" expanded="true" />
-                <element signature="e#17234#17235#0" expanded="true" />
-                <element signature="e#17275#17276#0" expanded="true" />
-                <element signature="e#18186#18187#0" expanded="true" />
-                <element signature="e#18219#18220#0" expanded="true" />
-                <element signature="e#18263#18264#0" expanded="true" />
-                <element signature="e#18287#18288#0" expanded="true" />
-                <element signature="e#18474#18475#0" expanded="true" />
-                <element signature="e#18524#18525#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2250">
-              <caret line="150" column="46" lean-forward="false" selection-start-line="150" selection-start-column="46" selection-end-line="150" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TuneablePID.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1011">
-              <caret line="206" column="34" lean-forward="false" selection-start-line="206" selection-start-column="34" selection-end-line="206" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DiagnosableSubsystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DiagnosableSubsystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Robot.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Robot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="94" column="35" lean-forward="false" selection-start-line="94" selection-start-column="35" selection-end-line="94" selection-end-column="35" />
+            <state relative-caret-position="446">
+              <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -178,8 +130,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/PathFollowingMotion/GoalTracker.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TuneablePID.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CustomSubsystem.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/AutoProfileTest3.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/AutoProfileTest2.java" />
@@ -210,25 +160,27 @@
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/ConnectionMonitor.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/LED.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/ThreadRateControl.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/LEDControllerSubsystem.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/ConnectionMonitorSubsystem.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/NavX.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/MotorDiagnosticValues.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/build.properties" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/build.xml" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/HIDControllerSubsystem.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DriveControlState.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/RobotStateEstimator.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKVictorSPX.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/MotorDiagnostics.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CANSpeedControllerBuilder.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/build.properties" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/build.xml" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/ConnectionMonitorSubsystem.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverRGB.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/LEDControllerSubsystem.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java" />
       </list>
     </option>
   </component>
@@ -527,8 +479,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -619,7 +570,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -634,11 +586,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.usfirst.frc.team195.robot.Utilities.Drivers" />
       <recent name="org.usfirst.frc.team195.robot.Subsystems" />
       <recent name="org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion" />
       <recent name="org.usfirst.frc.team195.robot.Autonomous.Paths" />
       <recent name="org.usfirst.frc.team195.robot.Actions" />
-      <recent name="org.usfirst.frc.team195.robot.Actions.Foundation" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems" />
@@ -814,6 +766,8 @@
       <workItem from="1517616572491" duration="1010000" />
       <workItem from="1517692704855" duration="10000" />
       <workItem from="1517694956410" duration="627000" />
+      <workItem from="1517782031113" duration="4822000" />
+      <workItem from="1517804720569" duration="1774000" />
     </task>
     <task id="LOCAL-00001" summary="Update all">
       <created>1516597796485</created>
@@ -847,7 +801,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88217000" />
+    <option name="totallyTimeSpent" value="94813000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -864,7 +818,6 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29068577" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -875,11 +828,11 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23504274" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23992674" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29068577" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -890,6 +843,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29068577" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.495116" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -937,27 +891,7 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Actions/ResetPoseFromPathAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-917">
-          <caret line="49" column="22" lean-forward="true" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java" />
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/IntakeControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -965,27 +899,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Actions/DrivePathAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="35" column="49" lean-forward="true" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeEndedException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeExecuter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="26" column="29" lean-forward="true" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Actions/DrivePathAction.java" />
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeEndedException.java" />
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeExecuter.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/src.zip!/java/util/concurrent/locks/Condition.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="792">
@@ -1007,27 +923,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/ThreadRateControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/ConnectionMonitorSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="65" column="27" lean-forward="false" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeBase.java" />
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/ThreadRateControl.java" />
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CustomAuto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1035,13 +932,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java" />
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CustomAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1049,13 +940,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/AutoModeSample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/AutoModeSample.java" />
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Actions/IntakePositionAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1084,13 +969,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathFollowerRobotState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-56">
-          <caret line="47" column="40" lean-forward="false" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathFollowerRobotState.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/src.zip!/java/util/function/Function.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="316">
@@ -1105,39 +984,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/LEDControllerSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/HIDControllerSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1646">
-          <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding>
-            <element signature="e#3175#3197#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DriveControlState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DriveControlState.java" />
     <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/motorcontrol/can/MotControllerJNI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
@@ -1145,28 +992,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="42" lean-forward="false" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/build.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="18" lean-forward="false" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="43" column="30" lean-forward="false" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Util.java" />
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
@@ -1189,14 +1015,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/SetpointValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/SetpointValue.java" />
     <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/motorcontrol/can/BaseMotorController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
@@ -1226,38 +1045,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/RobotStateEstimator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="78" column="13" lean-forward="false" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/MotorDiagnostics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DiagnosableSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="94" column="35" lean-forward="false" selection-start-line="94" selection-start-column="35" selection-end-line="94" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/MotorDiagnostics.java" />
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/DiagnosableSubsystem.java" />
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CANSpeedControllerBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
@@ -1284,58 +1073,121 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java">
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="59" column="62" lean-forward="true" selection-start-line="59" selection-start-column="62" selection-end-line="59" selection-end-column="62" />
-          <folding>
-            <element signature="e#4734#4735#0" expanded="false" />
-            <element signature="e#4770#4771#0" expanded="false" />
-            <element signature="e#4808#4809#0" expanded="false" />
-            <element signature="e#4832#4833#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="2715">
+          <caret line="206" column="34" lean-forward="false" selection-start-line="206" selection-start-column="34" selection-end-line="206" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2250">
-          <caret line="150" column="46" lean-forward="false" selection-start-line="150" selection-start-column="46" selection-end-line="150" selection-end-column="46" />
+        <state relative-caret-position="515">
+          <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java">
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1011">
-          <caret line="206" column="34" lean-forward="false" selection-start-line="206" selection-start-column="34" selection-end-line="206" selection-end-column="34" />
+        <state relative-caret-position="285">
+          <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/build.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="88" column="45" lean-forward="true" selection-start-line="88" selection-start-column="45" selection-end-line="88" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/HIDControllerSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1650">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="75" column="55" lean-forward="false" selection-start-line="75" selection-start-column="55" selection-end-line="75" selection-end-column="55" />
+        <state relative-caret-position="272">
+          <caret line="125" column="25" lean-forward="false" selection-start-line="125" selection-start-column="25" selection-end-line="125" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
           <folding>
-            <element signature="e#8499#8517#0" expanded="true" />
-            <element signature="e#8580#8598#0" expanded="true" />
-            <element signature="e#8662#8680#0" expanded="true" />
-            <element signature="e#12080#12081#0" expanded="true" />
-            <element signature="e#12107#12108#0" expanded="true" />
-            <element signature="e#12909#12910#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13540#13541#0" expanded="true" />
-            <element signature="e#13594#13595#0" expanded="true" />
-            <element signature="e#17234#17235#0" expanded="true" />
-            <element signature="e#17275#17276#0" expanded="true" />
-            <element signature="e#18186#18187#0" expanded="true" />
-            <element signature="e#18219#18220#0" expanded="true" />
-            <element signature="e#18263#18264#0" expanded="true" />
-            <element signature="e#18287#18288#0" expanded="true" />
-            <element signature="e#18474#18475#0" expanded="true" />
-            <element signature="e#18524#18525#0" expanded="true" />
+            <element signature="e#3175#3197#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/ConnectionMonitorSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="106" column="13" lean-forward="false" selection-start-line="106" selection-start-column="13" selection-end-line="106" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="25" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/LEDControllerSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverRGB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="43" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1086#1087#0" expanded="true" />
+            <element signature="e#1149#1150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/RobotStateEstimator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

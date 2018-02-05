@@ -58,6 +58,8 @@ public class Robot extends RobbieRobot {
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
+		ledControllerSubsystem.setRequestedState(LEDControllerSubsystem.LEDState.BLINK);
+		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
 	}
 
 	@Override
@@ -81,7 +83,7 @@ public class Robot extends RobbieRobot {
 		boolean systemPassedTest = true;
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
-			if (customSubsystem instanceof DiagnosableSubsystem)
+			if (customSubsystem instanceof DiagnosableSubsystem && isEnabled() && isTest())
 				systemPassedTest &= ((DiagnosableSubsystem) customSubsystem).runDiagnostics();
 		}
 

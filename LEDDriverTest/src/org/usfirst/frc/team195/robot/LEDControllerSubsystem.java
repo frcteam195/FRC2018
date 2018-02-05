@@ -1,25 +1,17 @@
-package org.usfirst.frc.team195.robot.Subsystems;
+package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
-import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Utilities.Controllers;
-import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriverRGB;
-import org.usfirst.frc.team195.robot.Utilities.RGBColor;
-import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
+import java.awt.*;
 import java.util.List;
 
 public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
     private static final int MIN_LED_THREAD_LOOP_MS = 100;
-    public static final int kDefaultBlinkCount = 6;
+    public static final int kDefaultBlinkCount = 4;
     public static final double kDefaultBlinkDuration = 0.2; // seconds for full cycle
     private static final double kDefaultTotalBlinkDuration = kDefaultBlinkCount * kDefaultBlinkDuration;
-    private static final RGBColor kDefaultColor = new RGBColor(210, 0, 255);  //Default purple color
 
     private static LEDControllerSubsystem instance = null;
-    private LEDState mDefaultState = LEDState.FIXED_ON;
     private SystemState mSystemState = SystemState.OFF;
     private LEDState mRequestedState = LEDState.OFF;
     private boolean mIsLEDOn;
@@ -32,14 +24,13 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
     private ThreadRateControl threadRateControl = new ThreadRateControl();
 
     private LEDControllerSubsystem() throws Exception {
-        mLED = new LEDDriverRGB(Controllers.getInstance().getRedLED(), Controllers.getInstance().getGreenLED(), Controllers.getInstance().getBlueLED());
+        mLED = LEDDriverRGB.getInstance();
         mLED.set(false);
 
         // Force a relay change.
         mIsLEDOn = true;
         setLEDOff();
 
-        setLEDColor(kDefaultColor);
         mBlinkDuration = kDefaultBlinkDuration;
         mBlinkCount = kDefaultBlinkCount;
         mTotalBlinkDuration = kDefaultTotalBlinkDuration;
@@ -50,7 +41,7 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
             try {
                 instance = new LEDControllerSubsystem();
             } catch (Exception ex) {
-                ConsoleReporter.report(ex, MessageLevel.DEFCON1);
+                //ConsoleReporter.report(ex, MessageLevel.DEFCON1);
             }
         }
 
@@ -64,7 +55,7 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
 
     @Override
     public void init() {
-
+        mLED.setLEDColor(147, 0, 255);
     }
 
     @Override
@@ -85,7 +76,7 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
 
     @Override
     public void terminate() {
-        ConsoleReporter.report("CAN'T STOP, WON'T STOP, DON'T CALL ME!", MessageLevel.ERROR);
+        ;
     }
 
     @Override
@@ -107,11 +98,11 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
                         newState = handleFixedOn();
                         break;
                     default:
-                        ConsoleReporter.report("Fell through on LEDControllerSubsystem states!!", MessageLevel.ERROR);
+                        System.out.println("Fell through on LEDControllerSubsystem states!!");
                         newState = SystemState.OFF;
                 }
                 if (newState != mSystemState) {
-                    ConsoleReporter.report("LEDControllerSubsystem state " + mSystemState + " to " + newState, MessageLevel.INFO);
+                    //ConsoleReporter.report("LEDControllerSubsystem state " + mSystemState + " to " + newState, MessageLevel.INFO);
                     mSystemState = newState;
                     mCurrentStateStartTime = Timer.getFPGATimestamp();
                 }
@@ -119,6 +110,10 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
 
             threadRateControl.doRateControl(MIN_LED_THREAD_LOOP_MS);
         }
+    }
+
+    public synchronized void setLEDColor(int redPWMOut, int greenPWMOut, int bluePWMOut) {
+        mLED.setLEDColor(redPWMOut, greenPWMOut, bluePWMOut);
     }
 
     private SystemState defaultStateTransfer() {
@@ -146,11 +141,9 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
 
     private synchronized SystemState handleBlinking(double timeInState) {
         if (timeInState > mTotalBlinkDuration) {
-            //setLEDOff();
-            // Transition to OFF state and clear wanted state.
-            //setRequestedState(LEDState.OFF);
-            setLEDDefaultState();
             setLEDOff();
+            // Transition to OFF state and clear wanted state.
+            mRequestedState = LEDState.OFF;
             return SystemState.OFF;
         }
 
@@ -181,26 +174,10 @@ public class LEDControllerSubsystem extends Thread implements CustomSubsystem {
         }
     }
 
-    private synchronized void setLEDDefaultState() {
-        setRequestedState(mDefaultState);
-    }
-
     public synchronized void configureBlink(int blinkCount, double blinkDuration) {
         mBlinkDuration = blinkDuration;
         mBlinkCount = blinkCount;
         mTotalBlinkDuration = mBlinkCount * mBlinkDuration;
-    }
-
-    public synchronized void setLEDColor(RGBColor rgbColor) {
-        setLEDColor(rgbColor.red, rgbColor.green, rgbColor.blue);
-    }
-
-    public synchronized void setLEDColor(int redPWMOut, int greenPWMOut, int bluePWMOut) {
-        mLED.setLEDColor(redPWMOut, greenPWMOut, bluePWMOut);
-    }
-
-    public synchronized void setLEDDefaultState(LEDState defaultState) {
-        this.mDefaultState = defaultState;
     }
 
     // Internal state of the system
