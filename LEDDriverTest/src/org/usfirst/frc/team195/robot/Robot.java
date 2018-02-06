@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
@@ -10,16 +11,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Robot extends SampleRobot {
-	private LEDDriverRGB ledController;
+	private TuneablePID testTuner;
+	private TalonSRX t = new TalonSRX(1);
 
 	public Robot() {
+
 	}
 
 	@Override
 	public void robotInit() {
-		ledController = LEDDriverRGB.getInstance();
-		ledController.start();
-		ledController.setLEDColor(210, 0 , 255);
+		try {
+			testTuner = new TuneablePID("Test", t, null, 5808, true, true);
+			testTuner.start();
+		} catch (Exception ex) {
+
+		}
 
 	}
 
