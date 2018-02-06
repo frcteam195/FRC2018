@@ -205,6 +205,8 @@ public class TuneablePID {
 					clientSocket.receive(receivePacket);
 					setIPAddress(receivePacket.getAddress());
 					setTuneablePIDData(processUDPPacket(receivePacket.getData()));
+					ConsoleReporter.report("IP: " + getIPAddress().toString());
+					ConsoleReporter.report("P: " + getTuneablePIDData().getkP());
 					for (TalonSRX tuningTalon : talonArrList) {
 						if (autoUpdate) {
 							TalonHelper.setPIDGains(tuningTalon, 0, tuneablePIDData.getkP(), tuneablePIDData.getkI(), tuneablePIDData.getkD(), tuneablePIDData.getF());
