@@ -17,6 +17,12 @@ public class ThreadRateControl {
 		started = false;
 	}
 
+	public synchronized void start(boolean resetStart) {
+		if (resetStart)
+			started = false;
+		start();
+	}
+
 	public synchronized void start() {
 		if (!started) {
 			startTime = Timer.getFPGATimestamp();

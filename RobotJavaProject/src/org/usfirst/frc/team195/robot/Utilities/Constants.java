@@ -50,6 +50,7 @@ public class Constants {
 	public static final double kMotorDeadband = 0.01;
 	public static final double kSensorUnitsPerRotation = 4096.0;
 	public static final double k100msPerMinute = 600.0;
+	public static final double kLooperDt = 0.005;
 
 
 
@@ -66,15 +67,15 @@ public class Constants {
 	/* ROBOT PHYSICAL CONSTANTS */
 
 	// Wheels
-	public static double kDriveWheelDiameterInches = 4.88;
-	public static double kTrackWidthInches = 24.5;
-	public static double kTrackScrubFactor = 1; // 0.924 ?
+	public static double kDriveWheelDiameterInches = 4.875;
+	public static double kTrackWidthInches = 23.75;
+	public static double kTrackScrubFactor = 0.924; // 0.924 ?
 
 	// Geometry
-	public static double kCenterToFrontBumperDistance = 15;
+	public static double kCenterToFrontBumperDistance = 14.5;
 	public static double kCenterToIntakeDistance = 23.11;
-	public static double kCenterToRearBumperDistance = 15;
-	public static double kCenterToSideBumperDistance = 15;
+	public static double kCenterToRearBumperDistance = 14.5;
+	public static double kCenterToSideBumperDistance = 14.5;
 
 
 	/* CONTROL LOOP GAINS */
@@ -88,7 +89,7 @@ public class Constants {
 	public static int kDriveHighGearVelocityIZone = 0;
 	public static double kDriveHighGearVelocityRampRate = 240.0;
 	public static double kDriveHighGearNominalOutput = 0.5;
-	public static double kDriveHighGearMaxSetpoint = 17.0 * 12.0; // 17 fps
+	public static double kDriveHighGearMaxSetpoint = 7.0 * 12.0; // 7 fps
 
 	// PID gains for drive velocity loop (LOW GEAR)
 	// Units: setpoint, error, and output are in inches per second.
@@ -99,7 +100,7 @@ public class Constants {
 	public static int kDriveLowGearPositionIZone = 700;
 	public static double kDriveLowGearPositionRampRate = 240.0; // V/s
 	public static double kDriveLowGearNominalOutput = 0.5; // V
-	public static double kDriveLowGearMaxVelocity = 6.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 6 fps
+	public static double kDriveLowGearMaxVelocity = 7.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 7 fps
 	// in RPM
 	public static double kDriveLowGearMaxAccel = 18.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 18 fps/s
 	// in RPM/s
@@ -168,23 +169,23 @@ public class Constants {
 	public static double kMinLookAhead = 12.0; // inches
 	public static double kMinLookAheadSpeed = 9.0; // inches per second
 	public static double kMaxLookAhead = 24.0; // inches
-	public static double kMaxLookAheadSpeed = 120.0; // inches per second
+	public static double kMaxLookAheadSpeed = 100.0; // inches per second
 	public static double kDeltaLookAhead = kMaxLookAhead - kMinLookAhead;
 	public static double kDeltaLookAheadSpeed = kMaxLookAheadSpeed - kMinLookAheadSpeed;
 
-	public static double kInertiaSteeringGain = 0.02; // angular velocity command is multiplied by this gain *
+	public static double kInertiaSteeringGain = 0.017; // angular velocity command is multiplied by this gain *
 	// our speed
 	// in inches per sec
-	public static double kSegmentCompletionTolerance = 2; // inches
+	public static double kSegmentCompletionTolerance = 1; // inches
 	public static double kPathFollowingMaxAccel = 100.0; // inches per second^2
-	public static double kPathFollowingMaxVel = 120.0; // inches per second
+	public static double kPathFollowingMaxVel = 84.0; // inches per second
 
 	public static double kPathFollowingProfileKp = 3.0;
 	public static double kPathFollowingProfileKi = 0.03;
-	public static double kPathFollowingProfileKv = 0.02;
+	public static double kPathFollowingProfileKv = 0.2;
 	public static double kPathFollowingProfileKffv = 1.0;
 	public static double kPathFollowingProfileKffa = 0.05;
-	public static double kPathFollowingGoalPosTolerance = 2;
+	public static double kPathFollowingGoalPosTolerance = 1;
 	public static double kPathFollowingGoalVelTolerance = 18.0;
 	public static double kPathStopSteeringDistance = 9.0;
 

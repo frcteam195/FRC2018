@@ -12,6 +12,8 @@ import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TuneablePID;
+import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
+import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 
 import java.lang.reflect.Array;
@@ -21,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
-public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
+public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
 	private static final int kLowGearPIDSlot = 0;
 	private static final int kHighGearPIDSlot = 1;
 	public static final int MIN_DRIVE_LOOP_TIME_STANDARD = 10;
@@ -30,21 +32,63 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 	private static ReentrantLock _subsystemMutex = new ReentrantLock();
 	private PathFollowerRobotState mRobotState = PathFollowerRobotState.getInstance();
 	private DriveControlState mControlMode;
-	private DriveControlState mPrevControlMode;
 	private TalonSRX mLeftMaster, mRightMaster;
 	private BaseMotorController leftDriveSlave1, leftDriveSlave2, rightDriveSlave1, rightDriveSlave2;
 	private DriverStation ds;
 	private NavX mNavXBoard;
-	private Solenoid shiftSol;
+	private ShiftHelper shiftHelper;
 	private boolean mPrevShiftVal;
 	private boolean mPrevBrakeModeVal;
 	private double leftDriveSpeed, rightDriveSpeed;
-	private boolean runThread;
 	private Path mCurrentPath = null;
 	private PathFollower mPathFollower;
-	private ThreadRateControl threadRateControl = new ThreadRateControl();
-	private TuneablePID tuneableDrive;
-	private SetpointValue setpointValue = new SetpointValue();
+	private TuneablePID tuneableLeftDrive;
+	private TuneablePID tuneableRightDrive;
+	private SetpointValue leftSetpointValue = new SetpointValue();
+	private SetpointValue rightSetpointValue = new SetpointValue();
+
+	private final Loop mLoop = new Loop() {
+		@Override
+		public void onStart(double timestamp) {
+			synchronized (DriveBaseSubsystem.this) {
+				setDriveOpenLoop(DriveMotorValues.NEUTRAL);
+				setBrakeMode(false);
+				setDriveVelocity(new DriveMotorValues(0, 0));
+				//subsystemHome();	//Called from disabled instead
+
+			}
+		}
+
+		@Override
+		public void onLoop(double timestamp) {
+			synchronized (DriveBaseSubsystem.this) {
+				switch (mControlMode) {
+					case OPEN_LOOP:
+						return;
+					case VELOCITY:
+						return;
+					case PATH_FOLLOWING:
+						if (mPathFollower != null) {
+							updatePathFollower(timestamp);
+							//mCSVWriter.add(mPathFollower.getDebug());
+						}
+						return;
+					default:
+						ConsoleReporter.report("Unexpected drive control state: " + mControlMode);
+						break;
+				}
+			}
+		}
+		@Override
+		public void onStop(double timestamp) {
+			setDriveOpenLoop(DriveMotorValues.NEUTRAL);
+		}
+	};
+
+	@Override
+	public void registerEnabledLoops(Looper in) {
+		in.register(mLoop);
+	}
 
 	private DriveBaseSubsystem() throws Exception {
 		super();
@@ -60,9 +104,10 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 		rightDriveSlave2 = robotControllers.getRightDrive3();
 		mNavXBoard = robotControllers.getNavX();
 
-		shiftSol = robotControllers.getShiftSol();
+		shiftHelper = robotControllers.getShiftHelper();
+		shiftHelper.configHighGear(false);
 		mPrevShiftVal = false;
-		setGear(true);
+		setGear(false);
 
 		leftDriveSpeed = 0;
 		rightDriveSpeed = 0;
@@ -70,12 +115,11 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 		mPrevBrakeModeVal = false;
 		setBrakeMode(true);
 
-		runThread = false;
-
 		mControlMode = DriveControlState.PATH_FOLLOWING;
-		mPrevControlMode = DriveControlState.OPEN_LOOP;
 
-		tuneableDrive = new TuneablePID("Left Drive Tuning", mLeftMaster, null, 5808, true, true);
+		//tuneableLeftDrive = new TuneablePID("Drive Tuning", mLeftMaster, mRightMaster, leftSetpointValue, 5808, true, false);
+		//tuneableRightDrive = new TuneablePID("Right Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
+
 	}
 
 	public static DriveBaseSubsystem getInstance() {
@@ -113,20 +157,12 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 		mRightMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
 		mRightMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
 
-		TalonHelper.setPIDGains(mLeftMaster, kLowGearPIDSlot, 0.2, 0, 2, 0.1);
-		TalonHelper.setPIDGains(mLeftMaster, kHighGearPIDSlot, 0.2, 0, 2, 0.121);
-		TalonHelper.setPIDGains(mRightMaster, kLowGearPIDSlot, 0.2, 0, 2, 0.1);
-		TalonHelper.setPIDGains(mRightMaster, kHighGearPIDSlot, 0.2, 0, 2, 0.121);
+		TalonHelper.setPIDGains(mLeftMaster, kLowGearPIDSlot, 0.43, 0.4, 5, 0.385, 0.25, 15);
+		TalonHelper.setPIDGains(mLeftMaster, kHighGearPIDSlot, 0.43, 0.4, 5, 0.385, 0.25, 15);
+		TalonHelper.setPIDGains(mRightMaster, kLowGearPIDSlot, 0.43, 0.4, 5, 0.385, 0.25, 15);
+		TalonHelper.setPIDGains(mRightMaster, kHighGearPIDSlot, 0.43, 0.4, 5, 0.385, 0.25, 15);
 
 		isSystemFaulted();
-	}
-
-	@Override
-	public void start() {
-		runThread = true;
-		tuneableDrive.start();
-		if (!super.isAlive())
-			super.start();
 	}
 
 	@Override
@@ -140,70 +176,21 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 //		}
 	}
 
-	@Override
-	public void run() {
-		while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
-		subsystemHome();
-		threadRateControl.start();
-
-		while(runThread) {
-			if(mPrevControlMode != mControlMode) {
-				ConsoleReporter.report("Changing Control Modes!", MessageLevel.INFO);
-
-				switch (mControlMode) {
-					case PATH_FOLLOWING:
-					case VELOCITY:
-						mLeftMaster.set(ControlMode.Velocity, 0);
-						mRightMaster.set(ControlMode.Velocity, 0);
-						setBrakeMode(true);
-						break;
-					case POSITION:
-						mLeftMaster.set(ControlMode.Position, mLeftMaster.getSelectedSensorPosition(0));
-						mRightMaster.set(ControlMode.Position, mRightMaster.getSelectedSensorPosition(0));
-						setBrakeMode(true);
-						break;
-					case TEST:
-						break;
-					case OPEN_LOOP:
-					default:
-						mLeftMaster.set(ControlMode.PercentOutput, 0);
-						mRightMaster.set(ControlMode.PercentOutput, 0);
-						setBrakeMode(false);
-						break;
-				}
-				_subsystemMutex.lock();
-				mPrevControlMode = mControlMode;
-				_subsystemMutex.unlock();
-			}
-
-			switch (mControlMode) {
-				case PATH_FOLLOWING:
-					if (mPathFollower != null)
-						updatePathFollower();
-				case VELOCITY:
-					//mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(leftDriveSpeed));
-					//mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(rightDriveSpeed));
-					break;
-				case POSITION:
-					break;
-				case TEST:
-					break;
-				case OPEN_LOOP:
-				default:
-					//mLeftMaster.set(ControlMode.PercentOutput, leftDriveSpeed);
-					//mRightMaster.set(ControlMode.PercentOutput, rightDriveSpeed);
-					break;
-			}
-
-			threadRateControl.doRateControl(mControlMode == DriveControlState.PATH_FOLLOWING ? MIN_DRIVE_LOOP_TIME_MP : MIN_DRIVE_LOOP_TIME_STANDARD);
-		}
-	}
 
 	@Override
 	public void subsystemHome() {
 		mNavXBoard.zeroYaw();
 		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
 		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+		try {
+			Thread.sleep(20);
+		} catch (Exception ex) {
+			ConsoleReporter.report(ex);
+		}
 	}
 
 	@Override
@@ -333,7 +320,7 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 
 	public void setGear(boolean highGear) {
 		try {
-			if (shiftSol != null) {
+			if (shiftHelper != null) {
 				_subsystemMutex.lock();
 				if (mPrevShiftVal != highGear) {
 					if (highGear) {
@@ -346,7 +333,7 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 						mRightMaster.selectProfileSlot(0, kLowGearPIDSlot);
 					}
 
-					shiftSol.set(highGear);
+					shiftHelper.shift(highGear);
 					mPrevShiftVal = highGear;
 				}
 				_subsystemMutex.unlock();
@@ -374,38 +361,16 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 
 	public synchronized void setDriveOpenLoop(DriveMotorValues d) {
 		setControlMode(DriveControlState.OPEN_LOOP);
-		setDriveSpeed(d);
+
+		mLeftMaster.set(ControlMode.PercentOutput, d.leftDrive);
+		mRightMaster.set(ControlMode.PercentOutput, d.rightDrive);
 	}
 
 	public synchronized void setDriveVelocity(DriveMotorValues d) {
 		setControlMode(DriveControlState.VELOCITY);
-		setDriveSpeed(d);
-	}
 
-	private synchronized void setDriveSpeed(DriveMotorValues d) {
-		setDriveSpeed(d.leftDrive, d.rightDrive, false);
-	}
-
-	private synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed) {
-		setDriveSpeed(leftDriveSpeed, rightDriveSpeed, false);
-	}
-
-	private synchronized void setDriveSpeed(double leftDriveSpeed, double rightDriveSpeed, boolean slowDown) {
-		try {
-			_subsystemMutex.lock();
-
-			this.leftDriveSpeed = leftDriveSpeed;
-			this.rightDriveSpeed = rightDriveSpeed;
-
-			if(slowDown) {
-				this.leftDriveSpeed /= 2.2;
-				this.rightDriveSpeed /= 2.2;
-			}
-
-			_subsystemMutex.unlock();
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex);
-		}
+		mLeftMaster.set(ControlMode.Velocity, d.leftDrive);
+		mRightMaster.set(ControlMode.Velocity, d.rightDrive);
 	}
 
 	public void setBrakeMode(boolean brakeMode) {
@@ -426,9 +391,9 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 	 * Called periodically when the robot is in path following mode. Updates the path follower with the robots latest
 	 * pose, distance driven, and velocity, then updates the wheel velocity setpoints.
 	 */
-	private void updatePathFollower() {
+	private void updatePathFollower(double timestamp) {
 		RigidTransform2d robot_pose = mRobotState.getLatestFieldToVehicle().getValue();
-		Twist2d command = mPathFollower.update(Timer.getFPGATimestamp(), robot_pose,
+		Twist2d command = mPathFollower.update(timestamp, robot_pose,
 				PathFollowerRobotState.getInstance().getDistanceDriven(), PathFollowerRobotState.getInstance().getPredictedVelocity().dx);
 
 		if (!mPathFollower.isFinished()) {
@@ -448,14 +413,10 @@ public class DriveBaseSubsystem extends Thread implements CriticalSystemStatus, 
 	private void updatePathVelocitySetpoint(double left_inches_per_sec, double right_inches_per_sec) {
 		final double max_desired = Math.max(Math.abs(left_inches_per_sec), Math.abs(right_inches_per_sec));
 		final double scale = max_desired > Constants.kDriveHighGearMaxSetpoint ? Constants.kDriveHighGearMaxSetpoint / max_desired : 1.0;
-		try {
-			_subsystemMutex.lock();
-			leftDriveSpeed = Util.convertRPMToNativeUnits(inchesPerSecondToRpm(left_inches_per_sec * scale));
-			rightDriveSpeed = Util.convertRPMToNativeUnits(inchesPerSecondToRpm(right_inches_per_sec * scale));
-			_subsystemMutex.unlock();
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex);
-		}
+
+		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(left_inches_per_sec * scale)));
+		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(right_inches_per_sec * scale)));
+
 		//ConsoleReporter.report("Requested Drive Velocity Left/Right: " + left_inches_per_sec + "/" + right_inches_per_sec);
 		//ConsoleReporter.report("Actual Drive Velocity Left/Right: " + getLeftVelocityInchesPerSec() + "/" + getRightVelocityInchesPerSec());
 	}

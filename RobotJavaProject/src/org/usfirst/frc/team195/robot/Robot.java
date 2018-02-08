@@ -1,16 +1,18 @@
 package org.usfirst.frc.team195.robot;
 
-import java.io.Console;
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Autonomous.AutoModeSample;
+import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
+import org.usfirst.frc.team195.robot.Autonomous.SwitchCubeThenScaleMode;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.*;
 import org.usfirst.frc.team195.robot.Utilities.*;
-import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathFollowerRobotState;
+import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
+import org.usfirst.frc.team195.robot.Utilities.Loops.RobotStateEstimator;
 
 public class Robot extends RobbieRobot {
 	private Controllers robotControllers;
@@ -19,10 +21,12 @@ public class Robot extends RobbieRobot {
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private RobotStateEstimator robotStateEstimator;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
-	private HIDControllerSubsystem hidControllerSubsystem;
-	private LEDControllerSubsystem ledControllerSubsystem;
-	private ConnectionMonitorSubsystem connectionMonitorSubsystem;
+	private HIDController hidController;
+	private LEDController ledController;
 	private DashboardReporter dashboardReporter;
+	private AutoModeExecuter autoModeExecuter;
+	private Looper mLooper;
+	private ThreadRateControl threadRateControl = new ThreadRateControl();
 	
 	public Robot() {
 		;
@@ -35,45 +39,72 @@ public class Robot extends RobbieRobot {
 		ConsoleReporter.getInstance().start();
 		ConsoleReporter.report("Console Reporter Running!", MessageLevel.INFO);
 
+		ledController = LEDController.getInstance();
+		ledController.start();
+		ledController.setRequestedState(LEDController.LEDState.BLINK);
+
+		ConnectionMonitor.getInstance().start();
+
 		robotControllers = Controllers.getInstance();
+		mLooper = new Looper();
 		subsystemVector = new ArrayList<CustomSubsystem>();
-		
+
+		hidController = HIDController.getInstance();
+
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance(subsystemVector);
-		robotStateEstimator = RobotStateEstimator.getInstance(subsystemVector);
 		//cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
-		hidControllerSubsystem = HIDControllerSubsystem.getInstance(subsystemVector);
-		connectionMonitorSubsystem = ConnectionMonitorSubsystem.getInstance(subsystemVector);
-		ledControllerSubsystem = LEDControllerSubsystem.getInstance(subsystemVector);
-		
+
 		for (CustomSubsystem customSubsystem : subsystemVector) {
 			customSubsystem.init();
 		}
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
-			customSubsystem.start();
+			customSubsystem.registerEnabledLoops(mLooper);
 		}
-		
+
+		robotStateEstimator = RobotStateEstimator.getInstance();
+		mLooper.register(robotStateEstimator);
+
 		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
-		ledControllerSubsystem.setRequestedState(LEDControllerSubsystem.LEDState.BLINK);
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
 	}
 
 	@Override
 	public void autonomous() {
+		mLooper.start();
+
+		autoModeExecuter = new AutoModeExecuter();
+		autoModeExecuter.setAutoMode(new SwitchCubeThenScaleMode());
+		autoModeExecuter.start();
 
 		while (isAutonomous() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
 	}
 	
 	@Override
-	protected void disabled() { ; }
+	protected void disabled() {
+		mLooper.stop();
+
+		threadRateControl.start(true);
+
+		while (isDisabled()) {
+			driveBaseSubsystem.subsystemHome();
+			threadRateControl.doRateControl(100);
+		}
+	}
 
 	@Override
 	public void operatorControl() {
-		driveBaseSubsystem.setControlMode(DriveControlState.VELOCITY);
-		while (isOperatorControl() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
+		mLooper.start();
+		driveBaseSubsystem.setControlMode(DriveControlState.OPEN_LOOP);
+		threadRateControl.start(true);
+
+		while (isOperatorControl() && isEnabled()) {
+			hidController.run();
+			threadRateControl.doRateControl(20);
+		}
 	}
 
 	@Override
@@ -93,7 +124,6 @@ public class Robot extends RobbieRobot {
 
 		Timer.delay(4);
 
-		//TODO: Test RIO crash code
 		//Crash the JVM and force the code to reset so we no longer have the motor controllers configured for testing
 		System.exit(1);
 	}

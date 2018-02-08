@@ -10,4 +10,10 @@ public class TalonHelper {
 		talon.config_kD(slotID, kD, Constants.kTimeoutMs);
 		talon.config_kF(slotID, kF, Constants.kTimeoutMs);
 	}
+
+	public static void setPIDGains(TalonSRX talon, int slotID, double kP, double kI, double kD, double kF, double rampRate, int iZone) {
+		setPIDGains(talon, slotID, kP, kI, kD, kF);
+		talon.configClosedloopRamp(rampRate, Constants.kTimeoutMs);
+		talon.config_IntegralZone(slotID, iZone, Constants.kTimeoutMs);
+	}
 }

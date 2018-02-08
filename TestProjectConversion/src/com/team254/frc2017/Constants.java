@@ -39,15 +39,15 @@ public class Constants extends ConstantsBase {
     /* ROBOT PHYSICAL CONSTANTS */
 
     // Wheels
-    public static double kDriveWheelDiameterInches = 3.97;
-    public static double kTrackWidthInches = 19.5;
+    public static double kDriveWheelDiameterInches = 4.88;
+    public static double kTrackWidthInches = 23.75;
     public static double kTrackScrubFactor = 1; // 0.924 ?
 
     // Geometry
-    public static double kCenterToFrontBumperDistance = 19;
+    public static double kCenterToFrontBumperDistance = 14.5;
     public static double kCenterToIntakeDistance = 23.11;
-    public static double kCenterToRearBumperDistance = 19;
-    public static double kCenterToSideBumperDistance = 15;
+    public static double kCenterToRearBumperDistance = 14.5;
+    public static double kCenterToSideBumperDistance = 14.5;
 
     // Shooting suggestions
     public static double kOnTargetErrorThreshold = 3.0;
@@ -201,20 +201,20 @@ public class Constants extends ConstantsBase {
     public static double kMinLookAhead = 12.0; // inches
     public static double kMinLookAheadSpeed = 9.0; // inches per second
     public static double kMaxLookAhead = 24.0; // inches
-    public static double kMaxLookAheadSpeed = 60.0; // inches per second
+    public static double kMaxLookAheadSpeed = 120.0; // inches per second
     public static double kDeltaLookAhead = kMaxLookAhead - kMinLookAhead;
     public static double kDeltaLookAheadSpeed = kMaxLookAheadSpeed - kMinLookAheadSpeed;
 
-    public static double kInertiaSteeringGain = -0.004; // angular velocity command is multiplied by this gain *
+    public static double kInertiaSteeringGain = 0.02; // angular velocity command is multiplied by this gain *
                                                      // our speed
                                                      // in inches per sec
     public static double kSegmentCompletionTolerance = 2; // inches
-    public static double kPathFollowingMaxAccel = 30.0; // inches per second^2
-    public static double kPathFollowingMaxVel = 60.0; // inches per second
+    public static double kPathFollowingMaxAccel = 100.0; // inches per second^2
+    public static double kPathFollowingMaxVel = 70.0; // inches per second
 
-    public static double kPathFollowingProfileKp = 1.2;
+    public static double kPathFollowingProfileKp = 3;
     public static double kPathFollowingProfileKi = 0.03;
-    public static double kPathFollowingProfileKv = 0.9;
+    public static double kPathFollowingProfileKv = 0.2;
     public static double kPathFollowingProfileKffv = 1.0;
     public static double kPathFollowingProfileKffa = 0.05;
     public static double kPathFollowingGoalPosTolerance = 2;

@@ -250,8 +250,8 @@ public class Drive extends Subsystem {
     public synchronized void setHighGear(boolean wantsHighGear) {
         if (wantsHighGear != mIsHighGear) {
             mIsHighGear = wantsHighGear;
-            mShifter.set(wantsHighGear ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
-            //mShifter.set(wantsHighGear ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kReverse);
+            //mShifter.set(wantsHighGear ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
+            mShifter.set(wantsHighGear ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kReverse);
         }
     }
 
@@ -719,10 +719,10 @@ public class Drive extends Subsystem {
 //                Constants.kDriveHighGearVelocityIZone, Constants.kDriveHighGearVelocityRampRate,
 //                kHighGearVelocityControlSlot);
 
-        setPIDGains(mLeftMaster, 0.1, 0, 2, 0.168, Constants.kDriveLowGearPositionIZone, Constants.kDriveLowGearPositionRampRate, kLowGearPositionControlSlot);
-        setPIDGains(mLeftMaster, 0.1, 0, 2, 0.168, Constants.kDriveHighGearVelocityIZone, Constants.kDriveHighGearVelocityRampRate, kHighGearVelocityControlSlot);
-        setPIDGains(mRightMaster, 0.1, 0, 2, 0.168, Constants.kDriveLowGearPositionIZone, Constants.kDriveLowGearPositionRampRate, kLowGearPositionControlSlot);
-        setPIDGains(mRightMaster, 0.1, 0, 2, 0.168, Constants.kDriveHighGearVelocityIZone, Constants.kDriveHighGearVelocityRampRate, kHighGearVelocityControlSlot);
+        setPIDGains(mLeftMaster, 0.43, 0.4, 5, 0.385, 15, 0.25, kLowGearPositionControlSlot);
+        setPIDGains(mLeftMaster, 0.43, 0.4, 5, 0.385, 15, 0.25, kHighGearVelocityControlSlot);
+        setPIDGains(mRightMaster, 0.43, 0.4, 5, 0.385, 15, 0.25, kLowGearPositionControlSlot);
+        setPIDGains(mRightMaster, 0.43, 0.4, 5, 0.385, 15, 0.25, kHighGearVelocityControlSlot);
 
         //mLeftMaster.setVoltageCompensationRampRate(Constants.kDriveVoltageCompensationRampRate);
         //mRightMaster.setVoltageCompensationRampRate(Constants.kDriveVoltageCompensationRampRate);
@@ -733,8 +733,8 @@ public class Drive extends Subsystem {
         talon.config_kI(slotID, kI, Constants.kTimeoutMs);
         talon.config_kD(slotID, kD, Constants.kTimeoutMs);
         talon.config_kF(slotID, kF, Constants.kTimeoutMs);
-        //talon.config_IntegralZone(slotID, (int)kDriveLowGearPositionIZone, Constants.kTimeoutMs);
-        //talon.configClosedloopRamp(kDriveLowGearPositionRampRate,  Constants.kTimeoutMs);
+        talon.config_IntegralZone(slotID, (int)kDriveLowGearPositionIZone, Constants.kTimeoutMs);
+        talon.configClosedloopRamp(kDriveLowGearPositionRampRate,  Constants.kTimeoutMs);
     }
 
     public synchronized double getAccelX() {

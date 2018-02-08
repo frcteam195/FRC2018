@@ -21,6 +21,7 @@ public class Controllers {
 	private TalonSRX rightDrive1;
 	private BaseMotorController rightDrive2;
 	private BaseMotorController rightDrive3;
+	private ShiftHelper shiftHelper;
 	private Solenoid shiftSol;
 	private Solenoid ginoSol;
 
@@ -59,9 +60,11 @@ public class Controllers {
 		rightDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId, Constants.kRightDriveSlave1PDPChannel, rightDrive1);
 		rightDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
 
+		shiftHelper = new ShiftHelper(Constants.kShifterSolenoidId, Constants.kShifterSolenoidId2);
+
 		//Shift Solenoid Setup
-		shiftSol = new Solenoid(Constants.kShifterSolenoidId);
-		ginoSol = new Solenoid(Constants.kShifterSolenoidId2);
+		//shiftSol = new Solenoid(Constants.kShifterSolenoidId);
+		//ginoSol = new Solenoid(Constants.kShifterSolenoidId2);
 
 		//LED Setup
 		rLED = new DigitalOutput(Constants.kRedLEDId);
@@ -175,5 +178,9 @@ public class Controllers {
 
 	public Compressor getCompressor() {
 		return compressor;
+	}
+
+	public ShiftHelper getShiftHelper() {
+		return shiftHelper;
 	}
 }

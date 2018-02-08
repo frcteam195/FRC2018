@@ -1,8 +1,6 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -17,15 +15,16 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
+import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
+import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 
-public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, DiagnosableSubsystem, Reportable {
+public class CubeHandlerSubsystem implements CustomSubsystem, DiagnosableSubsystem, Reportable {
 	
 	private static final int MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS = 20;
 	private static CubeHandlerSubsystem instance;
 	private TuneablePID tuneableIntake;
-	private IntakeControl intakeControl;
+	private IntakeControl mIntakeControl;
+	private IntakeControl mPrevIntakeControl;
 
 	private TalonSRX liftMotor;
 	private VictorSPX liftMotorSlave;
@@ -63,7 +62,8 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Dia
 
 		runThread = false;
 
-		intakeControl = IntakeControl.OFF;
+		mIntakeControl = IntakeControl.OFF;
+		mPrevIntakeControl = IntakeControl.OFF;
 	}
 	
 	public static CubeHandlerSubsystem getInstance() {
@@ -98,12 +98,50 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Dia
 		;
 	}
 
+	private final Loop mLoop = new Loop() {
+		@Override
+		public void onStart(double timestamp) {
+			synchronized (CubeHandlerSubsystem.this) {
+				intakeMotor1.set(ControlMode.Current, 0);
+				intakeMotor2.set(ControlMode.Current, 0);
+			}
+		}
+
+		@Override
+		public void onLoop(double timestamp) {
+			synchronized (CubeHandlerSubsystem.this) {
+				if (mIntakeControl != mPrevIntakeControl) {
+					switch (mIntakeControl) {
+						case FORWARD:
+							intakeMotor1.set(ControlMode.Current, 25);
+							intakeMotor2.set(ControlMode.Current, 25);
+							break;
+						case REVERSE:
+							intakeMotor1.set(ControlMode.Current, -35);
+							intakeMotor2.set(ControlMode.Current, -35);
+							break;
+						case OFF:
+						default:
+							intakeMotor1.set(ControlMode.Current, 0);
+							intakeMotor2.set(ControlMode.Current, 0);
+							break;
+					}
+					mPrevIntakeControl = mIntakeControl;
+				}
+			}
+		}
+		@Override
+		public void onStop(double timestamp) {
+			intakeMotor1.set(ControlMode.Current, 0);
+			intakeMotor2.set(ControlMode.Current, 0);
+		}
+	};
+
 	@Override
-	public void start() {
-		runThread = true;
-		if (!super.isAlive())
-			super.start();
+	public void registerEnabledLoops(Looper in) {
+		in.register(mLoop);
 	}
+
 
 	@Override
 	public void terminate() {
@@ -114,34 +152,6 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Dia
 //		} catch (Exception ex) {
 //			ConsoleReporter.report(ex);
 //		}
-	}
-	
-	@Override
-	public void run() {
-		while (!ds.isEnabled()) {try{Thread.sleep(20);}catch(Exception ex) {}}
-		subsystemHome();
-		threadRateControl.start();
-
-		while(runThread) {
-
-			switch(intakeControl) {
-				case FORWARD:
-					intakeMotor1.set(ControlMode.Current, 25);
-					intakeMotor2.set(ControlMode.Current, 25);
-					break;
-				case REVERSE:
-					intakeMotor1.set(ControlMode.Current, -35);
-					intakeMotor2.set(ControlMode.Current, -35);
-					break;
-				case OFF:
-				default:
-					intakeMotor1.set(ControlMode.Current, 0);
-					intakeMotor2.set(ControlMode.Current, 0);
-					break;
-			}
-
-			threadRateControl.doRateControl(MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS);
-		}
 	}
 	
 	public synchronized void setIntakeOpen(boolean open) {
@@ -156,8 +166,8 @@ public class CubeHandlerSubsystem extends Thread implements CustomSubsystem, Dia
 		return requestedElevatorPos;
 	}
 	
-	public synchronized void setIntakeControl(IntakeControl intakeControl) {
-		this.intakeControl = intakeControl;
+	public synchronized void setIntakeControl(IntakeControl mIntakeControl) {
+		this.mIntakeControl = mIntakeControl;
 	}
 	
 	@Override
