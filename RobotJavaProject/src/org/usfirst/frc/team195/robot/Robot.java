@@ -11,6 +11,8 @@ import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.*;
 import org.usfirst.frc.team195.robot.Utilities.*;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.ArmConfiguration;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.PolarCoordinate;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.Loops.RobotStateEstimator;
 
@@ -24,6 +26,7 @@ public class Robot extends RobbieRobot {
 	private HIDController hidController;
 	private LEDController ledController;
 	private DashboardReporter dashboardReporter;
+	private CriticalSystemsMonitor criticalSystemsMonitor;
 	private AutoModeExecuter autoModeExecuter;
 	private Looper mLooper;
 	private ThreadRateControl threadRateControl = new ThreadRateControl();
@@ -52,7 +55,7 @@ public class Robot extends RobbieRobot {
 		hidController = HIDController.getInstance();
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance(subsystemVector);
-		//cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
+		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
 			customSubsystem.init();
@@ -68,6 +71,15 @@ public class Robot extends RobbieRobot {
 		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
+
+
+		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
+		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
+		criticalSystemsMonitor.start();
+
+		//cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13,170));	//broken
+		//cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13,164)); //works
+		cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(6,110)); //works
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
 	}
@@ -90,7 +102,7 @@ public class Robot extends RobbieRobot {
 		threadRateControl.start(true);
 
 		while (isDisabled()) {
-			driveBaseSubsystem.subsystemHome();
+			//driveBaseSubsystem.subsystemHome();
 			threadRateControl.doRateControl(100);
 		}
 	}
@@ -104,6 +116,14 @@ public class Robot extends RobbieRobot {
 		while (isOperatorControl() && isEnabled()) {
 			hidController.run();
 			threadRateControl.doRateControl(20);
+
+			threadRateControl.doRateControl(2000);
+			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(7,165)); //works
+			threadRateControl.doRateControl(3500);
+			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(4,20)); //works
+			threadRateControl.doRateControl(3000);
+			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
+			threadRateControl.doRateControl(5000);
 		}
 	}
 

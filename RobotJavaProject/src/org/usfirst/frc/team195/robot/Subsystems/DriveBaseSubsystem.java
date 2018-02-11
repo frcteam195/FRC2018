@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -49,13 +50,18 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 	private final Loop mLoop = new Loop() {
 		@Override
+		public void onFirstStart(double timestamp) {
+			synchronized (DriveBaseSubsystem.this) {
+				subsystemHome();
+			}
+		}
+
+		@Override
 		public void onStart(double timestamp) {
 			synchronized (DriveBaseSubsystem.this) {
 				setDriveOpenLoop(DriveMotorValues.NEUTRAL);
 				setBrakeMode(false);
 				setDriveVelocity(new DriveMotorValues(0, 0));
-				//subsystemHome();	//Called from disabled instead
-
 			}
 		}
 
@@ -180,14 +186,19 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	@Override
 	public void subsystemHome() {
 		mNavXBoard.zeroYaw();
-		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+//		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+//		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+//		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+//		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+//		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+//		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
+
+		mLeftMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+		mRightMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+		mLeftMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+		mRightMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
 		try {
-			Thread.sleep(20);
+			Thread.sleep(50);
 		} catch (Exception ex) {
 			ConsoleReporter.report(ex);
 		}
@@ -221,71 +232,72 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 	@Override
 	public boolean runDiagnostics() {
-		if (ds.isTest()) {
-			setControlMode(DriveControlState.TEST);
-			Timer.delay(1);
-
-			ConsoleReporter.report("Testing DRIVE---------------------------------");
-			final double kLowCurrentThres = 0.5;
-			final double kLowRpmThres = 100;
-
-			ArrayList<MotorDiagnostics> mAllMotorsDiagArr = new ArrayList<MotorDiagnostics>();
-			ArrayList<MotorDiagnostics> mLeftDiagArr = new ArrayList<MotorDiagnostics>();
-			ArrayList<MotorDiagnostics> mRightDiagArr = new ArrayList<MotorDiagnostics>();
-			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Master", mLeftMaster));
-			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 1", leftDriveSlave1, mLeftMaster));
-			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 2", leftDriveSlave2, mLeftMaster));
-			mRightDiagArr.add(new MotorDiagnostics("Drive Right Master", mRightMaster));
-			mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 1", rightDriveSlave1, mRightMaster));
-			mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 2", rightDriveSlave2, mRightMaster));
-
-			mAllMotorsDiagArr.addAll(mLeftDiagArr);
-			mAllMotorsDiagArr.addAll(mRightDiagArr);
-
-			boolean failure = false;
-
-			for (MotorDiagnostics mD : mAllMotorsDiagArr) {
-				mD.setZero();
-			}
-
-			for (MotorDiagnostics mD : mAllMotorsDiagArr) {
-				mD.runTest();
-
-				if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
-					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
-					failure = true;
-				}
-
-				if (mD.isRPMUnderThreshold(kLowRpmThres)) {
-					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " RPM Low !!!!!!!!!!");
-					failure = true;
-				}
-			}
-
-			if (mLeftDiagArr.size() > 0 && mRightDiagArr.size() > 0 && mAllMotorsDiagArr.size() > 0) {
-				List<Double> leftMotorCurrents = mLeftDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-				if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), 5.0)) {
-					failure = true;
-					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Left Currents Different !!!!!!!!!!");
-				}
-
-				List<Double> rightMotorCurrents = mRightDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-				if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), 5.0)) {
-					failure = true;
-					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Right Currents Different !!!!!!!!!!");
-				}
-
-				List<Double> driveMotorRPMs = mAllMotorsDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
-				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), 40)) {
-					failure = true;
-					ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
-				}
-			} else {
-				ConsoleReporter.report("Drive Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
-			}
-
-			return !failure;
-		} else
+//
+//		if (ds.isTest()) {
+//			setControlMode(DriveControlState.TEST);
+//			Timer.delay(1);
+//
+//			ConsoleReporter.report("Testing DRIVE---------------------------------");
+//			final double kLowCurrentThres = 0.5;
+//			final double kLowRpmThres = 100;
+//
+//			ArrayList<MotorDiagnostics> mAllMotorsDiagArr = new ArrayList<MotorDiagnostics>();
+//			ArrayList<MotorDiagnostics> mLeftDiagArr = new ArrayList<MotorDiagnostics>();
+//			ArrayList<MotorDiagnostics> mRightDiagArr = new ArrayList<MotorDiagnostics>();
+//			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Master", mLeftMaster));
+//			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 1", leftDriveSlave1, mLeftMaster));
+//			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 2", leftDriveSlave2, mLeftMaster));
+//			mRightDiagArr.add(new MotorDiagnostics("Drive Right Master", mRightMaster));
+//			mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 1", rightDriveSlave1, mRightMaster));
+//			mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 2", rightDriveSlave2, mRightMaster));
+//
+//			mAllMotorsDiagArr.addAll(mLeftDiagArr);
+//			mAllMotorsDiagArr.addAll(mRightDiagArr);
+//
+//			boolean failure = false;
+//
+//			for (MotorDiagnostics mD : mAllMotorsDiagArr) {
+//				mD.setZero();
+//			}
+//
+//			for (MotorDiagnostics mD : mAllMotorsDiagArr) {
+//				mD.runTest();
+//
+//				if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
+//					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
+//					failure = true;
+//				}
+//
+//				if (mD.isRPMUnderThreshold(kLowRpmThres)) {
+//					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " RPM Low !!!!!!!!!!");
+//					failure = true;
+//				}
+//			}
+//
+//			if (mLeftDiagArr.size() > 0 && mRightDiagArr.size() > 0 && mAllMotorsDiagArr.size() > 0) {
+//				List<Double> leftMotorCurrents = mLeftDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
+//				if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), 5.0)) {
+//					failure = true;
+//					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Left Currents Different !!!!!!!!!!");
+//				}
+//
+//				List<Double> rightMotorCurrents = mRightDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
+//				if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), 5.0)) {
+//					failure = true;
+//					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Right Currents Different !!!!!!!!!!");
+//				}
+//
+//				List<Double> driveMotorRPMs = mAllMotorsDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
+//				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), 40)) {
+//					failure = true;
+//					ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
+//				}
+//			} else {
+//				ConsoleReporter.report("Drive Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
+//			}
+//
+//			return !failure;
+//		} else
 			return false;
 	}
 

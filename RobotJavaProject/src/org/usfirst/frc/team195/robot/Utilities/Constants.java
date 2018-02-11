@@ -52,6 +52,11 @@ public class Constants {
 	public static final double k100msPerMinute = 600.0;
 	public static final double kLooperDt = 0.005;
 
+	public static final double kArm1EncoderGearRatio = 10.0;
+	public static final double kArm2EncoderGearRatio = 10.0;
+	public static final double kArm1Length = 8.25;
+	public static final double kArm2Length = 8.5;
+
 
 
 
@@ -139,8 +144,8 @@ public class Constants {
 	public static final int kElevatorSlaveId = 10;
 
 	// Arm
-	public static final int kShoulderMotorId = 11;
-	public static final int kElbowMotorId = 12;
+	public static final int kArm1MotorId = 7;
+	public static final int kArm2MotorId = 8;
 
 	////////////////////////////////////////////////////////////////////////////////////
 

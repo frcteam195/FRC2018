@@ -6,6 +6,8 @@ package org.usfirst.frc.team195.robot.Utilities.Loops;
  */
 public interface Loop {
 
+    public void onFirstStart(double timestamp);
+
     public void onStart(double timestamp);
 
     public void onLoop(double timestamp);

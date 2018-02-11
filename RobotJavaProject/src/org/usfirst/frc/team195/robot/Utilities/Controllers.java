@@ -28,6 +28,9 @@ public class Controllers {
 	private DigitalOutput rLED;
 	private DigitalOutput gLED;
 	private DigitalOutput bLED;
+
+	private TalonSRX arm1Motor;
+	private TalonSRX arm2Motor;
 	
 	private TalonSRX liftMotor;
 	private VictorSPX liftMotorSlave;
@@ -59,6 +62,9 @@ public class Controllers {
 		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kRightDriveMasterId);
 		rightDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId, Constants.kRightDriveSlave1PDPChannel, rightDrive1);
 		rightDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
+
+		arm1Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId);
+		arm2Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm2MotorId);
 
 		shiftHelper = new ShiftHelper(Constants.kShifterSolenoidId, Constants.kShifterSolenoidId2);
 
@@ -130,6 +136,14 @@ public class Controllers {
 	
 	public Solenoid getGinoSol() {
 		return ginoSol;
+	}
+
+	public TalonSRX getArm1Motor() {
+		return arm1Motor;
+	}
+
+	public TalonSRX getArm2Motor() {
+		return arm2Motor;
 	}
 
 	public TalonSRX getLiftMotor() {

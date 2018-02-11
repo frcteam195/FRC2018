@@ -26,6 +26,11 @@ public class RobotStateEstimator implements Loop {
     double right_encoder_prev_distance_ = 0;
 
     @Override
+    public void onFirstStart(double timestamp) {
+
+    }
+
+    @Override
     public synchronized void onStart(double timestamp) {
         left_encoder_prev_distance_ = drive_.getLeftDistanceInches();
         right_encoder_prev_distance_ = drive_.getRightDistanceInches();

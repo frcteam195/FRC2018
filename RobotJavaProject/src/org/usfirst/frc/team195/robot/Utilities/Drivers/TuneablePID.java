@@ -209,8 +209,8 @@ public class TuneablePID {
 						if (autoUpdate) {
 							TalonHelper.setPIDGains(tuningTalon, 0, tuneablePIDData.getkP(), tuneablePIDData.getkI(), tuneablePIDData.getkD(), tuneablePIDData.getF());
 							if (tuningTalon.getControlMode() == ControlMode.MotionMagic) {
-								tuningTalon.configMotionCruiseVelocity((int)tuneablePIDData.getCruiseVelocity(), Constants.kTimeoutMs);
-								tuningTalon.configMotionAcceleration((int)tuneablePIDData.getAccel(), Constants.kTimeoutMs);
+								tuningTalon.configMotionCruiseVelocity((int)(tuneablePIDData.getCruiseVelocity() * Constants.kSensorUnitsPerRotation / 600.0), Constants.kTimeoutMs);
+								tuningTalon.configMotionAcceleration((int)(tuneablePIDData.getAccel() * Constants.kSensorUnitsPerRotation / 600.0), Constants.kTimeoutMs);
 							}
 
 							if (tuneablePIDData.getRampRate() > 0)
@@ -221,6 +221,9 @@ public class TuneablePID {
 
 							if (autoUpdateSetpoint)
 								switch(tuningTalon.getControlMode()) {
+									case MotionMagic:
+										tuningTalon.set(tuningTalon.getControlMode(), tuneablePIDData.getSetpoint() * Constants.kSensorUnitsPerRotation);
+										break;
 									case Velocity:
 										tuningTalon.set(tuningTalon.getControlMode(), tuneablePIDData.getSetpoint() * Constants.kSensorUnitsPerRotation / 600);
 										break;

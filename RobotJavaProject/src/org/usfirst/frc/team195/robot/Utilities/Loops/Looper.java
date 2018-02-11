@@ -23,6 +23,7 @@ public class Looper {
     private final Object taskRunningLock_ = new Object();
     private double timestamp_ = 0;
     private double dt_ = 0;
+    private boolean isFirstStart = true;
 
     private final CrashTrackingRunnable runnable_ = new CrashTrackingRunnable() {
         @Override
@@ -68,9 +69,13 @@ public class Looper {
             synchronized (taskRunningLock_) {
                 timestamp_ = Timer.getFPGATimestamp();
                 for (Loop loop : loops_) {
+                    if (isFirstStart) {
+                        loop.onFirstStart(timestamp_);
+                    }
                     loop.onStart(timestamp_);
                 }
                 running_ = true;
+                isFirstStart = false;
             }
             notifier_.startPeriodic(kPeriod);
         }
