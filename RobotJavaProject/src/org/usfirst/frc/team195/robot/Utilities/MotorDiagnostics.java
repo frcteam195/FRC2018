@@ -2,37 +2,58 @@ package org.usfirst.frc.team195.robot.Utilities;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class MotorDiagnostics {
-	private static final double kTestDurationSeconds = 4.0;
+	private double mTestDurationSeconds = 4.0;
+	private double mMotorSpeed = 0.5;
 	private BaseMotorController testingSpeedController;
 	private BaseMotorController masterSC = null;
 	private String motorName;
 	private double motorRPM;
 	private double motorCurrent;
+	private boolean inverted = false;
 
 	public MotorDiagnostics(String motorName, BaseMotorController testingSpeedController) {
 		this.testingSpeedController = testingSpeedController;
 		this.motorName = motorName;
 	}
 
+	public MotorDiagnostics(String motorName, BaseMotorController testingSpeedController, double motorSpeed) {
+		this(motorName, testingSpeedController);
+		this.mMotorSpeed = motorSpeed;
+	}
+
+	public MotorDiagnostics(String motorName, BaseMotorController testingSpeedController, double motorSpeed, double testDurationSeconds, boolean inverted) {
+		this(motorName, testingSpeedController, motorSpeed);
+		this.inverted = inverted;
+		this.mTestDurationSeconds = testDurationSeconds;
+	}
+
 	public MotorDiagnostics(String motorName, BaseMotorController testingSpeedController, BaseMotorController masterSC) {
-		this.testingSpeedController = testingSpeedController;
+		this(motorName, testingSpeedController);
 		this.masterSC = masterSC;
-		this.motorName = motorName;
+	}
+
+	public MotorDiagnostics(String motorName, BaseMotorController testingSpeedController, BaseMotorController masterSC, double motorSpeed) {
+		this(motorName, testingSpeedController, motorSpeed);
+		this.masterSC = masterSC;
+	}
+
+	public MotorDiagnostics(String motorName, BaseMotorController testingSpeedController, BaseMotorController masterSC, double motorSpeed, double testDurationSeconds, boolean inverted) {
+		this(motorName, testingSpeedController, motorSpeed, testDurationSeconds, inverted);
+		this.masterSC = masterSC;
 	}
 
 	public void runTest() {
-		testingSpeedController.set(ControlMode.PercentOutput, 0.5);
-		Timer.delay(kTestDurationSeconds);
+		mMotorSpeed = Math.abs(mMotorSpeed);
+		testingSpeedController.set(ControlMode.PercentOutput, inverted ? -mMotorSpeed : mMotorSpeed);
+		Timer.delay(mTestDurationSeconds/2.0);
 		motorCurrent = testingSpeedController.getOutputCurrent();
 		motorRPM =  Util.convertNativeUnitsToRPM(masterSC == null ? testingSpeedController.getSelectedSensorVelocity(0)
 				: masterSC.getSelectedSensorVelocity(0));
-		Timer.delay(1);
+		Timer.delay(mTestDurationSeconds/2.0);
 		testingSpeedController.set(ControlMode.PercentOutput, 0);
 	}
 

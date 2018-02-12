@@ -1,4 +1,4 @@
-package org.usfirst.frc.team195.robot.Subsystems;
+package org.usfirst.frc.team195.robot;
 
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;

@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.List;
 
+import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.Reportable;
 
@@ -18,7 +19,7 @@ public class DashboardReporter extends Thread {
 	
 	private static final int SEND_PORT = 5801;
 	
-	private static final String SEND_IP = "10.1.95.14";
+	private static final String SEND_IP = Constants.DASHBOARD_IP;
 	
 	private InetAddress IPAddress;
 
@@ -92,10 +93,6 @@ public class DashboardReporter extends Thread {
 		
 		if(!clientSocket.isClosed())
 			clientSocket.close();
-	}
-
-	public void terminate() {
-		runThread = false;
 	}
 
 	private byte[] createSendData() {

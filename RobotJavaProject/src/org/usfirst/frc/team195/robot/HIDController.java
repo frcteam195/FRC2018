@@ -12,27 +12,17 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 public class HIDController implements Runnable {
 	
-	private static HIDController instance = null;
 	private static final int MIN_HID_THREAD_LOOP_TIME_MS = 20;
+	private static HIDController instance = null;
 
-	public static HIDController getInstance() {
-		if(instance == null) {
-			try {
-				instance = new HIDController();
-			} catch (Exception ex) {
-				ConsoleReporter.report(ex, MessageLevel.DEFCON1);
-			}
-		}
-		
-		return instance;
-	}
+	private DriveBaseSubsystem driveBaseSubsystem;
+	private CubeHandlerSubsystem cubeHandlerSubsystem;
+	private DriverStation ds;
+	private KnightJoystick driveJoystick;
+	private DriveHelper driveHelper;
+	private ShiftAction shiftAction;
+	private IntakePositionAction intakePositionAction;
 
-	
-//	@Override
-//	public String toString() {
-//		return generateReport();
-//	}
-	
 	private HIDController() throws Exception {
 		super();
 		ds = DriverStation.getInstance();
@@ -43,23 +33,22 @@ public class HIDController implements Runnable {
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
 
-		runThread = false;
-		comingFromAuto = true;
-
 		driveHelper = new DriveHelper();
 		shiftAction = new ShiftAction();
 		intakePositionAction = new IntakePositionAction();
 	}
-	
 
-	protected DriveBaseSubsystem driveBaseSubsystem;
-	protected CubeHandlerSubsystem cubeHandlerSubsystem;
-	protected DriverStation ds;
-	protected KnightJoystick driveJoystick;
-	
-	protected boolean runThread;
+	public static HIDController getInstance() {
+		if(instance == null) {
+			try {
+				instance = new HIDController();
+			} catch (Exception ex) {
+				ConsoleReporter.report(ex, MessageLevel.DEFCON1);
+			}
+		}
 
-	protected boolean comingFromAuto;
+		return instance;
+	}
 
 	@Override
 	public void run() {
@@ -102,8 +91,8 @@ public class HIDController implements Runnable {
 //					cubeHandlerSubsystem.setmIntakeControl(IntakeControl.OFF);
 //				}
 
-		x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
-		y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);
+		double x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
+		double y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);
 
 		driveBaseSubsystem.setBrakeMode(driveJoystick.getRawButton(Constants.DRIVE_HOLD_BRAKE));
 
@@ -113,29 +102,6 @@ public class HIDController implements Runnable {
 
 	}
 
-	private ThreadRateControl threadRateControl = new ThreadRateControl();
-
-	private DriveHelper driveHelper;
-	private ShiftAction shiftAction;
-	private IntakePositionAction intakePositionAction;
-
-	private double x, y;
-
-	@Override
-	public String toString() {
-		String retVal = "";
-		//retVal += "DriverXAxis:" + driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS) + ";";
-		//retVal += "DriverYAxis:" + driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS) + ";";
-		return retVal;
-	}
-
-
-//	@Override
-//	public String generateReport() {
-//		String retVal = "";
-//		retVal += driveJoyStickThread.toString();
-//		return retVal;
-//	}
 }
 
 

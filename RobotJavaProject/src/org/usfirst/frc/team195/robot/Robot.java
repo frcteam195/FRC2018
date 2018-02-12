@@ -3,7 +3,6 @@ package org.usfirst.frc.team195.robot;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team195.robot.Autonomous.AutoModeSample;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.SwitchCubeThenScaleMode;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -72,14 +71,10 @@ public class Robot extends RobbieRobot {
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
-
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
 		criticalSystemsMonitor.start();
 
-		//cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13,170));	//broken
-		//cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13,164)); //works
-		cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(6,110)); //works
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
 	}
@@ -115,15 +110,15 @@ public class Robot extends RobbieRobot {
 
 		while (isOperatorControl() && isEnabled()) {
 			hidController.run();
-			threadRateControl.doRateControl(20);
 
+			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13, 25));
 			threadRateControl.doRateControl(2000);
-			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(7,165)); //works
-			threadRateControl.doRateControl(3500);
-			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(4,20)); //works
-			threadRateControl.doRateControl(3000);
+			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16, 90));
+			threadRateControl.doRateControl(2000);
 			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
-			threadRateControl.doRateControl(5000);
+			threadRateControl.doRateControl(4000);
+
+			threadRateControl.doRateControl(20);
 		}
 	}
 

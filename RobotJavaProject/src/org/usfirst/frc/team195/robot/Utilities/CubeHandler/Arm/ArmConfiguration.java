@@ -2,7 +2,7 @@ package org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm;
 
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 
-public class ArmConfiguration {
+public class ArmConfiguration implements Comparable<ArmConfiguration> {
 	public static final PolarCoordinate HOME = new PolarCoordinate(-1, -1);
 	public static final PolarCoordinate STRAIGHT = new PolarCoordinate((Constants.kArm1Length + Constants.kArm2Length), 90);
 
@@ -25,5 +25,12 @@ public class ArmConfiguration {
 	@Override
 	public String toString() {
 		return "Angle1: " + getA1Angle() + ", Angle2: " + getA2Angle();
+	}
+
+	@Override
+	public int compareTo(ArmConfiguration o) {
+		if (o.getA1Angle() == getA1Angle() && o.getA2Angle() == getA2Angle())
+			return 0;
+		return -1;
 	}
 }

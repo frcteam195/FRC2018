@@ -2,7 +2,6 @@ package org.usfirst.frc.team195.robot.Utilities;
 
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -21,24 +20,24 @@ public class Controllers {
 	private TalonSRX rightDrive1;
 	private BaseMotorController rightDrive2;
 	private BaseMotorController rightDrive3;
-	private ShiftHelper shiftHelper;
-	private Solenoid shiftSol;
-	private Solenoid ginoSol;
+
+	private TalonSRX arm1Motor;
+	private TalonSRX arm2Motor;
+	
+	private TalonSRX elevatorMotorMaster;
+	private BaseMotorController elevatorMotorSlave;
+	private TalonSRX intakeMotor;
+	private TalonSRX climberMotorMaster;
+	private BaseMotorController climberMotorSlave;
+
+	private ShiftHelper shiftHelper = null;
+	private Solenoid intakeSolenoid;
+	private DoubleSolenoid climberLockSolenoid;
 
 	private DigitalOutput rLED;
 	private DigitalOutput gLED;
 	private DigitalOutput bLED;
 
-	private TalonSRX arm1Motor;
-	private TalonSRX arm2Motor;
-	
-	private TalonSRX liftMotor;
-	private VictorSPX liftMotorSlave;
-	private TalonSRX intakeMotor;
-	private TalonSRX intakeMotor2;
-	private TalonSRX intakeShoulderMotor;
-	private TalonSRX intakeElbowMotor;
-	
 	private NavX navX;
 	
 	private static Controllers instance = null;
@@ -54,39 +53,38 @@ public class Controllers {
 
 		//Choose whether to create Victor or Talon slaves here
 		//Left Drive Setup
-		leftDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kLeftDriveMasterId);
+		leftDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kLeftDriveMasterId, Constants.kLeftDriveMasterPDPChannel);
 		leftDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId, Constants.kLeftDriveSlave1PDPChannel, leftDrive1);
 		leftDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId2, Constants.kLeftDriveSlave2PDPChannel, leftDrive1);
 
 		//Right Drive Setup
-		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kRightDriveMasterId);
+		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kRightDriveMasterId, Constants.kRightDriveMasterPDPChannel);
 		rightDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId, Constants.kRightDriveSlave1PDPChannel, rightDrive1);
 		rightDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
 
-		arm1Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId);
-		arm2Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm2MotorId);
+		//Arm Motor Setup
+		arm1Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId, Constants.kArm1MotorPDPChannel);
+		arm2Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm2MotorId, Constants.kArm2MotorPDPChannel);
+//		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeMotorId, Constants.kIntakeMotorPDPChannel);
+//
+//		//Elevator Motor Setup
+//		elevatorMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElevatorMasterId, Constants.kElevatorMasterPDPChannel);
+//		elevatorMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlaveId, Constants.kElevatorSlavePDPChannel, elevatorMotorMaster);
+//
+//		//Climber Motor Setup
+//		climberMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
+//		climberMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel, climberMotorMaster);
 
-		shiftHelper = new ShiftHelper(Constants.kShifterSolenoidId, Constants.kShifterSolenoidId2);
+		intakeSolenoid = new Solenoid(Constants.kIntakeSolenoidId);
+		climberLockSolenoid = new DoubleSolenoid(Constants.kClimberLockSolenoidId1, Constants.kClimberLockSolenoidId2);
 
-		//Shift Solenoid Setup
-		//shiftSol = new Solenoid(Constants.kShifterSolenoidId);
-		//ginoSol = new Solenoid(Constants.kShifterSolenoidId2);
+		//NO SHIFTER THIS YEAR! Do not instantiate; leave set to null
+		//shiftHelper = new ShiftHelper(Constants.kShifterSolenoidId, Constants.kShifterSolenoidId2);
 
 		//LED Setup
 		rLED = new DigitalOutput(Constants.kRedLEDId);
 		gLED = new DigitalOutput(Constants.kGreenLEDId);
 		bLED = new DigitalOutput(Constants.kBlueLEDId);
-
-		//Elevator setup
-		
-		//intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeLeftId);
-		//intakeMotor2 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeRightId);
-
-//		liftMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElevatorMasterId);
-//		liftMotorSlave = canSpeedControllerBuilder.createPermanentVictorSlaveToTalonSRX(Constants.kElevatorSlaveId, liftMotor);
-//
-//		intakeShoulderMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kShoulderMotorId);
-//		intakeElbowMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElbowMotorId);
 
 	    try {
 	        navX = new NavX(SPI.Port.kMXP);
@@ -129,14 +127,6 @@ public class Controllers {
 	public BaseMotorController getRightDrive3() {
 		return rightDrive3;
 	}
-	
-	public Solenoid getShiftSol() {
-		return shiftSol;
-	}
-	
-	public Solenoid getGinoSol() {
-		return ginoSol;
-	}
 
 	public TalonSRX getArm1Motor() {
 		return arm1Motor;
@@ -146,28 +136,24 @@ public class Controllers {
 		return arm2Motor;
 	}
 
-	public TalonSRX getLiftMotor() {
-		return liftMotor;
-	}
-	
-	public VictorSPX getLiftMotorSlave() {
-		return liftMotorSlave;
-	}
-	
 	public TalonSRX getIntakeMotor() {
 		return intakeMotor;
 	}
-	
-	public TalonSRX getIntakeMotor2() {
-		return intakeMotor2;
+
+	public TalonSRX getElevatorMotorMaster() {
+		return elevatorMotorMaster;
 	}
 	
-	public TalonSRX getIntakeShoulderMotor() {
-		return intakeShoulderMotor;
+	public BaseMotorController getElevatorMotorSlave() {
+		return elevatorMotorSlave;
 	}
-	
-	public TalonSRX getIntakeElbowMotor() {
-		return intakeElbowMotor;
+
+	public TalonSRX getClimberMotorMaster() {
+		return climberMotorMaster;
+	}
+
+	public BaseMotorController getClimberMotorSlave() {
+		return climberMotorSlave;
 	}
 
 	public NavX	getNavX() {
@@ -196,5 +182,13 @@ public class Controllers {
 
 	public ShiftHelper getShiftHelper() {
 		return shiftHelper;
+	}
+
+	public Solenoid getIntakeSolenoid() {
+		return intakeSolenoid;
+	}
+
+	public Solenoid getGinoSol() {
+		return ginoSol;
 	}
 }

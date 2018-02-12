@@ -4,6 +4,8 @@ import com.kauailabs.navx.AHRSProtocol.AHRSUpdateBase;
 import com.kauailabs.navx.frc.AHRS;
 import com.kauailabs.navx.frc.ITimestampedDataSubscriber;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Rotation2d;
 
 /**
@@ -33,6 +35,12 @@ public class NavX {
     protected double mYawRateDegreesPerSecond;
     protected final long kInvalidTimestamp = -1;
     protected long mLastSensorTimestampMs;
+
+    protected double mPrevAccelX = 0;
+    protected double mPrevAccelY = 0;
+    protected double mPrevTimeAccel = 0;
+
+    private double mJerkCollisionThreshold = 0.5;
 
     public NavX(SPI.Port spi_port_id) {
         mAHRS = new AHRS(spi_port_id, (byte) 200);
@@ -82,5 +90,40 @@ public class NavX {
 
     public double getRawAccelX() {
         return mAHRS.getRawAccelX();
+    }
+
+    public synchronized void setCollisionJerkThreshold(double jerkCollisionThreshold) {
+        mJerkCollisionThreshold = jerkCollisionThreshold;
+    }
+
+    public boolean isCollisionOccurring() {
+        boolean collisionOccurring = false;
+
+        double accelX = mAHRS.getWorldLinearAccelX();
+        double accelY = mAHRS.getWorldLinearAccelY();
+
+
+        double currTime = Timer.getFPGATimestamp();
+        double dt = currTime-mPrevTimeAccel;
+
+        double jerkX = (accelX - mPrevAccelX)/(dt);
+        double jerkY = (accelY - mPrevAccelY)/(dt);
+
+        ConsoleReporter.report("Jerk X: " + jerkX);
+        ConsoleReporter.report("Jerk Y: " + jerkY);
+
+        if (Math.abs(jerkX) > mJerkCollisionThreshold || Math.abs(jerkY) > mJerkCollisionThreshold)
+            collisionOccurring = true;
+
+        mPrevAccelX = accelX;
+        mPrevAccelY = accelY;
+
+        if (mPrevTimeAccel == 0) {
+            mPrevTimeAccel = currTime;
+            return false;
+        }
+
+        mPrevTimeAccel = currTime;
+        return collisionOccurring;
     }
 }

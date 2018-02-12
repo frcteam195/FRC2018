@@ -3,7 +3,6 @@ package org.usfirst.frc.team195.robot.Reporters;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
-import org.usfirst.frc.team195.robot.Utilities.DriveMotorValues;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -1,9 +1,11 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.wpilibj.Timer;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -11,6 +13,8 @@ import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.ArmConfiguration;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.PointFinder;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.PolarCoordinate;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmControl;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorControl;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TuneablePID;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
@@ -19,9 +23,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
+
+import javax.naming.ldap.Control;
 
 public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
 	
@@ -31,22 +37,25 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private IntakeControl mPrevIntakeControl;
 	private ArmControl mArmControl;
 	private ArmControl mPrevArmControl;
+	private ElevatorControl mElevatorControl;
+	private ElevatorControl mPrevElevatorControl;
 
 	private TuneablePID tuneableArmJoint;
 
-	private TalonSRX arm1Motor;
-	private TalonSRX arm2Motor;
-	
-	private Solenoid ginoSol;
+	private TalonSRX mArm1Motor;
+	private TalonSRX mArm2Motor;
+	private TalonSRX mIntakeMotor;
+	private TalonSRX mElevatorMotorMaster;
+	private BaseMotorController mElevatorMotorSlave;
 
 	private DriverStation ds;
 
-	private double requestedElevatorPos;
-
-	private ThreadRateControl threadRateControl = new ThreadRateControl();
-
 	private ArmConfiguration armConfiguration = null;
+	private ArmConfiguration mPrevArmConfiguration = new ArmConfiguration(0, 0);
 	private PointFinder pointFinder;
+
+	private double elevatorHeight = 0;
+	private double mPrevElevatorHeight = 0;
 
 
 	private CubeHandlerSubsystem() throws Exception {
@@ -54,12 +63,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		ds = DriverStation.getInstance();
 		Controllers robotControllers = Controllers.getInstance();
 
-		arm1Motor = robotControllers.getArm1Motor();
-		arm2Motor = robotControllers.getArm2Motor();
-
-		ginoSol = robotControllers.getGinoSol();
-
-		requestedElevatorPos = 0;
+		mArm1Motor = robotControllers.getArm1Motor();
+		mArm2Motor = robotControllers.getArm2Motor();
 
 		mIntakeControl = IntakeControl.OFF;
 		mPrevIntakeControl = IntakeControl.OFF;
@@ -67,36 +72,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArmControl = ArmControl.POSITION;
 		mPrevArmControl = ArmControl.OFF;
 
+		mElevatorControl = ElevatorControl.POSITION;
+		mPrevElevatorControl = ElevatorControl.OFF;
+
 		pointFinder = new PointFinder();
-		pointFinder.setA1AngleRange(0, 180);
-		pointFinder.setA2AngleRange(-160, 160);
+		pointFinder.setA1AngleRange(Constants.kArm1SoftMin * 360 + 1, Constants.kArm1SoftMax * 360 - 1);
+		pointFinder.setA2AngleRange(Constants.kArm2SoftMin * 360 + 1, Constants.kArm2SoftMax * 360 - 1);
 
-		arm1Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-		arm2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-
-		arm1Motor.setInverted(true);
-		arm1Motor.setSensorPhase(true);
-
-		arm2Motor.setInverted(true);
-
-		arm1Motor.configContinuousCurrentLimit(35, Constants.kTimeoutMs);
-		arm1Motor.configPeakCurrentLimit(45, Constants.kTimeoutMs);
-		arm1Motor.configPeakCurrentDuration(400, Constants.kTimeoutMs);
-		arm1Motor.enableCurrentLimit(true);
-		arm2Motor.configContinuousCurrentLimit(35, Constants.kTimeoutMs);
-		arm2Motor.configPeakCurrentLimit(45, Constants.kTimeoutMs);
-		arm2Motor.configPeakCurrentDuration(400, Constants.kTimeoutMs);
-		arm2Motor.enableCurrentLimit(true);
-
-
-		TalonHelper.setPIDGains(arm1Motor, 0, 1, 0.006, 4, 0.8, 0, 10);
-		TalonHelper.setPIDGains(arm2Motor, 0, 1, 0.006, 4, 0.8, 0, 10);
-		TalonHelper.setMotionMagicParams(arm1Motor, 300, 250);
-//		TalonHelper.setMotionMagicParams(arm1Motor, 300, 550);
-//		TalonHelper.setMotionMagicParams(arm2Motor, 700, 950);
-		TalonHelper.setMotionMagicParams(arm2Motor, 700, 450);
-
-		//tuneableArmJoint = new TuneablePID("Arm 1 Joint", arm1Motor, null, 5807, true, true);
+		//tuneableArmJoint = new TuneablePID("Arm 1 Joint", mArm1Motor, null, 5807, true, true);
 		//tuneableArmJoint.start();
 	}
 	
@@ -119,34 +102,78 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	@Override
 	public void init() {
-//		intakeMotor2.setInverted(true);
-//
-//		TalonHelper.setPIDGains(intakeMotor1, 0, 0.2, 0, 0, 0.06);
-//		TalonHelper.setPIDGains(intakeMotor2, 0, 0.2, 0, 0, 0.06);
-//		intakeMotor1.set(ControlMode.Current, 0);
-//		intakeMotor2.set(ControlMode.Current, 0);
+		mArm1Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
+		mArm2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
+
+		mArm1Motor.setInverted(true);
+		mArm1Motor.setSensorPhase(true);
+
+		mArm2Motor.setInverted(true);
+
+		mArm1Motor.configContinuousCurrentLimit(Constants.kArm1MaxContinuousCurrentLimit, Constants.kTimeoutMs);
+		mArm1Motor.configPeakCurrentLimit(Constants.kArm1MaxPeakCurrentLimit, Constants.kTimeoutMs);
+		mArm1Motor.configPeakCurrentDuration(Constants.kArm1MaxPeakCurrentDurationMS, Constants.kTimeoutMs);
+		mArm1Motor.enableCurrentLimit(true);
+
+		mArm2Motor.configContinuousCurrentLimit(Constants.kArm2MaxContinuousCurrentLimit, Constants.kTimeoutMs);
+		mArm2Motor.configPeakCurrentLimit(Constants.kArm2MaxPeakCurrentLimit, Constants.kTimeoutMs);
+		mArm2Motor.configPeakCurrentDuration(Constants.kArm2MaxPeakCurrentDurationMS, Constants.kTimeoutMs);
+		mArm2Motor.enableCurrentLimit(true);
+
+		mElevatorMotorMaster.configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs);
+		mElevatorMotorMaster.configPeakCurrentLimit(Constants.kElevatorMaxPeakCurrentLimit, Constants.kTimeoutMs);
+		mElevatorMotorMaster.configPeakCurrentDuration(Constants.kElevatorMaxPeakCurrentDurationMS, Constants.kTimeoutMs);
+		mElevatorMotorMaster.enableCurrentLimit(true);
+
+		mArm1Motor.configForwardSoftLimitThreshold((int)(Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
+		mArm1Motor.configReverseSoftLimitThreshold((int)(Constants.kArm1SoftMin * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
+		mArm1Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
+
+		mArm2Motor.configForwardSoftLimitThreshold((int)(Constants.kArm2SoftMax * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
+		mArm2Motor.configReverseSoftLimitThreshold((int)(Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
+		mArm2Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
+
+		mElevatorMotorMaster.configForwardSoftLimitThreshold((int)(Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
+		mElevatorMotorMaster.configReverseSoftLimitThreshold((int)(Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
+		mElevatorMotorMaster.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
+
+		TalonHelper.setPIDGains(mArm1Motor, 0, Constants.kArm1Kp, Constants.kArm1Ki, Constants.kArm1Kd, Constants.kArm1Kf, Constants.kArm1RampRate, Constants.kArm1IZone);
+		TalonHelper.setPIDGains(mArm2Motor, 0, Constants.kArm2Kp, Constants.kArm2Ki, Constants.kArm2Kd, Constants.kArm2Kf, Constants.kArm2RampRate, Constants.kArm2IZone);
+		TalonHelper.setPIDGains(mElevatorMotorMaster, 0, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
+		TalonHelper.setMotionMagicParams(mArm1Motor, Constants.kArm1MaxVelocity, Constants.kArm1MaxAccel);
+		TalonHelper.setMotionMagicParams(mArm2Motor, Constants.kArm2MaxVelocity, Constants.kArm2MaxAccel);
+		TalonHelper.setMotionMagicParams(mElevatorMotorMaster, Constants.kElevatorMaxVelocity, Constants.kElevatorMaxAccel);
 
 		isSystemFaulted();
 	}
 
 	@Override
 	public void subsystemHome() {
-		arm1Motor.set(ControlMode.Disabled, 0);
-		arm2Motor.set(ControlMode.Disabled, 0);
-		int homeA1Value = (int)(5.0 * Constants.kSensorUnitsPerRotation);
-		int homeA2Value = (int)(-4.56348 * Constants.kSensorUnitsPerRotation);
+		mArm1Motor.set(ControlMode.Disabled, 0);
+		mArm2Motor.set(ControlMode.Disabled, 0);
+		mElevatorMotorMaster.set(ControlMode.Disabled, 0);
 
-		arm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs);
-		arm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs);
-		arm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs); //max pos 4.56226, min pos -4.56348
-		arm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs); //max pos 4.56226, min pos -4.56348
+		int homeA1Value = (int)(Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation);
+		int homeA2Value = (int)(Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation);
+		int homeElevatorValue = (int)(Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
+
+		mArm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs);
+		mArm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs);
+		mArm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs);
+		mArm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs);
+
+		mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs);
+		mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs);
+
 		try {
-			Thread.sleep(100);
+			Thread.sleep(50);
 		} catch (Exception ex) {
 			ConsoleReporter.report(ex);
 		}
-		arm1Motor.set(ControlMode.MotionMagic, homeA1Value);
-		arm2Motor.set(ControlMode.MotionMagic, homeA2Value);
+
+		mArm1Motor.set(ControlMode.MotionMagic, homeA1Value);
+		mArm2Motor.set(ControlMode.MotionMagic, homeA2Value);
+		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
 	}
 
 	private final Loop mLoop = new Loop() {
@@ -160,32 +187,56 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		@Override
 		public void onStart(double timestamp) {
 			synchronized (CubeHandlerSubsystem.this) {
-//				intakeMotor1.set(ControlMode.Current, 0);
-//				intakeMotor2.set(ControlMode.Current, 0);
+
 			}
 		}
 
 		@Override
 		public void onLoop(double timestamp) {
 			synchronized (CubeHandlerSubsystem.this) {
-					switch (mArmControl) {
-						case POSITION:
-							if (armConfiguration != null) {
-								//ConsoleReporter.report("" + convertAngleToSRX(armConfiguration.getA1Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm1EncoderGearRatio));
-								//ConsoleReporter.report("" + convertAngleToSRX(armConfiguration.getA2Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm2EncoderGearRatio));
-								arm1Motor.set(ControlMode.MotionMagic, convertAngleToSRX(armConfiguration.getA1Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm1EncoderGearRatio));
-								arm2Motor.set(ControlMode.MotionMagic, convertAngleToSRX(armConfiguration.getA2Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm2EncoderGearRatio));
-							}
-							break;
-						case MANUAL:
-							break;
-						case OFF:
-						default:
-							arm1Motor.set(ControlMode.Disabled, 0);
-							arm2Motor.set(ControlMode.Disabled, 0);
-							break;
-					}
-					mPrevArmControl = mArmControl;
+				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isCollisionOccurring();
+
+				switch (mArmControl) {
+					case POSITION:
+						if (collisionOccurring) {
+							setArmCoordinate(ArmConfiguration.HOME);
+						}
+
+						if (armConfiguration != null && mPrevArmConfiguration.compareTo(armConfiguration) != 0) {
+							mArm1Motor.set(ControlMode.MotionMagic, convertAngleToSRX(armConfiguration.getA1Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm1EncoderGearRatio));
+							mArm2Motor.set(ControlMode.MotionMagic, convertAngleToSRX(armConfiguration.getA2Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm2EncoderGearRatio));
+							mPrevArmConfiguration = armConfiguration;
+						}
+						break;
+					case MANUAL:
+						break;
+					case OFF:
+					default:
+						mArm1Motor.set(ControlMode.Disabled, 0);
+						mArm2Motor.set(ControlMode.Disabled, 0);
+						break;
+				}
+				mPrevArmControl = mArmControl;
+
+				switch (mElevatorControl) {
+					case POSITION:
+						if (collisionOccurring) {
+							setElevatorHeight(ElevatorPosition.HOME);
+						}
+
+						if (elevatorHeight != mPrevElevatorHeight) {
+							mElevatorMotorMaster.set(ControlMode.MotionMagic, elevatorHeight);
+							mPrevElevatorHeight = elevatorHeight;
+						}
+						break;
+					case MANUAL:
+						break;
+					case OFF:
+					default:
+						mElevatorMotorMaster.set(ControlMode.Disabled, 0);
+						break;
+				}
+				mPrevElevatorControl = mElevatorControl;
 
 				if (mIntakeControl != mPrevIntakeControl) {
 					switch (mIntakeControl) {
@@ -209,8 +260,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		}
 		@Override
 		public void onStop(double timestamp) {
-//			intakeMotor1.set(ControlMode.Current, 0);
-//			intakeMotor2.set(ControlMode.Current, 0);
+
 		}
 	};
 
@@ -220,41 +270,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 
-	@Override
-	public void terminate() {
-		ConsoleReporter.report("CAN'T STOP, WON'T STOP, DON'T CALL ME!", MessageLevel.ERROR);
-//		runThread = false;
-//		try {
-//			super.join(Constants.kThreadJoinTimeout);
-//		} catch (Exception ex) {
-//			ConsoleReporter.report(ex);
-//		}
-	}
-
 	private double convertAngleToSRX(double angle, double countsPerRev) {
 		return angle * countsPerRev / 360;
 	}
 
 	public synchronized void setArmCoordinate(PolarCoordinate polarCoordinate) {
 		armConfiguration = pointFinder.getArmConfigFromPolar(polarCoordinate);
-//		if (armConfiguration != null) {
-//			ConsoleReporter.report("Got my point!");
-//			ConsoleReporter.report(armConfiguration.toString());
-//		}
 	}
-	
-	public synchronized void setIntakeOpen(boolean open) {
-		ginoSol.set(open);
-	}
-	
-	public boolean isElevatorFaulted() {
-		return false;
-	}
-	
-	public double getElevatorPos() {
-		return requestedElevatorPos;
-	}
-	
+
 	public synchronized void setIntakeControl(IntakeControl mIntakeControl) {
 		this.mIntakeControl = mIntakeControl;
 	}
@@ -279,63 +302,172 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	@Override
 	public boolean runDiagnostics() {
-		arm1Motor.set(ControlMode.PercentOutput, 0.2);
-		Timer.delay(0.5);
-		arm1Motor.set(ControlMode.PercentOutput, 0.0);
-//		ConsoleReporter.report("Testing CubeHandler---------------------------------");
-//		final double kLowCurrentThres = 0.5;
-//		final double kLowRpmThres = 300;
-//
-//		ArrayList<MotorDiagnostics> mIntakeDiagArr = new ArrayList<MotorDiagnostics>();
-//		mIntakeDiagArr.add(new MotorDiagnostics("Intake Left", intakeMotor1));
-//		mIntakeDiagArr.add(new MotorDiagnostics("Intake Right", intakeMotor2));
-//
-//		boolean failure = false;
-//
-//		for (MotorDiagnostics mD: mIntakeDiagArr) {
-//			mD.runTest();
-//
-//			if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
-//				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
-//				failure = true;
-//			}
-//
-//		}
-//
-//		if (mIntakeDiagArr.size() > 0) {
-//			List<Double> intakeMotorCurrents = mIntakeDiagArr.stream().map(u -> u.getMotorCurrent()).collect(Collectors.toList());
-//			if (!Util.allCloseTo(intakeMotorCurrents, intakeMotorCurrents.get(0), 5.0)) {
-//				failure = true;
-//				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Intake Motor Currents Different !!!!!!!!!!");
-//			}
-//
-//		} else {
-//			ConsoleReporter.report("Intake Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
-//		}
-//
-//		return !failure;
+		if (ds.isTest() && Constants.ENABLE_CUBE_HANDLER_DIAG) {
+			ConsoleReporter.report("Testing CubeHandler---------------------------------");
+			boolean testPassed = true;
+			testPassed &= runArmDiagnostics();
+			testPassed &= runElevatorDiagnostics();
+			testPassed &= runIntakeDiagnostics();
+			return testPassed;
+		} else
+			return true;
+	}
 
-		return true;
+	private boolean runArmDiagnostics() {
+		ConsoleReporter.report("Testing Arm---------------------------------");
+		final double kLowCurrentThres = 0.5;
+		final double kLowRpmThres = 200;
+
+		ArrayList<MotorDiagnostics> mArmDiagArr = new ArrayList<MotorDiagnostics>();
+		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 1", mArm1Motor, 0.3, 1, true));
+		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 2", mArm2Motor, 0.2, 1, false));
+
+		boolean failure = false;
+
+		for (MotorDiagnostics mD : mArmDiagArr) {
+			mD.runTest();
+
+			if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
+				failure = true;
+			}
+
+			if (mD.isRPMUnderThreshold(kLowRpmThres)) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " RPM Low !!!!!!!!!!");
+				failure = true;
+			}
+
+		}
+
+		if (mArmDiagArr.size() > 0) {
+			List<Double> armMotorCurrents = mArmDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
+			if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), 5.0)) {
+				failure = true;
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Arm Motor Currents Different !!!!!!!!!!");
+			}
+
+		} else {
+			ConsoleReporter.report("Arm Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
+		}
+
+		return !failure;
+	}
+
+	private boolean runElevatorDiagnostics() {
+		ConsoleReporter.report("Testing Elevator---------------------------------");
+		final double kLowCurrentThres = 0.5;
+		final double kLowRpmThres = 200;
+
+		ArrayList<MotorDiagnostics> mElevatorDiagArr = new ArrayList<MotorDiagnostics>();
+		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Master", mElevatorMotorMaster, 0.3, 1, false));
+		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Slave", mElevatorMotorSlave, mElevatorMotorMaster, 0.3, 1, false));
+
+		boolean failure = false;
+
+		for (MotorDiagnostics mD : mElevatorDiagArr) {
+			mD.runTest();
+
+			if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
+				failure = true;
+			}
+
+			if (mD.isRPMUnderThreshold(kLowRpmThres)) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " RPM Low !!!!!!!!!!");
+				failure = true;
+			}
+
+		}
+
+		if (mElevatorDiagArr.size() > 0) {
+			List<Double> armMotorCurrents = mElevatorDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
+			if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), 5.0)) {
+				failure = true;
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Elevator Motor Currents Different !!!!!!!!!!");
+			}
+
+			List<Double> elevatorMotorRPMs = mElevatorDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
+			if (!Util.allCloseTo(elevatorMotorRPMs, elevatorMotorRPMs.get(0), 40)) {
+				failure = true;
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
+			}
+		} else {
+			ConsoleReporter.report("Arm Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
+		}
+
+		return !failure;
+	}
+
+	private boolean runIntakeDiagnostics() {
+		ConsoleReporter.report("Testing Intake---------------------------------");
+		final double kLowCurrentThres = 0.5;
+
+		ArrayList<MotorDiagnostics> mIntakeDiagArr = new ArrayList<MotorDiagnostics>();
+		mIntakeDiagArr.add(new MotorDiagnostics("Intake", mIntakeMotor, 1));
+
+		boolean failure = false;
+
+		for (MotorDiagnostics mD : mIntakeDiagArr) {
+			mD.runTest();
+
+			if (mD.isCurrentUnderThreshold(kLowCurrentThres)) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Current Low !!!!!!!!!!");
+				failure = true;
+			}
+		}
+
+		return !failure;
+	}
+
+	public boolean isArmFaulted() {
+		boolean allSensorsPresent = true;
+
+		boolean arm1SensorPresent = mArm1Motor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		boolean arm2SensorPresent = mArm2Motor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+		allSensorsPresent &= arm1SensorPresent;
+		allSensorsPresent &= arm2SensorPresent;
+
+		if (!allSensorsPresent) {
+			setArmControl(ArmControl.OFF);
+
+			String msg = "Could not detect encoder! \r\n\tArm 1 Encoder Detected: " + arm1SensorPresent + "\r\n\tArm 2 Encoder Detected: " + arm2SensorPresent;
+			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
+			DriverStation.reportError(msg, false);
+		}
+
+		return !allSensorsPresent;
+	}
+
+	public boolean isElevatorFaulted() {
+		boolean elevatorSensorPresent = mElevatorMotorMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+
+		if (!elevatorSensorPresent) {
+			setElevatorControl(ElevatorControl.OFF);
+
+			String msg = "Could not detect encoder! \r\n\tElevator Encoder Detected: " + elevatorSensorPresent;
+			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
+			DriverStation.reportError(msg, false);
+		}
+
+		return !elevatorSensorPresent;
 	}
 
 	@Override
 	public boolean isSystemFaulted() {
 		boolean allSensorsPresent = true;
 
-		boolean arm1SensorPresent = arm1Motor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
-		boolean arm2SensorPresent = arm2Motor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
-		allSensorsPresent &= arm1SensorPresent;
-		allSensorsPresent &= arm2SensorPresent;
-		if (!arm1SensorPresent || !arm2SensorPresent) {
-			String msg = "Could not detect encoder! \r\n\tArm 1 Encoder Detected: " + arm1SensorPresent + "\r\n\tArm 2 Encoder Detected: " + arm2SensorPresent;
-			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
-			DriverStation.reportError(msg, false);
-		}
-
-		if (!allSensorsPresent)
-			setArmControl(ArmControl.OFF);
+		allSensorsPresent &= !isArmFaulted();
+		allSensorsPresent &= !isElevatorFaulted();
 
 		return !allSensorsPresent;
+	}
+
+	public synchronized void setElevatorControl(ElevatorControl elevatorControl) {
+		this.mElevatorControl = elevatorControl;
+	}
+
+	public synchronized void setElevatorHeight(double elevatorHeight) {
+		this.elevatorHeight = elevatorHeight;
 	}
 }
 

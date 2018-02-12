@@ -11,4 +11,7 @@ public class CKTalonSRX extends TalonSRX {
 		this.pdpChannel = pdpChannel;
 	}
 
+	public double getPDPCurrent() {
+		return Controllers.getInstance().getPowerDistributionPanel().getCurrent(pdpChannel);
+	}
 }
