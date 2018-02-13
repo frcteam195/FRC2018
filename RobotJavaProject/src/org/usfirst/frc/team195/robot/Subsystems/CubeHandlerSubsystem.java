@@ -54,6 +54,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private ArmConfiguration mPrevArmConfiguration = new ArmConfiguration(0, 0);
 	private PointFinder pointFinder;
 
+	private boolean elevatorFault = false;
+	private boolean armFault = false;
+
 	private double elevatorHeight = 0;
 	private double mPrevElevatorHeight = 0;
 
@@ -65,6 +68,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		mArm1Motor = robotControllers.getArm1Motor();
 		mArm2Motor = robotControllers.getArm2Motor();
+		mIntakeMotor = robotControllers.getIntakeMotor();
+		mElevatorMotorMaster = robotControllers.getElevatorMotorMaster();
+		mElevatorMotorSlave = robotControllers.getElevatorMotorSlave();
 
 		mIntakeControl = IntakeControl.OFF;
 		mPrevIntakeControl = IntakeControl.OFF;
@@ -294,9 +300,20 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	@Override
 	public String generateReport() {
 		String retVal = "";
-//		retVal += "ElevatorPosReq:" + requestedElevatorPos + ";";
-//		retVal += "ElevatorPosAct:" + liftMotor.getSelectedSensorPosition(0) + ";";
-//		retVal += "ElevatorFault:" + isElevatorFaulted() + ";";
+
+		retVal += "ElevatorPosReq:" + elevatorHeight + ";";
+		retVal += "ElevatorPosAct:" + (mElevatorMotorMaster.getSelectedSensorPosition(0) * Constants.kElevatorEncoderGearRatio / Constants.kSensorUnitsPerRotation) + ";";
+		retVal += "ElevatorFault:" + isElevatorFaulted() + ";";
+
+		retVal += "Arm1PosReq:" + (armConfiguration == null ? 0 : armConfiguration.getA1Angle()) + ";";
+		retVal += "Arm1PosAct:" + (mArm1Motor.getSelectedSensorPosition(0) * Constants.kArm1EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0) + ";";
+		retVal += "Arm2PosReq:" + (armConfiguration == null ? 0 : armConfiguration.getA2Angle()) + ";";
+		retVal += "Arm2PosAct:" + (mArm2Motor.getSelectedSensorPosition(0) * Constants.kArm2EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0) + ";";
+		retVal += "ArmAngle:" + (armConfiguration == null ? 0 : armConfiguration.getA1Angle()) + ";";
+		retVal += "ArmFault:" + isArmFaulted() + ";";
+
+		retVal += "IntakeCurrent:" + mIntakeMotor.getOutputCurrent() + ";";
+
 		return retVal;
 	}
 
@@ -419,7 +436,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		return !failure;
 	}
 
-	public boolean isArmFaulted() {
+	private synchronized boolean checkIfArmIsFaulted() {
 		boolean allSensorsPresent = true;
 
 		boolean arm1SensorPresent = mArm1Motor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
@@ -434,11 +451,15 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
 			DriverStation.reportError(msg, false);
 		}
-
-		return !allSensorsPresent;
+		armFault = !allSensorsPresent;
+		return armFault;
 	}
 
-	public boolean isElevatorFaulted() {
+	public boolean isArmFaulted() {
+		return armFault;
+	}
+
+	private synchronized boolean checkIfElevatorIsFaulted() {
 		boolean elevatorSensorPresent = mElevatorMotorMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 
 		if (!elevatorSensorPresent) {
@@ -449,15 +470,20 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			DriverStation.reportError(msg, false);
 		}
 
-		return !elevatorSensorPresent;
+		elevatorFault = !elevatorSensorPresent;
+		return elevatorFault;
+	}
+
+	public boolean isElevatorFaulted() {
+		return elevatorFault;
 	}
 
 	@Override
 	public boolean isSystemFaulted() {
 		boolean allSensorsPresent = true;
 
-		allSensorsPresent &= !isArmFaulted();
-		allSensorsPresent &= !isElevatorFaulted();
+		allSensorsPresent &= !checkIfArmIsFaulted();
+		allSensorsPresent &= !checkIfElevatorIsFaulted();
 
 		return !allSensorsPresent;
 	}

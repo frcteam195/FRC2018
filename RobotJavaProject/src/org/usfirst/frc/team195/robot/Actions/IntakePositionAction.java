@@ -17,7 +17,7 @@ public class IntakePositionAction extends CustomAction {
 	}
 	
 	public void start(boolean open) {
-		cubeHandlerSubsystem.setIntakeOpen(open);
+
 	}
 	
 	@Override

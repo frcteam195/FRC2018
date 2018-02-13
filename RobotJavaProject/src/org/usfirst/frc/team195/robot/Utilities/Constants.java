@@ -10,6 +10,7 @@ public class Constants {
 	public static final boolean ENABLE_CUBE_HANDLER_DIAG = true;
 
 	public static final String DASHBOARD_IP = "10.1.95.14";
+	public static final int DASHBOARD_REPORTER_PORT = 5801;
 
 
 	//Drive Config Attack 3
@@ -202,8 +203,8 @@ public class Constants {
 	//TODO: Get list of solenoid IDs and input
 	// Solenoids
 	public static final int kIntakeSolenoidId = 0; // PCM 0, Solenoid 0
-	public static final int kClimberLockSolenoidId1 = 0; // PCM 0, Solenoid 0
-	public static final int kClimberLockSolenoidId2 = 0; // PCM 0, Solenoid 0
+	public static final int kClimberLockSolenoidId1 = 1; // PCM 0, Solenoid 0
+	public static final int kClimberLockSolenoidId2 = 2; // PCM 0, Solenoid 0
 
 	// Digital Outputs
 	public static final int kRedLEDId = 0;

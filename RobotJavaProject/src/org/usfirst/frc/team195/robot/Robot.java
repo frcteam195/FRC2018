@@ -73,7 +73,7 @@ public class Robot extends RobbieRobot {
 
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
-		criticalSystemsMonitor.start();
+		//criticalSystemsMonitor.start();
 
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
@@ -97,7 +97,6 @@ public class Robot extends RobbieRobot {
 		threadRateControl.start(true);
 
 		while (isDisabled()) {
-			//driveBaseSubsystem.subsystemHome();
 			threadRateControl.doRateControl(100);
 		}
 	}
@@ -111,12 +110,12 @@ public class Robot extends RobbieRobot {
 		while (isOperatorControl() && isEnabled()) {
 			hidController.run();
 
-			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13, 25));
-			threadRateControl.doRateControl(2000);
-			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16, 90));
-			threadRateControl.doRateControl(2000);
-			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
-			threadRateControl.doRateControl(4000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13, 25));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16, 90));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
+//			threadRateControl.doRateControl(4000);
 
 			threadRateControl.doRateControl(20);
 		}

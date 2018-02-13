@@ -65,15 +65,15 @@ public class Controllers {
 		//Arm Motor Setup
 		arm1Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId, Constants.kArm1MotorPDPChannel);
 		arm2Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm2MotorId, Constants.kArm2MotorPDPChannel);
-//		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeMotorId, Constants.kIntakeMotorPDPChannel);
-//
-//		//Elevator Motor Setup
-//		elevatorMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElevatorMasterId, Constants.kElevatorMasterPDPChannel);
-//		elevatorMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlaveId, Constants.kElevatorSlavePDPChannel, elevatorMotorMaster);
-//
-//		//Climber Motor Setup
-//		climberMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
-//		climberMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel, climberMotorMaster);
+		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeMotorId, Constants.kIntakeMotorPDPChannel);
+
+		//Elevator Motor Setup
+		elevatorMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElevatorMasterId, Constants.kElevatorMasterPDPChannel);
+		elevatorMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlaveId, Constants.kElevatorSlavePDPChannel, elevatorMotorMaster);
+
+		//Climber Motor Setup
+		climberMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
+		climberMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel, climberMotorMaster);
 
 		intakeSolenoid = new Solenoid(Constants.kIntakeSolenoidId);
 		climberLockSolenoid = new DoubleSolenoid(Constants.kClimberLockSolenoidId1, Constants.kClimberLockSolenoidId2);
@@ -188,7 +188,7 @@ public class Controllers {
 		return intakeSolenoid;
 	}
 
-	public Solenoid getGinoSol() {
-		return ginoSol;
+	public DoubleSolenoid getClimberLockSolenoid() {
+		return climberLockSolenoid;
 	}
 }
