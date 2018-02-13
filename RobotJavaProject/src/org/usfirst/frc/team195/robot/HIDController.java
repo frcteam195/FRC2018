@@ -9,6 +9,8 @@ import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
 
 public class HIDController implements Runnable {
 	
@@ -19,6 +21,7 @@ public class HIDController implements Runnable {
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
 	private DriverStation ds;
 	private KnightJoystick driveJoystick;
+	private PolarArmControlJoystick armControlJoystick;
 	private DriveHelper driveHelper;
 	private ShiftAction shiftAction;
 	private IntakePositionAction intakePositionAction;
@@ -29,6 +32,7 @@ public class HIDController implements Runnable {
 
 		Controllers robotControllers = Controllers.getInstance();
 		driveJoystick = robotControllers.getDriveJoystick();
+		armControlJoystick = robotControllers.getArmControlJoystick();
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
@@ -53,16 +57,16 @@ public class HIDController implements Runnable {
 	@Override
 	public void run() {
 
-		if (driveJoystick.GetRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
+		if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
 			shiftAction.start(false);
-		} else if (driveJoystick.GetRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
+		} else if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
 			shiftAction.start(true);
 		}
 
 			/*if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_RUN)) {
 				shiftAction.start(false);
 				cubeHandlerSubsystem.setmIntakeControl(IntakeControl.FORWARD);
-			} else if (driveJoystick.GetRisingEdgeButton(Constants.INTAKE_OPEN)) {
+			} else if (driveJoystick.getRisingEdgeButton(Constants.INTAKE_OPEN)) {
 				shiftAction.start(true);
 			} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
 				cubeHandlerSubsystem.setmIntakeControl(IntakeControl.REVERSE);

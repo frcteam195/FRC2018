@@ -1,4 +1,4 @@
-package org.usfirst.frc.team195.robot.Utilities;
+package org.usfirst.frc.team195.robot.Utilities.Drivers;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -15,7 +15,7 @@ public class KnightJoystick extends Joystick {
 		}
 	}
 	
-	public boolean GetRisingEdgeButton(int button) {
+	public boolean getRisingEdgeButton(int button) {
 		try {
 			boolean currentButton = super.getRawButton(button);
 			boolean retVal = (currentButton != prevButtonVal[button-1]) && currentButton;
@@ -26,7 +26,7 @@ public class KnightJoystick extends Joystick {
 		}
 	}
 	
-	public boolean GetFallingEdgeButton(int button) {
+	public boolean getFallingEdgeButton(int button) {
 		try {
 			boolean currentButton = super.getRawButton(button);
 			boolean retVal = (currentButton != prevButtonVal[button-1]) && !currentButton;
@@ -36,4 +36,5 @@ public class KnightJoystick extends Joystick {
 			return false;
 		}
 	}
+
 }

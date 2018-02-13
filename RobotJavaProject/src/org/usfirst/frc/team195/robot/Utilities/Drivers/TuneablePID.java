@@ -207,17 +207,10 @@ public class TuneablePID {
 					setTuneablePIDData(processUDPPacket(receivePacket.getData()));
 					for (TalonSRX tuningTalon : talonArrList) {
 						if (autoUpdate) {
-							TalonHelper.setPIDGains(tuningTalon, 0, tuneablePIDData.getkP(), tuneablePIDData.getkI(), tuneablePIDData.getkD(), tuneablePIDData.getF());
-							if (tuningTalon.getControlMode() == ControlMode.MotionMagic) {
-								tuningTalon.configMotionCruiseVelocity((int)(tuneablePIDData.getCruiseVelocity() * Constants.kSensorUnitsPerRotation / 600.0), Constants.kTimeoutMs);
-								tuningTalon.configMotionAcceleration((int)(tuneablePIDData.getAccel() * Constants.kSensorUnitsPerRotation / 600.0), Constants.kTimeoutMs);
-							}
+							TalonHelper.setPIDGains(tuningTalon, 0, tuneablePIDData.getkP(), tuneablePIDData.getkI(), tuneablePIDData.getkD(), tuneablePIDData.getF(), tuneablePIDData.getRampRate(), (int)tuneablePIDData.getiZone());
 
-							if (tuneablePIDData.getRampRate() > 0)
-								tuningTalon.configClosedloopRamp(tuneablePIDData.getRampRate(), Constants.kTimeoutMs);
-
-							if (tuneablePIDData.getiZone() > 0)
-								tuningTalon.config_IntegralZone(0, (int)tuneablePIDData.getiZone(), Constants.kTimeoutMs);
+							if (tuningTalon.getControlMode() == ControlMode.MotionMagic)
+								TalonHelper.setMotionMagicParams(tuningTalon, (int)tuneablePIDData.getCruiseVelocity(), (int)tuneablePIDData.getAccel());
 
 							if (autoUpdateSetpoint)
 								switch(tuningTalon.getControlMode()) {

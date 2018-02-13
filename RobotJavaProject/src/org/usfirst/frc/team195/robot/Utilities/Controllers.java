@@ -7,13 +7,15 @@ import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.CANSpeedControllerBuilder;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
 
 public class Controllers {
 	private Compressor compressor;
 	private PowerDistributionPanel powerDistributionPanel;
 	private KnightJoystick driveJoystick;
-	private CANSpeedControllerBuilder canSpeedControllerBuilder;
+	private PolarArmControlJoystick armControlJoystick;
 	private TalonSRX leftDrive1;
 	private BaseMotorController leftDrive2;
 	private BaseMotorController leftDrive3;
@@ -48,32 +50,31 @@ public class Controllers {
 
 		//Drive Joystick Setup
 		driveJoystick = new KnightJoystick(0);
-
-		canSpeedControllerBuilder = new CANSpeedControllerBuilder();
+		armControlJoystick = new PolarArmControlJoystick(1, Constants.kArmMinRadius, Constants.kArmMaxRadius, Constants.kArmMinTheta, Constants.kArmMaxTheta, Constants.kArmJoystickInchesPerSec, Constants.kArmJoystickDegPerSec);
 
 		//Choose whether to create Victor or Talon slaves here
 		//Left Drive Setup
-		leftDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kLeftDriveMasterId, Constants.kLeftDriveMasterPDPChannel);
-		leftDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId, Constants.kLeftDriveSlave1PDPChannel, leftDrive1);
-		leftDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId2, Constants.kLeftDriveSlave2PDPChannel, leftDrive1);
+		leftDrive1 = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kLeftDriveMasterId, Constants.kLeftDriveMasterPDPChannel);
+		leftDrive2 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId, Constants.kLeftDriveSlave1PDPChannel, leftDrive1);
+		leftDrive3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId2, Constants.kLeftDriveSlave2PDPChannel, leftDrive1);
 
 		//Right Drive Setup
-		rightDrive1 = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kRightDriveMasterId, Constants.kRightDriveMasterPDPChannel);
-		rightDrive2 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId, Constants.kRightDriveSlave1PDPChannel, rightDrive1);
-		rightDrive3 = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
+		rightDrive1 = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kRightDriveMasterId, Constants.kRightDriveMasterPDPChannel);
+		rightDrive2 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId, Constants.kRightDriveSlave1PDPChannel, rightDrive1);
+		rightDrive3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
 
 		//Arm Motor Setup
-		arm1Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId, Constants.kArm1MotorPDPChannel);
-		arm2Motor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm2MotorId, Constants.kArm2MotorPDPChannel);
-		intakeMotor = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeMotorId, Constants.kIntakeMotorPDPChannel);
+		arm1Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId, Constants.kArm1MotorPDPChannel);
+		arm2Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm2MotorId, Constants.kArm2MotorPDPChannel);
+		intakeMotor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeMotorId, Constants.kIntakeMotorPDPChannel);
 
 		//Elevator Motor Setup
-		elevatorMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kElevatorMasterId, Constants.kElevatorMasterPDPChannel);
-		elevatorMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlaveId, Constants.kElevatorSlavePDPChannel, elevatorMotorMaster);
+		elevatorMotorMaster = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kElevatorMasterId, Constants.kElevatorMasterPDPChannel);
+		elevatorMotorSlave = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlaveId, Constants.kElevatorSlavePDPChannel, elevatorMotorMaster);
 
 		//Climber Motor Setup
-		climberMotorMaster = canSpeedControllerBuilder.createDefaultTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
-		climberMotorSlave = canSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel, climberMotorMaster);
+		climberMotorMaster = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
+		climberMotorSlave = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel, climberMotorMaster);
 
 		intakeSolenoid = new Solenoid(Constants.kIntakeSolenoidId);
 		climberLockSolenoid = new DoubleSolenoid(Constants.kClimberLockSolenoidId1, Constants.kClimberLockSolenoidId2);
@@ -103,7 +104,11 @@ public class Controllers {
 	public KnightJoystick getDriveJoystick() {
 		return driveJoystick;
 	}
-	
+
+	public PolarArmControlJoystick getArmControlJoystick() {
+		return armControlJoystick;
+	}
+
 	public TalonSRX getLeftDrive1() {
 		return leftDrive1;
 	}

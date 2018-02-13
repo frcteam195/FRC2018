@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -155,18 +156,30 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		rightDriveSlave2.setInverted(true);
 
 
-		mLeftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-		mLeftMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
-		mLeftMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
+		boolean setSucceeded;
+		int retryCounter = 0;
 
-		mRightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-		mRightMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs);
-		mRightMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs);
+		do {
+			setSucceeded = true;
 
-		TalonHelper.setPIDGains(mLeftMaster, kLowGearPIDSlot, Constants.kDriveLowGearPositionKp, Constants.kDriveLowGearPositionKi, Constants.kDriveLowGearPositionKd, Constants.kDriveLowGearPositionKf, Constants.kDriveLowGearPositionRampRate, Constants.kDriveLowGearPositionIZone);
-		TalonHelper.setPIDGains(mLeftMaster, kHighGearPIDSlot, Constants.kDriveHighGearVelocityKp, Constants.kDriveHighGearVelocityKi, Constants.kDriveHighGearVelocityKd, Constants.kDriveHighGearVelocityKf, Constants.kDriveHighGearVelocityRampRate, Constants.kDriveHighGearVelocityIZone);
-		TalonHelper.setPIDGains(mRightMaster, kLowGearPIDSlot, Constants.kDriveLowGearPositionKp, Constants.kDriveLowGearPositionKi, Constants.kDriveLowGearPositionKd, Constants.kDriveLowGearPositionKf, Constants.kDriveLowGearPositionRampRate, Constants.kDriveLowGearPositionIZone);
-		TalonHelper.setPIDGains(mRightMaster, kHighGearPIDSlot, Constants.kDriveHighGearVelocityKp, Constants.kDriveHighGearVelocityKi, Constants.kDriveHighGearVelocityKd, Constants.kDriveHighGearVelocityKf, Constants.kDriveHighGearVelocityRampRate, Constants.kDriveHighGearVelocityIZone);
+			setSucceeded &= mLeftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mLeftMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mLeftMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mRightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mRightMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mRightMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs) == ErrorCode.OK;
+
+		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+		setSucceeded &= TalonHelper.setPIDGains(mLeftMaster, kLowGearPIDSlot, Constants.kDriveLowGearPositionKp, Constants.kDriveLowGearPositionKi, Constants.kDriveLowGearPositionKd, Constants.kDriveLowGearPositionKf, Constants.kDriveLowGearPositionRampRate, Constants.kDriveLowGearPositionIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mLeftMaster, kHighGearPIDSlot, Constants.kDriveHighGearVelocityKp, Constants.kDriveHighGearVelocityKi, Constants.kDriveHighGearVelocityKd, Constants.kDriveHighGearVelocityKf, Constants.kDriveHighGearVelocityRampRate, Constants.kDriveHighGearVelocityIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mRightMaster, kLowGearPIDSlot, Constants.kDriveLowGearPositionKp, Constants.kDriveLowGearPositionKi, Constants.kDriveLowGearPositionKd, Constants.kDriveLowGearPositionKf, Constants.kDriveLowGearPositionRampRate, Constants.kDriveLowGearPositionIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mRightMaster, kHighGearPIDSlot, Constants.kDriveHighGearVelocityKp, Constants.kDriveHighGearVelocityKi, Constants.kDriveHighGearVelocityKd, Constants.kDriveHighGearVelocityKf, Constants.kDriveHighGearVelocityRampRate, Constants.kDriveHighGearVelocityIZone);
+
+
+		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+			ConsoleReporter.report("Failed to initialize DriveBaseSubsystem!!!", MessageLevel.DEFCON1);
 
 		mNavXBoard.setCollisionJerkThreshold(Constants.kCollisionDetectionJerkThreshold);
 
@@ -176,22 +189,19 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	@Override
 	public void subsystemHome() {
 		mNavXBoard.zeroYaw();
-//		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-//		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-//		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-//		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-//		mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
-//		mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMs);
 
-		mLeftMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		mRightMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		mLeftMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		mRightMaster.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
-		try {
-			Thread.sleep(50);
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex);
-		}
+		boolean setSucceeded;
+		int retryCounter = 0;
+
+		do {
+			setSucceeded = true;
+
+			setSucceeded &= mLeftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMsFast) == ErrorCode.OK;
+			setSucceeded &= mRightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+			ConsoleReporter.report("Failed to zero DriveBaseSubsystem!!!", MessageLevel.DEFCON1);
 	}
 
 	@Override

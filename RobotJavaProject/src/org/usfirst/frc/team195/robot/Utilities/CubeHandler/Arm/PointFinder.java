@@ -3,14 +3,15 @@ package org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 import java.util.ArrayList;
 
 public class PointFinder {
-	private double minA1Angle = 0;
-	private double maxA1Angle = 180;
-	private double minA2Angle = -160;
-	private double maxA2Angle = 160;
+	private double minA1Angle = Constants.kArm1SoftMin * 360;
+	private double maxA1Angle = Constants.kArm1SoftMax * 360;
+	private double minA2Angle = Constants.kArm2SoftMin * 360;
+	private double maxA2Angle = Constants.kArm2SoftMax * 360;
 	private double kA1Length = Constants.kArm1Length;
 	private double kA2Length = Constants.kArm2Length;
 
@@ -39,18 +40,21 @@ public class PointFinder {
 		double a2 = Math.toDegrees(Math.acos((Math.pow(kA1Length,2) + Math.pow(kA2Length,2) - + Math.pow(distance,2))
 				/(2*kA1Length*kA2Length)));
 		double alpha = -(180 - a2) * Math.signum(cc.x);
-		phi = phi > maxA1Angle ? maxA1Angle : phi;
-		phi = phi < minA1Angle ? minA1Angle : phi;
-		alpha = alpha > maxA2Angle ? maxA1Angle : alpha;
-		alpha = alpha < minA2Angle ? minA2Angle : alpha;
 
 		if (Double.isNaN(phi) || Double.isNaN(alpha)) {
 			ConsoleReporter.report("Arm solution not possible!", MessageLevel.DEFCON1);
 			return null;
 		}
-		else {
-			return new ArmConfiguration(phi, alpha);
-		}
+
+		phi = Util.limit(phi, minA1Angle, maxA1Angle);
+		alpha = Util.limit(alpha, minA2Angle, maxA2Angle);
+
+//		phi = phi > maxA1Angle ? maxA1Angle : phi;
+//		phi = phi < minA1Angle ? minA1Angle : phi;
+//		alpha = alpha > maxA2Angle ? maxA1Angle : alpha;
+//		alpha = alpha < minA2Angle ? minA2Angle : alpha;
+
+		return new ArmConfiguration(phi, alpha);
 	}
 
 	public void setA1AngleRange(double minA1Angle, double maxA1Angle) {

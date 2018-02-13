@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -26,8 +27,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
-
-import javax.naming.ldap.Control;
 
 public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
 	
@@ -108,47 +107,59 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	@Override
 	public void init() {
-		mArm1Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-		mArm2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
-
 		mArm1Motor.setInverted(true);
 		mArm1Motor.setSensorPhase(true);
 
 		mArm2Motor.setInverted(true);
 
-		mArm1Motor.configContinuousCurrentLimit(Constants.kArm1MaxContinuousCurrentLimit, Constants.kTimeoutMs);
-		mArm1Motor.configPeakCurrentLimit(Constants.kArm1MaxPeakCurrentLimit, Constants.kTimeoutMs);
-		mArm1Motor.configPeakCurrentDuration(Constants.kArm1MaxPeakCurrentDurationMS, Constants.kTimeoutMs);
+		boolean setSucceeded;
+		int retryCounter = 0;
+
+		do {
+			setSucceeded = true;
+
+			setSucceeded &= mArm1Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mArm1Motor.configContinuousCurrentLimit(Constants.kArm1MaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm1Motor.configPeakCurrentLimit(Constants.kArm1MaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm1Motor.configPeakCurrentDuration(Constants.kArm1MaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mArm2Motor.configContinuousCurrentLimit(Constants.kArm2MaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.configPeakCurrentLimit(Constants.kArm2MaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.configPeakCurrentDuration(Constants.kArm2MaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mElevatorMotorMaster.configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.configPeakCurrentLimit(Constants.kElevatorMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.configPeakCurrentDuration(Constants.kElevatorMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mArm1Motor.configForwardSoftLimitThreshold((int) (Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm1Motor.configReverseSoftLimitThreshold((int) (Constants.kArm1SoftMin * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm1Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mArm2Motor.configForwardSoftLimitThreshold((int) (Constants.kArm2SoftMax * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.configReverseSoftLimitThreshold((int) (Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mElevatorMotorMaster.configForwardSoftLimitThreshold((int) (Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.configReverseSoftLimitThreshold((int) (Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+		setSucceeded &= TalonHelper.setPIDGains(mArm1Motor, 0, Constants.kArm1Kp, Constants.kArm1Ki, Constants.kArm1Kd, Constants.kArm1Kf, Constants.kArm1RampRate, Constants.kArm1IZone);
+		setSucceeded &= TalonHelper.setPIDGains(mArm2Motor, 0, Constants.kArm2Kp, Constants.kArm2Ki, Constants.kArm2Kd, Constants.kArm2Kf, Constants.kArm2RampRate, Constants.kArm2IZone);
+		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, 0, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mArm1Motor, Constants.kArm1MaxVelocity, Constants.kArm1MaxAccel);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mArm2Motor, Constants.kArm2MaxVelocity, Constants.kArm2MaxAccel);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, Constants.kElevatorMaxVelocity, Constants.kElevatorMaxAccel);
+
+		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+			ConsoleReporter.report("Failed to initialize CubeHandlerSubsystem!!!", MessageLevel.DEFCON1);
+
 		mArm1Motor.enableCurrentLimit(true);
-
-		mArm2Motor.configContinuousCurrentLimit(Constants.kArm2MaxContinuousCurrentLimit, Constants.kTimeoutMs);
-		mArm2Motor.configPeakCurrentLimit(Constants.kArm2MaxPeakCurrentLimit, Constants.kTimeoutMs);
-		mArm2Motor.configPeakCurrentDuration(Constants.kArm2MaxPeakCurrentDurationMS, Constants.kTimeoutMs);
 		mArm2Motor.enableCurrentLimit(true);
-
-		mElevatorMotorMaster.configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs);
-		mElevatorMotorMaster.configPeakCurrentLimit(Constants.kElevatorMaxPeakCurrentLimit, Constants.kTimeoutMs);
-		mElevatorMotorMaster.configPeakCurrentDuration(Constants.kElevatorMaxPeakCurrentDurationMS, Constants.kTimeoutMs);
 		mElevatorMotorMaster.enableCurrentLimit(true);
 
-		mArm1Motor.configForwardSoftLimitThreshold((int)(Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
-		mArm1Motor.configReverseSoftLimitThreshold((int)(Constants.kArm1SoftMin * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
-		mArm1Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
-
-		mArm2Motor.configForwardSoftLimitThreshold((int)(Constants.kArm2SoftMax * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
-		mArm2Motor.configReverseSoftLimitThreshold((int)(Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
-		mArm2Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
-
-		mElevatorMotorMaster.configForwardSoftLimitThreshold((int)(Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
-		mElevatorMotorMaster.configReverseSoftLimitThreshold((int)(Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs);
-		mElevatorMotorMaster.configForwardSoftLimitEnable(true, Constants.kTimeoutMs);
-
-		TalonHelper.setPIDGains(mArm1Motor, 0, Constants.kArm1Kp, Constants.kArm1Ki, Constants.kArm1Kd, Constants.kArm1Kf, Constants.kArm1RampRate, Constants.kArm1IZone);
-		TalonHelper.setPIDGains(mArm2Motor, 0, Constants.kArm2Kp, Constants.kArm2Ki, Constants.kArm2Kd, Constants.kArm2Kf, Constants.kArm2RampRate, Constants.kArm2IZone);
-		TalonHelper.setPIDGains(mElevatorMotorMaster, 0, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
-		TalonHelper.setMotionMagicParams(mArm1Motor, Constants.kArm1MaxVelocity, Constants.kArm1MaxAccel);
-		TalonHelper.setMotionMagicParams(mArm2Motor, Constants.kArm2MaxVelocity, Constants.kArm2MaxAccel);
-		TalonHelper.setMotionMagicParams(mElevatorMotorMaster, Constants.kElevatorMaxVelocity, Constants.kElevatorMaxAccel);
 
 		isSystemFaulted();
 	}
@@ -163,19 +174,23 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		int homeA2Value = (int)(Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation);
 		int homeElevatorValue = (int)(Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
 
-		mArm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs);
-		mArm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs);
-		mArm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs);
-		mArm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs);
+		boolean setSucceeded;
+		int retryCounter = 0;
 
-		mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs);
-		mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs);
+		do {
+			setSucceeded = true;
 
-		try {
-			Thread.sleep(50);
-		} catch (Exception ex) {
-			ConsoleReporter.report(ex);
-		}
+			setSucceeded &= mArm1Motor.getSensorCollection().setQuadraturePosition(homeA1Value, Constants.kTimeoutMsFast) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.getSensorCollection().setQuadraturePosition(homeA2Value, Constants.kTimeoutMsFast) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.getSensorCollection().setQuadraturePosition(homeElevatorValue, Constants.kTimeoutMsFast) == ErrorCode.OK;
+
+//			setSucceeded &= mArm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= mArm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+			ConsoleReporter.report("Failed to zero CubeHandlerSubsystem!!!", MessageLevel.DEFCON1);
 
 		mArm1Motor.set(ControlMode.MotionMagic, homeA1Value);
 		mArm2Motor.set(ControlMode.MotionMagic, homeA2Value);

@@ -33,8 +33,23 @@ public class Constants {
 	public static final int INTAKE_OPEN = 2;
 	public static final int INTAKE_RUN_REVERSE = 4;
 	public static final int INTAKE_CLOSE_HALF = 3;
+
+
+	//Arm Config Attack3D
+	public static final int ARM_MANUAL_POSITION_CONTROL = 2;
+
+
+
+
+
+
+
+
+
 	
 	public static final int kTimeoutMs = 20;
+	public static final int kTimeoutMsFast = 10;
+	public static final int kTalonRetryCount = 3;
 	public static final double kJoystickDeadband = 0.02;
 	public static final double kSensorUnitsPerRotation = 4096.0;
 	public static final double k100msPerMinute = 600.0;
@@ -54,9 +69,6 @@ public class Constants {
 	public static final double kCenterToRearBumperDistance = 14.5;
 	public static final double kCenterToSideBumperDistance = 14.5;
 
-	//TODO: Tune collision detection
-	// Collision Detection
-	public static final double kCollisionDetectionJerkThreshold = 0.5;
 
 	// Arm
 	public static final double kArm1EncoderGearRatio = 10.0;
@@ -75,6 +87,13 @@ public class Constants {
 	public static final int kArm2MaxPeakCurrentLimit = 45;
 	public static final int kArm2MaxPeakCurrentDurationMS = 400;
 
+	public static final double kArmMinRadius = 0;
+	public static final double kArmMaxRadius = kArm1Length + kArm2Length;
+	public static final double kArmMinTheta = 0;
+	public static final double kArmMaxTheta = 180;
+	public static final double kArmJoystickInchesPerSec = 4;
+	public static final double kArmJoystickDegPerSec = 15;
+
 	// Elevator
 	public static final double kElevatorEncoderGearRatio = 1.0;
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
@@ -84,6 +103,11 @@ public class Constants {
 	public static final int kElevatorMaxPeakCurrentDurationMS = 400;
 
 
+
+
+	//TODO: Tune collision detection
+	// Collision Detection
+	public static final double kCollisionDetectionJerkThreshold = 0.5;
 
 
 	/* CONTROL LOOP GAINS */
