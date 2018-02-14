@@ -22,14 +22,26 @@ public class ArmConfiguration implements Comparable<ArmConfiguration> {
 		return a2Angle;
 	}
 
+	public PolarCoordinate getPolarFromAngles() {
+		double a = Constants.kArm1Length;
+		double b = Constants.kArm2Length;
+		double r = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) - 2 * a * b * Math.cos(Math.toRadians(180.0-a2Angle)));
+		double theta = Math.toDegrees(Math.acos((a*Math.cos(Math.toRadians(a1Angle))+b*Math.sin(Math.toRadians(90-a2Angle+a1Angle)))/r));
+
+		if (Double.isNaN(r) || Double.isNaN(theta))
+			return new PolarCoordinate(0, 0);
+
+		return new PolarCoordinate(r, theta);
+	}
+
 	@Override
 	public String toString() {
-		return "Angle1: " + getA1Angle() + ", Angle2: " + getA2Angle();
+		return "Angle1: " + a1Angle + ", Angle2: " + a2Angle;
 	}
 
 	@Override
 	public int compareTo(ArmConfiguration o) {
-		if (o.getA1Angle() == getA1Angle() && o.getA2Angle() == getA2Angle())
+		if (o.getA1Angle() == a1Angle && o.getA2Angle() == a2Angle)
 			return 0;
 		return -1;
 	}

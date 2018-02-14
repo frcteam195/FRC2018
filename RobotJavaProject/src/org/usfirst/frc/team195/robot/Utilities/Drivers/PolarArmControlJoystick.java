@@ -2,7 +2,9 @@ package org.usfirst.frc.team195.robot.Utilities.Drivers;
 
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.PolarCoordinate;
+import org.usfirst.frc.team195.robot.Utilities.QuickMaths;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class PolarArmControlJoystick extends KnightJoystick {
@@ -21,6 +23,9 @@ public class PolarArmControlJoystick extends KnightJoystick {
 
 	private double factorInchesPerSec;
 	private double factorDegPerSec;
+
+	private double kJoystickYDeadband = Constants.kArmJoystickYDeadband;
+	private double kJoystickZDeadband = Constants.kArmJoystickZDeadband;
 
 	public PolarArmControlJoystick(int port, double minRadius, double maxRadius, double minTheta, double maxTheta, double inchesPerSec, double degPerSec) {
 		super(port);
@@ -54,8 +59,8 @@ public class PolarArmControlJoystick extends KnightJoystick {
 			return null;
 		}
 
-		mRadiusVal += (-getRawAxis(yAxisID)) * dt * factorInchesPerSec;
-		mThetaVal += (-getRawAxis(zAxisID)) * dt * factorDegPerSec;
+		mRadiusVal += (QuickMaths.normalizeJoystickWithDeadband(-getRawAxis(yAxisID), kJoystickYDeadband)) * dt * factorInchesPerSec;
+		mThetaVal += (QuickMaths.normalizeJoystickWithDeadband(-getRawAxis(zAxisID), kJoystickZDeadband)) * dt * factorDegPerSec;
 
 		mPrevTime = currTime;
 
@@ -64,4 +69,5 @@ public class PolarArmControlJoystick extends KnightJoystick {
 
 		return new PolarCoordinate(mRadiusVal, mThetaVal);
 	}
+
 }

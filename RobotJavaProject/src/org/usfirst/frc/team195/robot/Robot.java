@@ -73,7 +73,7 @@ public class Robot extends RobbieRobot {
 
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
-		//criticalSystemsMonitor.start();
+		criticalSystemsMonitor.start();
 
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);

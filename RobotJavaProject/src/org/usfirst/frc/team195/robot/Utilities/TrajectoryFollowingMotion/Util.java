@@ -53,4 +53,5 @@ public class Util {
     public static int convertNativeUnitsToRPM(double nativeUnits) {
         return (int)(nativeUnits / Constants.kSensorUnitsPerRotation * Constants.k100msPerMinute);
     }
+
 }

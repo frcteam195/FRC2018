@@ -14,7 +14,7 @@ import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
 public class DashboardReporter extends Thread {
 
-	private static final int MIN_DASHBOARD_SEND_RATE_MS = 250;
+	private static final int MIN_DASHBOARD_SEND_RATE_MS = 500;
 	
 	private static final int SEND_PORT = Constants.DASHBOARD_REPORTER_PORT;
 	

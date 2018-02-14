@@ -49,11 +49,6 @@ public class PointFinder {
 		phi = Util.limit(phi, minA1Angle, maxA1Angle);
 		alpha = Util.limit(alpha, minA2Angle, maxA2Angle);
 
-//		phi = phi > maxA1Angle ? maxA1Angle : phi;
-//		phi = phi < minA1Angle ? minA1Angle : phi;
-//		alpha = alpha > maxA2Angle ? maxA1Angle : alpha;
-//		alpha = alpha < minA2Angle ? minA2Angle : alpha;
-
 		return new ArmConfiguration(phi, alpha);
 	}
 

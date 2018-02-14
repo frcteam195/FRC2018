@@ -8,6 +8,7 @@ public class Constants {
 
 	public static final boolean ENABLE_DRIVE_DIAG = false;
 	public static final boolean ENABLE_CUBE_HANDLER_DIAG = true;
+	public static final boolean ENABLE_CLIMBER_DIAG = false;
 
 	public static final String DASHBOARD_IP = "10.1.95.14";
 	public static final int DASHBOARD_REPORTER_PORT = 5801;
@@ -43,8 +44,81 @@ public class Constants {
 
 
 
+	////////////////////////////////////////////////////////////////////////////////////
+	/* TALONS */
+	// (Note that if multiple talons are dedicated to a mechanism, any sensors
+	// are attached to the master)
+
+	// Drive
+	public static final int kLeftDriveMasterId = 1;
+	public static final int kLeftDriveSlaveId = 2;
+	public static final int kLeftDriveSlaveId2 = 3;
+	public static final int kRightDriveMasterId = 4;
+	public static final int kRightDriverSlaveId = 5;
+	public static final int kRightDriverSlaveId2 = 6;
+
+	// Arm
+	public static final int kArm1MotorId = 7;
+	public static final int kArm2MotorId = 8;
+
+	// Intake
+	public static final int kIntakeMotorId = 9;
+
+	// Elevator
+	public static final int kElevatorMasterId = 10;
+	public static final int kElevatorSlaveId = 11;
+
+	//Climber
+	public static final int kClimberMasterId = 12;
+	public static final int kClimberSlaveId = 13;
 
 
+
+	////////////////////////////////////////////////////////////////////////////////////
+
+	/* PDP Channel IDs */
+
+	// Drive
+	public static final int kLeftDriveMasterPDPChannel = 14;
+	public static final int kLeftDriveMasterPDPBreakerRating = 40;
+	public static final int kLeftDriveSlave1PDPChannel = 13;
+	public static final int kLeftDriveSlave1PDPBreakerRating = 40;
+	public static final int kLeftDriveSlave2PDPChannel = 12;
+	public static final int kLeftDriveSlave2PDPBreakerRating = 40;
+	public static final int kRightDriveMasterPDPChannel = 1;
+	public static final int kRightDriveMasterPDPBreakerRating = 40;
+	public static final int kRightDriveSlave1PDPChannel = 2;
+	public static final int kRightDriveSlave1PDPBreakerRating = 40;
+	public static final int kRightDriveSlave2PDPChannel = 3;
+	public static final int kRightDriveSlave2PDPBreakerRating = 40;
+
+	// Arm
+	public static final int kArm1MotorPDPChannel = 5;
+	public static final int kArm1MotorPDPBreakerRating = 30;
+	public static final int kArm2MotorPDPChannel = 6;
+	public static final int kArm2MotorPDPBreakerRating = 30;
+
+	// Intake
+	public static final int kIntakeMotorPDPChannel = 10;
+	public static final int kIntakeMotorPDPBreakerRating = 30;
+
+	// Elevator
+	public static final int kElevatorMasterPDPChannel = 11;
+	public static final int kElevatorMasterPDPBreakerRating = 30;
+	public static final int kElevatorSlavePDPChannel = 4;
+	public static final int kElevatorSlavePDPBreakerRating = 30;
+
+	//Climber
+	public static final int kClimberMasterPDPChannel = 0;
+	public static final int kClimberMasterPDPBreakerRating = 40;
+	public static final int kClimberSlavePDPChannel = 15;
+	public static final int kClimberSlavePDPBreakerRating = 40;
+
+	//Breaker model for trip time output in seconds y = a*(current_percent_over_rating)^b + c
+	public static final double kPDPBreakerModelA = 282.2962;
+	public static final double kPDPBreakerModelB = -6.6305;
+	public static final double kPDPBreakerModelC = 0.5;
+	public static final double kPDPDefaultSafetyFactor = 4.0;
 
 	
 	public static final int kTimeoutMs = 20;
@@ -61,7 +135,7 @@ public class Constants {
 	// Wheels
 	public static final double kDriveWheelDiameterInches = 4.875;
 	public static final double kTrackWidthInches = 23.75;
-	public static final double kTrackScrubFactor = 0.924; // 0.924 ?
+	public static final double kTrackScrubFactor = 1.0; // 0.924 ?
 
 	// Geometry
 	public static final double kCenterToFrontBumperDistance = 14.5;
@@ -75,34 +149,47 @@ public class Constants {
 	public static final double kArm1Length = 8.25;
 	public static final double kArm1SoftMin = 0;	//In rotations of output shaft
 	public static final double kArm1SoftMax = 0.5;	//In rotations of output shaft
-	public static final int kArm1MaxContinuousCurrentLimit = 35;
-	public static final int kArm1MaxPeakCurrentLimit = 45;
-	public static final int kArm1MaxPeakCurrentDurationMS = 400;
+	public static final int kArm1MaxContinuousCurrentLimit = kArm1MotorPDPBreakerRating;
+	public static final int kArm1MaxPeakCurrentLimit = kArm1MaxContinuousCurrentLimit * 2;
+	public static final int kArm1MaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArm1MaxPeakCurrentLimit, kArm1MaxContinuousCurrentLimit);
 
 	public static final double kArm2EncoderGearRatio = 10.0;
 	public static final double kArm2Length = 8.5;
 	public static final double kArm2SoftMin = -0.456348;	//In rotations of output shaft
 	public static final double kArm2SoftMax = 0.456348;	//In rotations of output shaft
-	public static final int kArm2MaxContinuousCurrentLimit = 35;
-	public static final int kArm2MaxPeakCurrentLimit = 45;
-	public static final int kArm2MaxPeakCurrentDurationMS = 400;
+	public static final int kArm2MaxContinuousCurrentLimit = kArm2MotorPDPBreakerRating;
+	public static final int kArm2MaxPeakCurrentLimit = kArm2MaxContinuousCurrentLimit * 2;
+	public static final int kArm2MaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArm2MaxPeakCurrentLimit, kArm2MaxContinuousCurrentLimit);
 
 	public static final double kArmMinRadius = 0;
 	public static final double kArmMaxRadius = kArm1Length + kArm2Length;
 	public static final double kArmMinTheta = 0;
 	public static final double kArmMaxTheta = 180;
-	public static final double kArmJoystickInchesPerSec = 4;
-	public static final double kArmJoystickDegPerSec = 15;
+	public static final double kArmJoystickInchesPerSec = 32;
+	public static final double kArmJoystickDegPerSec = 90;
+	public static final double kArmJoystickYDeadband = 0.1;
+	public static final double kArmJoystickZDeadband = 0.25;
+
+
+	public static final int kIntakeMaxContinuousCurrentLimit = kIntakeMotorPDPBreakerRating;
+	public static final int kIntakeMaxPeakCurrentLimit = kIntakeMaxContinuousCurrentLimit * 2;
+	public static final int kIntakeMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kIntakeMaxPeakCurrentLimit, kIntakeMaxContinuousCurrentLimit);
 
 	// Elevator
 	public static final double kElevatorEncoderGearRatio = 1.0;
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 4;	//In rotations of output shaft
-	public static final int kElevatorMaxContinuousCurrentLimit = 25;
-	public static final int kElevatorMaxPeakCurrentLimit = 45;
-	public static final int kElevatorMaxPeakCurrentDurationMS = 400;
+	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
+	public static final int kElevatorMaxPeakCurrentLimit = kElevatorMaxContinuousCurrentLimit * 2;
+	public static final int kElevatorMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kElevatorMaxPeakCurrentLimit, kElevatorMaxContinuousCurrentLimit);;
 
-
+	// Climber
+	public static final double kClimberEncoderGearRatio = 1.0;
+	public static final double kClimberSoftMin = 0;	//In rotations of output shaft
+	public static final double kClimberSoftMax = 4;	//In rotations of output shaft
+	public static final int kClimberMaxContinuousCurrentLimit = kClimberMasterPDPBreakerRating;
+	public static final int kClimberMaxPeakCurrentLimit = kClimberMaxContinuousCurrentLimit * 2;
+	public static final int kClimberMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kClimberMaxPeakCurrentLimit, kClimberMaxContinuousCurrentLimit, 2);;
 
 
 	//TODO: Tune collision detection
@@ -164,62 +251,16 @@ public class Constants {
 	public static final int kElevatorMaxAccel = 450;
 
 
-	////////////////////////////////////////////////////////////////////////////////////
-	/* TALONS */
-	// (Note that if multiple talons are dedicated to a mechanism, any sensors
-	// are attached to the master)
+	//TODO: Tune Climber Gains
+	public static final double kClimberKp = 1;
+	public static final double kClimberKi = 0.006;
+	public static final double kClimberKd = 4;
+	public static final double kClimberKf = 0.8;
+	public static final int kClimberIZone = 10;
+	public static final double kClimberRampRate = 0;
+	public static final int kClimberMaxVelocity = 700;
+	public static final int kClimberMaxAccel = 450;
 
-	// Drive
-	public static final int kLeftDriveMasterId = 1;
-	public static final int kLeftDriveSlaveId = 2;
-	public static final int kLeftDriveSlaveId2 = 3;
-	public static final int kRightDriveMasterId = 4;
-	public static final int kRightDriverSlaveId = 5;
-	public static final int kRightDriverSlaveId2 = 6;
-
-	// Arm
-	public static final int kArm1MotorId = 7;
-	public static final int kArm2MotorId = 8;
-
-	// Intake
-	public static final int kIntakeMotorId = 9;
-
-	// Elevator
-	public static final int kElevatorMasterId = 10;
-	public static final int kElevatorSlaveId = 11;
-
-	//Climber
-	public static final int kClimberMasterId = 12;
-	public static final int kClimberSlaveId = 13;
-
-
-
-	////////////////////////////////////////////////////////////////////////////////////
-
-	/* PDP Channel IDs */
-
-	// Drive
-	public static final int kLeftDriveMasterPDPChannel = 14;
-	public static final int kLeftDriveSlave1PDPChannel = 13;
-	public static final int kLeftDriveSlave2PDPChannel = 12;
-	public static final int kRightDriveMasterPDPChannel = 1;
-	public static final int kRightDriveSlave1PDPChannel = 2;
-	public static final int kRightDriveSlave2PDPChannel = 3;
-
-	// Arm
-	public static final int kArm1MotorPDPChannel = 5;
-	public static final int kArm2MotorPDPChannel = 6;
-
-	// Intake
-	public static final int kIntakeMotorPDPChannel = 10;
-
-	// Elevator
-	public static final int kElevatorMasterPDPChannel = 11;
-	public static final int kElevatorSlavePDPChannel = 4;
-
-	//Climber
-	public static final int kClimberMasterPDPChannel = 0;
-	public static final int kClimberSlavePDPChannel = 15;
 
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -259,6 +300,27 @@ public class Constants {
 	public static final double kPathFollowingGoalPosTolerance = 1;
 	public static final double kPathFollowingGoalVelTolerance = 18.0;
 	public static final double kPathStopSteeringDistance = 9.0;
+
+
+
+	private static int getMSDurationForBreakerLimit(double peakCurrentInput, double breakerRating) {
+		return getMSDurationForBreakerLimit(peakCurrentInput, breakerRating, kPDPDefaultSafetyFactor);
+	}
+
+	private static int getMSDurationForBreakerLimit(double peakCurrentInput, double breakerRating, double safetyFactor) {
+		return (int)((kPDPBreakerModelA*Math.pow(peakCurrentInput/breakerRating, kPDPBreakerModelB)+kPDPBreakerModelC) * 1000.0 / safetyFactor);
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

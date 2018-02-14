@@ -97,7 +97,6 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	}
 
 	private DriveBaseSubsystem() throws Exception {
-		super();
 		ds = DriverStation.getInstance();
 		_subsystemMutex = new ReentrantLock();
 

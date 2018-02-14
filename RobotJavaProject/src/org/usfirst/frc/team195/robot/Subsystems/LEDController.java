@@ -27,6 +27,7 @@ public class LEDController extends Thread {
     private ThreadRateControl threadRateControl = new ThreadRateControl();
 
     private LEDController() throws Exception {
+    	super();
         mLED = new LEDDriverRGB(Controllers.getInstance().getRedLED(), Controllers.getInstance().getGreenLED(), Controllers.getInstance().getBlueLED());
         mLED.set(false);
 

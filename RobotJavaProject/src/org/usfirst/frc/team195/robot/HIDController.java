@@ -13,8 +13,6 @@ import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
 
 public class HIDController implements Runnable {
-	
-	private static final int MIN_HID_THREAD_LOOP_TIME_MS = 20;
 	private static HIDController instance = null;
 
 	private DriveBaseSubsystem driveBaseSubsystem;
@@ -23,7 +21,7 @@ public class HIDController implements Runnable {
 	private KnightJoystick driveJoystick;
 	private PolarArmControlJoystick armControlJoystick;
 	private DriveHelper driveHelper;
-	private ShiftAction shiftAction;
+	//private ShiftAction shiftAction;
 	private IntakePositionAction intakePositionAction;
 
 	private HIDController() throws Exception {
@@ -38,7 +36,7 @@ public class HIDController implements Runnable {
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
 
 		driveHelper = new DriveHelper();
-		shiftAction = new ShiftAction();
+		//shiftAction = new ShiftAction();
 		intakePositionAction = new IntakePositionAction();
 	}
 
@@ -57,43 +55,18 @@ public class HIDController implements Runnable {
 	@Override
 	public void run() {
 
-		if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
-			shiftAction.start(false);
-		} else if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
-			shiftAction.start(true);
-		}
+		//NO SHIFTER THIS YEAR!!!
+//		if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
+//			shiftAction.start(false);
+//		} else if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
+//			shiftAction.start(true);
+//		}
 
-			/*if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_RUN)) {
-				shiftAction.start(false);
-				cubeHandlerSubsystem.setmIntakeControl(IntakeControl.FORWARD);
-			} else if (driveJoystick.getRisingEdgeButton(Constants.INTAKE_OPEN)) {
-				shiftAction.start(true);
-			} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
-				cubeHandlerSubsystem.setmIntakeControl(IntakeControl.REVERSE);
-			} else if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE)) {
-				shiftAction.start(false);
-			} else if(driveJoystick.getRawButton(Constants.INTAKE_RUN)) {
-				cubeHandlerSubsystem.setmIntakeControl(IntakeControl.FORWARD);
-			} else {
-				cubeHandlerSubsystem.setmIntakeControl(IntakeControl.OFF);
-			}*/
+		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_MANUAL_POSITION_CONTROL))
+			armControlJoystick.start();
+		if (armControlJoystick.getRawButton(Constants.ARM_MANUAL_POSITION_CONTROL))
+			cubeHandlerSubsystem.setArmCoordinate(armControlJoystick.getPolarMappingFromJoystick());
 
-//				if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE)) {
-//					shiftAction.start(true);
-//					intakePositionAction.start(false);
-//				} else if (driveJoystick.getRawButton(Constants.INTAKE_OPEN)) {
-//					intakePositionAction.start(true);
-//					shiftAction.start(false);
-//				} else if (driveJoystick.getRawButton(Constants.INTAKE_CLOSE_HALF)) {
-//					intakePositionAction.start(true);
-//					shiftAction.start(true);
-//				} else if (driveJoystick.getRawButton(Constants.INTAKE_RUN_REVERSE)) {
-//					cubeHandlerSubsystem.setmIntakeControl(IntakeControl.REVERSE);
-//				} else if(driveJoystick.getRawButton(Constants.INTAKE_RUN)) {
-//					cubeHandlerSubsystem.setmIntakeControl(IntakeControl.FORWARD);
-//				} else {
-//					cubeHandlerSubsystem.setmIntakeControl(IntakeControl.OFF);
-//				}
 
 		double x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
 		double y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);

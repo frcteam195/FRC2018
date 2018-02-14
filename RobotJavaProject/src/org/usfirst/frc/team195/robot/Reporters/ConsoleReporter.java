@@ -25,7 +25,7 @@ public class ConsoleReporter extends Thread {
 	private double consoleSendThreadControlEnd;
 	private int consoleSendThreadControlElapsedTimeMS;
 
-	public ConsoleReporter() throws Exception {
+	private ConsoleReporter() throws Exception {
 		super();
 		runThread = false;
 		consoleSendThreadControlStart = 0;

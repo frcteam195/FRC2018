@@ -29,8 +29,6 @@ import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
-	
-	private static final int MIN_CUBE_HANDLER_THREAD_LOOP_TIME_MS = 20;
 	private static CubeHandlerSubsystem instance;
 	private IntakeControl mIntakeControl;
 	private IntakeControl mPrevIntakeControl;
@@ -61,7 +59,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 
 	private CubeHandlerSubsystem() throws Exception {
-		super();
 		ds = DriverStation.getInstance();
 		Controllers robotControllers = Controllers.getInstance();
 
@@ -77,7 +74,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArmControl = ArmControl.POSITION;
 		mPrevArmControl = ArmControl.OFF;
 
-		mElevatorControl = ElevatorControl.POSITION;
+		//TODO: Set elevator initial control to position once tuned
+		mElevatorControl = ElevatorControl.OFF;
 		mPrevElevatorControl = ElevatorControl.OFF;
 
 		pointFinder = new PointFinder();
@@ -129,21 +127,41 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded &= mArm2Motor.configPeakCurrentLimit(Constants.kArm2MaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm2Motor.configPeakCurrentDuration(Constants.kArm2MaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
 
+			setSucceeded &= mIntakeMotor.configContinuousCurrentLimit(Constants.kIntakeMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mIntakeMotor.configPeakCurrentLimit(Constants.kIntakeMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mIntakeMotor.configPeakCurrentDuration(Constants.kIntakeMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+
 			setSucceeded &= mElevatorMotorMaster.configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configPeakCurrentLimit(Constants.kElevatorMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configPeakCurrentDuration(Constants.kElevatorMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
 
+			if (mElevatorMotorSlave instanceof TalonSRX) {
+				setSucceeded &= ((TalonSRX) mElevatorMotorSlave).configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+				setSucceeded &= ((TalonSRX) mElevatorMotorSlave).configPeakCurrentLimit(Constants.kElevatorMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+				setSucceeded &= ((TalonSRX) mElevatorMotorSlave).configPeakCurrentDuration(Constants.kElevatorMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+				((TalonSRX) mElevatorMotorSlave).enableCurrentLimit(true);
+			}
+
+			mArm1Motor.enableCurrentLimit(true);
+			mArm2Motor.enableCurrentLimit(true);
+			mIntakeMotor.enableCurrentLimit(true);
+			mElevatorMotorMaster.enableCurrentLimit(true);
+
 			setSucceeded &= mArm1Motor.configForwardSoftLimitThreshold((int) (Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm1Motor.configReverseSoftLimitThreshold((int) (Constants.kArm1SoftMin * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm1Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm1Motor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mArm2Motor.configForwardSoftLimitThreshold((int) (Constants.kArm2SoftMax * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm2Motor.configReverseSoftLimitThreshold((int) (Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm2Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mElevatorMotorMaster.configForwardSoftLimitThreshold((int) (Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configReverseSoftLimitThreshold((int) (Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
 		setSucceeded &= TalonHelper.setPIDGains(mArm1Motor, 0, Constants.kArm1Kp, Constants.kArm1Ki, Constants.kArm1Kd, Constants.kArm1Kf, Constants.kArm1RampRate, Constants.kArm1IZone);
@@ -155,11 +173,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to initialize CubeHandlerSubsystem!!!", MessageLevel.DEFCON1);
-
-		mArm1Motor.enableCurrentLimit(true);
-		mArm2Motor.enableCurrentLimit(true);
-		mElevatorMotorMaster.enableCurrentLimit(true);
-
 
 		isSystemFaulted();
 	}
@@ -180,13 +193,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		do {
 			setSucceeded = true;
 
-			setSucceeded &= mArm1Motor.getSensorCollection().setQuadraturePosition(homeA1Value, Constants.kTimeoutMsFast) == ErrorCode.OK;
-			setSucceeded &= mArm2Motor.getSensorCollection().setQuadraturePosition(homeA2Value, Constants.kTimeoutMsFast) == ErrorCode.OK;
-			setSucceeded &= mElevatorMotorMaster.getSensorCollection().setQuadraturePosition(homeElevatorValue, Constants.kTimeoutMsFast) == ErrorCode.OK;
+			setSucceeded &= mArm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
-//			setSucceeded &= mArm1Motor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-//			setSucceeded &= mArm2Motor.setSelectedSensorPosition(homeA2Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-//			setSucceeded &= mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
@@ -224,8 +234,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						}
 
 						if (armConfiguration != null && mPrevArmConfiguration.compareTo(armConfiguration) != 0) {
-							mArm1Motor.set(ControlMode.MotionMagic, convertAngleToSRX(armConfiguration.getA1Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm1EncoderGearRatio));
-							mArm2Motor.set(ControlMode.MotionMagic, convertAngleToSRX(armConfiguration.getA2Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm2EncoderGearRatio));
+							mArm1Motor.set(ControlMode.MotionMagic, QuickMaths.convertAngleToSRX(armConfiguration.getA1Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm1EncoderGearRatio));
+							mArm2Motor.set(ControlMode.MotionMagic, QuickMaths.convertAngleToSRX(armConfiguration.getA2Angle(), Constants.kSensorUnitsPerRotation * Constants.kArm2EncoderGearRatio));
 							mPrevArmConfiguration = armConfiguration;
 						}
 						break;
@@ -246,7 +256,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						}
 
 						if (elevatorHeight != mPrevElevatorHeight) {
-							mElevatorMotorMaster.set(ControlMode.MotionMagic, elevatorHeight);
+							mElevatorMotorMaster.set(ControlMode.MotionMagic, elevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
 							mPrevElevatorHeight = elevatorHeight;
 						}
 						break;
@@ -261,18 +271,15 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 				if (mIntakeControl != mPrevIntakeControl) {
 					switch (mIntakeControl) {
-						case FORWARD:
-//							intakeMotor1.set(ControlMode.Current, 25);
-//							intakeMotor2.set(ControlMode.Current, 25);
+						case INTAKE_IN:
+							mIntakeMotor.set(ControlMode.Current, 25);
 							break;
-						case REVERSE:
-//							intakeMotor1.set(ControlMode.Current, -35);
-//							intakeMotor2.set(ControlMode.Current, -35);
+						case INTAKE_OUT:
+							mIntakeMotor.set(ControlMode.Current, -55);
 							break;
 						case OFF:
 						default:
-//							intakeMotor1.set(ControlMode.Current, 0);
-//							intakeMotor2.set(ControlMode.Current, 0);
+							mIntakeMotor.set(ControlMode.Current, 0);
 							break;
 					}
 					mPrevIntakeControl = mIntakeControl;
@@ -291,20 +298,18 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 
-	private double convertAngleToSRX(double angle, double countsPerRev) {
-		return angle * countsPerRev / 360;
-	}
-
 	public synchronized void setArmCoordinate(PolarCoordinate polarCoordinate) {
 		armConfiguration = pointFinder.getArmConfigFromPolar(polarCoordinate);
 	}
 
-	public synchronized void setIntakeControl(IntakeControl mIntakeControl) {
-		this.mIntakeControl = mIntakeControl;
-	}
-
 	public synchronized void setArmControl(ArmControl mArmControl) {
 		this.mArmControl = mArmControl;
+	}
+
+	public synchronized void setElevatorControl(ElevatorControl elevatorControl) { this.mElevatorControl = elevatorControl; }
+
+	public synchronized void setIntakeControl(IntakeControl mIntakeControl) {
+		this.mIntakeControl = mIntakeControl;
 	}
 
 	@Override
@@ -320,11 +325,16 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		retVal += "ElevatorPosAct:" + (mElevatorMotorMaster.getSelectedSensorPosition(0) * Constants.kElevatorEncoderGearRatio / Constants.kSensorUnitsPerRotation) + ";";
 		retVal += "ElevatorFault:" + isElevatorFaulted() + ";";
 
+		double a1AngleAct = (mArm1Motor.getSelectedSensorPosition(0) * Constants.kArm1EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0);
+		double a2AngleAct = (mArm2Motor.getSelectedSensorPosition(0) * Constants.kArm2EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0);
+		PolarCoordinate armActual = (new ArmConfiguration(a1AngleAct, a2AngleAct)).getPolarFromAngles();
+
 		retVal += "Arm1PosReq:" + (armConfiguration == null ? 0 : armConfiguration.getA1Angle()) + ";";
-		retVal += "Arm1PosAct:" + (mArm1Motor.getSelectedSensorPosition(0) * Constants.kArm1EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0) + ";";
+		retVal += "Arm1PosAct:" + a1AngleAct + ";";
 		retVal += "Arm2PosReq:" + (armConfiguration == null ? 0 : armConfiguration.getA2Angle()) + ";";
-		retVal += "Arm2PosAct:" + (mArm2Motor.getSelectedSensorPosition(0) * Constants.kArm2EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0) + ";";
-		retVal += "ArmAngle:" + (armConfiguration == null ? 0 : armConfiguration.getA1Angle()) + ";";
+		retVal += "Arm2PosAct:" + a2AngleAct + ";";
+		retVal += "ArmAngle:" + armActual.theta + ";";
+		retVal += "ArmLength:" + armActual.r + ";";
 		retVal += "ArmFault:" + isArmFaulted() + ";";
 
 		retVal += "IntakeCurrent:" + mIntakeMotor.getOutputCurrent() + ";";
@@ -421,7 +431,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			List<Double> elevatorMotorRPMs = mElevatorDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
 			if (!Util.allCloseTo(elevatorMotorRPMs, elevatorMotorRPMs.get(0), 40)) {
 				failure = true;
-				ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Elevator RPMs different !!!!!!!!!!!!!!!!!!!");
 			}
 		} else {
 			ConsoleReporter.report("Arm Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
@@ -501,10 +511,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		allSensorsPresent &= !checkIfElevatorIsFaulted();
 
 		return !allSensorsPresent;
-	}
-
-	public synchronized void setElevatorControl(ElevatorControl elevatorControl) {
-		this.mElevatorControl = elevatorControl;
 	}
 
 	public synchronized void setElevatorHeight(double elevatorHeight) {
