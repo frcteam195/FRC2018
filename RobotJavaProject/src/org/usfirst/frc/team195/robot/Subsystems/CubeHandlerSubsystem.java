@@ -337,6 +337,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		retVal += "ArmLength:" + armActual.r + ";";
 		retVal += "ArmFault:" + isArmFaulted() + ";";
 
+		//TODO: Add Cube Sensor
+		retVal += "HasCube:" + false + ";";
+
 		retVal += "IntakeCurrent:" + mIntakeMotor.getOutputCurrent() + ";";
 
 		return retVal;
