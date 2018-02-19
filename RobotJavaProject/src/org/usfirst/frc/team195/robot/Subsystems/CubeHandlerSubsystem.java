@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -45,6 +46,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private TalonSRX mElevatorMotorMaster;
 	private BaseMotorController mElevatorMotorSlave;
 
+	private Solenoid intakeSolenoid;
+
 	private DriverStation ds;
 
 	private ArmConfiguration armConfiguration = null;
@@ -67,6 +70,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mIntakeMotor = robotControllers.getIntakeMotor();
 		mElevatorMotorMaster = robotControllers.getElevatorMotorMaster();
 		mElevatorMotorSlave = robotControllers.getElevatorMotorSlave();
+
+		intakeSolenoid = robotControllers.getIntakeSolenoid();
 
 		mIntakeControl = IntakeControl.OFF;
 		mPrevIntakeControl = IntakeControl.OFF;
@@ -108,7 +113,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArm1Motor.setInverted(true);
 		mArm1Motor.setSensorPhase(true);
 
-		mArm2Motor.setInverted(true);
+		mArm2Motor.setInverted(false);
+		mArm2Motor.setSensorPhase(true);
+
+		mIntakeMotor.setInverted(true);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -167,6 +175,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		setSucceeded &= TalonHelper.setPIDGains(mArm1Motor, 0, Constants.kArm1Kp, Constants.kArm1Ki, Constants.kArm1Kd, Constants.kArm1Kf, Constants.kArm1RampRate, Constants.kArm1IZone);
 		setSucceeded &= TalonHelper.setPIDGains(mArm2Motor, 0, Constants.kArm2Kp, Constants.kArm2Ki, Constants.kArm2Kd, Constants.kArm2Kf, Constants.kArm2RampRate, Constants.kArm2IZone);
 		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, 0, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mIntakeMotor, 0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeRampRate, Constants.kIntakeIZone);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mArm1Motor, Constants.kArm1MaxVelocity, Constants.kArm1MaxAccel);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mArm2Motor, Constants.kArm2MaxVelocity, Constants.kArm2MaxAccel);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, Constants.kElevatorMaxVelocity, Constants.kElevatorMaxAccel);
@@ -205,6 +214,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArm1Motor.set(ControlMode.MotionMagic, homeA1Value);
 		mArm2Motor.set(ControlMode.MotionMagic, homeA2Value);
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
+		setArmCoordinate(ArmConfiguration.HOME);
 	}
 
 	private final Loop mLoop = new Loop() {
@@ -243,8 +253,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						break;
 					case OFF:
 					default:
-						mArm1Motor.set(ControlMode.Disabled, 0);
-						mArm2Motor.set(ControlMode.Disabled, 0);
+						if (mArm1Motor.getControlMode() != ControlMode.Disabled)
+							mArm1Motor.set(ControlMode.Disabled, 0);
+						if (mArm2Motor.getControlMode() != ControlMode.Disabled)
+							mArm2Motor.set(ControlMode.Disabled, 0);
 						break;
 				}
 				mPrevArmControl = mArmControl;
@@ -264,12 +276,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						break;
 					case OFF:
 					default:
-						mElevatorMotorMaster.set(ControlMode.Disabled, 0);
+						if (mElevatorMotorMaster.getControlMode() != ControlMode.Disabled)
+							mElevatorMotorMaster.set(ControlMode.Disabled, 0);
 						break;
 				}
 				mPrevElevatorControl = mElevatorControl;
 
 				if (mIntakeControl != mPrevIntakeControl) {
+					ConsoleReporter.report(mIntakeControl.toString());
 					switch (mIntakeControl) {
 						case INTAKE_IN:
 							mIntakeMotor.set(ControlMode.Current, 25);
@@ -279,7 +293,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							break;
 						case OFF:
 						default:
-							mIntakeMotor.set(ControlMode.Current, 0);
+							mIntakeMotor.set(ControlMode.Disabled, 0);
 							break;
 					}
 					mPrevIntakeControl = mIntakeControl;
@@ -300,6 +314,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public synchronized void setArmCoordinate(PolarCoordinate polarCoordinate) {
 		armConfiguration = pointFinder.getArmConfigFromPolar(polarCoordinate);
+	}
+
+	public synchronized void setIntakeClamp(boolean open) {
+		intakeSolenoid.set(open);
 	}
 
 	public synchronized void setArmControl(ArmControl mArmControl) {
@@ -360,12 +378,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private boolean runArmDiagnostics() {
 		ConsoleReporter.report("Testing Arm---------------------------------");
-		final double kLowCurrentThres = 0.5;
-		final double kLowRpmThres = 200;
+		final double kLowCurrentThres = Constants.kArmTestLowCurrentThresh;
+		final double kLowRpmThres = Constants.kArmTestLowRPMThresh;
 
 		ArrayList<MotorDiagnostics> mArmDiagArr = new ArrayList<MotorDiagnostics>();
-		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 1", mArm1Motor, 0.3, 1, true));
-		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 2", mArm2Motor, 0.2, 1, false));
+		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 1", mArm1Motor, Constants.kArm1TestSpeed, Constants.kArm1TestDuration, true));
+		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 2", mArm2Motor, Constants.kArm2TestSpeed, Constants.kArm2TestDuration, false));
 
 		boolean failure = false;
 
@@ -382,11 +400,16 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				failure = true;
 			}
 
+			if (!mD.isSensorInPhase()) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Sensor Out of Phase !!!!!!!!!!");
+				failure = true;
+			}
+
 		}
 
 		if (mArmDiagArr.size() > 0) {
 			List<Double> armMotorCurrents = mArmDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-			if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), 5.0)) {
+			if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), Constants.kArmTestCurrentDelta)) {
 				failure = true;
 				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Arm Motor Currents Different !!!!!!!!!!");
 			}
@@ -400,12 +423,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private boolean runElevatorDiagnostics() {
 		ConsoleReporter.report("Testing Elevator---------------------------------");
-		final double kLowCurrentThres = 0.5;
-		final double kLowRpmThres = 200;
+		final double kLowCurrentThres = Constants.kElevatorTestLowCurrentThresh;
+		final double kLowRpmThres = Constants.kElevatorTestLowRPMThresh;
 
 		ArrayList<MotorDiagnostics> mElevatorDiagArr = new ArrayList<MotorDiagnostics>();
-		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Master", mElevatorMotorMaster, 0.3, 1, false));
-		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Slave", mElevatorMotorSlave, mElevatorMotorMaster, 0.3, 1, false));
+		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Master", mElevatorMotorMaster, Constants.kElevatorTestSpeed, Constants.kElevatorTestDuration, false));
+		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Slave", mElevatorMotorSlave, mElevatorMotorMaster, Constants.kElevatorTestSpeed, Constants.kElevatorTestDuration, true));
 
 		boolean failure = false;
 
@@ -422,17 +445,22 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				failure = true;
 			}
 
+			if (!mD.isSensorInPhase()) {
+				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Sensor Out of Phase !!!!!!!!!!");
+				failure = true;
+			}
+
 		}
 
 		if (mElevatorDiagArr.size() > 0) {
 			List<Double> armMotorCurrents = mElevatorDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-			if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), 5.0)) {
+			if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), Constants.kElevatorTestCurrentDelta)) {
 				failure = true;
 				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Elevator Motor Currents Different !!!!!!!!!!");
 			}
 
 			List<Double> elevatorMotorRPMs = mElevatorDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
-			if (!Util.allCloseTo(elevatorMotorRPMs, elevatorMotorRPMs.get(0), 40)) {
+			if (!Util.allCloseTo(elevatorMotorRPMs, elevatorMotorRPMs.get(0), Constants.kElevatorTestRPMDelta)) {
 				failure = true;
 				ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Elevator RPMs different !!!!!!!!!!!!!!!!!!!");
 			}
@@ -445,7 +473,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private boolean runIntakeDiagnostics() {
 		ConsoleReporter.report("Testing Intake---------------------------------");
-		final double kLowCurrentThres = 0.5;
+		final double kLowCurrentThres = Constants.kIntakeTestLowCurrentThresh;
 
 		ArrayList<MotorDiagnostics> mIntakeDiagArr = new ArrayList<MotorDiagnostics>();
 		mIntakeDiagArr.add(new MotorDiagnostics("Intake", mIntakeMotor, 1));

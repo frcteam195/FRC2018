@@ -22,6 +22,7 @@ public class Robot extends RobbieRobot {
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private RobotStateEstimator robotStateEstimator;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
+	private ClimberSubsystem climberSubsystem;
 	private HIDController hidController;
 	private LEDController ledController;
 	private DashboardReporter dashboardReporter;
@@ -55,6 +56,7 @@ public class Robot extends RobbieRobot {
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance(subsystemVector);
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
+		climberSubsystem = ClimberSubsystem.getInstance(subsystemVector);
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
 			customSubsystem.init();
@@ -69,11 +71,11 @@ public class Robot extends RobbieRobot {
 
 		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
-		dashboardReporter.start();
+		//dashboardReporter.start();
 
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
-		criticalSystemsMonitor.start();
+		//criticalSystemsMonitor.start();
 
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
@@ -110,12 +112,30 @@ public class Robot extends RobbieRobot {
 		while (isOperatorControl() && isEnabled()) {
 			hidController.run();
 
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13, 25));
+			//threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 90));
 //			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16, 90));
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 135));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 45));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 45));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 135));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 135));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 135));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 45));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 45));
+//			threadRateControl.doRateControl(2000);
+//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 90));
 //			threadRateControl.doRateControl(2000);
 //			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
-//			threadRateControl.doRateControl(4000);
+//			threadRateControl.doRateControl(2000);
+
 
 			threadRateControl.doRateControl(20);
 		}

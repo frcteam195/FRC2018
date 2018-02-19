@@ -237,8 +237,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			Timer.delay(1);
 
 			ConsoleReporter.report("Testing DRIVE---------------------------------");
-			final double kLowCurrentThres = 0.5;
-			final double kLowRpmThres = 100;
+			final double kLowCurrentThres = Constants.kDriveBaseTestLowCurrentThresh;
+			final double kLowRpmThres = Constants.kDriveBaseTestLowRPMThresh;
 
 			ArrayList<MotorDiagnostics> mAllMotorsDiagArr = new ArrayList<MotorDiagnostics>();
 			ArrayList<MotorDiagnostics> mLeftDiagArr = new ArrayList<MotorDiagnostics>();
@@ -271,23 +271,28 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " RPM Low !!!!!!!!!!");
 					failure = true;
 				}
+
+				if (!mD.isSensorInPhase()) {
+					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Sensor Out of Phase !!!!!!!!!!");
+					failure = true;
+				}
 			}
 
 			if (mLeftDiagArr.size() > 0 && mRightDiagArr.size() > 0 && mAllMotorsDiagArr.size() > 0) {
 				List<Double> leftMotorCurrents = mLeftDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-				if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), 5.0)) {
+				if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), Constants.kDriveBaseTestCurrentDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Left Currents Different !!!!!!!!!!");
 				}
 
 				List<Double> rightMotorCurrents = mRightDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-				if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), 5.0)) {
+				if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), Constants.kDriveBaseTestCurrentDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Right Currents Different !!!!!!!!!!");
 				}
 
 				List<Double> driveMotorRPMs = mAllMotorsDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
-				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), 40)) {
+				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), Constants.kDriveBaseTestRPMDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
 				}

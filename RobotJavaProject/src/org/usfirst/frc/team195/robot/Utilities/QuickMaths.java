@@ -15,4 +15,8 @@ public class QuickMaths {
 	public static double convertAngleToSRX(double angle, double countsPerRev) {
 		return angle * countsPerRev / 360;
 	}
+
+	public static int convertNativeUnitsToRotations(double nativeUnitsPos) {
+		return (int)(nativeUnitsPos / Constants.kSensorUnitsPerRotation);
+	}
 }

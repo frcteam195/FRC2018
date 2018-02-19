@@ -197,12 +197,12 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	public boolean runDiagnostics() {
 		if (ds.isTest() && Constants.ENABLE_CLIMBER_DIAG) {
 			ConsoleReporter.report("Testing Climber---------------------------------");
-			final double kLowCurrentThres = 0.5;
-			final double kLowRpmThres = 200;
+			final double kLowCurrentThres = Constants.kClimberTestLowCurrentThresh;
+			final double kLowRpmThres = Constants.kClimberTestLowRPMThresh;
 
 			ArrayList<MotorDiagnostics> mClimberDiagArr = new ArrayList<MotorDiagnostics>();
-			mClimberDiagArr.add(new MotorDiagnostics("Climber Motor Master", mClimberMotorMaster, 0.3, 1, false));
-			mClimberDiagArr.add(new MotorDiagnostics("Climber Motor Slave", mClimberMotorSlave, mClimberMotorMaster, 0.3, 1, false));
+			mClimberDiagArr.add(new MotorDiagnostics("Climber Motor Master", mClimberMotorMaster, Constants.kClimberTestSpeed, Constants.kClimberTestDuration, false));
+			mClimberDiagArr.add(new MotorDiagnostics("Climber Motor Slave", mClimberMotorSlave, mClimberMotorMaster, Constants.kClimberTestSpeed, Constants.kClimberTestDuration, false));
 
 			boolean failure = false;
 
@@ -219,17 +219,22 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 					failure = true;
 				}
 
+				if (!mD.isSensorInPhase()) {
+					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Sensor Out of Phase !!!!!!!!!!");
+					failure = true;
+				}
+
 			}
 
 			if (mClimberDiagArr.size() > 0) {
 				List<Double> armMotorCurrents = mClimberDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-				if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), 5.0)) {
+				if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), Constants.kClimberTestCurrentDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Climber Motor Currents Different !!!!!!!!!!");
 				}
 
 				List<Double> elevatorMotorRPMs = mClimberDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
-				if (!Util.allCloseTo(elevatorMotorRPMs, elevatorMotorRPMs.get(0), 40)) {
+				if (!Util.allCloseTo(elevatorMotorRPMs, elevatorMotorRPMs.get(0), Constants.kClimberTestRPMDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Climber RPMs different !!!!!!!!!!!!!!!!!!!");
 				}

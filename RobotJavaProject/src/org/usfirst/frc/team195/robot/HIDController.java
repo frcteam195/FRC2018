@@ -9,6 +9,7 @@ import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
 
@@ -67,6 +68,17 @@ public class HIDController implements Runnable {
 		if (armControlJoystick.getRawButton(Constants.ARM_MANUAL_POSITION_CONTROL))
 			cubeHandlerSubsystem.setArmCoordinate(armControlJoystick.getPolarMappingFromJoystick());
 
+		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_IN))
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
+		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT))
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT);
+		else
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
+
+		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_CLAMP))
+			cubeHandlerSubsystem.setIntakeClamp(false);
+		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_UNCLAMP))
+			cubeHandlerSubsystem.setIntakeClamp(true);
 
 		double x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
 		double y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);

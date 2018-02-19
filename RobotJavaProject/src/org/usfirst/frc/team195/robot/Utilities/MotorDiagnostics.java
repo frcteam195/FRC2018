@@ -2,18 +2,25 @@ package org.usfirst.frc.team195.robot.Utilities;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class MotorDiagnostics {
-	private double mTestDurationSeconds = 4.0;
-	private double mMotorSpeed = 0.5;
+	private static final String TEST_NOT_RUN_STR = "Test not run yet!";
+
+	private double mTestDurationSeconds = 3.0;
+	private double mMotorSpeed = 0.75;
 	private BaseMotorController testingSpeedController;
 	private BaseMotorController masterSC = null;
 	private String motorName;
 	private double motorRPM;
 	private double motorCurrent;
 	private boolean inverted = false;
+	private boolean sensorInPhase = false;
+	private boolean testCompleted = false;
 
 	public MotorDiagnostics(String motorName, BaseMotorController testingSpeedController) {
 		this.testingSpeedController = testingSpeedController;
@@ -47,14 +54,46 @@ public class MotorDiagnostics {
 	}
 
 	public void runTest() {
+		testingSpeedController.configForwardSoftLimitEnable(false, Constants.kTimeoutMs);
+		testingSpeedController.configReverseSoftLimitEnable(false, Constants.kTimeoutMs);
+
+		double motorPositionPreTest = getPosition();
 		mMotorSpeed = Math.abs(mMotorSpeed);
 		testingSpeedController.set(ControlMode.PercentOutput, inverted ? -mMotorSpeed : mMotorSpeed);
 		Timer.delay(mTestDurationSeconds/2.0);
 		motorCurrent = testingSpeedController.getOutputCurrent();
-		motorRPM =  Util.convertNativeUnitsToRPM(masterSC == null ? testingSpeedController.getSelectedSensorVelocity(0)
-				: masterSC.getSelectedSensorVelocity(0));
+		motorRPM = getRPM();
 		Timer.delay(mTestDurationSeconds/2.0);
 		testingSpeedController.set(ControlMode.PercentOutput, 0);
+		double motorPositionPostTest = getPosition();
+
+		if (inverted & (motorPositionPostTest < motorPositionPreTest))
+			sensorInPhase =  true;
+		else if (!inverted & (motorPositionPostTest > motorPositionPreTest))
+			sensorInPhase = true;
+		else
+			sensorInPhase = false;
+
+		testCompleted = true;
+	}
+
+	public boolean isSensorInPhase() {
+		if (testCompleted)
+			return sensorInPhase;
+		else {
+			ConsoleReporter.report(TEST_NOT_RUN_STR, MessageLevel.ERROR);
+			return false;
+		}
+	}
+
+	private double getPosition() {
+		return QuickMaths.convertNativeUnitsToRotations(masterSC == null ? testingSpeedController.getSelectedSensorPosition(0)
+				: masterSC.getSelectedSensorPosition(0));
+	}
+
+	private double getRPM() {
+		return Util.convertNativeUnitsToRPM(masterSC == null ? testingSpeedController.getSelectedSensorVelocity(0)
+			: masterSC.getSelectedSensorVelocity(0));
 	}
 
 	public void setZero() {
@@ -66,23 +105,39 @@ public class MotorDiagnostics {
 	}
 
 	public double getMotorCurrent() {
-		return motorCurrent;
+		if (testCompleted)
+			return motorCurrent;
+		else {
+			ConsoleReporter.report(TEST_NOT_RUN_STR, MessageLevel.ERROR);
+			return 0;
+		}
 	}
 
 	public double getMotorRPM() {
-		return motorRPM;
+		if (testCompleted)
+			return motorRPM;
+		else {
+			ConsoleReporter.report(TEST_NOT_RUN_STR, MessageLevel.ERROR);
+			return 0;
+		}
 	}
 
 	public boolean isCurrentUnderThreshold(double threshold) {
-		return motorCurrent < threshold;
-	}
-
-	public boolean isCurrentOverThreshold(double threshold) {
-		return motorCurrent > threshold;
+		if (testCompleted)
+			return motorCurrent < threshold;
+		else {
+			ConsoleReporter.report(TEST_NOT_RUN_STR, MessageLevel.ERROR);
+			return true;
+		}
 	}
 
 	public boolean isRPMUnderThreshold(double threshold) {
-		return motorRPM < threshold;
+		if (testCompleted)
+			return motorRPM < threshold;
+		else {
+			ConsoleReporter.report(TEST_NOT_RUN_STR, MessageLevel.ERROR);
+			return true;
+		}
 	}
 
 	@Override
