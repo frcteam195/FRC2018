@@ -20,8 +20,8 @@ import org.usfirst.frc.team195.robot.Utilities.SetpointValue;
 import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
 public class TuneablePID {
-	public static final int MIN_PID_SEND_RATE_MS = 10;
-	public static final int MIN_PID_RECEIVE_RATE_MS = 40;
+	public static final int MIN_PID_SEND_RATE_MS = 50;
+	public static final int MIN_PID_RECEIVE_RATE_MS = 10;
 
 	protected UDPReceiver udpReceiver;
 	protected UDPSender udpSender;
@@ -207,10 +207,10 @@ public class TuneablePID {
 					setTuneablePIDData(processUDPPacket(receivePacket.getData()));
 					for (TalonSRX tuningTalon : talonArrList) {
 						if (autoUpdate) {
-							TalonHelper.setPIDGains(tuningTalon, 0, tuneablePIDData.getkP(), tuneablePIDData.getkI(), tuneablePIDData.getkD(), tuneablePIDData.getF(), tuneablePIDData.getRampRate(), (int)tuneablePIDData.getiZone());
+							TalonHelper.setPIDGains(tuningTalon, 0, tuneablePIDData.getkP(), tuneablePIDData.getkI(), tuneablePIDData.getkD(), tuneablePIDData.getF(), tuneablePIDData.getRampRate(), (int)tuneablePIDData.getiZone(), 0);
 
 							if (tuningTalon.getControlMode() == ControlMode.MotionMagic)
-								TalonHelper.setMotionMagicParams(tuningTalon, (int)tuneablePIDData.getCruiseVelocity(), (int)tuneablePIDData.getAccel());
+								TalonHelper.setMotionMagicParams(tuningTalon, (int)tuneablePIDData.getCruiseVelocity(), (int)tuneablePIDData.getAccel(), 0);
 
 							if (autoUpdateSetpoint)
 								switch(tuningTalon.getControlMode()) {

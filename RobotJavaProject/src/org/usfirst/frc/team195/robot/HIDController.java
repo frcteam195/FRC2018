@@ -9,6 +9,8 @@ import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.ArmConfiguration;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
@@ -75,10 +77,26 @@ public class HIDController implements Runnable {
 		else
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 
-		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_CLAMP))
+		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_CLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(false);
-		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_UNCLAMP))
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_UNCLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(true);
+
+		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_HOME))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_LOW))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.LOW);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_MID))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_HIGH))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_INCREMENT))
+			cubeHandlerSubsystem.incrementElevatorHeight();
+
+		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_STRAIGHT_OUT))
+			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.STRAIGHT);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_HOME))
+			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
 
 		double x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
 		double y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);

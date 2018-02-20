@@ -39,6 +39,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private ElevatorControl mPrevElevatorControl;
 
 	private TuneablePID tuneableArmJoint;
+	private TuneablePID tuneableElevator;
 
 	private TalonSRX mArm1Motor;
 	private TalonSRX mArm2Motor;
@@ -80,15 +81,20 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mPrevArmControl = ArmControl.OFF;
 
 		//TODO: Set elevator initial control to position once tuned
-		mElevatorControl = ElevatorControl.OFF;
+		mElevatorControl = ElevatorControl.POSITION;
 		mPrevElevatorControl = ElevatorControl.OFF;
 
 		pointFinder = new PointFinder();
 		pointFinder.setA1AngleRange(Constants.kArm1SoftMin * 360 + 1, Constants.kArm1SoftMax * 360 - 1);
 		pointFinder.setA2AngleRange(Constants.kArm2SoftMin * 360 + 1, Constants.kArm2SoftMax * 360 - 1);
 
-		//tuneableArmJoint = new TuneablePID("Arm 1 Joint", mArm1Motor, null, 5807, true, true);
-		//tuneableArmJoint.start();
+//		tuneableArmJoint = new TuneablePID("Arm 1 Joint", mArm1Motor, null, 5807, true, true);
+//		tuneableArmJoint.start();
+//		tuneableArmJoint = new TuneablePID("Arm 2 Joint", mArm2Motor, null, 5808, true, true);
+//		tuneableArmJoint.start();
+//		tuneableElevator = new TuneablePID("Elevator", mElevatorMotorMaster, null, 5807, true, true);
+//		tuneableElevator.start();
+//		mElevatorMotorMaster.set(ControlMode.MotionMagic, mElevatorMotorMaster.getSelectedSensorPosition(0));
 	}
 	
 	public static CubeHandlerSubsystem getInstance() {
@@ -162,11 +168,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded &= mArm1Motor.configReverseSoftLimitThreshold((int) (Constants.kArm1SoftMin * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm1Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm1Motor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm1Motor.configAllowableClosedloopError(0, Constants.kArm1AllowedError, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mArm2Motor.configForwardSoftLimitThreshold((int) (Constants.kArm2SoftMax * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm2Motor.configReverseSoftLimitThreshold((int) (Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm2Motor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm2Motor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArm2Motor.configAllowableClosedloopError(0, Constants.kArm2AllowedError, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mElevatorMotorMaster.configForwardSoftLimitThreshold((int) (Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configReverseSoftLimitThreshold((int) (Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
@@ -197,7 +205,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		int homeA1Value = (int)(Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation);
 		int homeA2Value = (int)(Constants.kArm2SoftMin * Constants.kArm2EncoderGearRatio * Constants.kSensorUnitsPerRotation);
-		int homeElevatorValue = (int)(Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
+		int homeElevatorValue = (int)(Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -293,10 +301,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					ConsoleReporter.report(mIntakeControl.toString());
 					switch (mIntakeControl) {
 						case INTAKE_IN:
-							mIntakeMotor.set(ControlMode.Current, 25);
+//							mIntakeMotor.set(ControlMode.Current, 25);
+							mIntakeMotor.set(ControlMode.PercentOutput, 1);
 							break;
 						case INTAKE_OUT:
-							mIntakeMotor.set(ControlMode.Current, -55);
+//							mIntakeMotor.set(ControlMode.Current, -55);
+							mIntakeMotor.set(ControlMode.PercentOutput, -1);
 							break;
 						case OFF:
 						default:
@@ -553,6 +563,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public synchronized void setElevatorHeight(double elevatorHeight) {
 		this.elevatorHeight = elevatorHeight;
+	}
+
+	public synchronized void incrementElevatorHeight() {
+		this.elevatorHeight += Constants.kElevatorStepSize;
 	}
 }
 

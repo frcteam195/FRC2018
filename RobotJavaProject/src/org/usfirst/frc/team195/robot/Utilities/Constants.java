@@ -30,8 +30,15 @@ public class Constants {
 	public static final int ARM_MANUAL_POSITION_CONTROL = 2;
 	public static final int ARM_INTAKE_IN = 7;
 	public static final int ARM_INTAKE_OUT = 9;
-	public static final int ARM_INTAKE_CLAMP = 8;
-	public static final int ARM_INTAKE_UNCLAMP = 10;
+	public static final int ARM_INTAKE_CLAMP = 10;
+	public static final int ARM_INTAKE_UNCLAMP = 8;
+	public static final int ARM_ELEVATOR_HOME = 3;
+	public static final int ARM_ELEVATOR_LOW = 5;
+	public static final int ARM_ELEVATOR_MID = 4;
+	public static final int ARM_ELEVATOR_HIGH = 6;
+	public static final int ARM_ELEVATOR_INCREMENT = 11;
+	public static final int ARM_STRAIGHT_OUT = 12;
+	public static final int ARM_HOME = 1;
 
 
 
@@ -139,7 +146,7 @@ public class Constants {
 
 
 	// Arm
-	public static final double kArm1EncoderGearRatio = 10.0;
+	public static final double kArm1EncoderGearRatio = 1.0;
 	public static final double kArm1Length = 8.25;
 	public static final double kArm1SoftMin = 0;	//In rotations of output shaft
 	public static final double kArm1SoftMax = 0.5;	//In rotations of output shaft
@@ -172,7 +179,8 @@ public class Constants {
 	// Elevator
 	public static final double kElevatorEncoderGearRatio = 1.0;
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
-	public static final double kElevatorSoftMax = 4;	//In rotations of output shaft
+	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
+	public static final double kElevatorStepSize = 0.5;	//In rotations of output shaft
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
 	public static final int kElevatorMaxPeakCurrentLimit = kElevatorMaxContinuousCurrentLimit * 2;
 	public static final int kElevatorMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kElevatorMaxPeakCurrentLimit, kElevatorMaxContinuousCurrentLimit);;
@@ -216,24 +224,26 @@ public class Constants {
 	public static final double kDriveLowGearMaxAccel = 20.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 18 fps/s, value in RPM/s
 
 	//TODO: Retune Arm Gains when arm is properly mounted
-	public static final double kArm1Kp = 1;
-	public static final double kArm1Ki = 0.006;
-	public static final double kArm1Kd = 4;
-	public static final double kArm1Kf = 0.08;
-	public static final int kArm1IZone = 10;
+	public static final double kArm1Kp = 12;
+	public static final double kArm1Ki = 0;
+	public static final double kArm1Kd = 22;
+	public static final double kArm1Kf = 0.8;
+	public static final int kArm1IZone = 0;
 	public static final double kArm1RampRate = 0;
-	public static final int kArm1MaxVelocity = 300;
-	public static final int kArm1MaxAccel = 250;
+	public static final int kArm1MaxVelocity = 35;
+	public static final int kArm1MaxAccel = 25;
+	public static final int kArm1AllowedError = (int)(0 * kSensorUnitsPerRotation);
 
 
-	public static final double kArm2Kp = 10;
-	public static final double kArm2Ki = 0.06;
-	public static final double kArm2Kd = 40;
+	public static final double kArm2Kp = 6.4;
+	public static final double kArm2Ki = 0;
+	public static final double kArm2Kd = 13;
 	public static final double kArm2Kf = 0.8;
-	public static final int kArm2IZone = 10;
+	public static final int kArm2IZone = 0;
 	public static final double kArm2RampRate = 0;
 	public static final int kArm2MaxVelocity = 70;
 	public static final int kArm2MaxAccel = 45;
+	public static final int kArm2AllowedError = (int)(0 * kSensorUnitsPerRotation);
 
 	public static final double kIntakeKp = 0.2;
 	public static final double kIntakeKi = 0;
