@@ -116,6 +116,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArm2Motor.setInverted(false);
 		mArm2Motor.setSensorPhase(true);
 
+		mElevatorMotorMaster.setSensorPhase(true);
+		mElevatorMotorSlave.setInverted(true);
+
 		mIntakeMotor.setInverted(true);
 
 		boolean setSucceeded;
@@ -236,6 +239,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		public void onLoop(double timestamp) {
 			synchronized (CubeHandlerSubsystem.this) {
 				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isCollisionOccurring();
+
+				//***********
+				collisionOccurring = false;
+				//***********
 
 				switch (mArmControl) {
 					case POSITION:
@@ -368,8 +375,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (ds.isTest() && Constants.ENABLE_CUBE_HANDLER_DIAG) {
 			ConsoleReporter.report("Testing CubeHandler---------------------------------");
 			boolean testPassed = true;
-			testPassed &= runArmDiagnostics();
-			testPassed &= runElevatorDiagnostics();
+			//testPassed &= runArmDiagnostics();
+			//testPassed &= runElevatorDiagnostics();
 			testPassed &= runIntakeDiagnostics();
 			return testPassed;
 		} else
@@ -428,7 +435,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		ArrayList<MotorDiagnostics> mElevatorDiagArr = new ArrayList<MotorDiagnostics>();
 		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Master", mElevatorMotorMaster, Constants.kElevatorTestSpeed, Constants.kElevatorTestDuration, false));
-		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Slave", mElevatorMotorSlave, mElevatorMotorMaster, Constants.kElevatorTestSpeed, Constants.kElevatorTestDuration, true));
+		mElevatorDiagArr.add(new MotorDiagnostics("Elevator Motor Slave", mElevatorMotorSlave, mElevatorMotorMaster, Constants.kElevatorTestSpeed, Constants.kElevatorTestDuration, false));
 
 		boolean failure = false;
 
@@ -476,7 +483,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		final double kLowCurrentThres = Constants.kIntakeTestLowCurrentThresh;
 
 		ArrayList<MotorDiagnostics> mIntakeDiagArr = new ArrayList<MotorDiagnostics>();
-		mIntakeDiagArr.add(new MotorDiagnostics("Intake", mIntakeMotor, 1));
+		mIntakeDiagArr.add(new MotorDiagnostics("Intake", mIntakeMotor, 1, 5, false));
 
 		boolean failure = false;
 

@@ -334,8 +334,8 @@ public class Constants {
 	public static final double kElevatorTestLowRPMThresh = 200;
 	public static final double kElevatorTestCurrentDelta = 5.0;
 	public static final double kElevatorTestRPMDelta = 40.0;
-	public static final double kElevatorTestSpeed = 0.3;
-	public static final double kElevatorTestDuration = 1;
+	public static final double kElevatorTestSpeed = 0.5;
+	public static final double kElevatorTestDuration = 2;
 
 	public static final double kIntakeTestLowCurrentThresh = 2;
 
