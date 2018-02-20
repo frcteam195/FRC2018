@@ -14,8 +14,10 @@ import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
 public class Controllers {
 	private Compressor compressor;
 	private PowerDistributionPanel powerDistributionPanel;
-	private KnightJoystick driveJoystick;
+	private KnightJoystick driveJoystickThrottle;
+	private KnightJoystick driveJoystickWheel;
 	private PolarArmControlJoystick armControlJoystick;
+	private KnightJoystick buttonBox1;
 	private TalonSRX leftDrive1;
 	private BaseMotorController leftDrive2;
 	private BaseMotorController leftDrive3;
@@ -49,8 +51,10 @@ public class Controllers {
 		powerDistributionPanel = new PowerDistributionPanel();
 
 		//Drive Joystick Setup
-		driveJoystick = new KnightJoystick(0);
+		driveJoystickThrottle = new KnightJoystick(0);
+		//driveJoystickWheel = new KnightJoystick(1);
 		armControlJoystick = new PolarArmControlJoystick(1, Constants.kArmMinRadius, Constants.kArmMaxRadius, Constants.kArmMinTheta, Constants.kArmMaxTheta, Constants.kArmJoystickInchesPerSec, Constants.kArmJoystickDegPerSec);
+		buttonBox1 = new KnightJoystick(2);
 
 		//Choose whether to create Victor or Talon slaves here
 		//Left Drive Setup
@@ -101,13 +105,19 @@ public class Controllers {
 		return instance;
 	}
 	
-	public KnightJoystick getDriveJoystick() {
-		return driveJoystick;
+	public KnightJoystick getDriveJoystickThrottle() {
+		return driveJoystickThrottle;
+	}
+
+	public KnightJoystick getDriveJoystickWheel() {
+		return driveJoystickWheel;
 	}
 
 	public PolarArmControlJoystick getArmControlJoystick() {
 		return armControlJoystick;
 	}
+
+	public KnightJoystick getButtonBox1() { return buttonBox1; }
 
 	public TalonSRX getLeftDrive1() {
 		return leftDrive1;

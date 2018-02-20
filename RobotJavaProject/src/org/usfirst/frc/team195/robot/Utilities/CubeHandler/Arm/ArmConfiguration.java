@@ -5,6 +5,8 @@ import org.usfirst.frc.team195.robot.Utilities.Constants;
 public class ArmConfiguration implements Comparable<ArmConfiguration> {
 	public static final PolarCoordinate HOME = new PolarCoordinate(-1, -1);
 	public static final PolarCoordinate STRAIGHT = new PolarCoordinate((Constants.kArm1Length + Constants.kArm2Length), 90);
+	public static final PolarCoordinate LEFT = new PolarCoordinate((Constants.kArm1Length + Constants.kArm2Length), 180);
+	public static final PolarCoordinate RIGHT = new PolarCoordinate((Constants.kArm1Length + Constants.kArm2Length), 0);
 
 	private double a1Angle;
 	private double a2Angle;

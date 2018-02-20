@@ -9,7 +9,7 @@ import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 import java.util.ArrayList;
 
 public class CriticalSystemsMonitor extends Thread {
-	private static final int MIN_SYSTEM_MONITOR_LOOP_MS = 100;
+	private static final int MIN_SYSTEM_MONITOR_LOOP_MS = 250;
 
 	private static CriticalSystemsMonitor instance = null;
 

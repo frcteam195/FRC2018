@@ -58,8 +58,11 @@ public class Robot extends RobbieRobot {
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
 		climberSubsystem = ClimberSubsystem.getInstance(subsystemVector);
 
+		threadRateControl.start(true);
+
 		for (CustomSubsystem customSubsystem : subsystemVector) {
 			customSubsystem.init();
+			threadRateControl.doRateControl(100);
 		}
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
@@ -71,7 +74,7 @@ public class Robot extends RobbieRobot {
 
 		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
-		dashboardReporter.start();
+		//dashboardReporter.start();
 
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
@@ -89,7 +92,9 @@ public class Robot extends RobbieRobot {
 		autoModeExecuter.setAutoMode(new SwitchCubeThenScaleMode());
 		autoModeExecuter.start();
 
-		while (isAutonomous() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
+		threadRateControl.start(true);
+
+		while (isAutonomous() && isEnabled()) {threadRateControl.doRateControl(100);}
 	}
 	
 	@Override
@@ -135,7 +140,6 @@ public class Robot extends RobbieRobot {
 //			threadRateControl.doRateControl(2000);
 //			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
 //			threadRateControl.doRateControl(2000);
-
 
 			threadRateControl.doRateControl(20);
 		}

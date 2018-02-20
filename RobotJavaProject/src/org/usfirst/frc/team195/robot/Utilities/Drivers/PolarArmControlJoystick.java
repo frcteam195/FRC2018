@@ -18,6 +18,8 @@ public class PolarArmControlJoystick extends KnightJoystick {
 
 	private int yAxisID = 1;
 	private int zAxisID = 2;
+	private int radiusTrigger = 2;
+	private int thetaTrigger = 1;
 
 	private double mPrevTime = -1;
 
@@ -49,6 +51,12 @@ public class PolarArmControlJoystick extends KnightJoystick {
 		mPrevTime = Timer.getFPGATimestamp();
 	}
 
+	public synchronized void start(PolarCoordinate startingCoordinate) {
+		start();
+		mRadiusVal = Util.limit(startingCoordinate.r, minRadius, maxRadius);
+		mThetaVal = Util.limit(startingCoordinate.theta, minTheta, maxTheta);
+	}
+
 	public synchronized PolarCoordinate getPolarMappingFromJoystick() {
 		double currTime = Timer.getFPGATimestamp();
 		double dt = currTime - mPrevTime;
@@ -59,8 +67,11 @@ public class PolarArmControlJoystick extends KnightJoystick {
 			return null;
 		}
 
-		mRadiusVal += (QuickMaths.normalizeJoystickWithDeadband(-getRawAxis(yAxisID), kJoystickYDeadband)) * dt * factorInchesPerSec;
-		mThetaVal += (QuickMaths.normalizeJoystickWithDeadband(-getRawAxis(zAxisID), kJoystickZDeadband)) * dt * factorDegPerSec;
+//		if (this.getRawButton(radiusTrigger))
+			mRadiusVal += (QuickMaths.normalizeJoystickWithDeadband(-getRawAxis(yAxisID), kJoystickYDeadband)) * dt * factorInchesPerSec;
+
+//		if (this.getRawButton(thetaTrigger))
+			mThetaVal += (QuickMaths.normalizeJoystickWithDeadband(-getRawAxis(zAxisID), kJoystickZDeadband)) * dt * factorDegPerSec;
 
 		mPrevTime = currTime;
 

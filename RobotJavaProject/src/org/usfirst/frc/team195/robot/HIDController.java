@@ -1,7 +1,6 @@
 package org.usfirst.frc.team195.robot;
 
 import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
-import org.usfirst.frc.team195.robot.Actions.ShiftAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
@@ -21,19 +20,22 @@ public class HIDController implements Runnable {
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
 	private DriverStation ds;
-	private KnightJoystick driveJoystick;
+	private KnightJoystick driveJoystickThrottle;
+	//private KnightJoystick driveJoystickWheel;
 	private PolarArmControlJoystick armControlJoystick;
+	private KnightJoystick buttonBox1;
 	private DriveHelper driveHelper;
 	//private ShiftAction shiftAction;
 	private IntakePositionAction intakePositionAction;
 
 	private HIDController() throws Exception {
-		super();
 		ds = DriverStation.getInstance();
 
 		Controllers robotControllers = Controllers.getInstance();
-		driveJoystick = robotControllers.getDriveJoystick();
+		driveJoystickThrottle = robotControllers.getDriveJoystickThrottle();
+		//driveJoystickWheel = robotControllers.getDriveJoystickWheel();
 		armControlJoystick = robotControllers.getArmControlJoystick();
+		buttonBox1 = robotControllers.getButtonBox1();
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
@@ -57,56 +59,58 @@ public class HIDController implements Runnable {
 
 	@Override
 	public void run() {
-
 		//NO SHIFTER THIS YEAR!!!
-//		if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
+//		if (driveJoystickThrottle.getRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
 //			shiftAction.start(false);
-//		} else if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
+//		} else if (driveJoystickThrottle.getRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
 //			shiftAction.start(true);
 //		}
 
 		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_MANUAL_POSITION_CONTROL))
-			armControlJoystick.start();
+			armControlJoystick.start(cubeHandlerSubsystem.getArmCoordinate());
 		if (armControlJoystick.getRawButton(Constants.ARM_MANUAL_POSITION_CONTROL))
 			cubeHandlerSubsystem.setArmCoordinate(armControlJoystick.getPolarMappingFromJoystick());
 
 		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_IN))
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
-		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT))
+		else if (buttonBox1.getRawButton(Constants.BB1_INTAKE_OUT))
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT);
 		else
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 
-		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_CLAMP))
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_INTAKE_CLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(false);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_UNCLAMP))
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_INTAKE_UNCLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(true);
 
-		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_HOME))
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_LOW))
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SWITCH))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.LOW);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_MID))
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_HIGH))
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE_HIGH))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ELEVATOR_INCREMENT))
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_INCREMENT))
 			cubeHandlerSubsystem.incrementElevatorHeight();
 
 		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_STRAIGHT_OUT))
 			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.STRAIGHT);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_RIGHT_OUT))
+			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.RIGHT);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_LEFT_OUT))
+			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.LEFT);
 		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_HOME))
 			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
 
-		double x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
-		double y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);
+		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
+		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);
 
-		driveBaseSubsystem.setBrakeMode(driveJoystick.getRawButton(Constants.DRIVE_HOLD_BRAKE));
+		driveBaseSubsystem.setBrakeMode(driveJoystickThrottle.getRawButton(Constants.DRIVE_HOLD_BRAKE));
 
-		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
-		//driveBaseSubsystem.setDriveVelocity(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear(), 10000));
+		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(throttle, wheel, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
+		//driveBaseSubsystem.setDriveVelocity(driveHelper.calculateOutput(y, x, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear(), 10000));
 		//driveBaseSubsystem.setDriveVelocity(new DriveMotorValues((y + x) * 380, (y - x) * 380));
-
 	}
 
 }

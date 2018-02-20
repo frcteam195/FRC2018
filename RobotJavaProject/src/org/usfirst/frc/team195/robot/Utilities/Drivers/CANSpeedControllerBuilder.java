@@ -80,13 +80,13 @@ public class CANSpeedControllerBuilder {
 	public static TalonSRX createTalonSRX(int id, Configuration config) {
         TalonSRX talon = new TalonSRX(id);
         //TODO: Test to make sure CAN utilization is not too high
-        configTalon(talon, config);
+        //configTalon(talon, config);
         return talon;
     }
 
 	public static CKTalonSRX createTalonSRX(int id, int pdpChannel, Configuration config) {
 		CKTalonSRX talon = new CKTalonSRX(id, pdpChannel);
-		configTalon(talon, config);
+		//configTalon(talon, config);
 		return talon;
 	}
 

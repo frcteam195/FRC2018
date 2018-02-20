@@ -298,19 +298,19 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				mPrevElevatorControl = mElevatorControl;
 
 				if (mIntakeControl != mPrevIntakeControl) {
-					ConsoleReporter.report(mIntakeControl.toString());
 					switch (mIntakeControl) {
 						case INTAKE_IN:
-//							mIntakeMotor.set(ControlMode.Current, 25);
-							mIntakeMotor.set(ControlMode.PercentOutput, 1);
+							mIntakeMotor.set(ControlMode.Current, 25);
+//							mIntakeMotor.set(ControlMode.PercentOutput, 1);
 							break;
 						case INTAKE_OUT:
-//							mIntakeMotor.set(ControlMode.Current, -55);
-							mIntakeMotor.set(ControlMode.PercentOutput, -1);
+							mIntakeMotor.set(ControlMode.Current, -55);
+//							mIntakeMotor.set(ControlMode.PercentOutput, -1);
 							break;
 						case OFF:
 						default:
-							mIntakeMotor.set(ControlMode.Disabled, 0);
+							if (mIntakeMotor.getControlMode() != ControlMode.Disabled)
+								mIntakeMotor.set(ControlMode.Disabled, 0);
 							break;
 					}
 					mPrevIntakeControl = mIntakeControl;
@@ -362,7 +362,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		double a1AngleAct = (mArm1Motor.getSelectedSensorPosition(0) * Constants.kArm1EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0);
 		double a2AngleAct = (mArm2Motor.getSelectedSensorPosition(0) * Constants.kArm2EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0);
-		PolarCoordinate armActual = (new ArmConfiguration(a1AngleAct, a2AngleAct)).getPolarFromAngles();
+		PolarCoordinate armActual = getArmCoordinate(a1AngleAct, a2AngleAct);
 
 		retVal += "Arm1PosReq:" + (armConfiguration == null ? 0 : armConfiguration.getA1Angle()) + ";";
 		retVal += "Arm1PosAct:" + a1AngleAct + ";";
@@ -378,6 +378,16 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		retVal += "IntakeCurrent:" + mIntakeMotor.getOutputCurrent() + ";";
 
 		return retVal;
+	}
+
+	public PolarCoordinate getArmCoordinate() {
+		double a1AngleAct = (mArm1Motor.getSelectedSensorPosition(0) * Constants.kArm1EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0);
+		double a2AngleAct = (mArm2Motor.getSelectedSensorPosition(0) * Constants.kArm2EncoderGearRatio / Constants.kSensorUnitsPerRotation * 360.0);
+		return getArmCoordinate(a1AngleAct, a2AngleAct);
+	}
+
+	public PolarCoordinate getArmCoordinate(double a1AngleAct, double a2AngleAct) {
+		return (new ArmConfiguration(a1AngleAct, a2AngleAct)).getPolarFromAngles();
 	}
 
 	@Override
@@ -562,11 +572,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	public synchronized void setElevatorHeight(double elevatorHeight) {
-		this.elevatorHeight = elevatorHeight;
+		this.elevatorHeight = Util.limit(elevatorHeight, Constants.kElevatorSoftMin + Constants.kElevatorSafetyDelta, Constants.kElevatorSoftMax - Constants.kElevatorSafetyDelta);
 	}
 
 	public synchronized void incrementElevatorHeight() {
-		this.elevatorHeight += Constants.kElevatorStepSize;
+		setElevatorHeight(elevatorHeight + Constants.kElevatorStepSize);
 	}
 }
 

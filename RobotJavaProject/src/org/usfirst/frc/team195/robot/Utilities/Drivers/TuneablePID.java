@@ -21,7 +21,7 @@ import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
 public class TuneablePID {
 	public static final int MIN_PID_SEND_RATE_MS = 50;
-	public static final int MIN_PID_RECEIVE_RATE_MS = 10;
+	public static final int MIN_PID_RECEIVE_RATE_MS = 50;
 
 	protected UDPReceiver udpReceiver;
 	protected UDPSender udpSender;
