@@ -6,25 +6,25 @@ public class Constants {
 	public static final boolean REPORTING_ENABLED = true;
 	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
 
-	public static final boolean ENABLE_DRIVE_DIAG = false;
+	public static final boolean ENABLE_DRIVE_DIAG = true;
 	public static final boolean ENABLE_CUBE_HANDLER_DIAG = true;
-	public static final boolean ENABLE_CLIMBER_DIAG = false;
+	public static final boolean ENABLE_CLIMBER_DIAG = true;
 
 	public static final String DASHBOARD_IP = "10.1.95.14";
 	public static final int DASHBOARD_REPORTER_PORT = 5801;
 
 
 	//Drive Config Attack 3
-//	public static final int DRIVE_X_AXIS = 0;
-//	public static final int DRIVE_Y_AXIS = 1;
-//	public static final int DRIVE_IMM_TURN = 7;
-//	public static final int DRIVE_HOLD_BRAKE = 9;
-	
-	//Drive Config F310
-	public static final int DRIVE_X_AXIS = 2;
+	public static final int DRIVE_X_AXIS = 0;
 	public static final int DRIVE_Y_AXIS = 1;
 	public static final int DRIVE_IMM_TURN = 7;
-	public static final int DRIVE_HOLD_BRAKE = 8;
+	public static final int DRIVE_HOLD_BRAKE = 9;
+	
+	//Drive Config F310
+//	public static final int DRIVE_X_AXIS = 2;
+//	public static final int DRIVE_Y_AXIS = 1;
+//	public static final int DRIVE_IMM_TURN = 7;
+//	public static final int DRIVE_HOLD_BRAKE = 8;
 
 	//Arm Config Attack3D
 	public static final int ARM_MANUAL_POSITION_CONTROL = 2;
@@ -188,7 +188,7 @@ public class Constants {
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.5;	//In rotations of output shaft
-	public static final double kElevatorSafetyDelta = 0.1;	//In rotations of output shaft
+	public static final double kElevatorSafetyDelta = 0.3;	//In rotations of output shaft
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
 	public static final int kElevatorMaxPeakCurrentLimit = (int)(kElevatorMaxContinuousCurrentLimit * 1.25);
 	public static final int kElevatorMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kElevatorMaxPeakCurrentLimit, kElevatorMaxContinuousCurrentLimit, 8);;
@@ -205,6 +205,7 @@ public class Constants {
 	//TODO: Tune collision detection
 	// Collision Detection
 	public static final double kCollisionDetectionJerkThreshold = 0.5;
+	public static final double kTippingThresholdDeg = 2;
 
 
 	/* CONTROL LOOP GAINS */
@@ -268,8 +269,8 @@ public class Constants {
 	public static final double kElevatorKf = 0.299707;
 	public static final int kElevatorIZone = 0;
 	public static final double kElevatorRampRate = 0;
-	public static final int kElevatorMaxVelocity = 1200;
-	public static final int kElevatorMaxAccel = 500;
+	public static final int kElevatorMaxVelocity = 750;
+	public static final int kElevatorMaxAccel = 750;
 
 
 	//TODO: Tune Climber Gains

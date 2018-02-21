@@ -13,6 +13,7 @@ import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class HIDController implements Runnable {
 	private static HIDController instance = null;
@@ -103,12 +104,24 @@ public class HIDController implements Runnable {
 		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_HOME))
 			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
 
-		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
-		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);
+//		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
+//		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);
+
+		double elevatorScaling = 1 - cubeHandlerSubsystem.getElevatorHeight() / Constants.kElevatorSoftMax;
+
+		if (cubeHandlerSubsystem.getElevatorHeight() < 5)
+			elevatorScaling = 1;
+		else if (cubeHandlerSubsystem.getElevatorHeight() >= 16)
+			elevatorScaling = 0.2;
+
+		double x = QuickMaths.normalizeJoystickWithDeadband(driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS), Constants.kJoystickDeadband) * elevatorScaling;
+		double y = QuickMaths.normalizeJoystickWithDeadband(-driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS), Constants.kJoystickDeadband) * elevatorScaling;
 
 		driveBaseSubsystem.setBrakeMode(driveJoystickThrottle.getRawButton(Constants.DRIVE_HOLD_BRAKE));
 
-		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(throttle, wheel, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
+		driveBaseSubsystem.setDriveOpenLoop(new DriveMotorValues(Util.limit(y + x, 1), Util.limit(y - x, 1)));
+
+//		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(throttle, wheel, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
 		//driveBaseSubsystem.setDriveVelocity(driveHelper.calculateOutput(y, x, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear(), 10000));
 		//driveBaseSubsystem.setDriveVelocity(new DriveMotorValues((y + x) * 380, (y - x) * 380));
 	}

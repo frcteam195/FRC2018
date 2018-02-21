@@ -143,7 +143,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		@Override
 		public void onLoop(double timestamp) {
 			synchronized (ClimberSubsystem.this) {
-				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isCollisionOccurring();
+				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
 
 				if (mClimberControl != mPrevClimberControl) {
 					switch (mClimberControl) {

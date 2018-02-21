@@ -43,7 +43,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	private SetpointValue leftSetpointValue = new SetpointValue();
 	private SetpointValue rightSetpointValue = new SetpointValue();
 
-	private boolean collisionOccurring = false;
+	private boolean emergencySafetyRequired = false;
 
 	private final Loop mLoop = new Loop() {
 		@Override
@@ -82,7 +82,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 				}
 
 				if (mControlMode != DriveControlState.PATH_FOLLOWING)
-					collisionOccurring = mNavXBoard.isCollisionOccurring();
+					emergencySafetyRequired = mNavXBoard.isCollisionOccurring() || mNavXBoard.isTipping();
 			}
 		}
 		@Override
@@ -181,6 +181,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			ConsoleReporter.report("Failed to initialize DriveBaseSubsystem!!!", MessageLevel.DEFCON1);
 
 		mNavXBoard.setCollisionJerkThreshold(Constants.kCollisionDetectionJerkThreshold);
+		mNavXBoard.setTippingThreshold(Constants.kTippingThresholdDeg);
 
 		isSystemFaulted();
 	}
@@ -508,8 +509,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		}
 	}
 
-	public synchronized boolean isCollisionOccurring() {
-		return collisionOccurring;
+	public synchronized boolean isEmergencySafetyRequired() {
+		return emergencySafetyRequired;
 	}
 
 	public synchronized boolean isDoneWithPath() {

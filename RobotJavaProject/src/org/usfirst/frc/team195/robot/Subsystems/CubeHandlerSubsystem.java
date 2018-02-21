@@ -80,7 +80,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArmControl = ArmControl.POSITION;
 		mPrevArmControl = ArmControl.OFF;
 
-		//TODO: Set elevator initial control to position once tuned
 		mElevatorControl = ElevatorControl.POSITION;
 		mPrevElevatorControl = ElevatorControl.OFF;
 
@@ -246,11 +245,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		@Override
 		public void onLoop(double timestamp) {
 			synchronized (CubeHandlerSubsystem.this) {
-				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isCollisionOccurring();
-
-				//***********
-				collisionOccurring = false;
-				//***********
+				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
 
 				switch (mArmControl) {
 					case POSITION:
@@ -300,12 +295,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				if (mIntakeControl != mPrevIntakeControl) {
 					switch (mIntakeControl) {
 						case INTAKE_IN:
-							mIntakeMotor.set(ControlMode.Current, 25);
-//							mIntakeMotor.set(ControlMode.PercentOutput, 1);
+//							mIntakeMotor.set(ControlMode.Current, 25);
+							mIntakeMotor.set(ControlMode.PercentOutput, 1);
 							break;
 						case INTAKE_OUT:
-							mIntakeMotor.set(ControlMode.Current, -55);
-//							mIntakeMotor.set(ControlMode.PercentOutput, -1);
+//							mIntakeMotor.set(ControlMode.Current, -55);
+							mIntakeMotor.set(ControlMode.PercentOutput, -1);
 							break;
 						case OFF:
 						default:
@@ -395,8 +390,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (ds.isTest() && Constants.ENABLE_CUBE_HANDLER_DIAG) {
 			ConsoleReporter.report("Testing CubeHandler---------------------------------");
 			boolean testPassed = true;
-			//testPassed &= runArmDiagnostics();
-			//testPassed &= runElevatorDiagnostics();
+			testPassed &= runArmDiagnostics();
+			testPassed &= runElevatorDiagnostics();
 			testPassed &= runIntakeDiagnostics();
 			return testPassed;
 		} else
@@ -577,6 +572,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public synchronized void incrementElevatorHeight() {
 		setElevatorHeight(elevatorHeight + Constants.kElevatorStepSize);
+	}
+
+	public double getElevatorHeight() {
+		return mElevatorMotorMaster.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kElevatorEncoderGearRatio;
 	}
 }
 
