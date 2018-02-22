@@ -134,7 +134,7 @@ public class NavX {
     }
 
     public boolean isTipping() {
-        if (Math.abs(mAHRS.getPitch()) > mTippingThreshold)
+        if (Math.abs(mAHRS.getPitch()) > mTippingThreshold || Math.abs(mAHRS.getRoll()) > mTippingThreshold)
             return true;
 
         return false;

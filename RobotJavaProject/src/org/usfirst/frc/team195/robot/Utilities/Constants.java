@@ -205,7 +205,7 @@ public class Constants {
 	//TODO: Tune collision detection
 	// Collision Detection
 	public static final double kCollisionDetectionJerkThreshold = 0.5;
-	public static final double kTippingThresholdDeg = 2;
+	public static final double kTippingThresholdDeg = 5;
 
 
 	/* CONTROL LOOP GAINS */
