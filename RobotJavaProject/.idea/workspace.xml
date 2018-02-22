@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b495d11-29d3-41c9-b321-0a9401a8199c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,53 +17,50 @@
       <file leaf-file-name="CubeHandlerSubsystem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1389">
-              <caret line="379" column="12" lean-forward="false" selection-start-line="379" selection-start-column="12" selection-end-line="379" selection-end-column="12" />
-              <folding>
-                <element signature="e#19194#19212#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MotorDiagnostics.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/MotorDiagnostics.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="29" column="11" lean-forward="false" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Robot.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="151" column="9" lean-forward="false" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
+            <state relative-caret-position="655">
+              <caret line="149" column="160" lean-forward="false" selection-start-line="149" selection-start-column="160" selection-end-line="149" selection-end-column="160" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1519087533822" expanded="true" signature="5191:5239" ph="{...}" />
+                <element signature="e#15562#15563#0" expanded="true" />
+                <element signature="e#15587#15588#0" expanded="true" />
+                <element signature="e#15801#15802#0" expanded="true" />
+                <element signature="e#15832#15833#0" expanded="true" />
+                <element signature="e#15899#15900#0" expanded="true" />
+                <element signature="e#15936#15937#0" expanded="true" />
+                <element signature="method#setElevatorControl#0;class#CubeHandlerSubsystem#0" expanded="true" />
+                <element signature="e#16136#16137#0" expanded="true" />
+                <element signature="e#16179#16180#0" expanded="true" />
+                <element signature="e#16219#16220#0" expanded="true" />
+                <element signature="e#16249#16250#0" expanded="true" />
+                <element signature="e#18789#18807#0" expanded="true" />
+                <element signature="e#20528#20546#0" expanded="true" />
+                <element signature="e#22656#22674#0" expanded="true" />
+                <element signature="e#23831#23832#0" expanded="true" />
+                <element signature="e#23853#23854#0" expanded="true" />
+                <element signature="e#24414#24415#0" expanded="true" />
+                <element signature="e#24441#24442#0" expanded="true" />
+                <element signature="e#24960#24961#0" expanded="true" />
+                <element signature="e#25030#25031#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+      <file leaf-file-name="RemoteFeedbackDevice.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix.jar!/com/ctre/phoenix/motorcontrol/RemoteFeedbackDevice.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="336" column="55" lean-forward="false" selection-start-line="336" selection-start-column="55" selection-end-line="336" selection-end-column="55" />
+            <state relative-caret-position="195">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.xml">
+      <file leaf-file-name="RemoteFeedbackDevice.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/motorcontrol/RemoteFeedbackDevice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="120">
+              <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -127,9 +122,9 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -168,7 +163,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
               <item name="Utilities" type="462c0819:PsiDirectoryNode" />
-              <item name="Drivers" type="462c0819:PsiDirectoryNode" />
+              <item name="CubeHandler" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -296,18 +291,18 @@
       <workItem from="1517883389535" duration="2001000" />
       <workItem from="1519087579356" duration="495000" />
       <workItem from="1519088177175" duration="1857000" />
+      <workItem from="1519262355026" duration="1767000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6610000" />
+    <option name="totallyTimeSpent" value="8377000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -318,11 +313,12 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2607143" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2607143" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.182" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1904762" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1904762" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -331,8 +327,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933334" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +338,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -370,7 +368,91 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#19194#19212#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#15562#15563#0" expanded="true" />
+            <element signature="e#15587#15588#0" expanded="true" />
+            <element signature="e#15801#15802#0" expanded="true" />
+            <element signature="e#15832#15833#0" expanded="true" />
+            <element signature="e#15899#15900#0" expanded="true" />
+            <element signature="e#15936#15937#0" expanded="true" />
+            <element signature="method#setElevatorControl#0;class#CubeHandlerSubsystem#0" expanded="true" />
+            <element signature="e#16136#16137#0" expanded="true" />
+            <element signature="e#16179#16180#0" expanded="true" />
+            <element signature="e#16219#16220#0" expanded="true" />
+            <element signature="e#16249#16250#0" expanded="true" />
+            <element signature="e#18789#18807#0" expanded="true" />
+            <element signature="e#20528#20546#0" expanded="true" />
+            <element signature="e#22656#22674#0" expanded="true" />
+            <element signature="e#23831#23832#0" expanded="true" />
+            <element signature="e#23853#23854#0" expanded="true" />
+            <element signature="e#24414#24415#0" expanded="true" />
+            <element signature="e#24441#24442#0" expanded="true" />
+            <element signature="e#24960#24961#0" expanded="true" />
+            <element signature="e#25030#25031#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/MotorDiagnostics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="29" column="11" lean-forward="false" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="151" column="9" lean-forward="false" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5040">
+          <caret line="336" column="55" lean-forward="false" selection-start-line="336" selection-start-column="55" selection-end-line="336" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#15562#15563#0" expanded="true" />
+            <element signature="e#15587#15588#0" expanded="true" />
+            <element signature="e#15801#15802#0" expanded="true" />
+            <element signature="e#15832#15833#0" expanded="true" />
+            <element signature="e#15899#15900#0" expanded="true" />
+            <element signature="e#15936#15937#0" expanded="true" />
+            <element signature="method#setElevatorControl#0;class#CubeHandlerSubsystem#0" expanded="true" />
+            <element signature="e#16136#16137#0" expanded="true" />
+            <element signature="e#16179#16180#0" expanded="true" />
+            <element signature="e#16219#16220#0" expanded="true" />
+            <element signature="e#16249#16250#0" expanded="true" />
+            <element signature="e#18789#18807#0" expanded="true" />
+            <element signature="e#20528#20546#0" expanded="true" />
+            <element signature="e#22656#22674#0" expanded="true" />
+            <element signature="e#23831#23832#0" expanded="true" />
+            <element signature="e#23853#23854#0" expanded="true" />
+            <element signature="e#24414#24415#0" expanded="true" />
+            <element signature="e#24441#24442#0" expanded="true" />
+            <element signature="e#24960#24961#0" expanded="true" />
+            <element signature="e#25030#25031#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -380,8 +462,7 @@
         <state relative-caret-position="2070">
           <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1519087533822" expanded="true" signature="5191:5239" ph="{...}" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -398,11 +479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1800">
           <caret line="143" column="35" lean-forward="true" selection-start-line="143" selection-start-column="35" selection-end-line="143" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3091#3092#0" expanded="false" />
-            <element signature="e#3114#3115#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -411,8 +487,7 @@
         <state relative-caret-position="90">
           <caret line="6" column="35" lean-forward="false" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1519087533822" expanded="true" signature="5191:5239" ph="{...}" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -430,8 +505,7 @@
         <state relative-caret-position="885">
           <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1519087533822" expanded="true" signature="5191:5239" ph="{...}" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -449,8 +523,7 @@
         <state relative-caret-position="1080">
           <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1519087533822" expanded="true" signature="5191:5239" ph="{...}" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -467,11 +540,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="496">
           <caret line="141" column="41" lean-forward="true" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3091#3092#0" expanded="false" />
-            <element signature="e#3114#3115#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -493,11 +561,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="151" column="9" lean-forward="false" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
+        <state relative-caret-position="2040">
+          <caret line="155" column="9" lean-forward="false" selection-start-line="155" selection-start-column="9" selection-end-line="155" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1519087533822" expanded="true" signature="5191:5239" ph="{...}" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -512,18 +579,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="336" column="55" lean-forward="false" selection-start-line="336" selection-start-column="55" selection-end-line="336" selection-end-column="55" />
+        <state relative-caret-position="5040">
+          <caret line="356" column="55" lean-forward="false" selection-start-line="356" selection-start-column="55" selection-end-line="356" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/motorcontrol/RemoteFeedbackDevice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix.jar!/com/ctre/phoenix/motorcontrol/RemoteFeedbackDevice.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1389">
-          <caret line="379" column="12" lean-forward="false" selection-start-line="379" selection-start-column="12" selection-end-line="379" selection-end-column="12" />
+        <state relative-caret-position="655">
+          <caret line="149" column="160" lean-forward="false" selection-start-line="149" selection-start-column="160" selection-end-line="149" selection-end-column="160" />
           <folding>
-            <element signature="e#19194#19212#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#15562#15563#0" expanded="true" />
+            <element signature="e#15587#15588#0" expanded="true" />
+            <element signature="e#15801#15802#0" expanded="true" />
+            <element signature="e#15832#15833#0" expanded="true" />
+            <element signature="e#15899#15900#0" expanded="true" />
+            <element signature="e#15936#15937#0" expanded="true" />
+            <element signature="method#setElevatorControl#0;class#CubeHandlerSubsystem#0" expanded="true" />
+            <element signature="e#16136#16137#0" expanded="true" />
+            <element signature="e#16179#16180#0" expanded="true" />
+            <element signature="e#16219#16220#0" expanded="true" />
+            <element signature="e#16249#16250#0" expanded="true" />
+            <element signature="e#18789#18807#0" expanded="true" />
+            <element signature="e#20528#20546#0" expanded="true" />
+            <element signature="e#22656#22674#0" expanded="true" />
+            <element signature="e#23831#23832#0" expanded="true" />
+            <element signature="e#23853#23854#0" expanded="true" />
+            <element signature="e#24414#24415#0" expanded="true" />
+            <element signature="e#24441#24442#0" expanded="true" />
+            <element signature="e#24960#24961#0" expanded="true" />
+            <element signature="e#25030#25031#0" expanded="true" />
           </folding>
         </state>
       </provider>
