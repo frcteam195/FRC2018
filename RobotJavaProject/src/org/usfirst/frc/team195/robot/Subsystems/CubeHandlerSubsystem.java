@@ -156,13 +156,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				setSucceeded &= ((TalonSRX) mElevatorMotorSlave).configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 				setSucceeded &= ((TalonSRX) mElevatorMotorSlave).configPeakCurrentLimit(Constants.kElevatorMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 				setSucceeded &= ((TalonSRX) mElevatorMotorSlave).configPeakCurrentDuration(Constants.kElevatorMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
-				((TalonSRX) mElevatorMotorSlave).enableCurrentLimit(true);
+				((TalonSRX) mElevatorMotorSlave).enableCurrentLimit(false);
 			}
 
 			mArm1Motor.enableCurrentLimit(true);
 			mArm2Motor.enableCurrentLimit(true);
-			mIntakeMotor.enableCurrentLimit(true);
-			mElevatorMotorMaster.enableCurrentLimit(true);
+			mIntakeMotor.enableCurrentLimit(false);
+			mElevatorMotorMaster.enableCurrentLimit(false);
 
 			setSucceeded &= mArm1Motor.configForwardSoftLimitThreshold((int) (Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArm1Motor.configReverseSoftLimitThreshold((int) (Constants.kArm1SoftMin * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
@@ -276,6 +276,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					case POSITION:
 						if (collisionOccurring) {
 							setElevatorHeight(ElevatorPosition.HOME);
+							ConsoleReporter.report("Elevator Emergency safety triggered", MessageLevel.DEFCON1);
 						}
 
 						if (elevatorHeight != mPrevElevatorHeight) {

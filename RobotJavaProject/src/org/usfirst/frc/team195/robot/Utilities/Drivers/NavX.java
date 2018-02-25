@@ -115,9 +115,6 @@ public class NavX {
         double jerkX = (accelX - mPrevAccelX)/(dt);
         double jerkY = (accelY - mPrevAccelY)/(dt);
 
-        ConsoleReporter.report("Jerk X: " + jerkX);
-        ConsoleReporter.report("Jerk Y: " + jerkY);
-
         if (Math.abs(jerkX) > mJerkCollisionThreshold || Math.abs(jerkY) > mJerkCollisionThreshold)
             collisionOccurring = true;
 

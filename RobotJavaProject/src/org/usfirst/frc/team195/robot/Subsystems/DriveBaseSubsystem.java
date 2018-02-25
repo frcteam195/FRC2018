@@ -67,15 +67,15 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			synchronized (DriveBaseSubsystem.this) {
 				switch (mControlMode) {
 					case OPEN_LOOP:
-						return;
+						break;
 					case VELOCITY:
-						return;
+						break;
 					case PATH_FOLLOWING:
 						if (mPathFollower != null) {
 							updatePathFollower(timestamp);
 							//mCSVWriter.add(mPathFollower.getDebug());
 						}
-						return;
+						break;
 					default:
 						ConsoleReporter.report("Unexpected drive control state: " + mControlMode);
 						break;
@@ -83,6 +83,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 				if (mControlMode != DriveControlState.PATH_FOLLOWING)
 					emergencySafetyRequired = mNavXBoard.isCollisionOccurring() || mNavXBoard.isTipping();
+
 			}
 		}
 		@Override

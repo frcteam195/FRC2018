@@ -204,8 +204,8 @@ public class Constants {
 
 	//TODO: Tune collision detection
 	// Collision Detection
-	public static final double kCollisionDetectionJerkThreshold = 0.5;
-	public static final double kTippingThresholdDeg = 5;
+	public static final double kCollisionDetectionJerkThreshold = 750;
+	public static final double kTippingThresholdDeg = 10;
 
 
 	/* CONTROL LOOP GAINS */
@@ -266,11 +266,11 @@ public class Constants {
 	public static final double kElevatorKp = 4;
 	public static final double kElevatorKi = 0;
 	public static final double kElevatorKd = 9;
-	public static final double kElevatorKf = 0.299707;
+	public static final double kElevatorKf = 0.1998;
 	public static final int kElevatorIZone = 0;
 	public static final double kElevatorRampRate = 0;
-	public static final int kElevatorMaxVelocity = 750;
-	public static final int kElevatorMaxAccel = 750;
+	public static final int kElevatorMaxVelocity = 800;
+	public static final int kElevatorMaxAccel = 1600;
 
 
 	//TODO: Tune Climber Gains
