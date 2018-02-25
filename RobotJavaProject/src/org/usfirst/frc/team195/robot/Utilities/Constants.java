@@ -6,9 +6,9 @@ public class Constants {
 	public static final boolean REPORTING_ENABLED = true;
 	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
 
-	public static final boolean ENABLE_DRIVE_DIAG = true;
+	public static final boolean ENABLE_DRIVE_DIAG = false;
 	public static final boolean ENABLE_CUBE_HANDLER_DIAG = true;
-	public static final boolean ENABLE_CLIMBER_DIAG = true;
+	public static final boolean ENABLE_CLIMBER_DIAG = false;
 
 	public static final String DASHBOARD_IP = "10.1.95.14";
 	public static final int DASHBOARD_REPORTER_PORT = 5801;
@@ -74,6 +74,8 @@ public class Constants {
 	// Elevator
 	public static final int kElevatorMasterId = 10;
 	public static final int kElevatorSlaveId = 11;
+	public static final int kElevatorSlave2Id = 14;
+	public static final int kElevatorSlave3Id = 15;
 
 	//Climber
 	public static final int kClimberMasterId = 13;
@@ -114,6 +116,10 @@ public class Constants {
 	public static final int kElevatorMasterPDPBreakerRating = 30;
 	public static final int kElevatorSlavePDPChannel = 4;
 	public static final int kElevatorSlavePDPBreakerRating = 30;
+	public static final int kElevatorSlave2PDPChannel = 5;
+	public static final int kElevatorSlave2PDPBreakerRating = 30;
+	public static final int kElevatorSlave3PDPChannel = 6;
+	public static final int kElevatorSlave3PDPBreakerRating = 30;
 
 	//Climber
 	public static final int kClimberMasterPDPChannel = 0;
@@ -204,8 +210,8 @@ public class Constants {
 
 	//TODO: Tune collision detection
 	// Collision Detection
-	public static final double kCollisionDetectionJerkThreshold = 750;
-	public static final double kTippingThresholdDeg = 10;
+	public static final double kCollisionDetectionJerkThreshold = 0.5;
+	public static final double kTippingThresholdDeg = 5;
 
 
 	/* CONTROL LOOP GAINS */
@@ -263,13 +269,13 @@ public class Constants {
 	public static final double kIntakeRampRate = 0;
 
 	//Tuned with 30:1 Transmission
-	public static final double kElevatorKp = 4;
+	public static final double kElevatorKp = 1.6;
 	public static final double kElevatorKi = 0;
-	public static final double kElevatorKd = 9;
-	public static final double kElevatorKf = 0.1998;
+	public static final double kElevatorKd = 3;
+	public static final double kElevatorKf = 0.1638398438;
 	public static final int kElevatorIZone = 0;
 	public static final double kElevatorRampRate = 0;
-	public static final int kElevatorMaxVelocity = 800;
+	public static final int kElevatorMaxVelocity = 950;
 	public static final int kElevatorMaxAccel = 1600;
 
 
@@ -355,7 +361,7 @@ public class Constants {
 	public static final double kElevatorTestCurrentDelta = 5.0;
 	public static final double kElevatorTestRPMDelta = 40.0;
 	public static final double kElevatorTestSpeed = 0.5;
-	public static final double kElevatorTestDuration = 2;
+	public static final double kElevatorTestDuration = 1;
 
 	public static final double kIntakeTestLowCurrentThresh = 2;
 

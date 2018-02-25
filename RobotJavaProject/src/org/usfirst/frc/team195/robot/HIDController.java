@@ -112,7 +112,7 @@ public class HIDController implements Runnable {
 		if (cubeHandlerSubsystem.getElevatorHeight() < 5)
 			elevatorScaling = 1;
 		else if (cubeHandlerSubsystem.getElevatorHeight() >= 16)
-			elevatorScaling = 0.2;
+			elevatorScaling = 0.35;
 
 		double x = QuickMaths.normalizeJoystickWithDeadband(driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS), Constants.kJoystickDeadband) * elevatorScaling;
 		double y = QuickMaths.normalizeJoystickWithDeadband(-driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS), Constants.kJoystickDeadband) * elevatorScaling;
