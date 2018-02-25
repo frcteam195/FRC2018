@@ -30,6 +30,8 @@ public class Controllers {
 	
 	private TalonSRX elevatorMotorMaster;
 	private BaseMotorController elevatorMotorSlave;
+	private BaseMotorController elevatorMotorSlave2;
+	private BaseMotorController elevatorMotorSlave3;
 	private TalonSRX intakeMotor;
 	private TalonSRX climberMotorMaster;
 	private BaseMotorController climberMotorSlave;
@@ -75,6 +77,8 @@ public class Controllers {
 		//Elevator Motor Setup
 		elevatorMotorMaster = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kElevatorMasterId, Constants.kElevatorMasterPDPChannel);
 		elevatorMotorSlave = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlaveId, Constants.kElevatorSlavePDPChannel, elevatorMotorMaster);
+		elevatorMotorSlave2 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlave2Id, Constants.kElevatorSlave2PDPChannel, elevatorMotorMaster);
+		elevatorMotorSlave3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlave3Id, Constants.kElevatorSlave3PDPChannel, elevatorMotorMaster);
 
 		//Climber Motor Setup
 		climberMotorMaster = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
@@ -161,6 +165,14 @@ public class Controllers {
 	
 	public BaseMotorController getElevatorMotorSlave() {
 		return elevatorMotorSlave;
+	}
+
+	public BaseMotorController getElevatorMotorSlave2() {
+		return elevatorMotorSlave2;
+	}
+
+	public BaseMotorController getElevatorMotorSlave3() {
+		return elevatorMotorSlave3;
 	}
 
 	public TalonSRX getClimberMotorMaster() {
