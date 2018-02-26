@@ -2,21 +2,19 @@ package org.usfirst.frc.team195.robot.Utilities;
 
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.CANSpeedControllerBuilder;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
 
 public class Controllers {
 	private Compressor compressor;
 	private PowerDistributionPanel powerDistributionPanel;
 	private KnightJoystick driveJoystickThrottle;
 	private KnightJoystick driveJoystickWheel;
-	private PolarArmControlJoystick armControlJoystick;
+	private KnightJoystick armControlJoystick;
 	private KnightJoystick buttonBox1;
 	private TalonSRX leftDrive1;
 	private BaseMotorController leftDrive2;
@@ -26,13 +24,13 @@ public class Controllers {
 	private BaseMotorController rightDrive3;
 
 	private TalonSRX arm1Motor;
-	private TalonSRX arm2Motor;
-	
+
 	private TalonSRX elevatorMotorMaster;
 	private BaseMotorController elevatorMotorSlave;
 	private BaseMotorController elevatorMotorSlave2;
 	private BaseMotorController elevatorMotorSlave3;
 	private TalonSRX intakeMotor;
+	private TalonSRX intake2Motor;
 	private TalonSRX climberMotorMaster;
 	private BaseMotorController climberMotorSlave;
 
@@ -43,6 +41,8 @@ public class Controllers {
 	private DigitalOutput rLED;
 	private DigitalOutput gLED;
 	private DigitalOutput bLED;
+
+	private DigitalInput elevatorHomeSwitch;
 
 	private NavX navX;
 	
@@ -55,7 +55,7 @@ public class Controllers {
 		//Drive Joystick Setup
 		driveJoystickThrottle = new KnightJoystick(0);
 		//driveJoystickWheel = new KnightJoystick(1);
-		armControlJoystick = new PolarArmControlJoystick(1, Constants.kArmMinRadius, Constants.kArmMaxRadius, Constants.kArmMinTheta, Constants.kArmMaxTheta, Constants.kArmJoystickInchesPerSec, Constants.kArmJoystickDegPerSec);
+		armControlJoystick = new KnightJoystick(1);
 		buttonBox1 = new KnightJoystick(2);
 
 		//Choose whether to create Victor or Talon slaves here
@@ -71,8 +71,8 @@ public class Controllers {
 
 		//Arm Motor Setup
 		arm1Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId, Constants.kArm1MotorPDPChannel);
-		arm2Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm2MotorId, Constants.kArm2MotorPDPChannel);
 		intakeMotor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeMotorId, Constants.kIntakeMotorPDPChannel);
+		intake2Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntake2MotorId, Constants.kIntake2MotorPDPChannel);
 
 		//Elevator Motor Setup
 		elevatorMotorMaster = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kElevatorMasterId, Constants.kElevatorMasterPDPChannel);
@@ -94,6 +94,8 @@ public class Controllers {
 		rLED = new DigitalOutput(Constants.kRedLEDId);
 		gLED = new DigitalOutput(Constants.kGreenLEDId);
 		bLED = new DigitalOutput(Constants.kBlueLEDId);
+
+		elevatorHomeSwitch = new DigitalInput(Constants.kElevatorHomeSwitchId);
 
 	    try {
 	        navX = new NavX(SPI.Port.kMXP);
@@ -117,7 +119,7 @@ public class Controllers {
 		return driveJoystickWheel;
 	}
 
-	public PolarArmControlJoystick getArmControlJoystick() {
+	public KnightJoystick getArmControlJoystick() {
 		return armControlJoystick;
 	}
 
@@ -151,8 +153,8 @@ public class Controllers {
 		return arm1Motor;
 	}
 
-	public TalonSRX getArm2Motor() {
-		return arm2Motor;
+	public TalonSRX getIntake2Motor() {
+		return intake2Motor;
 	}
 
 	public TalonSRX getIntakeMotor() {
@@ -217,5 +219,9 @@ public class Controllers {
 
 	public DoubleSolenoid getClimberLockSolenoid() {
 		return climberLockSolenoid;
+	}
+
+	public DigitalInput getElevatorHomeSwitch() {
+		return elevatorHomeSwitch;
 	}
 }

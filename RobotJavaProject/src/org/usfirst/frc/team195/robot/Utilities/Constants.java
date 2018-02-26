@@ -27,12 +27,7 @@ public class Constants {
 //	public static final int DRIVE_HOLD_BRAKE = 8;
 
 	//Arm Config Attack3D
-	public static final int ARM_MANUAL_POSITION_CONTROL = 2;
 	public static final int ARM_INTAKE_IN = 1;
-	public static final int ARM_STRAIGHT_OUT = 5;
-	public static final int ARM_HOME = 3;
-	public static final int ARM_RIGHT_OUT = 6;
-	public static final int ARM_LEFT_OUT = 4;
 
 
 	public static final int BB1_INTAKE_CLAMP = 7;
@@ -45,6 +40,7 @@ public class Constants {
 	public static final int BB1_ELEVATOR_SWITCH = 3;
 	public static final int BB1_ELEVATOR_SCALE = 4;
 	public static final int BB1_ELEVATOR_SCALE_HIGH = 5;
+	public static final int BB1_ELEVATOR_REHOME = 16;
 
 
 
@@ -66,10 +62,10 @@ public class Constants {
 
 	// Arm
 	public static final int kArm1MotorId = 7;
-	public static final int kArm2MotorId = 8;
 
 	// Intake
 	public static final int kIntakeMotorId = 9;
+	public static final int kIntake2MotorId = 8;
 
 	// Elevator
 	public static final int kElevatorMasterId = 10;
@@ -104,12 +100,12 @@ public class Constants {
 	// Arm
 	public static final int kArm1MotorPDPChannel = 5;
 	public static final int kArm1MotorPDPBreakerRating = 30;
-	public static final int kArm2MotorPDPChannel = 6;
-	public static final int kArm2MotorPDPBreakerRating = 30;
 
 	// Intake
 	public static final int kIntakeMotorPDPChannel = 10;
 	public static final int kIntakeMotorPDPBreakerRating = 30;
+	public static final int kIntake2MotorPDPChannel = 6;
+	public static final int kIntake2MotorPDPBreakerRating = 30;
 
 	// Elevator
 	public static final int kElevatorMasterPDPChannel = 11;
@@ -167,23 +163,6 @@ public class Constants {
 	public static final int kArm1MaxPeakCurrentLimit = kArm1MaxContinuousCurrentLimit * 2;
 	public static final int kArm1MaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArm1MaxPeakCurrentLimit, kArm1MaxContinuousCurrentLimit);
 
-	public static final double kArm2EncoderGearRatio = 1.0;
-	public static final double kArm2Length = 8.5;
-	public static final double kArm2SoftMin = -0.456348;	//In rotations of output shaft
-	public static final double kArm2SoftMax = 0.456348;	//In rotations of output shaft
-	public static final int kArm2MaxContinuousCurrentLimit = kArm2MotorPDPBreakerRating;
-	public static final int kArm2MaxPeakCurrentLimit = kArm2MaxContinuousCurrentLimit * 2;
-	public static final int kArm2MaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArm2MaxPeakCurrentLimit, kArm2MaxContinuousCurrentLimit);
-
-	public static final double kArmMinRadius = 0;
-	public static final double kArmMaxRadius = kArm1Length + kArm2Length;
-	public static final double kArmMinTheta = 0;
-	public static final double kArmMaxTheta = 180;
-	public static final double kArmJoystickInchesPerSec = 22;
-	public static final double kArmJoystickDegPerSec = 45;
-	public static final double kArmJoystickYDeadband = 0.1;
-	public static final double kArmJoystickZDeadband = 0.25;
-
 
 	public static final int kIntakeMaxContinuousCurrentLimit = kIntakeMotorPDPBreakerRating;
 	public static final int kIntakeMaxPeakCurrentLimit = kIntakeMaxContinuousCurrentLimit * 2;
@@ -210,8 +189,8 @@ public class Constants {
 
 	//TODO: Tune collision detection
 	// Collision Detection
-	public static final double kCollisionDetectionJerkThreshold = 0.5;
-	public static final double kTippingThresholdDeg = 5;
+	public static final double kCollisionDetectionJerkThreshold = 950;
+	public static final double kTippingThresholdDeg = 11;
 
 
 	/* CONTROL LOOP GAINS */
@@ -248,17 +227,6 @@ public class Constants {
 	public static final int kArm1MaxVelocity = 35;
 	public static final int kArm1MaxAccel = 25;
 	public static final int kArm1AllowedError = (int)(0 * kSensorUnitsPerRotation);
-
-	//Tuned with 100:1 Transmission
-	public static final double kArm2Kp = 6.4;
-	public static final double kArm2Ki = 0;
-	public static final double kArm2Kd = 13;
-	public static final double kArm2Kf = 0.8;
-	public static final int kArm2IZone = 0;
-	public static final double kArm2RampRate = 0;
-	public static final int kArm2MaxVelocity = 70;
-	public static final int kArm2MaxAccel = 45;
-	public static final int kArm2AllowedError = (int)(0 * kSensorUnitsPerRotation);
 
 	//Tuned for current control on 16:1 transmission
 	public static final double kIntakeKp = 0.2;
@@ -299,10 +267,13 @@ public class Constants {
 	public static final int kClimberLockSolenoidId1 = 1; // PCM 0, Solenoid 0
 	public static final int kClimberLockSolenoidId2 = 2; // PCM 0, Solenoid 0
 
+	//Digital Inputs
+	public static final int kElevatorHomeSwitchId = 0;
+
 	// Digital Outputs
-	public static final int kRedLEDId = 0;
-	public static final int kGreenLEDId = 1;
-	public static final int kBlueLEDId = 2;
+	public static final int kRedLEDId = 1;
+	public static final int kGreenLEDId = 2;
+	public static final int kBlueLEDId = 3;
 
 	//TODO: Tune path following gains
 	// Path following constants
@@ -352,9 +323,7 @@ public class Constants {
 	public static final double kArmTestLowRPMThresh = 35;
 	public static final double kArmTestCurrentDelta = 5.0;
 	public static final double kArm1TestSpeed = 0.3;
-	public static final double kArm2TestSpeed = 0.3;
 	public static final double kArm1TestDuration = 0.5;
-	public static final double kArm2TestDuration = 0.75;
 
 	public static final double kElevatorTestLowCurrentThresh = 2;
 	public static final double kElevatorTestLowRPMThresh = 200;

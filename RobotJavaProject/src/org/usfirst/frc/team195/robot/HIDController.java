@@ -1,18 +1,16 @@
 package org.usfirst.frc.team195.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.*;
-
-import edu.wpi.first.wpilibj.DriverStation;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.ArmConfiguration;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorControl;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class HIDController implements Runnable {
@@ -23,7 +21,7 @@ public class HIDController implements Runnable {
 	private DriverStation ds;
 	private KnightJoystick driveJoystickThrottle;
 	//private KnightJoystick driveJoystickWheel;
-	private PolarArmControlJoystick armControlJoystick;
+	private KnightJoystick armControlJoystick;
 	private KnightJoystick buttonBox1;
 	private DriveHelper driveHelper;
 	//private ShiftAction shiftAction;
@@ -67,10 +65,6 @@ public class HIDController implements Runnable {
 //			shiftAction.start(true);
 //		}
 
-		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_MANUAL_POSITION_CONTROL))
-			armControlJoystick.start(cubeHandlerSubsystem.getArmCoordinate());
-		if (armControlJoystick.getRawButton(Constants.ARM_MANUAL_POSITION_CONTROL))
-			cubeHandlerSubsystem.setArmCoordinate(armControlJoystick.getPolarMappingFromJoystick());
 
 		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_IN))
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
@@ -95,14 +89,8 @@ public class HIDController implements Runnable {
 		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_INCREMENT))
 			cubeHandlerSubsystem.incrementElevatorHeight();
 
-		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_STRAIGHT_OUT))
-			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.STRAIGHT);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_RIGHT_OUT))
-			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.RIGHT);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_LEFT_OUT))
-			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.LEFT);
-		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_HOME))
-			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME))
+			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
 
 //		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
 //		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);

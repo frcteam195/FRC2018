@@ -1,19 +1,20 @@
 package org.usfirst.frc.team195.robot;
 
-import java.util.ArrayList;
-
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.SwitchCubeThenScaleMode;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Subsystems.*;
+import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.LEDController;
 import org.usfirst.frc.team195.robot.Utilities.*;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.ArmConfiguration;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.PolarCoordinate;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.Loops.RobotStateEstimator;
+
+import java.util.ArrayList;
 
 public class Robot extends RobbieRobot {
 	private Controllers robotControllers;
@@ -74,11 +75,11 @@ public class Robot extends RobbieRobot {
 
 		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
-		//dashboardReporter.start();
+		dashboardReporter.start();
 
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
-		//criticalSystemsMonitor.start();
+		criticalSystemsMonitor.start();
 
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
@@ -116,30 +117,6 @@ public class Robot extends RobbieRobot {
 
 		while (isOperatorControl() && isEnabled()) {
 			hidController.run();
-
-			//threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 90));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 135));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 45));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 45));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 135));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 135));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 135));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(8, 45));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 45));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16.75, 90));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
-//			threadRateControl.doRateControl(2000);
 
 			threadRateControl.doRateControl(20);
 		}
