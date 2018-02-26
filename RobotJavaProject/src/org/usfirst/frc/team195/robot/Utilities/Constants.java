@@ -28,11 +28,9 @@ public class Constants {
 
 	//Arm Config Attack3D
 	public static final int ARM_INTAKE_IN = 1;
-
-
-	public static final int BB1_INTAKE_CLAMP = 7;
-	public static final int BB1_INTAKE_UNCLAMP = 8;
-	public static final int BB1_INTAKE_OUT = 9;
+	public static final int ARM_INTAKE_CLAMP = 3;
+	public static final int ARM_INTAKE_UNCLAMP = 4;
+	public static final int ARM_INTAKE_OUT = 5;
 
 
 	public static final int BB1_ELEVATOR_HOME = 1;

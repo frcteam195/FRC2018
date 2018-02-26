@@ -68,14 +68,14 @@ public class HIDController implements Runnable {
 
 		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_IN))
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
-		else if (buttonBox1.getRawButton(Constants.BB1_INTAKE_OUT))
+		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT))
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT);
 		else
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 
-		if (buttonBox1.getRisingEdgeButton(Constants.BB1_INTAKE_CLAMP))
+		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_CLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(false);
-		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_INTAKE_UNCLAMP))
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_UNCLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(true);
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
