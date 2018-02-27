@@ -408,7 +408,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report("Testing CubeHandler---------------------------------");
 			boolean testPassed = true;
 			//testPassed &= runArmDiagnostics();
-			//testPassed &= runElevatorDiagnostics();
+			testPassed &= runElevatorDiagnostics();
 			testPassed &= runIntakeDiagnostics();
 			return testPassed;
 		} else
@@ -520,8 +520,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		final double kLowCurrentThres = Constants.kIntakeTestLowCurrentThresh;
 
 		ArrayList<MotorDiagnostics> mIntakeDiagArr = new ArrayList<MotorDiagnostics>();
-		mIntakeDiagArr.add(new MotorDiagnostics("Intake", mIntakeMotor, 1, 5, false));
-		mIntakeDiagArr.add(new MotorDiagnostics("Intake 2", mIntake2Motor, 1, 5, false));
+		mIntakeDiagArr.add(new MotorDiagnostics("Intake", mIntakeMotor, Constants.kIntakeTestSpeed, Constants.kIntakeTestDuration, false));
+		mIntakeDiagArr.add(new MotorDiagnostics("Intake 2", mIntake2Motor, Constants.kIntakeTestSpeed, Constants.kIntakeTestDuration, false));
 
 		boolean failure = false;
 

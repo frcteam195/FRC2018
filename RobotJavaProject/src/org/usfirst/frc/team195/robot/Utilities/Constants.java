@@ -324,13 +324,15 @@ public class Constants {
 	public static final double kArm1TestDuration = 0.5;
 
 	public static final double kElevatorTestLowCurrentThresh = 2;
-	public static final double kElevatorTestLowRPMThresh = 200;
+	public static final double kElevatorTestLowRPMThresh = 15;
 	public static final double kElevatorTestCurrentDelta = 5.0;
-	public static final double kElevatorTestRPMDelta = 40.0;
-	public static final double kElevatorTestSpeed = 0.5;
+	public static final double kElevatorTestRPMDelta = 10.0;
+	public static final double kElevatorTestSpeed = 0.75;
 	public static final double kElevatorTestDuration = 1;
 
 	public static final double kIntakeTestLowCurrentThresh = 2;
+	public static final double kIntakeTestSpeed = 1;
+	public static final double kIntakeTestDuration = 2;
 
 	public static final double kClimberTestLowCurrentThresh = 2;
 	public static final double kClimberTestLowRPMThresh = 35;

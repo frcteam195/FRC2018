@@ -63,9 +63,9 @@ public class MotorDiagnostics {
 		Timer.delay(mTestDurationSeconds/2.0);
 		motorCurrent = testingSpeedController.getOutputCurrent();
 		motorRPM = getRPM();
+		double motorPositionPostTest = getPosition();
 		Timer.delay(mTestDurationSeconds/2.0);
 		testingSpeedController.set(ControlMode.PercentOutput, 0);
-		double motorPositionPostTest = getPosition();
 
 		if (inverted & (motorPositionPostTest < motorPositionPreTest))
 			sensorInPhase =  true;
