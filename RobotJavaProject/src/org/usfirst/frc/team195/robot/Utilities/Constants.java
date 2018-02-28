@@ -31,10 +31,12 @@ public class Constants {
 	public static final int ARM_INTAKE_CLAMP = 3;
 	public static final int ARM_INTAKE_UNCLAMP = 4;
 	public static final int ARM_INTAKE_OUT = 5;
+	public static final int ARM_INTAKE_OUT_HALFSPEED = 6;
 
 
 	public static final int BB1_ELEVATOR_HOME = 1;
 	public static final int BB1_ELEVATOR_INCREMENT = 2;
+	public static final int BB1_ELEVATOR_DECREMENT = 8;
 	public static final int BB1_ELEVATOR_SWITCH = 3;
 	public static final int BB1_ELEVATOR_SCALE = 4;
 	public static final int BB1_ELEVATOR_SCALE_HIGH = 5;

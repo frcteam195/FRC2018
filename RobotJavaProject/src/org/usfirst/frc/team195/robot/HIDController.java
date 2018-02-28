@@ -70,6 +70,8 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
 		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT))
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT);
+		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT_HALFSPEED))
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT_HALFSPEED);
 		else
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 
@@ -88,6 +90,8 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
 		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_INCREMENT))
 			cubeHandlerSubsystem.incrementElevatorHeight();
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_DECREMENT))
+			cubeHandlerSubsystem.decrementElevatorHeight();
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME))
 			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
@@ -99,8 +103,8 @@ public class HIDController implements Runnable {
 
 		if (cubeHandlerSubsystem.getElevatorHeight() < 5)
 			elevatorScaling = 1;
-		else if (cubeHandlerSubsystem.getElevatorHeight() >= 16)
-			elevatorScaling = 0.35;
+
+		elevatorScaling = elevatorScaling < 0.55 ? 0.55 : elevatorScaling;
 
 		double x = QuickMaths.normalizeJoystickWithDeadband(driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS), Constants.kJoystickDeadband) * elevatorScaling;
 		double y = QuickMaths.normalizeJoystickWithDeadband(-driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS), Constants.kJoystickDeadband) * elevatorScaling;

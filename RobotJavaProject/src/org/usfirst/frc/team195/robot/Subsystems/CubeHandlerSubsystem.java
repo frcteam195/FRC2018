@@ -338,6 +338,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							mIntakeMotor.set(ControlMode.PercentOutput, -1);
 							mIntake2Motor.set(ControlMode.PercentOutput, -1);
 							break;
+						case INTAKE_OUT_HALFSPEED:
+//							mIntakeMotor.set(ControlMode.Current, -55);
+//							mIntake2Motor.set(ControlMode.Current, -55);
+							mIntakeMotor.set(ControlMode.PercentOutput, -0.5);
+							mIntake2Motor.set(ControlMode.PercentOutput, -0.5);
+							break;
 						case OFF:
 						default:
 							if (mIntakeMotor.getControlMode() != ControlMode.Disabled || mIntake2Motor.getControlMode() != ControlMode.Disabled) {
@@ -604,6 +610,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public synchronized void incrementElevatorHeight() {
 		setElevatorHeight(elevatorHeight + Constants.kElevatorStepSize);
+	}
+
+	public synchronized void decrementElevatorHeight() {
+		setElevatorHeight(elevatorHeight - Constants.kElevatorStepSize);
 	}
 
 	public double getElevatorHeight() {
