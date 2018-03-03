@@ -20,6 +20,8 @@ public class CriticalSystemsMonitor extends Thread {
 	private ArrayList<CriticalSystemStatus> mSystemArr;
 
 	public CriticalSystemsMonitor(ArrayList<CustomSubsystem> subsystems) {
+		super();
+		super.setPriority(Constants.kCriticalSystemsMonitorThreadPriority);
 		mSystemArr = new ArrayList<CriticalSystemStatus>();
 		for (CustomSubsystem cs : subsystems) {
 			if (cs instanceof CriticalSystemStatus)

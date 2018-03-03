@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.SwitchCubeThenScaleMode;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -9,7 +10,6 @@ import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
-import org.usfirst.frc.team195.robot.Subsystems.LEDController;
 import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.Loops.RobotStateEstimator;
@@ -38,6 +38,8 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void robotInit() {
+		Thread.currentThread().setPriority(Constants.kRobotThreadPriority);
+
 		//Setup the ConsoleReporter first so that subsystems can report errors if they occur
 		ConsoleReporter.setReportingLevel(MessageLevel.INFO);
 		ConsoleReporter.getInstance().start();
@@ -75,11 +77,11 @@ public class Robot extends RobbieRobot {
 
 		//Setup the DashboardReporter once all other subsystems have been initialized
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
-		dashboardReporter.start();
+		//dashboardReporter.start();
 
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
-		criticalSystemsMonitor.start();
+		//criticalSystemsMonitor.start();
 
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
@@ -117,7 +119,6 @@ public class Robot extends RobbieRobot {
 
 		while (isOperatorControl() && isEnabled()) {
 			hidController.run();
-
 			threadRateControl.doRateControl(20);
 		}
 	}

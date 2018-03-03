@@ -570,6 +570,26 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			DriverStation.reportError(msg, false);
 		}
 		armFault = !allSensorsPresent;
+
+		if (mArmMotor.hasResetOccurred()) {
+			setElevatorControl(ElevatorControl.OFF);
+
+			ConsoleReporter.report("Arm requires rehoming!", MessageLevel.DEFCON1);
+
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = true;
+				setSucceeded &= mArmMotor.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to clear Arm Reset !!!!!!", MessageLevel.DEFCON1);
+
+			armFault = true;
+		}
+
 		return armFault;
 	}
 
@@ -589,6 +609,26 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		}
 
 		elevatorFault = !elevatorSensorPresent;
+
+		if (mElevatorMotorMaster.hasResetOccurred()) {
+			setElevatorControl(ElevatorControl.OFF);
+
+			ConsoleReporter.report("Elevator requires rehoming!", MessageLevel.DEFCON1);
+
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = true;
+				setSucceeded &= mElevatorMotorMaster.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to clear Elevator Reset !!!!!!", MessageLevel.DEFCON1);
+
+			elevatorFault = true;
+		}
+
 		return elevatorFault;
 	}
 

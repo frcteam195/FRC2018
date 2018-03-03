@@ -48,6 +48,7 @@ public class DashboardReporter extends Thread {
 	
 	private DashboardReporter(List<CustomSubsystem> subsystemList) throws Exception {
 		super();
+		super.setPriority(Constants.kDashboardReporterThreadPriority);
 		runThread = false;
         clientSocket = new DatagramSocket(SEND_PORT);
 

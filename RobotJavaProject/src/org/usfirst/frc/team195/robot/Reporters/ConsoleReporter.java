@@ -27,6 +27,7 @@ public class ConsoleReporter extends Thread {
 
 	private ConsoleReporter() throws Exception {
 		super();
+		super.setPriority(Constants.kConsoleReporterThreadPriority);
 		runThread = false;
 		consoleSendThreadControlStart = 0;
 		consoleSendThreadControlEnd = 0;

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team195.robot.Subsystems;
+package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -28,6 +28,7 @@ public class LEDController extends Thread {
 
     private LEDController() throws Exception {
     	super();
+		super.setPriority(Constants.kLEDThreadPriority);
         mLED = new LEDDriverRGB(Controllers.getInstance().getRedLED(), Controllers.getInstance().getGreenLED(), Controllers.getInstance().getBlueLED());
         mLED.set(false);
 

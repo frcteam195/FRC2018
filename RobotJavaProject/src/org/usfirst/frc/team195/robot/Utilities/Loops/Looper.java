@@ -24,20 +24,27 @@ public class Looper {
     private double timestamp_ = 0;
     private double dt_ = 0;
     private boolean isFirstStart = true;
+    private boolean isFirstRun = true;
 
     private final CrashTrackingRunnable runnable_ = new CrashTrackingRunnable() {
         @Override
         public void runCrashTracked() {
             synchronized (taskRunningLock_) {
+                if (isFirstRun) {
+                    Thread.currentThread().setPriority(Constants.kLooperThreadPriority);
+                    isFirstRun = false;
+                }
+
                 if (running_) {
                     double now = Timer.getFPGATimestamp();
-
                     for (Loop loop : loops_) {
                         loop.onLoop(now);
                     }
 
                     dt_ = now - timestamp_;
                     timestamp_ = now;
+
+//                    outputToSmartDashboard()
                 }
             }
         }
