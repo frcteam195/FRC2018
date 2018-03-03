@@ -57,6 +57,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private double elevatorHeight = 0;
 	private double mPrevElevatorHeight = 0;
+	private double currentOverageCounter = 0;
+
 
 
 	private CubeHandlerSubsystem() throws Exception {
@@ -596,12 +598,33 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	@Override
 	public boolean isSystemFaulted() {
+		//Spock logic
 		boolean allSensorsPresent = true;
 
 		//allSensorsPresent &= !checkIfArmIsFaulted();
 		allSensorsPresent &= !checkIfElevatorIsFaulted();
+		allSensorsPresent &= !checkElevatorCurrent();
 
 		return !allSensorsPresent;
+	}
+
+	private boolean checkElevatorCurrent() {
+		double averageCurrent = getElevatorCurrentAverage();
+		boolean retVal = false;
+
+		if (averageCurrent > Constants.kElevatorSafetyCurrent) {
+			currentOverageCounter++;
+			retVal = true;
+		}
+		else
+			currentOverageCounter = 0;
+
+		if (currentOverageCounter >= 3) {
+			currentOverageCounter = 0;
+			doCurrentSpikeDetected();
+		}
+
+		return retVal;
 	}
 
 	public synchronized void setElevatorHeight(double elevatorHeight) {
@@ -618,6 +641,24 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public double getElevatorHeight() {
 		return mElevatorMotorMaster.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kElevatorEncoderGearRatio;
+	}
+
+	private void doCurrentSpikeDetected() {
+		double currentHeightNative = mElevatorMotorMaster.getSelectedSensorPosition(0);
+		double currentHeightRot = QuickMaths.convertNativeUnitsToRotations(currentHeightNative);
+		if (mElevatorMotorMaster.getClosedLoopTarget(0) <= currentHeightNative)
+			setElevatorHeight(currentHeightRot + 4 * Constants.kElevatorStepSize);
+//		else
+//			setElevatorHeight(currentHeightRot - 2 * Constants.kElevatorStepSize);
+	}
+
+	private double getElevatorCurrentAverage() {
+		double elevatorCurrentAverage = mElevatorMotorMaster.getOutputCurrent();
+		elevatorCurrentAverage += mElevatorMotorSlave.getOutputCurrent();
+		elevatorCurrentAverage += mElevatorMotorSlave2.getOutputCurrent();
+		elevatorCurrentAverage += mElevatorMotorSlave3.getOutputCurrent();
+		elevatorCurrentAverage /= 4;
+		return elevatorCurrentAverage;
 	}
 }
 

@@ -2,6 +2,8 @@ package org.usfirst.frc.team195.robot;
 
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
+import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
+import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.CriticalSystemStatus;
 import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
@@ -48,9 +50,9 @@ public class CriticalSystemsMonitor extends Thread {
 	public void run() {
 		threadRateControl.start();
 		while (runThread) {
-			for (CriticalSystemStatus css : mSystemArr) {
+			for (CriticalSystemStatus css : mSystemArr)
 				css.isSystemFaulted();
-			}
+
 			threadRateControl.doRateControl(MIN_SYSTEM_MONITOR_LOOP_MS);
 		}
 	}

@@ -173,6 +173,7 @@ public class Constants {
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.5;	//In rotations of output shaft
+	public static final double kElevatorSafetyCurrent = 12;	//In rotations of output shaft
 	public static final double kElevatorSafetyDelta = 0.3;	//In rotations of output shaft
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
 	public static final int kElevatorMaxPeakCurrentLimit = (int)(kElevatorMaxContinuousCurrentLimit * 1.25);
