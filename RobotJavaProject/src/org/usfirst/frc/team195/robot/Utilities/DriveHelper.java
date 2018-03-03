@@ -9,7 +9,7 @@ package org.usfirst.frc.team195.robot.Utilities;
 public class DriveHelper {
 
     private static final double kThrottleDeadband = Constants.kJoystickDeadband;
-    private static final double kWheelDeadband = Constants.kJoystickDeadband;
+    private static final double kWheelDeadband = Constants.kWheelDeadband;
 
     // These factor determine how fast the wheel traverses the "non linear" sine curve.
     private static final double kHighWheelNonLinearity = 0.65;
@@ -39,8 +39,8 @@ public class DriveHelper {
 
     public DriveMotorValues calculateOutput(double throttle, double wheel, boolean isQuickTurn, boolean isHighGear, double scalingFactor) {
 
-        wheel = handleDeadband(wheel, kWheelDeadband);
-        throttle = handleDeadband(throttle, kThrottleDeadband);
+        wheel = QuickMaths.normalizeJoystickWithDeadband(wheel, kWheelDeadband);
+        throttle = QuickMaths.normalizeJoystickWithDeadband(throttle, kThrottleDeadband);
 
         double negInertia = wheel - mOldWheel;
         mOldWheel = wheel;

@@ -1,19 +1,20 @@
 package org.usfirst.frc.team195.robot;
 
-import java.util.ArrayList;
-
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.SwitchCubeThenScaleMode;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Subsystems.*;
+import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
+import org.usfirst.frc.team195.robot.Subsystems.LEDController;
 import org.usfirst.frc.team195.robot.Utilities.*;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.ArmConfiguration;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.Arm.PolarCoordinate;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.Loops.RobotStateEstimator;
+
+import java.util.ArrayList;
 
 public class Robot extends RobbieRobot {
 	private Controllers robotControllers;
@@ -22,6 +23,7 @@ public class Robot extends RobbieRobot {
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private RobotStateEstimator robotStateEstimator;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
+	private ClimberSubsystem climberSubsystem;
 	private HIDController hidController;
 	private LEDController ledController;
 	private DashboardReporter dashboardReporter;
@@ -55,9 +57,13 @@ public class Robot extends RobbieRobot {
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance(subsystemVector);
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance(subsystemVector);
+		climberSubsystem = ClimberSubsystem.getInstance(subsystemVector);
+
+		threadRateControl.start(true);
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
 			customSubsystem.init();
+			threadRateControl.doRateControl(100);
 		}
 
 		for (CustomSubsystem customSubsystem : subsystemVector) {
@@ -87,7 +93,9 @@ public class Robot extends RobbieRobot {
 		autoModeExecuter.setAutoMode(new SwitchCubeThenScaleMode());
 		autoModeExecuter.start();
 
-		while (isAutonomous() && isEnabled()) {try{Thread.sleep(100);}catch(Exception ex) {}}
+		threadRateControl.start(true);
+
+		while (isAutonomous() && isEnabled()) {threadRateControl.doRateControl(100);}
 	}
 	
 	@Override
@@ -109,13 +117,6 @@ public class Robot extends RobbieRobot {
 
 		while (isOperatorControl() && isEnabled()) {
 			hidController.run();
-
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(13, 25));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(new PolarCoordinate(16, 90));
-//			threadRateControl.doRateControl(2000);
-//			cubeHandlerSubsystem.setArmCoordinate(ArmConfiguration.HOME);
-//			threadRateControl.doRateControl(4000);
 
 			threadRateControl.doRateControl(20);
 		}

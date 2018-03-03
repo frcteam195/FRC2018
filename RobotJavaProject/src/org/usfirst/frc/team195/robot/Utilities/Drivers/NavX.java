@@ -6,6 +6,7 @@ import com.kauailabs.navx.frc.ITimestampedDataSubscriber;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Rotation2d;
 
 /**
@@ -40,7 +41,8 @@ public class NavX {
     protected double mPrevAccelY = 0;
     protected double mPrevTimeAccel = 0;
 
-    private double mJerkCollisionThreshold = 0.5;
+    private double mJerkCollisionThreshold = Constants.kCollisionDetectionJerkThreshold;
+    private double mTippingThreshold = Constants.kTippingThresholdDeg;
 
     public NavX(SPI.Port spi_port_id) {
         mAHRS = new AHRS(spi_port_id, (byte) 200);
@@ -96,6 +98,10 @@ public class NavX {
         mJerkCollisionThreshold = jerkCollisionThreshold;
     }
 
+    public synchronized void setTippingThreshold(double tippingThreshold) {
+        mTippingThreshold = tippingThreshold;
+    }
+
     public boolean isCollisionOccurring() {
         boolean collisionOccurring = false;
 
@@ -108,9 +114,6 @@ public class NavX {
 
         double jerkX = (accelX - mPrevAccelX)/(dt);
         double jerkY = (accelY - mPrevAccelY)/(dt);
-
-        ConsoleReporter.report("Jerk X: " + jerkX);
-        ConsoleReporter.report("Jerk Y: " + jerkY);
 
         if (Math.abs(jerkX) > mJerkCollisionThreshold || Math.abs(jerkY) > mJerkCollisionThreshold)
             collisionOccurring = true;
@@ -125,5 +128,12 @@ public class NavX {
 
         mPrevTimeAccel = currTime;
         return collisionOccurring;
+    }
+
+    public boolean isTipping() {
+        if (Math.abs(mAHRS.getPitch()) > mTippingThreshold || Math.abs(mAHRS.getRoll()) > mTippingThreshold)
+            return true;
+
+        return false;
     }
 }

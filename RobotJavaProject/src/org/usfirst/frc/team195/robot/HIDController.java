@@ -1,16 +1,17 @@
 package org.usfirst.frc.team195.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
-import org.usfirst.frc.team195.robot.Actions.ShiftAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.*;
-
-import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorControl;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.PolarArmControlJoystick;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class HIDController implements Runnable {
 	private static HIDController instance = null;
@@ -18,19 +19,22 @@ public class HIDController implements Runnable {
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
 	private DriverStation ds;
-	private KnightJoystick driveJoystick;
-	private PolarArmControlJoystick armControlJoystick;
+	private KnightJoystick driveJoystickThrottle;
+	//private KnightJoystick driveJoystickWheel;
+	private KnightJoystick armControlJoystick;
+	private KnightJoystick buttonBox1;
 	private DriveHelper driveHelper;
 	//private ShiftAction shiftAction;
 	private IntakePositionAction intakePositionAction;
 
 	private HIDController() throws Exception {
-		super();
 		ds = DriverStation.getInstance();
 
 		Controllers robotControllers = Controllers.getInstance();
-		driveJoystick = robotControllers.getDriveJoystick();
+		driveJoystickThrottle = robotControllers.getDriveJoystickThrottle();
+		//driveJoystickWheel = robotControllers.getDriveJoystickWheel();
 		armControlJoystick = robotControllers.getArmControlJoystick();
+		buttonBox1 = robotControllers.getButtonBox1();
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
@@ -54,29 +58,64 @@ public class HIDController implements Runnable {
 
 	@Override
 	public void run() {
-
 		//NO SHIFTER THIS YEAR!!!
-//		if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
+//		if (driveJoystickThrottle.getRisingEdgeButton(Constants.DRIVE_SHIFT_LOW)) {
 //			shiftAction.start(false);
-//		} else if (driveJoystick.getRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
+//		} else if (driveJoystickThrottle.getRisingEdgeButton(Constants.DRIVE_SHIFT_HIGH)) {
 //			shiftAction.start(true);
 //		}
 
-		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_MANUAL_POSITION_CONTROL))
-			armControlJoystick.start();
-		if (armControlJoystick.getRawButton(Constants.ARM_MANUAL_POSITION_CONTROL))
-			cubeHandlerSubsystem.setArmCoordinate(armControlJoystick.getPolarMappingFromJoystick());
 
+		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_IN))
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
+		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT))
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT);
+		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT_HALFSPEED))
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT_HALFSPEED);
+		else
+			cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
 
-		double x = driveJoystick.getRawAxis(Constants.DRIVE_X_AXIS);
-		double y = -driveJoystick.getRawAxis(Constants.DRIVE_Y_AXIS);
+		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_CLAMP))
+			cubeHandlerSubsystem.setIntakeClamp(false);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_UNCLAMP))
+			cubeHandlerSubsystem.setIntakeClamp(true);
 
-		driveBaseSubsystem.setBrakeMode(driveJoystick.getRawButton(Constants.DRIVE_HOLD_BRAKE));
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SWITCH))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.LOW);
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE_HIGH))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_INCREMENT))
+			cubeHandlerSubsystem.incrementElevatorHeight();
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_DECREMENT))
+			cubeHandlerSubsystem.decrementElevatorHeight();
 
-		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
-		//driveBaseSubsystem.setDriveVelocity(driveHelper.calculateOutput(y, x, driveJoystick.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear(), 10000));
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME))
+			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
+
+//		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
+//		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);
+
+		double elevatorScaling = 1 - cubeHandlerSubsystem.getElevatorHeight() / Constants.kElevatorSoftMax;
+
+		if (cubeHandlerSubsystem.getElevatorHeight() < 5)
+			elevatorScaling = 1;
+
+		elevatorScaling = elevatorScaling < 0.55 ? 0.55 : elevatorScaling;
+
+		double x = QuickMaths.normalizeJoystickWithDeadband(driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS), Constants.kJoystickDeadband) * elevatorScaling;
+		double y = QuickMaths.normalizeJoystickWithDeadband(-driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS), Constants.kJoystickDeadband) * elevatorScaling;
+
+		driveBaseSubsystem.setBrakeMode(driveJoystickThrottle.getRawButton(Constants.DRIVE_HOLD_BRAKE));
+
+		driveBaseSubsystem.setDriveOpenLoop(new DriveMotorValues(Util.limit(y + x, 1), Util.limit(y - x, 1)));
+
+//		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(throttle, wheel, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
+		//driveBaseSubsystem.setDriveVelocity(driveHelper.calculateOutput(y, x, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear(), 10000));
 		//driveBaseSubsystem.setDriveVelocity(new DriveMotorValues((y + x) * 380, (y - x) * 380));
-
 	}
 
 }

@@ -43,7 +43,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	private SetpointValue leftSetpointValue = new SetpointValue();
 	private SetpointValue rightSetpointValue = new SetpointValue();
 
-	private boolean collisionOccurring = false;
+	private boolean emergencySafetyRequired = false;
 
 	private final Loop mLoop = new Loop() {
 		@Override
@@ -67,22 +67,23 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			synchronized (DriveBaseSubsystem.this) {
 				switch (mControlMode) {
 					case OPEN_LOOP:
-						return;
+						break;
 					case VELOCITY:
-						return;
+						break;
 					case PATH_FOLLOWING:
 						if (mPathFollower != null) {
 							updatePathFollower(timestamp);
 							//mCSVWriter.add(mPathFollower.getDebug());
 						}
-						return;
+						break;
 					default:
 						ConsoleReporter.report("Unexpected drive control state: " + mControlMode);
 						break;
 				}
 
 				if (mControlMode != DriveControlState.PATH_FOLLOWING)
-					collisionOccurring = mNavXBoard.isCollisionOccurring();
+					emergencySafetyRequired = mNavXBoard.isCollisionOccurring() || mNavXBoard.isTipping();
+
 			}
 		}
 		@Override
@@ -181,6 +182,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			ConsoleReporter.report("Failed to initialize DriveBaseSubsystem!!!", MessageLevel.DEFCON1);
 
 		mNavXBoard.setCollisionJerkThreshold(Constants.kCollisionDetectionJerkThreshold);
+		mNavXBoard.setTippingThreshold(Constants.kTippingThresholdDeg);
 
 		isSystemFaulted();
 	}
@@ -237,8 +239,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			Timer.delay(1);
 
 			ConsoleReporter.report("Testing DRIVE---------------------------------");
-			final double kLowCurrentThres = 0.5;
-			final double kLowRpmThres = 100;
+			final double kLowCurrentThres = Constants.kDriveBaseTestLowCurrentThresh;
+			final double kLowRpmThres = Constants.kDriveBaseTestLowRPMThresh;
 
 			ArrayList<MotorDiagnostics> mAllMotorsDiagArr = new ArrayList<MotorDiagnostics>();
 			ArrayList<MotorDiagnostics> mLeftDiagArr = new ArrayList<MotorDiagnostics>();
@@ -271,23 +273,28 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " RPM Low !!!!!!!!!!");
 					failure = true;
 				}
+
+				if (!mD.isSensorInPhase()) {
+					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! " + mD.getMotorName() + " Sensor Out of Phase !!!!!!!!!!");
+					failure = true;
+				}
 			}
 
 			if (mLeftDiagArr.size() > 0 && mRightDiagArr.size() > 0 && mAllMotorsDiagArr.size() > 0) {
 				List<Double> leftMotorCurrents = mLeftDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-				if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), 5.0)) {
+				if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), Constants.kDriveBaseTestCurrentDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Left Currents Different !!!!!!!!!!");
 				}
 
 				List<Double> rightMotorCurrents = mRightDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-				if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), 5.0)) {
+				if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), Constants.kDriveBaseTestCurrentDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Right Currents Different !!!!!!!!!!");
 				}
 
 				List<Double> driveMotorRPMs = mAllMotorsDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
-				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), 40)) {
+				if (!Util.allCloseTo(driveMotorRPMs, driveMotorRPMs.get(0), Constants.kDriveBaseTestRPMDelta)) {
 					failure = true;
 					ConsoleReporter.report("!!!!!!!!!!!!!!!!!!! Drive RPMs different !!!!!!!!!!!!!!!!!!!");
 				}
@@ -503,8 +510,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		}
 	}
 
-	public synchronized boolean isCollisionOccurring() {
-		return collisionOccurring;
+	public synchronized boolean isEmergencySafetyRequired() {
+		return emergencySafetyRequired;
 	}
 
 	public synchronized boolean isDoneWithPath() {

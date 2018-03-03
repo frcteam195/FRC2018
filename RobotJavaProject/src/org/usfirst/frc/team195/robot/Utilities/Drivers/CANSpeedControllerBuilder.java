@@ -22,7 +22,7 @@ public class CANSpeedControllerBuilder {
 		public int CURRENT_LIMIT = 0;
 		public boolean INVERTED = false;
 
-		public int CONTROL_FRAME_PERIOD_MS = 5;
+		public int CONTROL_FRAME_PERIOD_MS = 10;
 		public int GENERAL_STATUS_FRAME_RATE_MS = 10;
 
 		//public VelocityMeasPeriod VELOCITY_MEASUREMENT_PERIOD = VelocityMeasPeriod::Period_100Ms;
@@ -44,13 +44,11 @@ public class CANSpeedControllerBuilder {
 
 	public static TalonSRX createMasterTalonSRX(int id) {
 		Configuration masterConfig = new Configuration();
-		masterConfig.GENERAL_STATUS_FRAME_RATE_MS = 5;
 		return createTalonSRX(id, masterConfig);
 	}
 
 	public static CKTalonSRX createMasterTalonSRX(int id, int pdpChannel) {
 		Configuration masterConfig = new Configuration();
-		masterConfig.GENERAL_STATUS_FRAME_RATE_MS = 5;
 		return createTalonSRX(id, pdpChannel, masterConfig);
 	}
 	
@@ -81,6 +79,7 @@ public class CANSpeedControllerBuilder {
 
 	public static TalonSRX createTalonSRX(int id, Configuration config) {
         TalonSRX talon = new TalonSRX(id);
+        //TODO: Test to make sure CAN utilization is not too high
         configTalon(talon, config);
         return talon;
     }
@@ -92,32 +91,34 @@ public class CANSpeedControllerBuilder {
 	}
 
 	private static boolean configTalon(TalonSRX talon, Configuration config) {
-		talon.set(ControlMode.PercentOutput, 0);
-		talon.setNeutralMode(config.NEUTRAL_MODE);
-		talon.setInverted(config.INVERTED);
-		talon.enableCurrentLimit(config.ENABLE_CURRENT_LIMIT);
-		talon.clearMotionProfileTrajectories();
+//		talon.set(ControlMode.PercentOutput, 0);
+
+//		talon.setNeutralMode(config.NEUTRAL_MODE);
+//		talon.setInverted(config.INVERTED);
+//		talon.enableCurrentLimit(config.ENABLE_CURRENT_LIMIT);
+//		talon.clearMotionProfileTrajectories();
 
 		boolean setSucceeded;
 		int retryCounter = 0;
 
 		do {
 			setSucceeded = true;
-			setSucceeded &= talon.setControlFramePeriod(ControlFrame.Control_3_General, config.CONTROL_FRAME_PERIOD_MS) == ErrorCode.OK;
-			setSucceeded &= talon.setStatusFramePeriod(StatusFrame.Status_1_General, config.GENERAL_STATUS_FRAME_RATE_MS, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.setIntegralAccumulator(0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.clearMotionProfileHasUnderrun(Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.clearMotionProfileHasUnderrun(Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= talon.clearStickyFaults(Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.configPeakOutputForward(config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.configPeakOutputReverse(-config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.configNominalOutputForward(config.NOMINAL_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.configNominalOutputReverse(-config.NOMINAL_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.configContinuousCurrentLimit(config.CURRENT_LIMIT, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.configForwardSoftLimitEnable(config.ENABLE_SOFT_LIMIT, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.configReverseSoftLimitEnable(config.ENABLE_SOFT_LIMIT, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= talon.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-			//setSucceeded &= talon.configVelocityMeasurementPeriod(config.VELOCITY_MEASUREMENT_PERIOD, Constants.kTimeoutMs) == ErrorCode.OK;
-			//setSucceeded &= talon.configVelocityMeasurementWindow(config.VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW, Constants.kTimeoutMs) == ErrorCode.OK;
+
+//			setSucceeded &= talon.setControlFramePeriod(ControlFrame.Control_3_General, config.CONTROL_FRAME_PERIOD_MS) == ErrorCode.OK;
+//			setSucceeded &= talon.setStatusFramePeriod(StatusFrame.Status_1_General, config.GENERAL_STATUS_FRAME_RATE_MS, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.setIntegralAccumulator(0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.configPeakOutputForward(config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.configPeakOutputReverse(-config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.configNominalOutputForward(config.NOMINAL_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.configNominalOutputReverse(-config.NOMINAL_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.configContinuousCurrentLimit(config.CURRENT_LIMIT, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.configForwardSoftLimitEnable(config.ENABLE_SOFT_LIMIT, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.configReverseSoftLimitEnable(config.ENABLE_SOFT_LIMIT, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+//			//setSucceeded &= talon.configVelocityMeasurementPeriod(config.VELOCITY_MEASUREMENT_PERIOD, Constants.kTimeoutMs) == ErrorCode.OK;
+//			//setSucceeded &= talon.configVelocityMeasurementWindow(config.VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW, Constants.kTimeoutMs) == ErrorCode.OK;
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
