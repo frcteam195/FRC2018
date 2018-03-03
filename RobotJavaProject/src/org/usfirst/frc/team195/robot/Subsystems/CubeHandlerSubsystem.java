@@ -619,7 +619,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		else
 			currentOverageCounter = 0;
 
-		if (currentOverageCounter >= 3) {
+		if (currentOverageCounter >= 2) {
 			currentOverageCounter = 0;
 			doCurrentSpikeDetected();
 		}
