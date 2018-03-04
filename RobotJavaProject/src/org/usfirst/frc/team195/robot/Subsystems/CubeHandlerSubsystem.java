@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -278,7 +279,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		public void onLoop(double timestamp) {
 			synchronized (CubeHandlerSubsystem.this) {
 				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
-
+//				SmartDashboard.putBoolean("ElevatorHomeSwitch", mElevatorHomeSwitch.get());
+//				SmartDashboard.putString("ElevatorControlMode", mElevatorControl.toString());
 				switch (mArmControl) {
 					case POSITION:
 						if (collisionOccurring) {
@@ -304,6 +306,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							//setElevatorHeight(ElevatorPosition.HOME);
 						}
 
+						if (elevatorHeight <= ElevatorPosition.HOME &&
+								Math.abs(QuickMaths.convertNativeUnitsToRotations(mElevatorMotorMaster.getSelectedSensorPosition(0)) - elevatorHeight)
+										< Constants.kElevatorDeviationThreshold &&
+								mElevatorHomeSwitch.get()) {
+							setElevatorControl(ElevatorControl.HOMING);
+							break;
+						}
+
 						if (elevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, elevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
 							mPrevElevatorHeight = elevatorHeight;
@@ -312,9 +322,19 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					case MANUAL:
 						break;
 					case HOMING:
-						mElevatorMotorMaster.set(ControlMode.PercentOutput, -0.3);
-						if (mElevatorHomeSwitch.get()) {
+						mElevatorMotorMaster.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+						mElevatorMotorSlave.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+						mElevatorMotorSlave2.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+						mElevatorMotorSlave3.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+						if (!mElevatorHomeSwitch.get()) {
+							mElevatorMotorSlave.set(ControlMode.Disabled, 0);
+							mElevatorMotorSlave2.set(ControlMode.Disabled, 0);
+							mElevatorMotorSlave3.set(ControlMode.Disabled, 0);
 							zeroElevator();
+							setElevatorHeight(ElevatorPosition.HOME);
+							mElevatorMotorSlave.follow(mElevatorMotorMaster);
+							mElevatorMotorSlave2.follow(mElevatorMotorMaster);
+							mElevatorMotorSlave3.follow(mElevatorMotorMaster);
 							setElevatorControl(ElevatorControl.POSITION);
 						}
 						break;
@@ -325,6 +345,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						break;
 				}
 				mPrevElevatorControl = mElevatorControl;
+
 
 				if (mIntakeControl != mPrevIntakeControl) {
 					switch (mIntakeControl) {
