@@ -15,7 +15,7 @@ public class KnightJoystick extends Joystick {
 		}
 	}
 	
-	public boolean getRisingEdgeButton(int button) {
+	public synchronized boolean getRisingEdgeButton(int button) {
 		try {
 			boolean currentButton = super.getRawButton(button);
 			boolean retVal = (currentButton != prevButtonVal[button-1]) && currentButton;
@@ -26,7 +26,7 @@ public class KnightJoystick extends Joystick {
 		}
 	}
 	
-	public boolean getFallingEdgeButton(int button) {
+	public synchronized boolean getFallingEdgeButton(int button) {
 		try {
 			boolean currentButton = super.getRawButton(button);
 			boolean retVal = (currentButton != prevButtonVal[button-1]) && !currentButton;
