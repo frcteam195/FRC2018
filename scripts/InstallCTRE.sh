@@ -32,7 +32,7 @@ checkCommandSucceeded () {
 while [[ -z "$CTREBase" ]]
 do
 	#Get the user input
-    read -p "Enter CTRE folder [$DIR_PATH_TO_ME]: " CTREBase
+	read -p "Enter CTRE folder [$DIR_PATH_TO_ME]: " CTREBase
     CTREBase="${CTREBase/#\~/$HOME}"
     
     #Use the default value if the user input is not valid
