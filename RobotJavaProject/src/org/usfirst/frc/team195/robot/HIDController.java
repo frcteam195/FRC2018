@@ -93,8 +93,10 @@ public class HIDController implements Runnable {
 		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_DECREMENT))
 			cubeHandlerSubsystem.decrementElevatorHeight();
 
-		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME))
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME)) {
+			ConsoleReporter.report("Elevator rehoming requested!", MessageLevel.DEFCON1);
 			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
+		}
 
 //		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
 //		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);

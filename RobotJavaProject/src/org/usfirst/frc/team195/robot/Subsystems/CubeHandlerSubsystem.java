@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -16,6 +18,7 @@ import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmControl;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorControl;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightDigitalInput;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TuneablePID;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
@@ -50,7 +53,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private DriverStation ds;
 
-	private DigitalInput mElevatorHomeSwitch;
+	private KnightDigitalInput mElevatorHomeSwitch;
 
 	private boolean elevatorFault = false;
 	private boolean armFault = false;
@@ -58,6 +61,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private double elevatorHeight = 0;
 	private double mPrevElevatorHeight = 0;
 	private double currentOverageCounter = 0;
+	private double homingTimeStart = 0;
 
 
 
@@ -122,6 +126,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mElevatorMotorMaster.setSensorPhase(false);
 		mElevatorMotorMaster.setInverted(true);
 		mElevatorMotorSlave3.setInverted(true);
+		mElevatorMotorMaster.setNeutralMode(NeutralMode.Brake);
+		mElevatorMotorSlave.setNeutralMode(NeutralMode.Brake);
+		mElevatorMotorSlave2.setNeutralMode(NeutralMode.Brake);
+		mElevatorMotorSlave3.setNeutralMode(NeutralMode.Brake);
 
 		mIntakeMotor.setInverted(false);
 		mIntake2Motor.setInverted(false);
@@ -225,6 +233,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded = true;
 
 			setSucceeded &= mElevatorMotorMaster.setSelectedSensorPosition(homeElevatorValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mElevatorMotorMaster.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
@@ -232,6 +241,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report("Failed to zero Elevator!!!", MessageLevel.DEFCON1);
 
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
+		setElevatorHeight(ElevatorPosition.HOME);
 
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
@@ -278,7 +288,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		public void onLoop(double timestamp) {
 			synchronized (CubeHandlerSubsystem.this) {
 				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
-
+//				SmartDashboard.putBoolean("ElevatorHomeSwitch", mElevatorHomeSwitch.get());
+//				SmartDashboard.putString("ElevatorControlMode", mElevatorControl.toString());
 				switch (mArmControl) {
 					case POSITION:
 						if (collisionOccurring) {
@@ -304,18 +315,47 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							//setElevatorHeight(ElevatorPosition.HOME);
 						}
 
-						if (elevatorHeight != mPrevElevatorHeight) {
+						if (elevatorHeight <= ElevatorPosition.HOME &&
+								Math.abs(QuickMaths.convertNativeUnitsToRotations(mElevatorMotorMaster.getSelectedSensorPosition(0)) - elevatorHeight)
+										< Constants.kElevatorDeviationThreshold &&
+								mElevatorHomeSwitch.get()) {
+							setElevatorControl(ElevatorControl.HOMING);
+							break;
+						}
+
+						if (mElevatorHomeSwitch.getFallingEdge()) {
+							zeroElevator();
+						} else if (elevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, elevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
+
 							mPrevElevatorHeight = elevatorHeight;
 						}
 						break;
 					case MANUAL:
 						break;
 					case HOMING:
-						mElevatorMotorMaster.set(ControlMode.PercentOutput, -0.3);
-						if (mElevatorHomeSwitch.get()) {
+						if (mPrevElevatorControl != ElevatorControl.HOMING)
+							homingTimeStart = Timer.getFPGATimestamp();
+
+						mElevatorMotorMaster.configReverseSoftLimitEnable(false, Constants.kTimeoutMsFast);
+						mElevatorMotorMaster.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+//						mElevatorMotorSlave.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+//						mElevatorMotorSlave2.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+//						mElevatorMotorSlave3.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
+						if (!mElevatorHomeSwitch.get()) {
+//							mElevatorMotorSlave.set(ControlMode.Disabled, 0);
+//							mElevatorMotorSlave2.set(ControlMode.Disabled, 0);
+//							mElevatorMotorSlave3.set(ControlMode.Disabled, 0);
 							zeroElevator();
+//							mElevatorMotorSlave.follow(mElevatorMotorMaster);
+//							mElevatorMotorSlave2.follow(mElevatorMotorMaster);
+//							mElevatorMotorSlave3.follow(mElevatorMotorMaster);
 							setElevatorControl(ElevatorControl.POSITION);
+						}
+
+						if (Timer.getFPGATimestamp() - homingTimeStart > Constants.kElevatorHomingTimeout) {
+							setElevatorControl(ElevatorControl.OFF);
+							ConsoleReporter.report("Elevator Failed to Home! Elevator Disabled!", MessageLevel.DEFCON1);
 						}
 						break;
 					case OFF:
@@ -325,6 +365,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						break;
 				}
 				mPrevElevatorControl = mElevatorControl;
+
 
 				if (mIntakeControl != mPrevIntakeControl) {
 					switch (mIntakeControl) {
@@ -417,7 +458,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			boolean testPassed = true;
 			//testPassed &= runArmDiagnostics();
 			testPassed &= runElevatorDiagnostics();
-			testPassed &= runIntakeDiagnostics();
+			//testPassed &= runIntakeDiagnostics();
 			return testPassed;
 		} else
 			return true;

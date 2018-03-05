@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.CANSpeedControllerBuilder;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightDigitalInput;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
 
@@ -42,7 +43,7 @@ public class Controllers {
 	private DigitalOutput gLED;
 	private DigitalOutput bLED;
 
-	private DigitalInput elevatorHomeSwitch;
+	private KnightDigitalInput elevatorHomeSwitch;
 
 	private NavX navX;
 	
@@ -95,7 +96,7 @@ public class Controllers {
 		gLED = new DigitalOutput(Constants.kGreenLEDId);
 		bLED = new DigitalOutput(Constants.kBlueLEDId);
 
-		elevatorHomeSwitch = new DigitalInput(Constants.kElevatorHomeSwitchId);
+		elevatorHomeSwitch = new KnightDigitalInput(Constants.kElevatorHomeSwitchId);
 
 	    try {
 	        navX = new NavX(SPI.Port.kMXP);
@@ -221,7 +222,7 @@ public class Controllers {
 		return climberLockSolenoid;
 	}
 
-	public DigitalInput getElevatorHomeSwitch() {
+	public KnightDigitalInput getElevatorHomeSwitch() {
 		return elevatorHomeSwitch;
 	}
 }
