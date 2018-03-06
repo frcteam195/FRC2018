@@ -2,12 +2,15 @@
 <html>
 <head>
 	<title>Cyber Path</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+	<script src="jquery.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 	<script src="blob.js"></script>
     <script src="filesaver.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+	<!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">-->
+	<!--<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">-->
+	<link href="Roboto.css" rel="stylesheet">
+	<link href="SourceCodePro.css" rel="stylesheet">
 	<style type="text/css">
 	* {
 		font-family: 'Roboto', sans-serif;
@@ -66,8 +69,13 @@
 		width: 50px;
 		outline: none;
 	}
+
+	.marker > input, .comments > input:focus {
+		width: 150px;
+	}
+
 	.comments > input, .comments > input:focus {
-		width: 200px;
+		width: 100px;
 	}
 
 	.buttonContainer {
@@ -170,9 +178,10 @@
 		<button onclick="showData()">Display Path Code</button>
 		<button onclick="exportData()">Download</button>
 		<button onclick="importData()">Import</button>
-		<button onclick="doStuff()">GetPoints</button>
-		<!--<button onclick="flipField()">Flip Field</button>
-		<span style="font-size: 15px; float: right;">Is reversed: <input type="checkbox" id="isReversed"></span>-->
+		<button onclick="changeStartPoint()">Switch Start Point</button>
+		<!--<button onclick="doStuff()">GetPoints</button>-->
+		<!--<button onclick="flipField()">Flip Field</button>-->
+		<span style="font-size: 15px; float: right;">Is reversed: <input type="checkbox" id="isReversed"></span>
 	</div>
 	<table>
 		<thead>
@@ -180,15 +189,17 @@
 			<th>Y</th>
 			<th>Radius</th>
 			<th>Speed</th>
+			<th>Marker</th>
 			<th>Comments</th>
 			<th>Delete</th>
 		</thead>
 		<tbody>
 			<tr>
 				<td class="x"><input value="20"></td>
-				<td class="y"><input value="260"></td>
+				<td class="y"><input value="276"></td>
 				<td class="radius"><span>0</span></td>
 				<td class="speed"><span>0</span></td>
+				<td class="marker"><input placeholder="Marker"></td>
 				<td class="comments"><input placeholder="Comments"></td>
 			</tr>
 		</tbody>
