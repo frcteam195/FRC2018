@@ -613,7 +613,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		armFault = !allSensorsPresent;
 
 		if (mArmMotor.hasResetOccurred()) {
-			setElevatorControl(ElevatorControl.OFF);
+			setArmControl(ArmControl.OFF);
 
 			ConsoleReporter.report("Arm requires rehoming!", MessageLevel.DEFCON1);
 

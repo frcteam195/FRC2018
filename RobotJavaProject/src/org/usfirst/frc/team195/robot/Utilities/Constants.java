@@ -211,23 +211,23 @@ public class Constants {
 	//TODO: Tune drive base gains for velocity control
 	// PID gains for drive velocity loop (HIGH GEAR)
 	// Units: setpoint, error, and output are in inches per second.
-	public static final double kDriveHighGearVelocityKp = 0.43;
-	public static final double kDriveHighGearVelocityKi = 0.4;
-	public static final double kDriveHighGearVelocityKd = 5.0;
-	public static final double kDriveHighGearVelocityKf = 0.385;
-	public static final int kDriveHighGearVelocityIZone = 15;
-	public static final double kDriveHighGearVelocityRampRate = 0.25;
-	public static final double kDriveHighGearMaxSetpoint = 14.0 * 12.0; // 14 fps
+	public static final double kDriveHighGearVelocityKp = 1;
+	public static final double kDriveHighGearVelocityKi = 0.005;
+	public static final double kDriveHighGearVelocityKd = 1.6;
+	public static final double kDriveHighGearVelocityKf = 0.165;
+	public static final int kDriveHighGearVelocityIZone = 0;
+	public static final double kDriveHighGearVelocityRampRate = 0.1;
+	public static final double kDriveHighGearMaxSetpoint = 12.0 * 12.0; // 14 fps
 
 	// PID gains for drive velocity loop (LOW GEAR)
 	// Units: setpoint, error, and output are in inches per second.
-	public static final double kDriveLowGearPositionKp = 0.43;
-	public static final double kDriveLowGearPositionKi = 0.4;
-	public static final double kDriveLowGearPositionKd = 5.0;
-	public static final double kDriveLowGearPositionKf = .385;
-	public static final int kDriveLowGearPositionIZone = 15;
-	public static final double kDriveLowGearPositionRampRate = 0.25; // V/s
-	public static final double kDriveLowGearMaxVelocity = 14.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 14 fps, value in RPM
+	public static final double kDriveLowGearPositionKp = 1;
+	public static final double kDriveLowGearPositionKi = 0.005;
+	public static final double kDriveLowGearPositionKd = 1.6;
+	public static final double kDriveLowGearPositionKf = .165;
+	public static final int kDriveLowGearPositionIZone = 0;
+	public static final double kDriveLowGearPositionRampRate = 0.1; // V/s
+	public static final double kDriveLowGearMaxVelocity = 12.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 14 fps, value in RPM
 	public static final double kDriveLowGearMaxAccel = 20.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 20 fps/s, value in RPM/s
 
 	//Tuned with 100:1 Transmission
@@ -297,7 +297,7 @@ public class Constants {
 	public static final double kDeltaLookAhead = kMaxLookAhead - kMinLookAhead;
 	public static final double kDeltaLookAheadSpeed = kMaxLookAheadSpeed - kMinLookAheadSpeed;
 
-	public static final double kInertiaSteeringGain = 0.017; // angular velocity command is multiplied by this gain *
+	public static final double kInertiaSteeringGain = 0.0; // angular velocity command is multiplied by this gain *
 	// our speed
 	// in inches per sec
 	public static final double kSegmentCompletionTolerance = 1; // inches

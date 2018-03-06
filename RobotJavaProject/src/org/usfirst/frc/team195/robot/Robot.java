@@ -2,6 +2,7 @@ package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team195.robot.Autonomous.AutoModeSample;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.SwitchCubeThenScaleMode;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -92,7 +93,7 @@ public class Robot extends RobbieRobot {
 		mLooper.start();
 
 		autoModeExecuter = new AutoModeExecuter();
-		autoModeExecuter.setAutoMode(new SwitchCubeThenScaleMode());
+		autoModeExecuter.setAutoMode(new AutoModeSample());
 		autoModeExecuter.start();
 
 		threadRateControl.start(true);

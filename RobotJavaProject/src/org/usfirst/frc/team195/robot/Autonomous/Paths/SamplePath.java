@@ -10,10 +10,10 @@ public class SamplePath implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(new Waypoint(20,260,0,0));
-		sWaypoints.add(new Waypoint(220,260,25,60));
-		sWaypoints.add(new Waypoint(236,225,15,60));
-		sWaypoints.add(new Waypoint(242,180,0,60));
+//		sWaypoints.add(new Waypoint(20,260,0,0));
+//		sWaypoints.add(new Waypoint(220,260,25,60));
+//		sWaypoints.add(new Waypoint(236,225,15,60));
+//		sWaypoints.add(new Waypoint(242,180,0,60));
 
 //		sWaypoints.add(new Waypoint(20,260,0,0));
 //		sWaypoints.add(new Waypoint(100,260,0,60));
@@ -22,12 +22,17 @@ public class SamplePath implements PathContainer {
 //		sWaypoints.add(new Waypoint(60,260,30,60));
 //		sWaypoints.add(new Waypoint(60,215,0,60));
 
+		sWaypoints.add(new Waypoint(20,45,0,0));
+		sWaypoints.add(new Waypoint(148,45,30,140));
+		sWaypoints.add(new Waypoint(225,77,30,140));
+		sWaypoints.add(new Waypoint(282,78,0,140));
+
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(20, 260), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(20, 45), Rotation2d.fromDegrees(0));
 	}
 
 	@Override
