@@ -293,7 +293,7 @@ public class Constants {
 	public static final double kMinLookAhead = 12.0; // inches
 	public static final double kMinLookAheadSpeed = 9.0; // inches per second
 	public static final double kMaxLookAhead = 24.0; // inches
-	public static final double kMaxLookAheadSpeed = 120.0; // inches per second
+	public static final double kMaxLookAheadSpeed = 140.0; // inches per second
 	public static final double kDeltaLookAhead = kMaxLookAhead - kMinLookAhead;
 	public static final double kDeltaLookAheadSpeed = kMaxLookAheadSpeed - kMinLookAheadSpeed;
 
@@ -302,7 +302,7 @@ public class Constants {
 	// in inches per sec
 	public static final double kSegmentCompletionTolerance = 1; // inches
 	public static final double kPathFollowingMaxAccel = 100.0; // inches per second^2
-	public static final double kPathFollowingMaxVel = 120.0; // inches per second
+	public static final double kPathFollowingMaxVel = 140.0; // inches per second
 
 	public static final double kPathFollowingProfileKp = 5.0;
 	public static final double kPathFollowingProfileKi = 0.03;

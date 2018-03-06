@@ -34,6 +34,20 @@ public class SamplePath implements PathContainer {
 		sWaypoints.add(new Waypoint(258,260,15,100));
 		sWaypoints.add(new Waypoint(290,257,0,80));
 
+//		sWaypoints.add(new Waypoint(20,45,0,0));
+//		sWaypoints.add(new Waypoint(116,51,15,140));
+//		sWaypoints.add(new Waypoint(376,38,15,140));
+//		sWaypoints.add(new Waypoint(574,61,30,140));
+//		sWaypoints.add(new Waypoint(591,199,30,140));
+//		sWaypoints.add(new Waypoint(559,279,30,140));
+//		sWaypoints.add(new Waypoint(444,284,15,140));
+//		sWaypoints.add(new Waypoint(229,289,15,140));
+//		sWaypoints.add(new Waypoint(90,281,15,140));
+//		sWaypoints.add(new Waypoint(53,255,15,140));
+//		sWaypoints.add(new Waypoint(58,131,15,140));
+//		sWaypoints.add(new Waypoint(61,68,15,140));
+//		sWaypoints.add(new Waypoint(20,45,0,60));
+
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 

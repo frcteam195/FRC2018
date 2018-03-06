@@ -67,21 +67,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SamplePath.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SamplePath.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="34" column="47" lean-forward="false" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
+            <state relative-caret-position="345">
+              <caret line="26" column="52" lean-forward="true" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="306" column="58" lean-forward="false" selection-start-line="306" selection-start-column="58" selection-end-line="306" selection-end-column="58" />
+            <state relative-caret-position="287">
+              <caret line="304" column="56" lean-forward="false" selection-start-line="304" selection-start-column="56" selection-end-line="304" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -869,7 +869,7 @@
       <workItem from="1520201403948" duration="330000" />
       <workItem from="1520201815422" duration="5187000" />
       <workItem from="1520208628918" duration="860000" />
-      <workItem from="1520301120359" duration="4247000" />
+      <workItem from="1520301120359" duration="5608000" />
     </task>
     <task id="LOCAL-00001" summary="Update all">
       <created>1516597796485</created>
@@ -903,7 +903,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277837000" />
+    <option name="totallyTimeSpent" value="279198000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1339,18 +1339,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java">
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="34" column="47" lean-forward="false" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
+        <state relative-caret-position="287">
+          <caret line="304" column="56" lean-forward="false" selection-start-line="304" selection-start-column="56" selection-end-line="304" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="306" column="58" lean-forward="false" selection-start-line="306" selection-start-column="58" selection-end-line="306" selection-end-column="58" />
+        <state relative-caret-position="345">
+          <caret line="26" column="52" lean-forward="true" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
           <folding />
         </state>
       </provider>
