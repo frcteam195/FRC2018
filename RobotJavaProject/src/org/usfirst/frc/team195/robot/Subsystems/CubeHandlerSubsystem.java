@@ -121,6 +121,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	public void init() {
 		mArmMotor.setInverted(true);
 		mArmMotor.setSensorPhase(true);
+		mArmMotor.setNeutralMode(NeutralMode.Brake);
 
 
 		mElevatorMotorMaster.setSensorPhase(false);

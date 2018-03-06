@@ -3,6 +3,7 @@ package org.usfirst.frc.team195.robot.Subsystems;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -64,6 +65,9 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		mClimberMotorMaster.setSensorPhase(true);
 
 		mClimberMotorSlave.setInverted(true);
+
+		mClimberMotorMaster.setNeutralMode(NeutralMode.Brake);
+		mClimberMotorSlave.setNeutralMode(NeutralMode.Brake);
 
 		boolean setSucceeded;
 		int retryCounter = 0;

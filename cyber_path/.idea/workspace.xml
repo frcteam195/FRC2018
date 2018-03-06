@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac89bb9a-7b10-4810-a032-820c088f6d39" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Roboto.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/SourceCodePro.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/blob.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/field.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/filesaver.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change beforePath="$PROJECT_DIR$/jquery.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/script.js" afterPath="" />
-    </list>
+    <list default="true" id="ac89bb9a-7b10-4810-a032-820c088f6d39" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -151,12 +141,12 @@
       <workItem from="1517166113183" duration="17000" />
       <workItem from="1517167131674" duration="313000" />
       <workItem from="1520313960765" duration="1686000" />
-      <workItem from="1520315974156" duration="307000" />
+      <workItem from="1520315974156" duration="363000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5974000" />
+    <option name="totallyTimeSpent" value="6030000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />

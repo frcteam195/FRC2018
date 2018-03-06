@@ -1,10 +1,9 @@
 package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Autonomous.AutoModeSample;
+import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
-import org.usfirst.frc.team195.robot.Autonomous.SwitchCubeThenScaleMode;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -31,6 +30,7 @@ public class Robot extends RobbieRobot {
 	private CriticalSystemsMonitor criticalSystemsMonitor;
 	private AutoModeExecuter autoModeExecuter;
 	private Looper mLooper;
+	private GameSpecificMessageParser gameSpecificMessageParser;
 	private ThreadRateControl threadRateControl = new ThreadRateControl();
 	
 	public Robot() {
@@ -51,6 +51,8 @@ public class Robot extends RobbieRobot {
 		ledController.setRequestedState(LEDController.LEDState.BLINK);
 
 		ConnectionMonitor.getInstance().start();
+
+		gameSpecificMessageParser = GameSpecificMessageParser.getInstance();
 
 		robotControllers = Controllers.getInstance();
 		mLooper = new Looper();
@@ -91,11 +93,35 @@ public class Robot extends RobbieRobot {
 	@Override
 	public void autonomous() {
 		mLooper.start();
-
 		autoModeExecuter = new AutoModeExecuter();
-		autoModeExecuter.setAutoMode(new AutoModeSample());
-		autoModeExecuter.start();
 
+		//TODO: Get this value from the dashboard
+		StartingPosition startingPosition = StartingPosition.LEFT;
+
+		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
+		AutoModeBase autoMode = null;
+		if (!gameSpecificMessageParser.isAutoDisabled() && fieldLayout != FieldLayout.UNDEFINED) {
+			switch (startingPosition) {
+				case LEFT:
+					autoMode = getModeStartingLeft(fieldLayout);
+					break;
+				case RIGHT:
+					autoMode = getModeStartingRight(fieldLayout);
+					break;
+				case CENTER:
+					autoMode = getModeStartingCenter(fieldLayout);
+					break;
+				default:
+					return;
+			}
+		}
+
+		if (autoMode != null)
+			autoModeExecuter.setAutoMode(autoMode);
+		else
+			return;
+
+		autoModeExecuter.start();
 		threadRateControl.start(true);
 
 		while (isAutonomous() && isEnabled()) {threadRateControl.doRateControl(100);}
@@ -143,5 +169,56 @@ public class Robot extends RobbieRobot {
 
 		//Crash the JVM and force the code to reset so we no longer have the motor controllers configured for testing
 		System.exit(1);
+	}
+
+	private AutoModeBase getModeStartingLeft(FieldLayout fieldLayout) {
+		switch (fieldLayout) {
+			case LEFT_LEFT:
+				break;
+			case LEFT_RIGHT:
+				break;
+			case RIGHT_LEFT:
+				break;
+			case RIGHT_RIGHT:
+				break;
+			case UNDEFINED:
+			default:
+				break;
+		}
+		return null;
+	}
+
+	private AutoModeBase getModeStartingRight(FieldLayout fieldLayout) {
+		switch (fieldLayout) {
+			case LEFT_LEFT:
+				break;
+			case LEFT_RIGHT:
+				break;
+			case RIGHT_LEFT:
+				break;
+			case RIGHT_RIGHT:
+				break;
+			case UNDEFINED:
+			default:
+				break;
+		}
+		return null;
+	}
+
+	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
+		switch (fieldLayout) {
+			case LEFT_LEFT:
+				break;
+			case LEFT_RIGHT:
+				break;
+			case RIGHT_LEFT:
+				break;
+			case RIGHT_RIGHT:
+				break;
+			case UNDEFINED:
+			default:
+				break;
+		}
+		return null;
 	}
 }
