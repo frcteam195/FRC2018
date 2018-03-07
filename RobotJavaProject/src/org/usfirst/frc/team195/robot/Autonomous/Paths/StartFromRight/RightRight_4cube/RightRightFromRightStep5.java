@@ -10,16 +10,16 @@ public class RightRightFromRightStep5 implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(new Waypoint(224,113,0,0));
-		sWaypoints.add(new Waypoint(245,70,15,80));
-		sWaypoints.add(new Waypoint(283,75,0,60));
+		sWaypoints.add(new Waypoint(226,124,0,0));
+		sWaypoints.add(new Waypoint(255,78,15,80));
+		sWaypoints.add(new Waypoint(283,88,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(224, 113), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(226, 124), Rotation2d.fromDegrees(0));
 	}
 
 	@Override

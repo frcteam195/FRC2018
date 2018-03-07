@@ -10,8 +10,8 @@ public class RightRightFromRightStep3 implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(new Waypoint(220,84,0,0));
-		sWaypoints.add(new Waypoint(239,84,15,60));
+		sWaypoints.add(new Waypoint(224,88,0,0));
+		sWaypoints.add(new Waypoint(242,84,15,60));
 		sWaypoints.add(new Waypoint(246,66,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
@@ -19,7 +19,7 @@ public class RightRightFromRightStep3 implements PathContainer {
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(220, 84), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(224, 88), Rotation2d.fromDegrees(0));
 	}
 
 	@Override

@@ -23,6 +23,4 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 		runAction(new DrivePathAction(new RightRightFromRightStep7Final()));
 		runAction(new WaitAction(15));
 	}
-
-
 }

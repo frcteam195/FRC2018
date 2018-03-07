@@ -11,17 +11,17 @@ public class RightRightFromRightStep7Final implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(new Waypoint(223,142,0,0));
+		sWaypoints.add(new Waypoint(228,154,0,0));
 		sWaypoints.add(new Waypoint(240,133,15,60));
-		sWaypoints.add(new Waypoint(245,77,20,80));
-		sWaypoints.add(new Waypoint(287,79,0,60));
+		sWaypoints.add(new Waypoint(245,82,20,80));
+		sWaypoints.add(new Waypoint(283,90,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(223, 142), Rotation2d.fromDegrees(180));
+		return new RigidTransform2d(new Translation2d(228, 154), Rotation2d.fromDegrees(180));
 	}
 
 	@Override
