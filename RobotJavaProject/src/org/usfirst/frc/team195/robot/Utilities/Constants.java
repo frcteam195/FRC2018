@@ -171,7 +171,9 @@ public class Constants {
 	public static final double kArmArmPulley = 60.0;
 	public static final double kArmFinalRotationsPerDegree = kArmArmPulley/kArmMotorPulley/360.0;
 	public static final double kArmHomingTimeout = 2;	//In seconds
-	public static final double kArmHomingSpeed = 0.3;	//In seconds
+	public static final double kArmHomingSpeed = 0.3;	//In PercentOutput
+	public static final double kArmHomingSetpoint = 0.5;	//In rotations
+	public static final double kArmDeviationThresholdDeg = 1;	//In degrees
 	public static final int kArmMaxContinuousCurrentLimit = kArmMotorPDPBreakerRating;
 	public static final int kArmMaxPeakCurrentLimit = kArmMaxContinuousCurrentLimit * 2;
 	public static final int kArmMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArmMaxPeakCurrentLimit, kArmMaxContinuousCurrentLimit);
@@ -186,7 +188,7 @@ public class Constants {
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.5;	//In rotations of output shaft
-	public static final double kElevatorDeviationThreshold = 0.005;	//In rotations of output shaft
+	public static final double kElevatorDeviationThreshold = 0.01;	//In rotations of output shaft
 	public static final double kElevatorHomingSpeed = -0.3;	//In rotations of output shaft
 	public static final double kElevatorSafetyCurrent = 18;	//In rotations of output shaft
 	public static final double kElevatorSafetyDelta = 0.3;	//In rotations of output shaft

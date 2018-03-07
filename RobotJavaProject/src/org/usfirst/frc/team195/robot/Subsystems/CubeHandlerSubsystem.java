@@ -56,12 +56,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private boolean elevatorFault = false;
 	private boolean armFault = false;
 
-	private double elevatorHeight = 0;
+	private double elevatorHeight = 0;	//Value in rotations of output shaft
 	private double mPrevElevatorHeight = 0;
 	private double currentOverageCounter = 0;
 	private double elevatorHomingTimeStart = 0;
 	private double armHomingTimeStart = 0;
-	private double armRotation = 0;
+	private double armRotation = 0;	//Value in Degrees
 	private double mPrevArmRotation = 0;
 
 
@@ -85,7 +85,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mIntakeControl = IntakeControl.OFF;
 		mPrevIntakeControl = IntakeControl.OFF;
 
-		mArmControl = ArmControl.POSITION;
+		//TODO: Change to position when arm attached
+		mArmControl = ArmControl.OFF;
 		mPrevArmControl = ArmControl.OFF;
 
 		mElevatorControl = ElevatorControl.POSITION;
@@ -251,7 +252,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private boolean zeroArm() {
 		mArmMotor.set(ControlMode.Disabled, 0);
 
-		int homeA1Value = (int)(Constants.kArmSoftMax * Constants.kArmEncoderGearRatio * Constants.kSensorUnitsPerRotation);
+		int homeArmValue = (int)(Constants.kArmHomingSetpoint * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -259,7 +260,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		do {
 			setSucceeded = true;
 
-			setSucceeded &= mArmMotor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.setSelectedSensorPosition(homeArmValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
@@ -267,7 +268,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to zero Arm!!!", MessageLevel.DEFCON1);
 
-		mArmMotor.set(ControlMode.MotionMagic, homeA1Value);
+		mArmMotor.set(ControlMode.MotionMagic, homeArmValue);
 
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
@@ -451,8 +452,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		retVal += "ElevatorPosAct:" + (mElevatorMotorMaster.getSelectedSensorPosition(0) * Constants.kElevatorEncoderGearRatio / Constants.kSensorUnitsPerRotation) + ";";
 		retVal += "ElevatorFault:" + isElevatorFaulted() + ";";
 
-		retVal += "Arm1PosReq:" + "" + ";";
-		retVal += "Arm1PosAct:" + mArmMotor.getSelectedSensorPosition(0) + ";";
+		retVal += "Arm1PosReq:" + armRotation + ";";
+		retVal += "Arm1PosAct:" + (mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree) + ";";
 		retVal += "ArmFault:" + isArmFaulted() + ";";
 
 		//TODO: Add Cube Sensor
@@ -469,9 +470,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (ds.isTest() && Constants.ENABLE_CUBE_HANDLER_DIAG) {
 			ConsoleReporter.report("Testing CubeHandler---------------------------------");
 			boolean testPassed = true;
-			//testPassed &= runArmDiagnostics();
+			testPassed &= runArmDiagnostics();
 			testPassed &= runElevatorDiagnostics();
-			//testPassed &= runIntakeDiagnostics();
+			testPassed &= runIntakeDiagnostics();
 			return testPassed;
 		} else
 			return true;
@@ -483,7 +484,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		final double kLowRpmThres = Constants.kArmTestLowRPMThresh;
 
 		ArrayList<MotorDiagnostics> mArmDiagArr = new ArrayList<MotorDiagnostics>();
-		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 1", mArmMotor, Constants.kArmTestSpeed, Constants.kArmTestDuration, true));
+		mArmDiagArr.add(new MotorDiagnostics("Arm Joint", mArmMotor, Constants.kArmTestSpeed, Constants.kArmTestDuration, true));
 
 		boolean failure = false;
 
@@ -600,19 +601,21 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	private synchronized boolean checkIfArmIsFaulted() {
-		boolean allSensorsPresent = true;
+		//TODO: Remove when production
+		if (mArmControl != ArmControl.POSITION)
+			return false;
+		//ENDTODO
 
-		boolean arm1SensorPresent = mArmMotor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
-		allSensorsPresent &= arm1SensorPresent;
+		boolean armSensorPresent = mArmMotor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 
-		if (!allSensorsPresent) {
+		if (!armSensorPresent) {
 			setArmControl(ArmControl.OFF);
 
-			String msg = "Could not detect encoder! \r\n\tArm 1 Encoder Detected: " + arm1SensorPresent;
+			String msg = "Could not detect encoder! \r\n\tArm Encoder Detected: " + armSensorPresent;
 			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
 			DriverStation.reportError(msg, false);
 		}
-		armFault = !allSensorsPresent;
+		armFault = !armSensorPresent;
 
 		if (mArmMotor.hasResetOccurred()) {
 			setArmControl(ArmControl.OFF);
@@ -641,6 +644,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	private synchronized boolean checkIfElevatorIsFaulted() {
+		//TODO: Remove when production
+		if (mElevatorControl != ElevatorControl.POSITION)
+			return false;
+		//ENDTODO
+
 		boolean elevatorSensorPresent = mElevatorMotorMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 
 		if (!elevatorSensorPresent) {
@@ -684,7 +692,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		//Spock logic
 		boolean allSensorsPresent = true;
 
-		//allSensorsPresent &= !checkIfArmIsFaulted();
+		allSensorsPresent &= !checkIfArmIsFaulted();
 		allSensorsPresent &= !checkIfElevatorIsFaulted();
 		allSensorsPresent &= !checkElevatorCurrent();
 
@@ -715,7 +723,20 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	public synchronized void setArmRotationDeg(double armRotation) {
-		this.armRotation = Util.limit(armRotation,Constants.kArmSoftMin * Constants.kArmFinalRotationsPerDegree, Constants.kArmSoftMax * Constants.kArmFinalRotationsPerDegree);
+		this.armRotation = Util.limit(armRotation,Constants.kArmSoftMin / Constants.kArmFinalRotationsPerDegree, Constants.kArmSoftMax / Constants.kArmFinalRotationsPerDegree);
+	}
+
+	public boolean isArmAtSetpoint() {
+		return Math.abs(mArmMotor.getSelectedSensorPosition(0) /
+				Constants.kArmFinalRotationsPerDegree /
+				Constants.kSensorUnitsPerRotation /
+				Constants.kArmEncoderGearRatio - armRotation) <= Constants.kArmDeviationThresholdDeg;
+	}
+
+	public boolean isElevatorAtSetpoint() {
+		return Math.abs(mElevatorMotorMaster.getSelectedSensorPosition(0) /
+				Constants.kSensorUnitsPerRotation /
+				Constants.kElevatorEncoderGearRatio - elevatorHeight) <= Constants.kElevatorDeviationThreshold;
 	}
 
 	public synchronized void incrementElevatorHeight() {
