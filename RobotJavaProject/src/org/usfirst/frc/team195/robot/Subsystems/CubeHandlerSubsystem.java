@@ -6,11 +6,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -61,7 +59,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private double elevatorHeight = 0;
 	private double mPrevElevatorHeight = 0;
 	private double currentOverageCounter = 0;
-	private double homingTimeStart = 0;
+	private double elevatorHomingTimeStart = 0;
+	private double armHomingTimeStart = 0;
+	private double armRotation = 0;
+	private double mPrevArmRotation = 0;
 
 
 
@@ -147,9 +148,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded &= mArmMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntake2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
-			setSucceeded &= mArmMotor.configContinuousCurrentLimit(Constants.kArm1MaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mArmMotor.configPeakCurrentLimit(Constants.kArm1MaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mArmMotor.configPeakCurrentDuration(Constants.kArm1MaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configContinuousCurrentLimit(Constants.kArmMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configPeakCurrentLimit(Constants.kArmMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configPeakCurrentDuration(Constants.kArmMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mIntakeMotor.configContinuousCurrentLimit(Constants.kIntakeMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntakeMotor.configPeakCurrentLimit(Constants.kIntakeMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -190,11 +191,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			mIntakeMotor.enableCurrentLimit(false);
 			mElevatorMotorMaster.enableCurrentLimit(true);
 
-			setSucceeded &= mArmMotor.configForwardSoftLimitThreshold((int) (Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mArmMotor.configReverseSoftLimitThreshold((int) (Constants.kArm1SoftMin * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configForwardSoftLimitThreshold((int) (Constants.kArmSoftMax * Constants.kArmEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configReverseSoftLimitThreshold((int) (Constants.kArmSoftMin * Constants.kArmEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mArmMotor.configAllowableClosedloopError(0, Constants.kArm1AllowedError, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configAllowableClosedloopError(0, Constants.kArmAllowedError, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mElevatorMotorMaster.configForwardSoftLimitThreshold((int) (Constants.kElevatorSoftMax * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configReverseSoftLimitThreshold((int) (Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
@@ -203,11 +204,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
-		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, 0, Constants.kArm1Kp, Constants.kArm1Ki, Constants.kArm1Kd, Constants.kArm1Kf, Constants.kArm1RampRate, Constants.kArm1IZone);
+		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, 0, Constants.kArmKp, Constants.kArmKi, Constants.kArmKd, Constants.kArmKf, Constants.kArmRampRate, Constants.kArmIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, 0, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mIntakeMotor, 0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeRampRate, Constants.kIntakeIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mIntake2Motor,  0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeRampRate, Constants.kIntakeIZone);
-		setSucceeded &= TalonHelper.setMotionMagicParams(mArmMotor, Constants.kArm1MaxVelocity, Constants.kArm1MaxAccel);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mArmMotor, Constants.kArmMaxVelocity, Constants.kArmMaxAccel);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, Constants.kElevatorMaxVelocity, Constants.kElevatorMaxAccel);
 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
@@ -250,7 +251,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private boolean zeroArm() {
 		mArmMotor.set(ControlMode.Disabled, 0);
 
-		int homeA1Value = (int)(Constants.kArm1SoftMax * Constants.kArm1EncoderGearRatio * Constants.kSensorUnitsPerRotation);
+		int homeA1Value = (int)(Constants.kArmSoftMax * Constants.kArmEncoderGearRatio * Constants.kSensorUnitsPerRotation);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -259,6 +260,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded = true;
 
 			setSucceeded &= mArmMotor.setSelectedSensorPosition(homeA1Value, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
@@ -297,10 +299,29 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 						}
 
-						//TODO: Add arm code
-
+						if (armRotation != mPrevArmRotation) {
+							mArmMotor.set(ControlMode.MotionMagic, armRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
+							mPrevArmRotation = armRotation;
+						}
 						break;
 					case MANUAL:
+						break;
+					case HOMING:
+						if (mPrevArmControl != ArmControl.HOMING)
+							armHomingTimeStart = Timer.getFPGATimestamp();
+
+						mArmMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMsFast);
+						mArmMotor.set(ControlMode.PercentOutput, Constants.kArmHomingSpeed);
+						//TODO: Add arm homing condition
+						if (true) {
+							zeroArm();
+							setArmControl(ArmControl.POSITION);
+						}
+
+						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
+							setArmControl(ArmControl.OFF);
+							ConsoleReporter.report("Arm Failed to Home! Arm Disabled!", MessageLevel.DEFCON1);
+						}
 						break;
 					case OFF:
 					default:
@@ -336,25 +357,16 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						break;
 					case HOMING:
 						if (mPrevElevatorControl != ElevatorControl.HOMING)
-							homingTimeStart = Timer.getFPGATimestamp();
+							elevatorHomingTimeStart = Timer.getFPGATimestamp();
 
 						mElevatorMotorMaster.configReverseSoftLimitEnable(false, Constants.kTimeoutMsFast);
 						mElevatorMotorMaster.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
-//						mElevatorMotorSlave.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
-//						mElevatorMotorSlave2.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
-//						mElevatorMotorSlave3.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
 						if (!mElevatorHomeSwitch.get()) {
-//							mElevatorMotorSlave.set(ControlMode.Disabled, 0);
-//							mElevatorMotorSlave2.set(ControlMode.Disabled, 0);
-//							mElevatorMotorSlave3.set(ControlMode.Disabled, 0);
 							zeroElevator();
-//							mElevatorMotorSlave.follow(mElevatorMotorMaster);
-//							mElevatorMotorSlave2.follow(mElevatorMotorMaster);
-//							mElevatorMotorSlave3.follow(mElevatorMotorMaster);
 							setElevatorControl(ElevatorControl.POSITION);
 						}
 
-						if (Timer.getFPGATimestamp() - homingTimeStart > Constants.kElevatorHomingTimeout) {
+						if (Timer.getFPGATimestamp() - elevatorHomingTimeStart > Constants.kElevatorHomingTimeout) {
 							setElevatorControl(ElevatorControl.OFF);
 							ConsoleReporter.report("Elevator Failed to Home! Elevator Disabled!", MessageLevel.DEFCON1);
 						}
@@ -471,7 +483,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		final double kLowRpmThres = Constants.kArmTestLowRPMThresh;
 
 		ArrayList<MotorDiagnostics> mArmDiagArr = new ArrayList<MotorDiagnostics>();
-		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 1", mArmMotor, Constants.kArm1TestSpeed, Constants.kArm1TestDuration, true));
+		mArmDiagArr.add(new MotorDiagnostics("Arm Joint 1", mArmMotor, Constants.kArmTestSpeed, Constants.kArmTestDuration, true));
 
 		boolean failure = false;
 
@@ -493,17 +505,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				failure = true;
 			}
 
-		}
-
-		if (mArmDiagArr.size() > 0) {
-			List<Double> armMotorCurrents = mArmDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
-			if (!Util.allCloseTo(armMotorCurrents, armMotorCurrents.get(0), Constants.kArmTestCurrentDelta)) {
-				failure = true;
-				ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Arm Motor Currents Different !!!!!!!!!!");
-			}
-
-		} else {
-			ConsoleReporter.report("Arm Testing Error Occurred in system. Please check code!", MessageLevel.ERROR);
 		}
 
 		return !failure;
@@ -711,6 +712,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public synchronized void setElevatorHeight(double elevatorHeight) {
 		this.elevatorHeight = Util.limit(elevatorHeight, Constants.kElevatorSoftMin + Constants.kElevatorSafetyDelta, Constants.kElevatorSoftMax - Constants.kElevatorSafetyDelta);
+	}
+
+	public synchronized void setArmRotationDeg(double armRotation) {
+		this.armRotation = Util.limit(armRotation,Constants.kArmSoftMin * Constants.kArmFinalRotationsPerDegree, Constants.kArmSoftMax * Constants.kArmFinalRotationsPerDegree);
 	}
 
 	public synchronized void incrementElevatorHeight() {

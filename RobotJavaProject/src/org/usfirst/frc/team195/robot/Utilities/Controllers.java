@@ -71,7 +71,7 @@ public class Controllers {
 		rightDrive3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
 
 		//Arm Motor Setup
-		arm1Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArm1MotorId, Constants.kArm1MotorPDPChannel);
+		arm1Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kArmMotorId, Constants.kArmMotorPDPChannel);
 		intakeMotor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntakeMotorId, Constants.kIntakeMotorPDPChannel);
 		intake2Motor = CANSpeedControllerBuilder.createDefaultTalonSRX(Constants.kIntake2MotorId, Constants.kIntake2MotorPDPChannel);
 

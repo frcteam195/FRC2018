@@ -27,7 +27,7 @@ public class SamplePath implements PathContainer {
 //		sWaypoints.add(new Waypoint(225,77,30,140));
 //		sWaypoints.add(new Waypoint(282,84,0,140));
 
-		sWaypoints.add(new Waypoint(20,45,0,0));
+		sWaypoints.add(new Waypoint(20,48,0,0));
 		sWaypoints.add(new Waypoint(165,45,30,140));
 		sWaypoints.add(new Waypoint(238,77,30,100));
 		sWaypoints.add(new Waypoint(238,220,15,120));
@@ -53,7 +53,7 @@ public class SamplePath implements PathContainer {
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(20, 45), Rotation2d.fromDegrees(180));
+		return new RigidTransform2d(new Translation2d(20, 48), Rotation2d.fromDegrees(180));
 	}
 
 	@Override

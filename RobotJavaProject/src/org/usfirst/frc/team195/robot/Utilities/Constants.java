@@ -70,7 +70,7 @@ public class Constants {
 	public static final int kRightDriverSlaveId2 = 6;
 
 	// Arm
-	public static final int kArm1MotorId = 7;
+	public static final int kArmMotorId = 7;
 
 	// Intake
 	public static final int kIntakeMotorId = 9;
@@ -107,8 +107,8 @@ public class Constants {
 	public static final int kRightDriveSlave2PDPBreakerRating = 40;
 
 	// Arm
-	public static final int kArm1MotorPDPChannel = 5;
-	public static final int kArm1MotorPDPBreakerRating = 30;
+	public static final int kArmMotorPDPChannel = 5;
+	public static final int kArmMotorPDPBreakerRating = 30;
 
 	// Intake
 	public static final int kIntakeMotorPDPChannel = 10;
@@ -164,13 +164,17 @@ public class Constants {
 
 
 	// Arm
-	public static final double kArm1EncoderGearRatio = 1.0;
-	public static final double kArm1Length = 8.25;
-	public static final double kArm1SoftMin = 0;	//In rotations of output shaft
-	public static final double kArm1SoftMax = 0.5;	//In rotations of output shaft
-	public static final int kArm1MaxContinuousCurrentLimit = kArm1MotorPDPBreakerRating;
-	public static final int kArm1MaxPeakCurrentLimit = kArm1MaxContinuousCurrentLimit * 2;
-	public static final int kArm1MaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArm1MaxPeakCurrentLimit, kArm1MaxContinuousCurrentLimit);
+	public static final double kArmEncoderGearRatio = 1.0;
+	public static final double kArmSoftMin = 0;	//In rotations of output shaft
+	public static final double kArmSoftMax = 0.5;	//In rotations of output shaft
+	public static final double kArmMotorPulley = 18.0;
+	public static final double kArmArmPulley = 60.0;
+	public static final double kArmFinalRotationsPerDegree = kArmArmPulley/kArmMotorPulley/360.0;
+	public static final double kArmHomingTimeout = 2;	//In seconds
+	public static final double kArmHomingSpeed = 0.3;	//In seconds
+	public static final int kArmMaxContinuousCurrentLimit = kArmMotorPDPBreakerRating;
+	public static final int kArmMaxPeakCurrentLimit = kArmMaxContinuousCurrentLimit * 2;
+	public static final int kArmMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArmMaxPeakCurrentLimit, kArmMaxContinuousCurrentLimit);
 
 
 	public static final int kIntakeMaxContinuousCurrentLimit = kIntakeMotorPDPBreakerRating;
@@ -231,15 +235,15 @@ public class Constants {
 	public static final double kDriveLowGearMaxAccel = 20.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 20 fps/s, value in RPM/s
 
 	//Tuned with 100:1 Transmission
-	public static final double kArm1Kp = 12;
-	public static final double kArm1Ki = 0;
-	public static final double kArm1Kd = 22;
-	public static final double kArm1Kf = 0.8;
-	public static final int kArm1IZone = 0;
-	public static final double kArm1RampRate = 0;
-	public static final int kArm1MaxVelocity = 35;
-	public static final int kArm1MaxAccel = 25;
-	public static final int kArm1AllowedError = (int)(0 * kSensorUnitsPerRotation);
+	public static final double kArmKp = 12;
+	public static final double kArmKi = 0;
+	public static final double kArmKd = 22;
+	public static final double kArmKf = 0.8;
+	public static final int kArmIZone = 0;
+	public static final double kArmRampRate = 0;
+	public static final int kArmMaxVelocity = 35;
+	public static final int kArmMaxAccel = 25;
+	public static final int kArmAllowedError = (int)(0 * kSensorUnitsPerRotation);
 
 	//Tuned for current control on 16:1 transmission
 	public static final double kIntakeKp = 0.2;
@@ -334,9 +338,8 @@ public class Constants {
 
 	public static final double kArmTestLowCurrentThresh = 1;
 	public static final double kArmTestLowRPMThresh = 35;
-	public static final double kArmTestCurrentDelta = 5.0;
-	public static final double kArm1TestSpeed = 0.3;
-	public static final double kArm1TestDuration = 0.5;
+	public static final double kArmTestSpeed = 0.3;
+	public static final double kArmTestDuration = 0.5;
 
 	public static final double kElevatorTestLowCurrentThresh = 2;
 	public static final double kElevatorTestLowRPMThresh = 15;

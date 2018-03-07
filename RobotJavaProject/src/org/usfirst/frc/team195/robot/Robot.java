@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Autonomous.AutoModeSample;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_3cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightRight.RightRightFromRightMode_4cube;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -96,7 +98,7 @@ public class Robot extends RobbieRobot {
 		autoModeExecuter = new AutoModeExecuter();
 
 		//TODO: Get this value from the dashboard
-		StartingPosition startingPosition = StartingPosition.LEFT;
+		StartingPosition startingPosition = StartingPosition.RIGHT;
 
 		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
 		AutoModeBase autoMode = null;
@@ -191,13 +193,13 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingRight(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				break;
+				return new LeftLeftFromRightMode_3cube();
 			case LEFT_RIGHT:
 				break;
 			case RIGHT_LEFT:
 				break;
 			case RIGHT_RIGHT:
-				break;
+				return new RightRightFromRightMode_4cube();
 			case UNDEFINED:
 			default:
 				break;
