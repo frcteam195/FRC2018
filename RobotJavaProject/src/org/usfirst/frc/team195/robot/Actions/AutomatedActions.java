@@ -73,15 +73,15 @@ public class AutomatedActions {
 	}
 
 	public static Action OutakeCubeSlow() {
-		return new SetIntakeAction(IntakeControl.INTAKE_OUT_SLOW, 0.2);
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT_SLOW, 0.25);
 	}
 
 	public static Action OutakeCubeMidSpeed() {
-		return new SetIntakeAction(IntakeControl.INTAKE_OUT_HALFSPEED, 0.2);
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT_HALFSPEED, 0.25);
 	}
 
 	public static Action OutakeCubeFast() {
-		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.2);
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
 	}
 
 }

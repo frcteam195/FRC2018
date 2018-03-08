@@ -166,7 +166,6 @@ public class Constants {
 	public static final double kCenterToRearBumperDistance = 18.75;
 	public static final double kCenterToSideBumperDistance = 16.375;
 
-
 	// Arm
 	public static final double kArmEncoderGearRatio = 1.0;
 	public static final double kArmSoftMin = 0;	//In rotations of output shaft

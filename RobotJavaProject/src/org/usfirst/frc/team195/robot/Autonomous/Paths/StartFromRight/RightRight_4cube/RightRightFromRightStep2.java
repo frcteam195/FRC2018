@@ -11,8 +11,8 @@ public class RightRightFromRightStep2 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(286,88,0,0));
-		sWaypoints.add(new Waypoint(257,82,15,30));
-		sWaypoints.add(new Waypoint(231,90,0,30));
+		sWaypoints.add(new Waypoint(257,82,15,40));
+		sWaypoints.add(new Waypoint(231,90,0,20));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
