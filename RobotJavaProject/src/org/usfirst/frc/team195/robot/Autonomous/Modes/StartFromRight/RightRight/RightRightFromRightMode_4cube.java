@@ -28,7 +28,7 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PreparePlaceCubeOnScaleOverBack())))));
 		runAction(AutomatedActions.OutakeCubeSlow());
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(), new DrivePathAction(new RightRightFromRightStep2()), new SetIntakeAction(IntakeControl.INTAKE_IN))));
-		runAction(new SeriesAction(Arrays.asList(AutomatedActions.StopIntake(),AutomatedActions.ClampIntake())));
+		runAction(new SeriesAction(Arrays.asList(AutomatedActions.ClampIntake(),AutomatedActions.StopIntake())));
 		runAction(new SetElevatorHeightAction(ElevatorPosition.LOW));
 		runAction(new DrivePathAction(new RightRightFromRightStep3()));
 		runAction(AutomatedActions.OutakeCubeSlow());

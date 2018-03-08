@@ -94,7 +94,7 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void autonomous() {
-		mLooper.start();
+		mLooper.start(true);
 		autoModeExecuter = new AutoModeExecuter();
 
 		//TODO: Get this value from the dashboard
@@ -131,6 +131,15 @@ public class Robot extends RobbieRobot {
 	
 	@Override
 	protected void disabled() {
+		try {
+			if (autoModeExecuter != null)
+				autoModeExecuter.stop();
+
+			autoModeExecuter = null;
+		} catch (Throwable t) {
+			ConsoleReporter.report(t, MessageLevel.ERROR);
+		}
+
 		mLooper.stop();
 
 		threadRateControl.start(true);
@@ -142,7 +151,16 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void operatorControl() {
-		mLooper.start();
+		try {
+			if (autoModeExecuter != null)
+				autoModeExecuter.stop();
+
+			autoModeExecuter = null;
+		} catch (Throwable t) {
+			ConsoleReporter.report(t, MessageLevel.ERROR);
+		}
+
+		mLooper.start(false);
 		driveBaseSubsystem.setControlMode(DriveControlState.OPEN_LOOP);
 		threadRateControl.start(true);
 

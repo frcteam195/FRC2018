@@ -13,10 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmControl;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorControl;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.*;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightDigitalInput;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TuneablePID;
@@ -240,7 +237,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to zero Elevator!!!", MessageLevel.DEFCON1);
 
-		elevatorHeight = homeElevatorValue;
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
 		setElevatorHeight(ElevatorPosition.HOME);
 
@@ -266,8 +262,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to zero Arm!!!", MessageLevel.DEFCON1);
 
-		armRotation = Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree;
 		mArmMotor.set(ControlMode.MotionMagic, homeArmValue);
+		setArmRotationDeg(Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
 
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
@@ -288,7 +284,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		}
 
 		@Override
-		public void onLoop(double timestamp) {
+		public void onLoop(double timestamp, boolean isAuto) {
 			synchronized (CubeHandlerSubsystem.this) {
 				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
 //				SmartDashboard.putBoolean("ElevatorHomeSwitch", mElevatorHomeSwitch.get());
@@ -296,13 +292,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //				SmartDashboard.putString("ArmControlMode", mArmControl.toString());
 				switch (mArmControl) {
 					case POSITION:
-						if (collisionOccurring) {
+						if (collisionOccurring && !isAuto) {
 
 						}
 
 //						SmartDashboard.putNumber("ArmRequest", armRotation);
 
-						//Collision interference prevention
+						//Collision interference avoidance
 						double tmpArmRotation = getElevatorHeight() >= ElevatorPosition.ARM_COLLISION_POINT ? armRotation :
 								Util.limit(armRotation, 0, Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
 //						SmartDashboard.putNumber("ArmTmp", tmpArmRotation);
@@ -341,24 +337,28 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 				switch (mElevatorControl) {
 					case POSITION:
-						if (collisionOccurring) {
+						if (collisionOccurring && !isAuto) {
 							//setElevatorHeight(ElevatorPosition.HOME);
 						}
 
 						if (elevatorHeight <= ElevatorPosition.HOME &&
 								Math.abs(QuickMaths.convertNativeUnitsToRotations(mElevatorMotorMaster.getSelectedSensorPosition(0)) - elevatorHeight)
 										< Constants.kElevatorDeviationThreshold &&
-								mElevatorHomeSwitch.get()) {
+								mElevatorHomeSwitch.get() && !isAuto) {
 							setElevatorControl(ElevatorControl.HOMING);
 							break;
 						}
 
-						if (mElevatorHomeSwitch.getFallingEdge()) {
-							zeroElevator();
-						} else if (elevatorHeight != mPrevElevatorHeight) {
-							mElevatorMotorMaster.set(ControlMode.MotionMagic, elevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
+						//Collision interference avoidance
+						double tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.VERTICAL ? elevatorHeight :
+								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
-							mPrevElevatorHeight = elevatorHeight;
+						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto) {
+							zeroElevator();
+						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
+							mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
+
+							mPrevElevatorHeight = tmpElevatorHeight;
 						}
 						break;
 					case MANUAL:
@@ -417,6 +417,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						case HOLD:
 							mIntakeMotor.set(ControlMode.Current, 2);
 							mIntake2Motor.set(ControlMode.Current, 2);
+							break;
 						case OFF:
 						default:
 							if (mIntakeMotor.getControlMode() != ControlMode.Disabled || mIntake2Motor.getControlMode() != ControlMode.Disabled) {
@@ -743,16 +744,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	public boolean isArmAtSetpoint() {
-		return Math.abs(mArmMotor.getSelectedSensorPosition(0) /
-				Constants.kSensorUnitsPerRotation /
-				Constants.kArmFinalRotationsPerDegree /
-				Constants.kArmEncoderGearRatio - armRotation) <= Constants.kArmDeviationThresholdDeg;
+		return Math.abs(getArmRotationDeg() - armRotation) <= Constants.kArmDeviationThresholdDeg;
 	}
 
 	public boolean isElevatorAtSetpoint() {
-		return Math.abs(mElevatorMotorMaster.getSelectedSensorPosition(0) /
-				Constants.kSensorUnitsPerRotation /
-				Constants.kElevatorEncoderGearRatio - elevatorHeight) <= Constants.kElevatorDeviationThreshold;
+		return Math.abs(getElevatorHeight() - elevatorHeight) <= Constants.kElevatorDeviationThreshold;
 	}
 
 	public synchronized void incrementElevatorHeight() {
@@ -765,6 +761,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public double getElevatorHeight() {
 		return mElevatorMotorMaster.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kElevatorEncoderGearRatio;
+	}
+
+	public double getArmRotationDeg() {
+		return mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree;
 	}
 
 	private void doCurrentSpikeDetected() {

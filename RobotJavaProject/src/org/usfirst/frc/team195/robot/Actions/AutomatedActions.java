@@ -48,7 +48,7 @@ public class AutomatedActions {
 	}
 
 	public static ParallelAction PreparePickupCube() {
-		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SetIntakeClampAction(true), new SeriesAction(Arrays.asList(new WaitAction(0.2), new SetElevatorHeightAction(ElevatorPosition.HOME)))));
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SetIntakeClampAction(true), new SetElevatorHeightAction(ElevatorPosition.HOME)));
 	}
 
 	public static Action ClampIntake() {
@@ -60,11 +60,11 @@ public class AutomatedActions {
 	}
 
 	public static Action OutakeCubeSlow() {
-		return new SetIntakeAction(IntakeControl.INTAKE_OUT_SLOW, 0.3);
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT_SLOW, 0.2);
 	}
 
 	public static Action OutakeCubeMidSpeed() {
-		return new SetIntakeAction(IntakeControl.INTAKE_OUT_HALFSPEED, 0.25);
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT_HALFSPEED, 0.2);
 	}
 
 	public static Action OutakeCubeFast() {

@@ -63,7 +63,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		}
 
 		@Override
-		public void onLoop(double timestamp) {
+		public void onLoop(double timestamp, boolean isAuto) {
 			synchronized (DriveBaseSubsystem.this) {
 				switch (mControlMode) {
 					case OPEN_LOOP:
