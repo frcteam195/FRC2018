@@ -10,23 +10,23 @@ public class RightRightFromRightStep5 implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(new Waypoint(226,124,0,0));
-		sWaypoints.add(new Waypoint(255,78,15,80));
-		sWaypoints.add(new Waypoint(283,88,0,60));
+		sWaypoints.add(new Waypoint(246,66,0,0));
+		sWaypoints.add(new Waypoint(248,104,15,60));
+		sWaypoints.add(new Waypoint(226,124,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(226, 124), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(246, 66), Rotation2d.fromDegrees(0));
 	}
 
 	@Override
 	public boolean isReversed() {
-		return true;
+		return false;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":224,"y":113},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":245,"y":70},"speed":80,"radius":15,"marker":"","comment":""},{"position":{"x":283,"y":75},"speed":60,"radius":0,"marker":"","comment":""}]
-	// IS_REVERSED: true
+	// WAYPOINT_DATA: [{"position":{"x":246,"y":66},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":242,"y":104},"speed":60,"radius":15,"marker":"","comment":""},{"position":{"x":224,"y":113},"speed":60,"radius":0,"marker":"","comment":""}]
+	// IS_REVERSED: false
 	// FILE_NAME: RightRightFromRightStep5
 }

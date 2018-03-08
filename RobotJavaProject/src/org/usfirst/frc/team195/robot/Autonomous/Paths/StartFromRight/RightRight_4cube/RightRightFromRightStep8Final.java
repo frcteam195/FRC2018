@@ -6,7 +6,7 @@ import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBui
 
 import java.util.ArrayList;
 
-public class RightRightFromRightStep7Final implements PathContainer {
+public class RightRightFromRightStep8Final implements PathContainer {
 
 	@Override
 	public Path buildPath() {
@@ -30,5 +30,5 @@ public class RightRightFromRightStep7Final implements PathContainer {
 	}
 	// WAYPOINT_DATA: [{"position":{"x":223,"y":142},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":240,"y":133},"speed":60,"radius":15,"marker":"","comment":""},{"position":{"x":245,"y":77},"speed":80,"radius":20,"marker":"","comment":""},{"position":{"x":287,"y":79},"speed":60,"radius":0,"marker":"","comment":""}]
 	// IS_REVERSED: true
-	// FILE_NAME: RightRightFromRightStep7Final
+	// FILE_NAME: RightRightFromRightStep8Final
 }

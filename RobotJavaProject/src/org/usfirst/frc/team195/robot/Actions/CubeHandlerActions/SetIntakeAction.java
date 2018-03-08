@@ -2,6 +2,7 @@ package org.usfirst.frc.team195.robot.Actions.CubeHandlerActions;
 
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
@@ -13,7 +14,7 @@ public class SetIntakeAction implements Action {
 
 	public SetIntakeAction(IntakeControl intakeControl) {
 		this.intakeControl = intakeControl;
-		this.waitTime = 0.01;
+		this.waitTime = 0.100;
 	}
 
 	public SetIntakeAction(IntakeControl intakeControl, double waitTime) {
@@ -39,6 +40,7 @@ public class SetIntakeAction implements Action {
 	@Override
 	public void start() {
 		startTime = Timer.getFPGATimestamp();
+		ConsoleReporter.report("Setting intake control: " + intakeControl.toString());
 		mCubeHandlerSubsystem.setIntakeControl(intakeControl);
 	}
 }

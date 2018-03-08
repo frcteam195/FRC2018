@@ -41,15 +41,19 @@ public class Constants {
 	public static final int ARM_INTAKE_UNCLAMP = 4;
 	public static final int ARM_INTAKE_OUT = 5;
 	public static final int ARM_INTAKE_OUT_HALFSPEED = 6;
+	public static final int ARM_ARM_VERTICAL = 2;
 
 
 	public static final int BB1_ELEVATOR_HOME = 1;
 	public static final int BB1_ELEVATOR_INCREMENT = 2;
-	public static final int BB1_ELEVATOR_DECREMENT = 8;
+	public static final int BB1_ELEVATOR_DECREMENT = 7;
 	public static final int BB1_ELEVATOR_SWITCH = 3;
 	public static final int BB1_ELEVATOR_SCALE = 4;
 	public static final int BB1_ELEVATOR_SCALE_HIGH = 5;
 	public static final int BB1_ELEVATOR_REHOME = 16;
+	public static final int BB1_ARM_DOWN = 8;
+	public static final int BB1_ARM_BACK = 10;
+	public static final int BB1_ARM_SWITCH = 9;
 
 
 
@@ -188,10 +192,10 @@ public class Constants {
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.5;	//In rotations of output shaft
-	public static final double kElevatorDeviationThreshold = 0.01;	//In rotations of output shaft
+	public static final double kElevatorDeviationThreshold = 0.1;	//In rotations of output shaft
 	public static final double kElevatorHomingSpeed = -0.3;	//In rotations of output shaft
 	public static final double kElevatorSafetyCurrent = 18;	//In rotations of output shaft
-	public static final double kElevatorSafetyDelta = 0.3;	//In rotations of output shaft
+	public static final double kElevatorSafetyDelta = 0.1;	//In rotations of output shaft
 	public static final double kElevatorHomingTimeout = 5;	//In seconds
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
 	public static final int kElevatorMaxPeakCurrentLimit = (int)(kElevatorMaxContinuousCurrentLimit * 1.25);

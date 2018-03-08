@@ -7,6 +7,7 @@ import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.*;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorControl;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
@@ -92,6 +93,15 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.incrementElevatorHeight();
 		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_DECREMENT))
 			cubeHandlerSubsystem.decrementElevatorHeight();
+
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_DOWN))
+			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.DOWN);
+		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ARM_VERTICAL))
+			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.VERTICAL);
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_BACK))
+			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.BACK);
+		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_SWITCH))
+			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.SWITCH);
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME)) {
 			ConsoleReporter.report("Elevator rehoming requested!", MessageLevel.DEFCON1);

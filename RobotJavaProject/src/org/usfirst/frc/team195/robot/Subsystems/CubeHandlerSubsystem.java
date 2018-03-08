@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -92,9 +93,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mPrevElevatorControl = ElevatorControl.OFF;
 
 
-		tuneableArmJoint = new TuneablePID("Arm 1 Joint", mArmMotor, null, 5807, true, true);
-		tuneableArmJoint.start();
-//		tuneableArmJoint = new TuneablePID("Arm 2 Joint", mIntake2Motor, null, 5808, true, true);
+//		tuneableArmJoint = new TuneablePID("Arm 1 Joint", mArmMotor, null, 5807, true, true);
 //		tuneableArmJoint.start();
 //		tuneableElevator = new TuneablePID("Elevator", mElevatorMotorMaster, null, 5807, true, true);
 //		tuneableElevator.start();
@@ -134,8 +133,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		mIntakeMotor.setInverted(false);
 		mIntake2Motor.setInverted(false);
-		mIntakeMotor.setNeutralMode(NeutralMode.Coast);
-		mIntake2Motor.setNeutralMode(NeutralMode.Coast);
+		mIntakeMotor.setNeutralMode(NeutralMode.Brake);
+		mIntake2Motor.setNeutralMode(NeutralMode.Brake);
 
 
 		boolean setSucceeded;
@@ -241,6 +240,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to zero Elevator!!!", MessageLevel.DEFCON1);
 
+		elevatorHeight = homeElevatorValue;
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
 		setElevatorHeight(ElevatorPosition.HOME);
 
@@ -266,6 +266,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to zero Arm!!!", MessageLevel.DEFCON1);
 
+		armRotation = Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree;
 		mArmMotor.set(ControlMode.MotionMagic, homeArmValue);
 
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
@@ -292,42 +293,50 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
 //				SmartDashboard.putBoolean("ElevatorHomeSwitch", mElevatorHomeSwitch.get());
 //				SmartDashboard.putString("ElevatorControlMode", mElevatorControl.toString());
-//				switch (mArmControl) {
-//					case POSITION:
-//						if (collisionOccurring) {
-//
-//						}
-//
-//						if (armRotation != mPrevArmRotation) {
-//							mArmMotor.set(ControlMode.MotionMagic, armRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
-//							mPrevArmRotation = armRotation;
-//						}
-//						break;
-//					case MANUAL:
-//						break;
-//					case HOMING:
-//						if (mPrevArmControl != ArmControl.HOMING)
-//							armHomingTimeStart = Timer.getFPGATimestamp();
-//
-//						mArmMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMsFast);
-//						mArmMotor.set(ControlMode.PercentOutput, Constants.kArmHomingSpeed);
-//						//TODO: Add arm homing condition
-//						if (true) {
-//							zeroArm();
-//							setArmControl(ArmControl.POSITION);
-//						}
-//
-//						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
-//							setArmControl(ArmControl.OFF);
-//							ConsoleReporter.report("Arm Failed to Home! Arm Disabled!", MessageLevel.DEFCON1);
-//						}
-//						break;
-//					case OFF:
-//					default:
-//						if (mArmMotor.getControlMode() != ControlMode.Disabled)
-//							mArmMotor.set(ControlMode.Disabled, 0);
-//						break;
-//				}
+//				SmartDashboard.putString("ArmControlMode", mArmControl.toString());
+				switch (mArmControl) {
+					case POSITION:
+						if (collisionOccurring) {
+
+						}
+
+//						SmartDashboard.putNumber("ArmRequest", armRotation);
+
+						//Collision interference prevention
+						double tmpArmRotation = getElevatorHeight() >= ElevatorPosition.ARM_COLLISION_POINT ? armRotation :
+								Util.limit(armRotation, 0, Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
+//						SmartDashboard.putNumber("ArmTmp", tmpArmRotation);
+						if (tmpArmRotation != mPrevArmRotation) {
+							mArmMotor.set(ControlMode.MotionMagic, tmpArmRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
+							mPrevArmRotation = tmpArmRotation;
+						}
+
+						break;
+					case MANUAL:
+						break;
+					case HOMING:
+						if (mPrevArmControl != ArmControl.HOMING)
+							armHomingTimeStart = Timer.getFPGATimestamp();
+
+						mArmMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMsFast);
+						mArmMotor.set(ControlMode.PercentOutput, Constants.kArmHomingSpeed);
+						//TODO: Add arm homing condition
+						if (true) {
+							zeroArm();
+							setArmControl(ArmControl.POSITION);
+						}
+
+						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
+							setArmControl(ArmControl.OFF);
+							ConsoleReporter.report("Arm Failed to Home! Arm Disabled!", MessageLevel.DEFCON1);
+						}
+						break;
+					case OFF:
+					default:
+						if (mArmMotor.getControlMode() != ControlMode.Disabled)
+							mArmMotor.set(ControlMode.Disabled, 0);
+						break;
+				}
 				mPrevArmControl = mArmControl;
 
 				switch (mElevatorControl) {
@@ -399,6 +408,15 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							mIntakeMotor.set(ControlMode.PercentOutput, -0.5);
 							mIntake2Motor.set(ControlMode.PercentOutput, -0.5);
 							break;
+						case INTAKE_OUT_SLOW:
+//							mIntakeMotor.set(ControlMode.Current, -55);
+//							mIntake2Motor.set(ControlMode.Current, -55);
+							mIntakeMotor.set(ControlMode.PercentOutput, -0.3);
+							mIntake2Motor.set(ControlMode.PercentOutput, -0.3);
+							break;
+						case HOLD:
+							mIntakeMotor.set(ControlMode.Current, 2);
+							mIntake2Motor.set(ControlMode.Current, 2);
 						case OFF:
 						default:
 							if (mIntakeMotor.getControlMode() != ControlMode.Disabled || mIntake2Motor.getControlMode() != ControlMode.Disabled) {
