@@ -170,13 +170,13 @@ public class Constants {
 	// Arm
 	public static final double kArmEncoderGearRatio = 1.0;
 	public static final double kArmSoftMin = 0;	//In rotations of output shaft
-	public static final double kArmSoftMax = 1.27;	//In rotations of output shaft
-	public static final double kArmMotorPulley = 18.0;
+	public static final double kArmSoftMax = 1.0043945313;	//In rotations of output shaft
+	public static final double kArmMotorPulley = 24.0;
 	public static final double kArmArmPulley = 60.0;
 	public static final double kArmFinalRotationsPerDegree = kArmArmPulley/kArmMotorPulley/360.0;
 	public static final double kArmHomingTimeout = 2;	//In seconds
 	public static final double kArmHomingSpeed = 0.3;	//In PercentOutput
-	public static final double kArmHomingSetpoint = 0.8;	//In rotations
+	public static final double kArmHomingSetpoint = 0.621;	//In rotations
 	public static final double kArmDeviationThresholdDeg = 1;	//In degrees
 	public static final int kArmMaxContinuousCurrentLimit = kArmMotorPDPBreakerRating;
 	public static final int kArmMaxPeakCurrentLimit = kArmMaxContinuousCurrentLimit * 2;

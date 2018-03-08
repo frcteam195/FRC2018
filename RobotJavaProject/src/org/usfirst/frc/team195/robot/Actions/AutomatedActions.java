@@ -31,8 +31,10 @@ public class AutomatedActions {
 	public static SeriesAction PlaceCubeOnSwitchArmOnly() {
 		ArrayList<Action> actionArrayList = new ArrayList<Action>();
 
-		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.SWITCH), new SetElevatorHeightAction(ElevatorPosition.HOME))));
-		actionArrayList.add(new SeriesAction(Arrays.asList(new WaitAction(0.1), new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.2))));
+		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.SWITCH),
+															 new SetElevatorHeightAction(ElevatorPosition.HOME))));
+		actionArrayList.add(new SeriesAction(Arrays.asList(new WaitAction(0.1),
+														   new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.2))));
 		actionArrayList.add(new SetIntakeAction(IntakeControl.OFF));
 		actionArrayList.add(new SetArmRotationAction(0));
 
@@ -40,7 +42,8 @@ public class AutomatedActions {
 	}
 
 	public static ParallelAction PreparePlaceCubeOnScaleOverBack() {
-		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK), new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_HIGH)));
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_HIGH)));
 	}
 
 	public static Action PreparePlaceCubeOnSwitch() {
@@ -48,7 +51,9 @@ public class AutomatedActions {
 	}
 
 	public static ParallelAction PreparePickupCube() {
-		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SetIntakeClampAction(true), new SetElevatorHeightAction(ElevatorPosition.HOME)));
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0),
+												new SetIntakeClampAction(true),
+												new SetElevatorHeightAction(ElevatorPosition.HOME)));
 	}
 
 	public static Action LiftArmTo90() {
