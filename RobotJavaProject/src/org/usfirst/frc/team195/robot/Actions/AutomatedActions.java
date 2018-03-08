@@ -13,6 +13,7 @@ import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -46,7 +47,32 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_HIGH)));
 	}
 
-	public static Action PreparePlaceCubeOnSwitch() {
+	public static ParallelAction PreparePlaceCubeOnSwitchElevator() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.LOW),
+												new SetArmRotationAction(ArmPosition.DOWN)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleHigh() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.HIGH),
+												new SetArmRotationAction(ArmPosition.DOWN)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleMid() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.MID),
+												new SetArmRotationAction(ArmPosition.DOWN)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleLow() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.LOW),
+				new SetArmRotationAction(ArmPosition.DOWN)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleShortHigh() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SHORT_HIGH),
+												new SetArmRotationAction(ArmPosition.SWITCH)));
+	}
+
+	public static Action PreparePlaceCubeOnSwitchArm() {
 		return new SetArmRotationAction(ArmPosition.SWITCH);
 	}
 
