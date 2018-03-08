@@ -156,6 +156,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		rightDriveSlave1.setInverted(true);
 		rightDriveSlave2.setInverted(true);
 
+		setBrakeMode(true);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
