@@ -51,6 +51,14 @@ public class AutomatedActions {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SetIntakeClampAction(true), new SetElevatorHeightAction(ElevatorPosition.HOME)));
 	}
 
+	public static Action LiftArmTo90() {
+		return new SetArmRotationAction(ArmPosition.VERTICAL);
+	}
+
+	public static Action ElevetorTo0() {
+		return new SetElevatorHeightAction(ElevatorPosition.HOME);
+	}
+
 	public static Action ClampIntake() {
 		return new SetIntakeClampAction(false);
 	}
