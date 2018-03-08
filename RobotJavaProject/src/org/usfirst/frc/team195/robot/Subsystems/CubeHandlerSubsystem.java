@@ -63,6 +63,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private double armRotation = 0;	//Value in Degrees
 	private double mPrevArmRotation = 0;
 
+	private double liftArmTimerStart = 0;
+	private boolean requestLiftArmForCube = false;
+
 
 
 	private CubeHandlerSubsystem() throws Exception {
@@ -301,8 +304,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //						SmartDashboard.putNumber("ArmRequest", armRotation);
 
 						//Collision interference avoidance
-						double tmpArmRotation = getElevatorHeight() >= ElevatorPosition.ARM_COLLISION_POINT ? armRotation :
+						//Check both, actual, and requested
+						double tmpArmRotation = elevatorHeight >= ElevatorPosition.ARM_COLLISION_POINT ? armRotation :
 								Util.limit(armRotation, 0, Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
+						tmpArmRotation = getElevatorHeight() >= ElevatorPosition.ARM_COLLISION_POINT ? tmpArmRotation :
+								Util.limit(tmpArmRotation, 0, Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
 //						SmartDashboard.putNumber("ArmTmp", tmpArmRotation);
 						if (tmpArmRotation != mPrevArmRotation) {
 							mArmMotor.set(ControlMode.MotionMagic, tmpArmRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
@@ -352,8 +358,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						}
 
 						//Collision interference avoidance
-						double tmpElevatorHeight = getArmRotationDeg() <= 95 ? elevatorHeight :
+						//Check elevator actual and requested
+						double tmpElevatorHeight = armRotation <= ArmPosition.ELEVATOR_COLLISION_POINT ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
+						tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT ? tmpElevatorHeight :
+								Util.limit(tmpElevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
 						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto) {
 							zeroElevator();
@@ -431,8 +440,21 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					mPrevIntakeControl = mIntakeControl;
 				}
 
-				if (mCubeSensor.getRisingEdge())
+				if (mCubeSensor.getRisingEdge()) {
 					setIntakeClamp(false);
+					if (!isAuto) {
+						liftArmTimerStart = Timer.getFPGATimestamp();
+
+						if (elevatorHeight <= ElevatorPosition.HOME)
+							requestLiftArmForCube = true;
+					}
+				}
+
+				if (requestLiftArmForCube && (Timer.getFPGATimestamp() - liftArmTimerStart) > 0.5 && !isAuto && mCubeSensor.get()) {
+					setArmRotationDeg(ArmPosition.VERTICAL);
+					requestLiftArmForCube = false;
+				}
+
 			}
 		}
 		@Override
