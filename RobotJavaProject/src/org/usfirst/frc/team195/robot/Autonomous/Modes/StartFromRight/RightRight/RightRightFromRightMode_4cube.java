@@ -16,6 +16,7 @@ import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathContainer;
 
+import javax.sql.rowset.serial.SerialStruct;
 import java.util.Arrays;
 
 public class RightRightFromRightMode_4cube extends AutoModeBase {
@@ -33,9 +34,19 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 		runAction(new DrivePathAction(new RightRightFromRightStep3()));
 		runAction(AutomatedActions.OutakeCubeSlow());
 		runAction(AutomatedActions.StopIntake());
-		runAction(new DrivePathAction(new RightRightFromRightStep4()));
-//		runAction(new DrivePathAction(new RightRightFromRightStep5()));
+		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightStep4()),
+				  new ParallelAction(Arrays.asList(
+				  		AutomatedActions.LiftArmTo90(), AutomatedActions.ElevetorTo0())))));
+		//runAction(new DrivePathAction(new RightRightFromRightStep4()));
+		//runAction(new DrivePathAction(new RightRightFromRightStep5()));
+		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightStep5()),
+				AutomatedActions.PreparePickupCube(), new SetIntakeAction(IntakeControl.INTAKE_IN))));
+		runAction(AutomatedActions.ClampIntake());
+		runAction(AutomatedActions.StopIntake());
 //		runAction(new DrivePathAction(new RightRightFromRightStep6()));
+		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightStep6()),
+				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PreparePlaceCubeOnScaleOverBack())))));
+		runAction(AutomatedActions.OutakeCubeSlow());
 //		runAction(new DrivePathAction(new RightRightFromRightStep7()));
 //		runAction(new DrivePathAction(new RightRightFromRightStep8Final()));
 		runAction(new WaitAction(15));

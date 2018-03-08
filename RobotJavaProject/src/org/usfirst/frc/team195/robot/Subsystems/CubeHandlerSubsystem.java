@@ -350,7 +350,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						}
 
 						//Collision interference avoidance
-						double tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.VERTICAL ? elevatorHeight :
+						double tmpElevatorHeight = getArmRotationDeg() <= 95 ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
 						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto) {
