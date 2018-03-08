@@ -85,16 +85,15 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mIntakeControl = IntakeControl.OFF;
 		mPrevIntakeControl = IntakeControl.OFF;
 
-		//TODO: Change to position when arm attached
-		mArmControl = ArmControl.OFF;
+		mArmControl = ArmControl.POSITION;
 		mPrevArmControl = ArmControl.OFF;
 
 		mElevatorControl = ElevatorControl.POSITION;
 		mPrevElevatorControl = ElevatorControl.OFF;
 
 
-//		tuneableArmJoint = new TuneablePID("Arm 1 Joint", mArmMotor, null, 5807, true, true);
-//		tuneableArmJoint.start();
+		tuneableArmJoint = new TuneablePID("Arm 1 Joint", mArmMotor, null, 5807, true, true);
+		tuneableArmJoint.start();
 //		tuneableArmJoint = new TuneablePID("Arm 2 Joint", mIntake2Motor, null, 5808, true, true);
 //		tuneableArmJoint.start();
 //		tuneableElevator = new TuneablePID("Elevator", mElevatorMotorMaster, null, 5807, true, true);
@@ -124,7 +123,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArmMotor.setInverted(true);
 		mArmMotor.setSensorPhase(true);
 		mArmMotor.setNeutralMode(NeutralMode.Brake);
-
 
 		mElevatorMotorMaster.setSensorPhase(false);
 		mElevatorMotorMaster.setInverted(true);
@@ -294,42 +292,42 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
 //				SmartDashboard.putBoolean("ElevatorHomeSwitch", mElevatorHomeSwitch.get());
 //				SmartDashboard.putString("ElevatorControlMode", mElevatorControl.toString());
-				switch (mArmControl) {
-					case POSITION:
-						if (collisionOccurring) {
-
-						}
-
-						if (armRotation != mPrevArmRotation) {
-							mArmMotor.set(ControlMode.MotionMagic, armRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
-							mPrevArmRotation = armRotation;
-						}
-						break;
-					case MANUAL:
-						break;
-					case HOMING:
-						if (mPrevArmControl != ArmControl.HOMING)
-							armHomingTimeStart = Timer.getFPGATimestamp();
-
-						mArmMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMsFast);
-						mArmMotor.set(ControlMode.PercentOutput, Constants.kArmHomingSpeed);
-						//TODO: Add arm homing condition
-						if (true) {
-							zeroArm();
-							setArmControl(ArmControl.POSITION);
-						}
-
-						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
-							setArmControl(ArmControl.OFF);
-							ConsoleReporter.report("Arm Failed to Home! Arm Disabled!", MessageLevel.DEFCON1);
-						}
-						break;
-					case OFF:
-					default:
-						if (mArmMotor.getControlMode() != ControlMode.Disabled)
-							mArmMotor.set(ControlMode.Disabled, 0);
-						break;
-				}
+//				switch (mArmControl) {
+//					case POSITION:
+//						if (collisionOccurring) {
+//
+//						}
+//
+//						if (armRotation != mPrevArmRotation) {
+//							mArmMotor.set(ControlMode.MotionMagic, armRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
+//							mPrevArmRotation = armRotation;
+//						}
+//						break;
+//					case MANUAL:
+//						break;
+//					case HOMING:
+//						if (mPrevArmControl != ArmControl.HOMING)
+//							armHomingTimeStart = Timer.getFPGATimestamp();
+//
+//						mArmMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMsFast);
+//						mArmMotor.set(ControlMode.PercentOutput, Constants.kArmHomingSpeed);
+//						//TODO: Add arm homing condition
+//						if (true) {
+//							zeroArm();
+//							setArmControl(ArmControl.POSITION);
+//						}
+//
+//						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
+//							setArmControl(ArmControl.OFF);
+//							ConsoleReporter.report("Arm Failed to Home! Arm Disabled!", MessageLevel.DEFCON1);
+//						}
+//						break;
+//					case OFF:
+//					default:
+//						if (mArmMotor.getControlMode() != ControlMode.Disabled)
+//							mArmMotor.set(ControlMode.Disabled, 0);
+//						break;
+//				}
 				mPrevArmControl = mArmControl;
 
 				switch (mElevatorControl) {
@@ -484,7 +482,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		final double kLowRpmThres = Constants.kArmTestLowRPMThresh;
 
 		ArrayList<MotorDiagnostics> mArmDiagArr = new ArrayList<MotorDiagnostics>();
-		mArmDiagArr.add(new MotorDiagnostics("Arm Joint", mArmMotor, Constants.kArmTestSpeed, Constants.kArmTestDuration, true));
+		mArmDiagArr.add(new MotorDiagnostics("Arm Joint", mArmMotor, Constants.kArmTestSpeed, Constants.kArmTestDuration, false));
 
 		boolean failure = false;
 
@@ -601,9 +599,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	private synchronized boolean checkIfArmIsFaulted() {
-		//TODO: Remove when production
-		if (mArmControl != ArmControl.POSITION)
-			return false;
+		//Remove when production
+//		if (mArmControl != ArmControl.POSITION)
+//			return false;
 		//ENDTODO
 
 		boolean armSensorPresent = mArmMotor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
@@ -644,9 +642,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	private synchronized boolean checkIfElevatorIsFaulted() {
-		//TODO: Remove when production
-		if (mElevatorControl != ElevatorControl.POSITION)
-			return false;
+		//Remove when production
+//		if (mElevatorControl != ElevatorControl.POSITION)
+//			return false;
 		//ENDTODO
 
 		boolean elevatorSensorPresent = mElevatorMotorMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
@@ -728,8 +726,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public boolean isArmAtSetpoint() {
 		return Math.abs(mArmMotor.getSelectedSensorPosition(0) /
-				Constants.kArmFinalRotationsPerDegree /
 				Constants.kSensorUnitsPerRotation /
+				Constants.kArmFinalRotationsPerDegree /
 				Constants.kArmEncoderGearRatio - armRotation) <= Constants.kArmDeviationThresholdDeg;
 	}
 

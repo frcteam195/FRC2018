@@ -166,13 +166,13 @@ public class Constants {
 	// Arm
 	public static final double kArmEncoderGearRatio = 1.0;
 	public static final double kArmSoftMin = 0;	//In rotations of output shaft
-	public static final double kArmSoftMax = 0.5;	//In rotations of output shaft
+	public static final double kArmSoftMax = 1.27;	//In rotations of output shaft
 	public static final double kArmMotorPulley = 18.0;
 	public static final double kArmArmPulley = 60.0;
 	public static final double kArmFinalRotationsPerDegree = kArmArmPulley/kArmMotorPulley/360.0;
 	public static final double kArmHomingTimeout = 2;	//In seconds
 	public static final double kArmHomingSpeed = 0.3;	//In PercentOutput
-	public static final double kArmHomingSetpoint = 0.5;	//In rotations
+	public static final double kArmHomingSetpoint = 0.8;	//In rotations
 	public static final double kArmDeviationThresholdDeg = 1;	//In degrees
 	public static final int kArmMaxContinuousCurrentLimit = kArmMotorPDPBreakerRating;
 	public static final int kArmMaxPeakCurrentLimit = kArmMaxContinuousCurrentLimit * 2;
@@ -237,14 +237,14 @@ public class Constants {
 	public static final double kDriveLowGearMaxAccel = 20.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 20 fps/s, value in RPM/s
 
 	//Tuned with 100:1 Transmission
-	public static final double kArmKp = 12;
+	public static final double kArmKp = 6.7;
 	public static final double kArmKi = 0;
-	public static final double kArmKd = 22;
-	public static final double kArmKf = 0.8;
+	public static final double kArmKd = 11;
+	public static final double kArmKf = 1;
 	public static final int kArmIZone = 0;
 	public static final double kArmRampRate = 0;
-	public static final int kArmMaxVelocity = 35;
-	public static final int kArmMaxAccel = 25;
+	public static final int kArmMaxVelocity = 450;
+	public static final int kArmMaxAccel = 200;
 	public static final int kArmAllowedError = (int)(0 * kSensorUnitsPerRotation);
 
 	//Tuned for current control on 16:1 transmission
