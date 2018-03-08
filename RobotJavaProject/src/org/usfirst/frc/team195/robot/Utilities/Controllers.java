@@ -44,6 +44,7 @@ public class Controllers {
 	private DigitalOutput bLED;
 
 	private KnightDigitalInput elevatorHomeSwitch;
+	private KnightDigitalInput cubeSensor;
 
 	private NavX navX;
 	
@@ -97,6 +98,7 @@ public class Controllers {
 		bLED = new DigitalOutput(Constants.kBlueLEDId);
 
 		elevatorHomeSwitch = new KnightDigitalInput(Constants.kElevatorHomeSwitchId);
+		cubeSensor = new KnightDigitalInput(Constants.kCubeSensorId);
 
 	    try {
 	        navX = new NavX(SPI.Port.kMXP);
@@ -224,5 +226,9 @@ public class Controllers {
 
 	public KnightDigitalInput getElevatorHomeSwitch() {
 		return elevatorHomeSwitch;
+	}
+
+	public KnightDigitalInput getCubeSensor() {
+		return cubeSensor;
 	}
 }

@@ -50,6 +50,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private DriverStation ds;
 
 	private KnightDigitalInput mElevatorHomeSwitch;
+	private KnightDigitalInput mCubeSensor;
 
 	private boolean elevatorFault = false;
 	private boolean armFault = false;
@@ -77,6 +78,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mElevatorMotorSlave3 = robotControllers.getElevatorMotorSlave3();
 
 		mElevatorHomeSwitch = robotControllers.getElevatorHomeSwitch();
+		mCubeSensor = robotControllers.getCubeSensor();
 
 		intakeSolenoid = robotControllers.getIntakeSolenoid();
 
@@ -428,6 +430,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					}
 					mPrevIntakeControl = mIntakeControl;
 				}
+
+				if (mCubeSensor.getRisingEdge())
+					setIntakeClamp(false);
 			}
 		}
 		@Override
@@ -473,8 +478,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		retVal += "Arm1PosAct:" + (mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree) + ";";
 		retVal += "ArmFault:" + isArmFaulted() + ";";
 
-		//TODO: Add Cube Sensor
-		retVal += "HasCube:" + false + ";";
+		retVal += "HasCube:" + mCubeSensor.get() + ";";
 
 		retVal += "IntakeCurrent:" + mIntakeMotor.getOutputCurrent() + ";";
 

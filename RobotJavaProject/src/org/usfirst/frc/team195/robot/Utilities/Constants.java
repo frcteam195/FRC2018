@@ -292,11 +292,12 @@ public class Constants {
 
 	//Digital Inputs
 	public static final int kElevatorHomeSwitchId = 0;
+	public static final int kCubeSensorId = 1;
 
 	// Digital Outputs
-	public static final int kRedLEDId = 1;
-	public static final int kGreenLEDId = 2;
-	public static final int kBlueLEDId = 3;
+	public static final int kRedLEDId = 2;
+	public static final int kGreenLEDId = 3;
+	public static final int kBlueLEDId = 4;
 
 	//TODO: Tune path following gains
 	// Path following constants
