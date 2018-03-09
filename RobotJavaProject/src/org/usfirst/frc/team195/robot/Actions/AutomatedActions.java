@@ -110,4 +110,8 @@ public class AutomatedActions {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
 	}
 
+	public static Action OutakeCubeALittleLessFast() {
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
+	}
+
 }

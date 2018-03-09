@@ -62,6 +62,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private double armHomingTimeStart = 0;
 	private double armRotation = 0;	//Value in Degrees
 	private double mPrevArmRotation = 0;
+	private int armEncoderLossCounter = 0;
 
 	private double liftArmTimerStart = 0;
 	private boolean requestLiftArmForCube = false;
@@ -349,23 +350,23 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							//setElevatorHeight(ElevatorPosition.HOME);
 						}
 
-						if (elevatorHeight <= ElevatorPosition.HOME &&
-								Math.abs(QuickMaths.convertNativeUnitsToRotations(mElevatorMotorMaster.getSelectedSensorPosition(0)) - elevatorHeight)
-										< Constants.kElevatorDeviationThreshold &&
-								mElevatorHomeSwitch.get() && !isAuto) {
-							setElevatorControl(ElevatorControl.HOMING);
-							break;
-						}
+//						if (elevatorHeight <= ElevatorPosition.HOME &&
+//								Math.abs(QuickMaths.convertNativeUnitsToRotations(mElevatorMotorMaster.getSelectedSensorPosition(0)) - elevatorHeight)
+//										< Constants.kElevatorDeviationThreshold &&
+//								mElevatorHomeSwitch.get() && !isAuto) {
+//							setElevatorControl(ElevatorControl.HOMING);
+//							break;
+//						}
 
 						//Collision interference avoidance
 						//Check elevator actual and requested
-						double tmpElevatorHeight = armRotation <= ArmPosition.ELEVATOR_COLLISION_POINT ? elevatorHeight :
+						double tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 						tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT ? tmpElevatorHeight :
 								Util.limit(tmpElevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
 						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto) {
-							zeroElevator();
+							//zeroElevator();
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
 
@@ -652,11 +653,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		boolean armSensorPresent = mArmMotor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 
 		if (!armSensorPresent) {
-			setArmControl(ArmControl.OFF);
+			if (armEncoderLossCounter++ >= 4) {
+				setArmControl(ArmControl.OFF);
 
-			String msg = "Could not detect encoder! \r\n\tArm Encoder Detected: " + armSensorPresent;
-			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
-			DriverStation.reportError(msg, false);
+				String msg = "Could not detect encoder! \r\n\tArm Encoder Detected: " + armSensorPresent;
+				ConsoleReporter.report(msg, MessageLevel.DEFCON1);
+				DriverStation.reportError(msg, false);
+			}
 		}
 		armFault = !armSensorPresent;
 

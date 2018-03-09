@@ -26,7 +26,7 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 		runAction(new ResetPoseFromPathAction(pathContainer));
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PreparePlaceCubeOnScaleOverBack())))));
-		runAction(AutomatedActions.OutakeCubeSlow());
+		runAction(AutomatedActions.OutakeCubeMidSpeed());
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
 				new DrivePathAction(new RightRightFromRightStep2()),
 				new SetIntakeAction(IntakeControl.INTAKE_IN))));
@@ -46,8 +46,9 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 		runAction(new WaitAction(0.1));
 		runAction(AutomatedActions.StopIntake());
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightStep6()),
-				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PreparePlaceCubeOnScaleOverBack())))));
-		runAction(AutomatedActions.OutakeCubeFast());
+												   AutomatedActions.LiftArmTo90(),
+												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PreparePlaceCubeOnScaleOverBack())))));
+		runAction(AutomatedActions.OutakeCubeMidSpeed());
 		runAction(AutomatedActions.StopIntake());
 ////		runAction(new DrivePathAction(new RightRightFromRightStep7()));
 ////		runAction(new DrivePathAction(new RightRightFromRightStep8Final()));
