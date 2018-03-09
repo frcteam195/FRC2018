@@ -653,6 +653,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		boolean armSensorPresent = mArmMotor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 
 		if (!armSensorPresent) {
+			//Check for 4 consecutive misses of encoder before disabling arm
 			if (armEncoderLossCounter++ >= 4) {
 				setArmControl(ArmControl.OFF);
 
@@ -660,7 +661,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				ConsoleReporter.report(msg, MessageLevel.DEFCON1);
 				DriverStation.reportError(msg, false);
 			}
+		} else {
+			armEncoderLossCounter = 0;
 		}
+
 		armFault = !armSensorPresent;
 
 		if (mArmMotor.hasResetOccurred()) {
@@ -812,6 +816,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		elevatorCurrentAverage += mElevatorMotorSlave3.getOutputCurrent();
 		elevatorCurrentAverage /= 4;
 		return elevatorCurrentAverage;
+	}
+
+	public boolean hasCube() {
+		return mCubeSensor.get();
 	}
 }
 

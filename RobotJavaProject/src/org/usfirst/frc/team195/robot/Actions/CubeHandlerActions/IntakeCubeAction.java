@@ -2,29 +2,28 @@ package org.usfirst.frc.team195.robot.Actions.CubeHandlerActions;
 
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
-import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 
-public class SetIntakeAction implements Action {
-	private IntakeControl intakeControl = IntakeControl.OFF;
+public class IntakeCubeAction implements Action {
 	private CubeHandlerSubsystem mCubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
 	private double startTime = 0;
-	private double waitTime;
+	private double timeout = 0;
 
-	public SetIntakeAction(IntakeControl intakeControl) {
-		this.intakeControl = intakeControl;
-		this.waitTime = 0.100;
-	}
-
-	public SetIntakeAction(IntakeControl intakeControl, double waitTime) {
-		this.intakeControl = intakeControl;
-		this.waitTime = waitTime;
+	/**
+	 * An action to intake a cube until the cube sensor trips
+	 * @param timeout Timeout in seconds. Value of 0 will disable timeout
+	 */
+	public IntakeCubeAction(double timeout) {
+		this.timeout = timeout;
 	}
 
 	@Override
 	public boolean isFinished() {
-		return Timer.getFPGATimestamp() - startTime > waitTime;
+		if (timeout > 0)
+			return mCubeHandlerSubsystem.hasCube() || (Timer.getFPGATimestamp() - startTime) > timeout;
+		else
+			return mCubeHandlerSubsystem.hasCube();
 	}
 
 	@Override
@@ -34,12 +33,12 @@ public class SetIntakeAction implements Action {
 
 	@Override
 	public void done() {
-		//
+		mCubeHandlerSubsystem.setIntakeControl(IntakeControl.HOLD);
 	}
 
 	@Override
 	public void start() {
 		startTime = Timer.getFPGATimestamp();
-		mCubeHandlerSubsystem.setIntakeControl(intakeControl);
+		mCubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
 	}
 }
