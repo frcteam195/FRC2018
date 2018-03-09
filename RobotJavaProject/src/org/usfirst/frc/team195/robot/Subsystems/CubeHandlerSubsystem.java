@@ -653,9 +653,16 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		boolean armSensorPresent = mArmMotor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 
+		ErrorCode errorCode = mArmMotor.getLastError();
+		if (errorCode != ErrorCode.OK) {
+			ConsoleReporter.report("Error getting Arm encoder pulse due to talon error: " + errorCode.toString(), MessageLevel.ERROR);
+			ConsoleReporter.report("Disregarding iteration!", MessageLevel.ERROR);
+			armSensorPresent = true;
+		}
+
 		if (!armSensorPresent) {
-			//Check for 4 consecutive misses of encoder before disabling arm
-			if (armEncoderLossCounter++ >= 4) {
+			//Check for 3 consecutive misses of encoder before disabling arm
+			if (armEncoderLossCounter++ >= 3) {
 				setArmControl(ArmControl.OFF);
 
 				String msg = "Could not detect encoder! \r\n\tArm Encoder Detected: " + armSensorPresent;
