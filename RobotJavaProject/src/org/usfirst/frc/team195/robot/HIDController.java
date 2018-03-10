@@ -82,17 +82,49 @@ public class HIDController implements Runnable {
 		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_UNCLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(true);
 
-		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
+//		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
+//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
+//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SWITCH))
+//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.LOW);
+//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
+//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
+//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE_HIGH))
+//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
+//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_INCREMENT))
+//			cubeHandlerSubsystem.incrementElevatorHeight();
+//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_DECREMENT))
+//			cubeHandlerSubsystem.decrementElevatorHeight();
+//
+//		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_DOWN))
+//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.DOWN);
+//		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ARM_VERTICAL))
+//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.VERTICAL);
+//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_BACK))
+//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.BACK);
+//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_SWITCH))
+//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.SWITCH);
+//
+//		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME)) {
+//			ConsoleReporter.report("Elevator rehoming requested!", MessageLevel.DEFCON1);
+//			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
+//		}
+
+		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
-		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SWITCH))
-			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.LOW);
-		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
-		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE_HIGH))
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_LOW))
+			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackLow(), Constants.kActionTimeoutS).runAction();
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_MID))
+			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackMid(), Constants.kActionTimeoutS).runAction();
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_HIGH))
+			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackHigh(), Constants.kActionTimeoutS).runAction();
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE_HIGH))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
-		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_INCREMENT))
+
+		if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_INCREMENT_POV)
 			cubeHandlerSubsystem.incrementElevatorHeight();
-		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_DECREMENT))
+		else if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_DECREMENT_POV)
 			cubeHandlerSubsystem.decrementElevatorHeight();
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_DOWN))

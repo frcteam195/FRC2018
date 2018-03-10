@@ -144,16 +144,18 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		do {
 			setSucceeded = true;
 
-			//setSucceeded &= mArmMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mIntake2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			//setSucceeded &= mIntake2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
-			setSucceeded &= mArmMotor.configRemoteFeedbackFilter(Constants.kIntake2MotorId, RemoteSensorSource.TalonSRX_SelectedSensor, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mArmMotor.configRemoteFeedbackFilter(0x00, RemoteSensorSource.Off, 1, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mArmMotor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			//setSucceeded &= mArmMotor.configRemoteFeedbackFilter(Constants.kIntake2MotorId, RemoteSensorSource.TalonSRX_SelectedSensor, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			//setSucceeded &= mArmMotor.configRemoteFeedbackFilter(0x00, RemoteSensorSource.Off, 1, Constants.kTimeoutMs) == ErrorCode.OK;
+			//setSucceeded &= mArmMotor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mArmMotor.configContinuousCurrentLimit(Constants.kArmMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configPeakCurrentLimit(Constants.kArmMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configPeakCurrentDuration(Constants.kArmMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+
+			setSucceeded &= mArmMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_8_PulseWidth, 80, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mIntakeMotor.configContinuousCurrentLimit(Constants.kIntakeMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntakeMotor.configPeakCurrentLimit(Constants.kIntakeMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -262,7 +264,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		do {
 			setSucceeded = true;
 
-			setSucceeded &= mIntake2Motor.setSelectedSensorPosition(homeArmValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			//setSucceeded &= mIntake2Motor.setSelectedSensorPosition(homeArmValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mArmMotor.setSelectedSensorPosition(homeArmValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -410,20 +412,20 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						case INTAKE_IN:
 //							mIntakeMotor.set(ControlMode.Current, 25);
 //							mIntake2Motor.set(ControlMode.Current, 25);
-							mIntakeMotor.set(ControlMode.PercentOutput, 1);
-							mIntake2Motor.set(ControlMode.PercentOutput, 1);
+							mIntakeMotor.set(ControlMode.PercentOutput, 0.8);
+							mIntake2Motor.set(ControlMode.PercentOutput, 0.8);
 							break;
 						case INTAKE_OUT:
 //							mIntakeMotor.set(ControlMode.Current, -55);
 //							mIntake2Motor.set(ControlMode.Current, -55);
-							mIntakeMotor.set(ControlMode.PercentOutput, -1);
-							mIntake2Motor.set(ControlMode.PercentOutput, -1);
+							mIntakeMotor.set(ControlMode.PercentOutput, -0.8);
+							mIntake2Motor.set(ControlMode.PercentOutput, -0.8);
 							break;
 						case INTAKE_OUT_HALFSPEED:
 //							mIntakeMotor.set(ControlMode.Current, -55);
 //							mIntake2Motor.set(ControlMode.Current, -55);
-							mIntakeMotor.set(ControlMode.PercentOutput, -0.5);
-							mIntake2Motor.set(ControlMode.PercentOutput, -0.5);
+							mIntakeMotor.set(ControlMode.PercentOutput, -0.4);
+							mIntake2Motor.set(ControlMode.PercentOutput, -0.4);
 							break;
 						case INTAKE_OUT_SLOW:
 //							mIntakeMotor.set(ControlMode.Current, -55);
@@ -656,7 +658,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		//ENDTODO
 
 		boolean armSensorPresent = mArmMotor.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
-		armSensorPresent = true;
+		//armSensorPresent = true;
 
 		ErrorCode errorCode = mArmMotor.getLastError();
 		if (errorCode != ErrorCode.OK) {
@@ -699,12 +701,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			armFault = true;
 		}
 
-		armFault = false;
+		//armFault = false;
 
 		//TEMP FOR REMOTE SENSOR
-		return false;
+		//return false;
 
-		//return armFault;
+		return armFault;
 	}
 
 	public boolean isArmFaulted() {

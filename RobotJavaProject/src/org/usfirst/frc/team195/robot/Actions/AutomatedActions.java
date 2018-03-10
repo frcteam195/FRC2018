@@ -67,6 +67,21 @@ public class AutomatedActions {
 				new SetArmRotationAction(ArmPosition.DOWN)));
 	}
 
+	public static ParallelAction PreparePlaceCubeOnScaleOverBackLow() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleOverBackMid() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleOverBackHigh() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_HIGH)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnScaleShortHigh() {
 		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SHORT_HIGH),
 												new SetArmRotationAction(ArmPosition.SWITCH)));

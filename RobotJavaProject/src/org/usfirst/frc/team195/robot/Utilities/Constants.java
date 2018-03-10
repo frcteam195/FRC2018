@@ -51,16 +51,17 @@ public class Constants {
 	public static final int BB1_ELEVATOR_DECREMENT = 12;
 	public static final int BB1_ELEVATOR_SWITCH = 3;
 	public static final int BB1_ELEVATOR_SCALE = 4;
-	public static final int BB1_ELEVATOR_SCALE_HIGH = 5;
+	public static final int BB1_ELEVATOR_SCALE_HIGH = 6;
 	public static final int BB1_ELEVATOR_REHOME = 16;
 	public static final int BB1_ARM_DOWN = 7;
 	public static final int BB1_ARM_BACK = 9;
 	public static final int BB1_ARM_SWITCH = 8;
+	public static final int BB1_ELEVATOR_OVER_BACK_LOW = 2;
+	public static final int BB1_ELEVATOR_OVER_BACK_MID = 3;
+	public static final int BB1_ELEVATOR_OVER_BACK_HIGH = 5;
 
-
-
-
-
+	public static final int ARM_ELEVATOR_INCREMENT_POV = 0;
+	public static final int ARM_ELEVATOR_DECREMENT_POV = 180;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
@@ -147,6 +148,7 @@ public class Constants {
 	
 	public static final int kTimeoutMs = 20;
 	public static final int kTimeoutMsFast = 10;
+	public static final int kActionTimeoutS = 2;
 	public static final int kTalonRetryCount = 3;
 	public static final double kJoystickDeadband = 0.08;
 	public static final double kWheelDeadband = 0.05;
@@ -192,7 +194,7 @@ public class Constants {
 	public static final double kElevatorEncoderGearRatio = 1.0;
 	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
-	public static final double kElevatorStepSize = 0.5;	//In rotations of output shaft
+	public static final double kElevatorStepSize = 0.2;	//In rotations of output shaft
 	public static final double kElevatorDeviationThreshold = 0.1;	//In rotations of output shaft
 	public static final double kElevatorHomingSpeed = -0.3;	//In rotations of output shaft
 	public static final double kElevatorSafetyCurrent = 18;	//In rotations of output shaft
