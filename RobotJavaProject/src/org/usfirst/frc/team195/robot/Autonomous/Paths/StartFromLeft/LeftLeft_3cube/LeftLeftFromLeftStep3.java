@@ -10,22 +10,22 @@ public class LeftLeftFromLeftStep3 implements PathContainer {
     @Override
     public Path buildPath() {
         ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-        sWaypoints.add(new Waypoint(228,244,0,0));
-        sWaypoints.add(new Waypoint(219,241,0,20));
+        sWaypoints.add(new Waypoint(224,238,0,0));
+        sWaypoints.add(new Waypoint(212,230,0,20));
 
         return PathBuilder.buildPathFromWaypoints(sWaypoints);
     }
     
     @Override
     public RigidTransform2d getStartPose() {
-        return new RigidTransform2d(new Translation2d(228, 244), Rotation2d.fromDegrees(0)); 
+        return new RigidTransform2d(new Translation2d(224, 238), Rotation2d.fromDegrees(0));
     }
 
     @Override
     public boolean isReversed() {
         return false; 
     }
-	// WAYPOINT_DATA: [{"position":{"x":228,"y":244},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":219,"y":241},"speed":20,"radius":0,"marker":"","comment":""}]
+	// WAYPOINT_DATA: [{"position":{"x":224,"y":238},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":212,"y":230},"speed":20,"radius":0,"marker":"","comment":""}]
 	// IS_REVERSED: false
 	// FILE_NAME: LeftLeftFromLeftStep3
 }
