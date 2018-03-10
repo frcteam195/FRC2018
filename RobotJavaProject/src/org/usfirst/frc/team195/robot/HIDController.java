@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
 import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -107,6 +108,10 @@ public class HIDController implements Runnable {
 			ConsoleReporter.report("Elevator rehoming requested!", MessageLevel.DEFCON1);
 			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
 		}
+
+		//TODO: Test this and see if it works (Change button)
+//		if (buttonBox1.getRisingEdgeButton(1))
+//			(new TeleopActionRunner(AutomatedActions.PreparePickupCube(), 2)).runAction();
 
 //		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
 //		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);

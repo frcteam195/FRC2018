@@ -15,7 +15,7 @@ public class TeleopActionRunner {
 	/**
 	 * Create an action runner with a timeout
 	 * @param action Action to run
-	 * @param timeout Timeout in seconds
+	 * @param timeout Timeout in seconds.
 	 */
 	public TeleopActionRunner(Action action, double timeout) {
 		this.action = action;
@@ -33,7 +33,7 @@ public class TeleopActionRunner {
 
 			action.start();
 
-			while (!action.isFinished() && (Timer.getFPGATimestamp() - startTime) < timeout) {
+			while (!action.isFinished() && (Timer.getFPGATimestamp() - startTime) > timeout) {
 				action.update();
 				int waitTime = (int) (m_update_rate * 1000.0);
 
@@ -48,6 +48,10 @@ public class TeleopActionRunner {
 			finished = true;
 		});
 		t.start();
+	}
+
+	public boolean runAction() {
+		return runAction(false);
 	}
 
 	public boolean runAction(boolean waitForCompletion) {
