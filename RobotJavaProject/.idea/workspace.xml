@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b495d11-29d3-41c9-b321-0a9401a8199c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,87 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CubeHandlerSubsystem.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="157" column="142" lean-forward="false" selection-start-line="157" selection-start-column="142" selection-end-line="157" selection-end-column="142" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#21989#21990#0" expanded="true" />
-                <element signature="e#22014#22015#0" expanded="true" />
-                <element signature="e#22073#22074#0" expanded="true" />
-                <element signature="e#22104#22105#0" expanded="true" />
-                <element signature="e#22171#22172#0" expanded="true" />
-                <element signature="e#22208#22209#0" expanded="true" />
-                <element signature="method#setElevatorControl#0;class#CubeHandlerSubsystem#0" expanded="true" />
-                <element signature="e#22408#22409#0" expanded="true" />
-                <element signature="e#22451#22452#0" expanded="true" />
-                <element signature="e#22491#22492#0" expanded="true" />
-                <element signature="e#22521#22522#0" expanded="true" />
-                <element signature="e#23989#24007#0" expanded="true" />
-                <element signature="e#25096#25114#0" expanded="true" />
-                <element signature="e#27690#27708#0" expanded="true" />
-                <element signature="e#30556#30557#0" expanded="true" />
-                <element signature="e#30578#30579#0" expanded="true" />
-                <element signature="e#31879#31880#0" expanded="true" />
-                <element signature="e#31906#31907#0" expanded="true" />
-                <element signature="e#33398#33399#0" expanded="true" />
-                <element signature="e#33468#33469#0" expanded="true" />
-                <element signature="e#33523#33524#0" expanded="true" />
-                <element signature="e#33593#33594#0" expanded="true" />
-                <element signature="e#34842#34843#0" expanded="true" />
-                <element signature="e#34873#34874#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArmPosition.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ElevatorPosition.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="53" lean-forward="false" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HIDController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="120" column="130" lean-forward="false" selection-start-line="120" selection-start-column="130" selection-end-line="120" selection-end-column="130" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="150" column="48" lean-forward="false" selection-start-line="150" selection-start-column="48" selection-end-line="150" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AutomatedActions.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AutomatedActions.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="81" column="115" lean-forward="false" selection-start-line="81" selection-start-column="115" selection-end-line="81" selection-end-column="115" />
+            <state relative-caret-position="27">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding>
                 <element signature="method#PlaceCubeOnScaleOverBack#0;class#AutomatedActions#0" expanded="false" />
                 <element signature="method#PlaceCubeOnSwitchArmOnly#0;class#AutomatedActions#0" expanded="false" />
@@ -158,6 +77,12 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep2.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep3.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep4.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep5.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep6.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep1.java" />
       </list>
     </option>
   </component>
@@ -212,36 +137,41 @@
               <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Actions" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Actions" type="462c0819:PsiDirectoryNode" />
-              <item name="CubeHandlerActions" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Paths" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Subsystems" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Paths" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromLeft" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Utilities" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Paths" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromLeft" type="462c0819:PsiDirectoryNode" />
+              <item name="LeftLeft_3cube" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -376,11 +306,13 @@
       <workItem from="1520551943598" duration="1021000" />
       <workItem from="1520617134943" duration="3305000" />
       <workItem from="1520644919750" duration="6599000" />
+      <workItem from="1520707857114" duration="600000" />
+      <workItem from="1520708480762" duration="80000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38811000" />
+    <option name="totallyTimeSpent" value="39491000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -393,10 +325,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32753327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -407,9 +339,10 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23199023" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23687424" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18219037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1904762" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -420,8 +353,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32753327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -456,158 +389,10 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#21989#21990#0" expanded="true" />
-            <element signature="e#22014#22015#0" expanded="true" />
-            <element signature="e#22073#22074#0" expanded="true" />
-            <element signature="e#22104#22105#0" expanded="true" />
-            <element signature="e#22171#22172#0" expanded="true" />
-            <element signature="e#22208#22209#0" expanded="true" />
-            <element signature="method#setElevatorControl#0;class#CubeHandlerSubsystem#0" expanded="true" />
-            <element signature="e#22408#22409#0" expanded="true" />
-            <element signature="e#22451#22452#0" expanded="true" />
-            <element signature="e#22491#22492#0" expanded="true" />
-            <element signature="e#22521#22522#0" expanded="true" />
-            <element signature="e#23989#24007#0" expanded="true" />
-            <element signature="e#25096#25114#0" expanded="true" />
-            <element signature="e#27690#27708#0" expanded="true" />
-            <element signature="e#30556#30557#0" expanded="true" />
-            <element signature="e#30578#30579#0" expanded="true" />
-            <element signature="e#31879#31880#0" expanded="true" />
-            <element signature="e#31906#31907#0" expanded="true" />
-            <element signature="e#33398#33399#0" expanded="true" />
-            <element signature="e#33468#33469#0" expanded="true" />
-            <element signature="e#33523#33524#0" expanded="true" />
-            <element signature="e#33593#33594#0" expanded="true" />
-            <element signature="e#34842#34843#0" expanded="true" />
-            <element signature="e#34873#34874#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2070">
-          <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="class#2197:3331" expanded="false" />
-            <element signature="method#onFirstStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onLoop#0;class#2197:3331" expanded="false" />
-            <element signature="method#DriveBaseSubsystem#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#4281#4402#0" expanded="false" />
-            <element signature="method#getInstance#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getInstance#1;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#init#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#subsystemHome#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#generateReport#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#runDiagnostics#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isSystemFaulted#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGear#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setControlMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveOpenLoop#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveVelocity#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setBrakeMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#16673#16724#0" expanded="false" />
-            <element signature="method#updatePathVelocitySetpoint#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#17802#17919#0" expanded="false" />
-            <element signature="method#rotationsToInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesToRotations#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesPerSecondToRpm#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGyroAngle#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#forceDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#hasPassedMarker#0;class#DriveBaseSubsystem#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1800">
-          <caret line="143" column="35" lean-forward="true" selection-start-line="143" selection-start-column="35" selection-end-line="143" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="35" lean-forward="false" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="class#2197:3331" expanded="false" />
-            <element signature="method#onFirstStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onLoop#0;class#2197:3331" expanded="false" />
-            <element signature="method#DriveBaseSubsystem#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#4281#4402#0" expanded="false" />
-            <element signature="method#getInstance#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getInstance#1;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#init#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#subsystemHome#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#generateReport#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#runDiagnostics#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isSystemFaulted#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGear#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setControlMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveOpenLoop#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveVelocity#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setBrakeMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#16673#16724#0" expanded="false" />
-            <element signature="method#updatePathVelocitySetpoint#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#17802#17919#0" expanded="false" />
-            <element signature="method#rotationsToInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesToRotations#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesPerSecondToRpm#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGyroAngle#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#forceDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#hasPassedMarker#0;class#DriveBaseSubsystem#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -623,44 +408,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="class#2197:3331" expanded="false" />
-            <element signature="method#onFirstStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onLoop#0;class#2197:3331" expanded="false" />
-            <element signature="method#DriveBaseSubsystem#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#4281#4402#0" expanded="false" />
-            <element signature="method#getInstance#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getInstance#1;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#init#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#subsystemHome#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#generateReport#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#runDiagnostics#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isSystemFaulted#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGear#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setControlMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveOpenLoop#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveVelocity#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setBrakeMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#16673#16724#0" expanded="false" />
-            <element signature="method#updatePathVelocitySetpoint#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#17802#17919#0" expanded="false" />
-            <element signature="method#rotationsToInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesToRotations#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesPerSecondToRpm#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGyroAngle#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#forceDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#hasPassedMarker#0;class#DriveBaseSubsystem#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -720,7 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -736,7 +482,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="40" column="10" lean-forward="false" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -779,7 +524,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -795,44 +539,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-258">
           <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-          <folding>
-            <element signature="class#2197:3331" expanded="false" />
-            <element signature="method#onFirstStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onStart#0;class#2197:3331" expanded="false" />
-            <element signature="method#onLoop#0;class#2197:3331" expanded="false" />
-            <element signature="method#DriveBaseSubsystem#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#4281#4402#0" expanded="false" />
-            <element signature="method#getInstance#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getInstance#1;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#init#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#subsystemHome#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#generateReport#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#runDiagnostics#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isSystemFaulted#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGear#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setControlMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveOpenLoop#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setDriveVelocity#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setBrakeMode#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#updatePathFollower#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#16673#16724#0" expanded="false" />
-            <element signature="method#updatePathVelocitySetpoint#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="e#17802#17919#0" expanded="false" />
-            <element signature="method#rotationsToInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesToRotations#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#inchesPerSecondToRpm#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightDistanceInches#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getLeftVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#getRightVelocityInchesPerSec#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setGyroAngle#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="docComment;method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#setWantDrivePath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#isDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#forceDoneWithPath#0;class#DriveBaseSubsystem#0" expanded="false" />
-            <element signature="method#hasPassedMarker#0;class#DriveBaseSubsystem#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -854,13 +560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
           <caret line="46" column="88" lean-forward="false" selection-start-line="46" selection-start-column="88" selection-end-line="46" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="13" column="50" lean-forward="false" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -890,7 +589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
           <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -912,7 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -920,7 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="32" lean-forward="false" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -932,27 +628,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="53" lean-forward="false" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetIntakeAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -960,7 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -968,33 +646,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
+    <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/motorcontrol/IMotorControllerEnhanced.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="81" column="115" lean-forward="false" selection-start-line="81" selection-start-column="115" selection-end-line="81" selection-end-column="115" />
-          <folding>
-            <element signature="method#PlaceCubeOnScaleOverBack#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PlaceCubeOnSwitchArmOnly#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PreparePlaceCubeOnScaleOverBack#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PreparePlaceCubeOnSwitchElevator#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PreparePlaceCubeOnScaleHigh#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PreparePlaceCubeOnScaleMid#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PreparePlaceCubeOnScaleLow#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PreparePlaceCubeOnScaleShortHigh#0;class#AutomatedActions#0" expanded="false" />
-            <element signature="method#PreparePickupCube#0;class#AutomatedActions#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="316">
+          <caret line="28" column="21" lean-forward="false" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="150" column="48" lean-forward="false" selection-start-line="150" selection-start-column="48" selection-end-line="150" selection-end-column="48" />
-          <folding />
+        <state relative-caret-position="15">
+          <caret line="157" column="142" lean-forward="false" selection-start-line="157" selection-start-column="142" selection-end-line="157" selection-end-column="142" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="53" lean-forward="false" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -1006,44 +685,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/motorcontrol/IMotorControllerEnhanced.java">
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="28" column="21" lean-forward="false" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+        <state relative-caret-position="238">
+          <caret line="150" column="48" lean-forward="false" selection-start-line="150" selection-start-column="48" selection-end-line="150" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="50" lean-forward="false" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="157" column="142" lean-forward="false" selection-start-line="157" selection-start-column="142" selection-end-line="157" selection-end-column="142" />
+        <state relative-caret-position="60">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep4.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="5" column="27" lean-forward="true" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep6Final.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="32" column="1" lean-forward="true" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#21989#21990#0" expanded="true" />
-            <element signature="e#22014#22015#0" expanded="true" />
-            <element signature="e#22073#22074#0" expanded="true" />
-            <element signature="e#22104#22105#0" expanded="true" />
-            <element signature="e#22171#22172#0" expanded="true" />
-            <element signature="e#22208#22209#0" expanded="true" />
-            <element signature="method#setElevatorControl#0;class#CubeHandlerSubsystem#0" expanded="true" />
-            <element signature="e#22408#22409#0" expanded="true" />
-            <element signature="e#22451#22452#0" expanded="true" />
-            <element signature="e#22491#22492#0" expanded="true" />
-            <element signature="e#22521#22522#0" expanded="true" />
-            <element signature="e#23989#24007#0" expanded="true" />
-            <element signature="e#25096#25114#0" expanded="true" />
-            <element signature="e#27690#27708#0" expanded="true" />
-            <element signature="e#30556#30557#0" expanded="true" />
-            <element signature="e#30578#30579#0" expanded="true" />
-            <element signature="e#31879#31880#0" expanded="true" />
-            <element signature="e#31906#31907#0" expanded="true" />
-            <element signature="e#33398#33399#0" expanded="true" />
-            <element signature="e#33468#33469#0" expanded="true" />
-            <element signature="e#33523#33524#0" expanded="true" />
-            <element signature="e#33593#33594#0" expanded="true" />
-            <element signature="e#34842#34843#0" expanded="true" />
-            <element signature="e#34873#34874#0" expanded="true" />
+            <element signature="method#PlaceCubeOnScaleOverBack#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PlaceCubeOnSwitchArmOnly#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleOverBack#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnSwitchElevator#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleHigh#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleMid#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleLow#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleShortHigh#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePickupCube#0;class#AutomatedActions#0" expanded="false" />
           </folding>
         </state>
       </provider>
