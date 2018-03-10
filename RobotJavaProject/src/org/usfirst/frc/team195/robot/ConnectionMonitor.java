@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
+import org.usfirst.frc.team195.robot.Utilities.RGBColor;
 import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.LatchedBoolean;
 
@@ -61,10 +62,13 @@ public class ConnectionMonitor extends Thread {
         while (runThread) {
             hasConnection = DriverStation.getInstance().waitForData(1);
 
-            if (hasConnection)
+            if (hasConnection) {
                 mLastPacketTime = Timer.getFPGATimestamp();
-            else
+            }
+            else {
+                mLED.setLEDColor(new RGBColor(255, 0, 0));
                 mLED.setRequestedState(LEDController.LEDState.BLINK);
+            }
 
             if (mJustReconnected.update(hasConnection))
                 justReconnected();
@@ -86,6 +90,7 @@ public class ConnectionMonitor extends Thread {
 
     private void justReconnected() {
         // Reconfigure blink if we are just connected.
+        mLED.setLEDColor(LEDController.kDefaultColor);
         mLED.configureBlink(LEDController.kDefaultBlinkCount, LEDController.kDefaultBlinkDuration);
     }
 
