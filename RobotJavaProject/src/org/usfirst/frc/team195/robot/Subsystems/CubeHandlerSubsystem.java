@@ -145,8 +145,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded = true;
 
 			setSucceeded &= mArmMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-			//setSucceeded &= mIntake2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
+			//setSucceeded &= mIntake2Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			//setSucceeded &= mArmMotor.configRemoteFeedbackFilter(Constants.kIntake2MotorId, RemoteSensorSource.TalonSRX_SelectedSensor, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			//setSucceeded &= mArmMotor.configRemoteFeedbackFilter(0x00, RemoteSensorSource.Off, 1, Constants.kTimeoutMs) == ErrorCode.OK;
 			//setSucceeded &= mArmMotor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0, 0, Constants.kTimeoutMs) == ErrorCode.OK;

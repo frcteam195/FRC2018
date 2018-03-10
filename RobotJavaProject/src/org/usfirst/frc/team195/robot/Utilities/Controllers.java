@@ -5,10 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.CANSpeedControllerBuilder;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightDigitalInput;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.*;
 
 public class Controllers {
 	private Compressor compressor;
@@ -65,6 +62,9 @@ public class Controllers {
 		leftDrive1 = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kLeftDriveMasterId, Constants.kLeftDriveMasterPDPChannel);
 		leftDrive2 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId, Constants.kLeftDriveSlave1PDPChannel, leftDrive1);
 		leftDrive3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId2, Constants.kLeftDriveSlave2PDPChannel, leftDrive1);
+
+		if (leftDrive1 instanceof CKTalonSRX)
+			ConsoleReporter.report(leftDrive1.toString());
 
 		//Right Drive Setup
 		rightDrive1 = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kRightDriveMasterId, Constants.kRightDriveMasterPDPChannel);

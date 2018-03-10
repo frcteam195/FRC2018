@@ -23,7 +23,7 @@ public class CANSpeedControllerBuilder {
 		public boolean INVERTED = false;
 
 		public int CONTROL_FRAME_PERIOD_MS = 10;
-		public int GENERAL_STATUS_FRAME_RATE_MS = 10;
+		public int STATUS_FRAME_GENERAL_1_MS = 10;
 
 		//public VelocityMeasPeriod VELOCITY_MEASUREMENT_PERIOD = VelocityMeasPeriod::Period_100Ms;
 		//public int VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW = 64;
@@ -107,7 +107,8 @@ public class CANSpeedControllerBuilder {
 			setSucceeded &= talon.clearStickyFaults(Constants.kTimeoutMs) == ErrorCode.OK;
 
 //			setSucceeded &= talon.setControlFramePeriod(ControlFrame.Control_3_General, config.CONTROL_FRAME_PERIOD_MS) == ErrorCode.OK;
-//			setSucceeded &= talon.setStatusFramePeriod(StatusFrame.Status_1_General, config.GENERAL_STATUS_FRAME_RATE_MS, Constants.kTimeoutMs) == ErrorCode.OK;
+//			setSucceeded &= talon.setStatusFramePeriod(StatusFrame.Status_1_General, config.STATUS_FRAME_GENERAL_1_MS, Constants.kTimeoutMs) == ErrorCode.OK;
+
 //			setSucceeded &= talon.setIntegralAccumulator(0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 //			setSucceeded &= talon.configPeakOutputForward(config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
 //			setSucceeded &= talon.configPeakOutputReverse(-config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -126,4 +127,5 @@ public class CANSpeedControllerBuilder {
 
 		return setSucceeded;
 	}
+
 }
