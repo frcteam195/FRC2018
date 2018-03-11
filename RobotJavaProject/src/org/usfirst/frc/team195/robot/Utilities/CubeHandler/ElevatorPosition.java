@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Utilities.CubeHandler;
 
 public class ElevatorPosition {
+	public static final double SWITCH = 4;
 	public static final double HOME = 0.05;
 	public static final double ARM_COLLISION_POINT = 6.7;
 	public static final double LOW = 6;

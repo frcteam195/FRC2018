@@ -6,6 +6,8 @@ import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftLeftFromLeftMode_3cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_3cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRight_2cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightLeft.RightLeftFromRightMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightRight.RightRightFromRightMode_4cube;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
@@ -99,7 +101,7 @@ public class Robot extends RobbieRobot {
 		autoModeExecuter = new AutoModeExecuter();
 
 		//TODO: Get this value from the dashboard
-		StartingPosition startingPosition = StartingPosition.LEFT;
+		StartingPosition startingPosition = StartingPosition.RIGHT;
 
 		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
 		AutoModeBase autoMode = null;
@@ -214,9 +216,9 @@ public class Robot extends RobbieRobot {
 			case LEFT_LEFT:
 				return new LeftLeftFromRightMode_3cube();
 			case LEFT_RIGHT:
-				break;
+				return new LeftRightFromRight_2cube();
 			case RIGHT_LEFT:
-				break;
+				return new RightLeftFromRightMode_2cube();
 			case RIGHT_RIGHT:
 				return new RightRightFromRightMode_4cube();
 			case UNDEFINED:
