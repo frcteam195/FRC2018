@@ -20,6 +20,7 @@ public class HIDController implements Runnable {
 
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private CubeHandlerSubsystem cubeHandlerSubsystem;
+	private LEDController ledController;
 	private DriverStation ds;
 	private KnightJoystick driveJoystickThrottle;
 	//private KnightJoystick driveJoystickWheel;
@@ -40,6 +41,7 @@ public class HIDController implements Runnable {
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
+		ledController = LEDController.getInstance();
 
 		driveHelper = new DriveHelper();
 		//shiftAction = new ShiftAction();
@@ -141,9 +143,12 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
 		}
 
-		//TODO: Test this and see if it works (Change button)
-//		if (buttonBox1.getRisingEdgeButton(1))
-//			(new TeleopActionRunner(AutomatedActions.PreparePickupCube(), 2)).runAction();
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_REQUEST_CUBE_FROM_WALL)) {
+			if (ConnectionMonitor.getInstance().isConnected()) {
+				ledController.configureBlink(10, LEDController.kDefaultBlinkDuration);
+				ledController.setRequestedState(LEDController.LEDState.BLINK);
+			}
+		}
 
 //		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
 //		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);

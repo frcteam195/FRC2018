@@ -59,6 +59,7 @@ public class Constants {
 	public static final int BB1_ELEVATOR_OVER_BACK_LOW = 2;
 	public static final int BB1_ELEVATOR_OVER_BACK_MID = 3;
 	public static final int BB1_ELEVATOR_OVER_BACK_HIGH = 5;
+	public static final int BB1_REQUEST_CUBE_FROM_WALL = 10;
 
 	public static final int ARM_ELEVATOR_INCREMENT_POV = 0;
 	public static final int ARM_ELEVATOR_DECREMENT_POV = 180;

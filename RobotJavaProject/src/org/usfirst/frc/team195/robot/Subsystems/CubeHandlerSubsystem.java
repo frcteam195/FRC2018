@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team195.robot.LEDController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -51,6 +52,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private KnightDigitalInput mElevatorHomeSwitch;
 	private KnightDigitalInput mCubeSensor;
 
+	private LEDController ledController;
+
 	private boolean elevatorFault = false;
 	private boolean armFault = false;
 
@@ -71,6 +74,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private CubeHandlerSubsystem() throws Exception {
 		ds = DriverStation.getInstance();
 		Controllers robotControllers = Controllers.getInstance();
+		ledController = LEDController.getInstance();
 
 		mArmMotor = robotControllers.getArm1Motor();
 		mIntakeMotor = robotControllers.getIntakeMotor();
@@ -450,6 +454,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 				if (mCubeSensor.getRisingEdge()) {
 					setIntakeClamp(false);
+
+					ledController.configureBlink(4, LEDController.kDefaultBlinkDuration);
+					ledController.setRequestedState(LEDController.LEDState.BLINK);
+
 					if (!isAuto) {
 						liftArmTimerStart = Timer.getFPGATimestamp();
 

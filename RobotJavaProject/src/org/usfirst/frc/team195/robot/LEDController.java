@@ -11,7 +11,7 @@ public class LEDController extends Thread {
     public static final int kDefaultBlinkCount = 6;
     public static final double kDefaultBlinkDuration = 0.2; // seconds for full cycle
     private static final double kDefaultTotalBlinkDuration = kDefaultBlinkCount * kDefaultBlinkDuration;
-    private static final RGBColor kDefaultColor = new RGBColor(210, 0, 255);  //Default purple color
+    public static final RGBColor kDefaultColor = new RGBColor(210, 0, 255);  //Default purple color
 
     private static LEDController instance = null;
     private LEDState mDefaultState = LEDState.FIXED_ON;
