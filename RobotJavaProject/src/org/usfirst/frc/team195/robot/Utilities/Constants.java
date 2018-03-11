@@ -30,6 +30,7 @@ public class Constants {
 	public static final int DRIVE_Y_AXIS = 1;
 	public static final int DRIVE_IMM_TURN = 7;
 	public static final int DRIVE_HOLD_BRAKE = 9;
+	public static final int DRIVE_REQUEST_CUBE_FROM_WALL = 9;
 	
 	//Drive Config F310
 //	public static final int DRIVE_X_AXIS = 2;

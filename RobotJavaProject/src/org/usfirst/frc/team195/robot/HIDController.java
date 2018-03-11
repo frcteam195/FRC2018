@@ -143,7 +143,7 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
 		}
 
-		if (buttonBox1.getRisingEdgeButton(Constants.BB1_REQUEST_CUBE_FROM_WALL)) {
+		if (buttonBox1.getRisingEdgeButton(Constants.BB1_REQUEST_CUBE_FROM_WALL) || driveJoystickThrottle.getRisingEdgeButton(Constants.DRIVE_REQUEST_CUBE_FROM_WALL)) {
 			if (ConnectionMonitor.getInstance().isConnected()) {
 				ledController.configureBlink(10, LEDController.kDefaultBlinkDuration);
 				ledController.setRequestedState(LEDController.LEDState.BLINK);
