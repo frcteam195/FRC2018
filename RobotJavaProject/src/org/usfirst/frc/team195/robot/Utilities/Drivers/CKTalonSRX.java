@@ -38,7 +38,7 @@ public class CKTalonSRX extends TalonSRX {
 		sb.append("General Status Frame 7: " + getStatusFramePeriod(StatusFrameEnhanced.Status_7_CommStatus, Constants.kTimeoutMs) + "\r\n");
 		sb.append("General Status Frame 8: " + getStatusFramePeriod(StatusFrameEnhanced.Status_8_PulseWidth, Constants.kTimeoutMs) + "\r\n");
 		sb.append("General Status Frame 9: " + getStatusFramePeriod(StatusFrameEnhanced.Status_9_MotProfBuffer, Constants.kTimeoutMs) + "\r\n");
-		sb.append("General Status Frame 10: " + getStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, Constants.kTimeoutMs) + "\r\n");
+		sb.append("General Status Frame 10: " + getStatusFramePeriod(StatusFrame.Status_10_Targets, Constants.kTimeoutMs) + "\r\n");
 		sb.append("General Status Frame 11: " + getStatusFramePeriod(StatusFrameEnhanced.Status_11_UartGadgeteer, Constants.kTimeoutMs) + "\r\n");
 		sb.append("General Status Frame 12: " + getStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, Constants.kTimeoutMs) + "\r\n");
 		sb.append("General Status Frame 13: " + getStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, Constants.kTimeoutMs) + "\r\n");
