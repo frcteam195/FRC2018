@@ -30,7 +30,7 @@ public class Constants {
 	public static final int DRIVE_Y_AXIS = 1;
 	public static final int DRIVE_IMM_TURN = 7;
 	public static final int DRIVE_HOLD_BRAKE = 9;
-	public static final int DRIVE_REQUEST_CUBE_FROM_WALL = 9;
+	public static final int DRIVE_REQUEST_CUBE_FROM_WALL = 8;
 	
 	//Drive Config F310
 //	public static final int DRIVE_X_AXIS = 2;
@@ -174,8 +174,8 @@ public class Constants {
 
 	// Arm
 	public static final double kArmEncoderGearRatio = 1.0;
-	public static final double kArmMotorPulley = 24.0;
-	public static final double kArmArmPulley = 60.0;
+	public static final double kArmMotorPulley = 18.0;
+	public static final double kArmArmPulley = 40.0;
 	public static final double kArmFinalRotationsPerDegree = kArmArmPulley/kArmMotorPulley/360.0;
 	public static final double kArmSoftMin = 0 * kArmFinalRotationsPerDegree;	//Number in degrees of arm converted to rotations
 	public static final double kArmSoftMax = 137 * kArmFinalRotationsPerDegree; //Number in degrees of arm converted to rotations

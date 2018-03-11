@@ -10,15 +10,15 @@ public class RightLeftFromRightStep2 implements PathContainer {
     @Override
     public Path buildPath() {
         ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-        sWaypoints.add(new Waypoint(168,50,0,0, "ArmToSwitch"));
-        sWaypoints.add(new Waypoint(168,72,0,60));
+        sWaypoints.add(new Waypoint(168,30,0,0));
+        sWaypoints.add(new Waypoint(168,64,0,20));
 
         return PathBuilder.buildPathFromWaypoints(sWaypoints);
     }
     
     @Override
     public RigidTransform2d getStartPose() {
-        return new RigidTransform2d(new Translation2d(168, 50), Rotation2d.fromDegrees(0)); 
+        return new RigidTransform2d(new Translation2d(168, 30), Rotation2d.fromDegrees(0));
     }
 
     @Override

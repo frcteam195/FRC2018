@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b495d11-29d3-41c9-b321-0a9401a8199c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" />
+      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java" />
+      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" />
+      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -15,21 +19,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HIDController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java">
+      <file leaf-file-name="RightLeftFromRightStep1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="150" column="9" lean-forward="true" selection-start-line="150" selection-start-column="9" selection-end-line="150" selection-end-column="9" />
+            <state relative-caret-position="210">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+      <file leaf-file-name="RightLeftFromRightMode_2cube.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="33" column="4" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+            <state relative-caret-position="210">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RightLeftFromRightStep2.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="13" column="42" lean-forward="false" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RightLeftFromRightStep3.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="21" column="61" lean-forward="false" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -79,7 +103,6 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep2.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep5.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep6.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep1.java" />
@@ -88,11 +111,7 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep3.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftLeftFromLeftMode_3cube.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep4.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep5Final.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep4.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep2.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep1.java" />
@@ -100,9 +119,14 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep4.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRight_2cube.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" />
       </list>
     </option>
   </component>
@@ -151,12 +175,73 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Modes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Modes" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Modes" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
+              <item name="RightLeft" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Paths" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Paths" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotJavaProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotJavaProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Paths" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
+              <item name="RightLeft_2cube" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -296,11 +381,12 @@
       <workItem from="1520708480762" duration="3285000" />
       <workItem from="1520726582472" duration="3779000" />
       <workItem from="1520731764465" duration="92000" />
+      <workItem from="1520736430531" duration="2720000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46567000" />
+    <option name="totallyTimeSpent" value="49287000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -316,6 +402,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32753327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -326,7 +413,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24236874" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24542125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18219037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -339,7 +426,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32753327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -641,38 +727,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep5Final.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="22" column="89" lean-forward="false" selection-start-line="22" selection-start-column="89" selection-end-line="22" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="12" column="60" lean-forward="false" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="89" column="25" lean-forward="false" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -726,13 +784,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -747,14 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="218" column="54" lean-forward="true" selection-start-line="218" selection-start-column="54" selection-end-line="218" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRight_2cube.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="554">
@@ -765,18 +808,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="89" column="56" lean-forward="false" selection-start-line="89" selection-start-column="56" selection-end-line="89" selection-end-column="56" />
+          <folding>
+            <element signature="e#4535#4536#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1561">
+          <caret line="99" column="28" lean-forward="false" selection-start-line="99" selection-start-column="28" selection-end-line="99" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="33" column="4" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+        <state relative-caret-position="210">
+          <caret line="304" column="43" lean-forward="false" selection-start-line="304" selection-start-column="43" selection-end-line="304" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="150" column="9" lean-forward="true" selection-start-line="150" selection-start-column="9" selection-end-line="150" selection-end-column="9" />
+        <state relative-caret-position="254">
+          <caret line="150" column="9" lean-forward="false" selection-start-line="150" selection-start-column="9" selection-end-line="150" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="21" column="61" lean-forward="false" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="42" lean-forward="false" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
           <folding />
         </state>
       </provider>

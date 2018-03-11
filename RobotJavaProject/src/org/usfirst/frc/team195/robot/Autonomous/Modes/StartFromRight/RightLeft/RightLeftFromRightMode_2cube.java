@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightLeft;
 
 import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
+import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetArmRotationAction;
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeAction;
 import org.usfirst.frc.team195.robot.Actions.DrivePathAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.ParallelAction;
@@ -11,6 +12,7 @@ import org.usfirst.frc.team195.robot.Actions.ResetPoseFromPathAction;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeEndedException;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.RightLeft_2cube.*;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathContainer;
 
@@ -25,10 +27,10 @@ public class RightLeftFromRightMode_2cube extends AutoModeBase {
 		runAction(new DrivePathAction(pathContainer));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightLeftFromRightStep2()),
-				  new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmToSwitch"),
-				      AutomatedActions.PreparePlaceCubeOnSwitchArm())))));
+												   AutomatedActions.PreparePlaceCubeOnSwitchArm())));
 
 		runAction(AutomatedActions.OutakeCubeMidSpeed());
+		runAction(new WaitAction(1));
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightLeftFromRightStep3()),

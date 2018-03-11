@@ -11,10 +11,10 @@ public class RightLeftFromRightStep1 implements PathContainer {
     public Path buildPath() {
         ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
         sWaypoints.add(new Waypoint(20,48,0,0));
-        sWaypoints.add(new Waypoint(70,48,15,130));
-        sWaypoints.add(new Waypoint(120,64,15,130));
-        sWaypoints.add(new Waypoint(168,64,10,100));
-        sWaypoints.add(new Waypoint(168,50,0,60));
+        sWaypoints.add(new Waypoint(70,48,15,80));
+        sWaypoints.add(new Waypoint(120,55,15,80));
+        sWaypoints.add(new Waypoint(168,58,20,60));
+        sWaypoints.add(new Waypoint(168,30,0,30));
 
         return PathBuilder.buildPathFromWaypoints(sWaypoints);
     }
