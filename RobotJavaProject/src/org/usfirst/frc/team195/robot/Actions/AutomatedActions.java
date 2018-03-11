@@ -97,6 +97,11 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.HOME)));
 	}
 
+	public static ParallelAction PreparePlaceCubeOnSwitchOverBack() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.LOW),
+												new SetArmRotationAction(ArmPosition.BACK)));
+	}
+
 	public static Action LiftArmTo90() {
 		return new SetArmRotationAction(ArmPosition.VERTICAL);
 	}

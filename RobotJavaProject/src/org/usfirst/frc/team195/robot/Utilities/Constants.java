@@ -45,6 +45,10 @@ public class Constants {
 	public static final int ARM_INTAKE_OUT = 5;
 	public static final int ARM_INTAKE_OUT_HALFSPEED = 6;
 	public static final int ARM_ARM_VERTICAL = 2;
+	public static final int ARM_ELEVATOR_INCREMENT_POV = 0;
+	public static final int ARM_ELEVATOR_DECREMENT_POV = 180;
+	public static final int ARM_ARM_LOW_POV = 270;
+	public static final int ARM_ARM_MID_POV = 90;
 
 
 	public static final int BB1_ELEVATOR_HOME = 1;
@@ -61,9 +65,6 @@ public class Constants {
 	public static final int BB1_ELEVATOR_OVER_BACK_MID = 3;
 	public static final int BB1_ELEVATOR_OVER_BACK_HIGH = 5;
 	public static final int BB1_REQUEST_CUBE_FROM_WALL = 10;
-
-	public static final int ARM_ELEVATOR_INCREMENT_POV = 0;
-	public static final int ARM_ELEVATOR_DECREMENT_POV = 180;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */

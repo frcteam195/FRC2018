@@ -128,6 +128,10 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.incrementElevatorHeight();
 		else if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_DECREMENT_POV)
 			cubeHandlerSubsystem.decrementElevatorHeight();
+		else if(armControlJoystick.getPOV() == Constants.ARM_ARM_LOW_POV)
+			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.LOW);
+		else if(armControlJoystick.getPOV() == Constants.ARM_ARM_MID_POV)
+			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.MID);
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_DOWN))
 			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.DOWN);
