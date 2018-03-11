@@ -31,6 +31,9 @@ public class RightLeftFromRightMode_2cube extends AutoModeBase {
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 													   AutomatedActions.PreparePlaceCubeOnScaleOverBackLow())))));
 
+		runAction(AutomatedActions.OutakeCubeMidSpeed());
+		runAction(AutomatedActions.StopIntake());
+
 //		runAction(new DrivePathAction(new RightLeftFromRightStep2()));
 //		runAction(new DrivePathAction(new RightLeftFromRightStep3()));
 //		runAction(new DrivePathAction(new RightLeftFromRightStep4()));
