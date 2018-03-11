@@ -3,6 +3,7 @@ package org.usfirst.frc.team195.robot.Reporters;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
+import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -21,17 +22,12 @@ public class ConsoleReporter extends Thread {
 	private static ReentrantLock _reporterMutex = new ReentrantLock();
 	private static ConsoleReporter instance = null;
 	private boolean runThread;
-	private double consoleSendThreadControlStart;
-	private double consoleSendThreadControlEnd;
-	private int consoleSendThreadControlElapsedTimeMS;
+	private ThreadRateControl threadRateControl = new ThreadRateControl();
 
 	private ConsoleReporter() throws Exception {
 		super();
 		super.setPriority(Constants.kConsoleReporterThreadPriority);
 		runThread = false;
-		consoleSendThreadControlStart = 0;
-		consoleSendThreadControlEnd = 0;
-		consoleSendThreadControlElapsedTimeMS = 0;
 	}
 
 	public static ConsoleReporter getInstance() {
@@ -90,6 +86,7 @@ public class ConsoleReporter extends Thread {
 	@Override
 	public void start() {
 		runThread = true;
+		threadRateControl.start();
 		super.start();
 	}
 
@@ -100,7 +97,6 @@ public class ConsoleReporter extends Thread {
 	@Override
 	public void run() {
 		while (runThread) {
-			consoleSendThreadControlStart = Timer.getFPGATimestamp();
 			try {
 				_reporterMutex.lock();
 				try {
@@ -138,12 +134,8 @@ public class ConsoleReporter extends Thread {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			do {
-				consoleSendThreadControlEnd = Timer.getFPGATimestamp();
-				consoleSendThreadControlElapsedTimeMS = (int) ((consoleSendThreadControlEnd - consoleSendThreadControlStart) * 1000);
-				if (consoleSendThreadControlElapsedTimeMS < MIN_CONSOLE_SEND_RATE_MS)
-					try{Thread.sleep(MIN_CONSOLE_SEND_RATE_MS - consoleSendThreadControlElapsedTimeMS);}catch(Exception ex) {};
-			} while(consoleSendThreadControlElapsedTimeMS < MIN_CONSOLE_SEND_RATE_MS);
+
+			threadRateControl.doRateControl(MIN_CONSOLE_SEND_RATE_MS);
 		}
 	}
 
