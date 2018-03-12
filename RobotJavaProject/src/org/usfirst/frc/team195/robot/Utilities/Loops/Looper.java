@@ -24,20 +24,28 @@ public class Looper {
     private double timestamp_ = 0;
     private double dt_ = 0;
     private boolean isFirstStart = true;
+    private boolean isFirstRun = true;
+    private boolean isAuto = false;
 
     private final CrashTrackingRunnable runnable_ = new CrashTrackingRunnable() {
         @Override
         public void runCrashTracked() {
             synchronized (taskRunningLock_) {
+                if (isFirstRun) {
+                    Thread.currentThread().setPriority(Constants.kLooperThreadPriority);
+                    isFirstRun = false;
+                }
+
                 if (running_) {
                     double now = Timer.getFPGATimestamp();
-
                     for (Loop loop : loops_) {
-                        loop.onLoop(now);
+                        loop.onLoop(now, isAuto);
                     }
 
                     dt_ = now - timestamp_;
                     timestamp_ = now;
+
+//                    outputToSmartDashboard()
                 }
             }
         }
@@ -63,7 +71,12 @@ public class Looper {
         }
     }
 
-    public synchronized void start() {
+    public synchronized void start(boolean isAuto) {
+        this.isAuto = isAuto;
+        start();
+    }
+
+    private synchronized void start() {
         if (!running_) {
             ConsoleReporter.report("Starting loops");
             synchronized (taskRunningLock_) {

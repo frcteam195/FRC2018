@@ -63,7 +63,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		}
 
 		@Override
-		public void onLoop(double timestamp) {
+		public void onLoop(double timestamp, boolean isAuto) {
 			synchronized (DriveBaseSubsystem.this) {
 				switch (mControlMode) {
 					case OPEN_LOOP:
@@ -124,8 +124,9 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 		mControlMode = DriveControlState.PATH_FOLLOWING;
 
-		//tuneableLeftDrive = new TuneablePID("Drive Tuning", mLeftMaster, mRightMaster, leftSetpointValue, 5808, true, false);
-		//tuneableRightDrive = new TuneablePID("Right Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
+//		tuneableLeftDrive = new TuneablePID("Drive Tuning", mLeftMaster, mRightMaster, leftSetpointValue, 5808, true, false);
+//		tuneableRightDrive = new TuneablePID("Right Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
+//		tuneableLeftDrive.start();
 
 	}
 
@@ -155,6 +156,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		rightDriveSlave1.setInverted(true);
 		rightDriveSlave2.setInverted(true);
 
+		setBrakeMode(true);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -386,9 +388,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 	public synchronized void setDriveVelocity(DriveMotorValues d) {
 		setControlMode(DriveControlState.VELOCITY);
-
-		mLeftMaster.set(ControlMode.Velocity, d.leftDrive);
-		mRightMaster.set(ControlMode.Velocity, d.rightDrive);
+		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.leftDrive));
+		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.rightDrive));
 	}
 
 	public void setBrakeMode(boolean brakeMode) {

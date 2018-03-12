@@ -23,7 +23,17 @@ public class CANSpeedControllerBuilder {
 		public boolean INVERTED = false;
 
 		public int CONTROL_FRAME_PERIOD_MS = 10;
-		public int GENERAL_STATUS_FRAME_RATE_MS = 10;
+		public int STATUS_FRAME_GENERAL_1_MS = 10;
+		public int STATUS_FRAME_FEEDBACK0_2_MS = 20;
+		public int STATUS_FRAME_QUADRATURE_3_MS = 160;
+		public int STATUS_FRAME_ANALOG_4_MS = 160;
+		public int STATUS_FRAME_PULSE_8_MS = 160;
+		public int STATUS_FRAME_TARGET_10_MS = 0;
+		public int STATUS_FRAME_UART_11_MS = 250;
+		public int STATUS_FRAME_FEEDBACK1_12_MS = 250;
+		public int STATUS_FRAME_PIDF0_13_MS = 160;
+		public int STATUS_FRAME_PIDF1_14_MS = 250;
+		public int STATUS_FRAME_FIRMWARE_15_MS = 160;
 
 		//public VelocityMeasPeriod VELOCITY_MEASUREMENT_PERIOD = VelocityMeasPeriod::Period_100Ms;
 		//public int VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW = 64;
@@ -31,6 +41,11 @@ public class CANSpeedControllerBuilder {
 	
 	private static Configuration kDefaultConfiguration = new Configuration();
 	private static Configuration kSlaveConfiguration = new Configuration();
+
+	static {
+		kSlaveConfiguration.STATUS_FRAME_GENERAL_1_MS = 100;
+		kSlaveConfiguration.STATUS_FRAME_FEEDBACK0_2_MS = 100;
+	}
 	
 	private CANSpeedControllerBuilder() { }
 	
@@ -49,6 +64,20 @@ public class CANSpeedControllerBuilder {
 
 	public static CKTalonSRX createMasterTalonSRX(int id, int pdpChannel) {
 		Configuration masterConfig = new Configuration();
+		return createTalonSRX(id, pdpChannel, masterConfig);
+	}
+
+	public static TalonSRX createFastMasterTalonSRX(int id) {
+		Configuration masterConfig = new Configuration();
+		masterConfig.CONTROL_FRAME_PERIOD_MS = 5;
+		masterConfig.STATUS_FRAME_GENERAL_1_MS = 5;
+		return createTalonSRX(id, masterConfig);
+	}
+
+	public static CKTalonSRX createFastMasterTalonSRX(int id, int pdpChannel) {
+		Configuration masterConfig = new Configuration();
+		masterConfig.CONTROL_FRAME_PERIOD_MS = 5;
+		masterConfig.STATUS_FRAME_GENERAL_1_MS = 5;
 		return createTalonSRX(id, pdpChannel, masterConfig);
 	}
 	
@@ -106,8 +135,10 @@ public class CANSpeedControllerBuilder {
 //			setSucceeded &= talon.clearMotionProfileHasUnderrun(Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= talon.clearStickyFaults(Constants.kTimeoutMs) == ErrorCode.OK;
 
-//			setSucceeded &= talon.setControlFramePeriod(ControlFrame.Control_3_General, config.CONTROL_FRAME_PERIOD_MS) == ErrorCode.OK;
-//			setSucceeded &= talon.setStatusFramePeriod(StatusFrame.Status_1_General, config.GENERAL_STATUS_FRAME_RATE_MS, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= talon.setControlFramePeriod(ControlFrame.Control_3_General, config.CONTROL_FRAME_PERIOD_MS) == ErrorCode.OK;
+			setSucceeded &= talon.setStatusFramePeriod(StatusFrame.Status_1_General, config.STATUS_FRAME_GENERAL_1_MS, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= talon.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, config.STATUS_FRAME_FEEDBACK0_2_MS, Constants.kTimeoutMs) == ErrorCode.OK;
+
 //			setSucceeded &= talon.setIntegralAccumulator(0, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 //			setSucceeded &= talon.configPeakOutputForward(config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
 //			setSucceeded &= talon.configPeakOutputReverse(-config.MAX_OUTPUT, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -126,4 +157,5 @@ public class CANSpeedControllerBuilder {
 
 		return setSucceeded;
 	}
+
 }

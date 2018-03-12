@@ -10,7 +10,7 @@ public interface Loop {
 
     public void onStart(double timestamp);
 
-    public void onLoop(double timestamp);
+    public void onLoop(double timestamp, boolean isAuto);
 
     public void onStop(double timestamp);
 }

@@ -5,8 +5,8 @@ var width = 1656; //pixels
 var height = 823; //pixels
 var fieldWidth = 652; // in inches
 var fieldHeight = 324; // in inches
-var robotWidth = 33.75; //inches
-var robotHeight = 38.75; //inches
+var robotWidth = 32.75; //inches
+var robotHeight = 37.5; //inches
 // var robotWidth = 25.5; //inches wheelbase
 // var robotHeight = 26.377; //inches wheelbase
 var pointRadius = 5;
@@ -15,6 +15,9 @@ var kEpsilon = 1E-9;
 var image;
 var imageFlipped;
 var wto;
+
+var startLeftY = 276;
+var startRightY = 48;
 
 var maxSpeed = 120;
 var maxSpeedColor = [0, 255, 0];
@@ -95,10 +98,11 @@ class Translation2d {
 }
 
 class Waypoint {
-	constructor(position, speed, radius, comment) {
+	constructor(position, speed, radius, marker, comment) {
 		this.position = position;
 		this.speed = speed;
 		this.radius = radius;
+		this.marker = marker;
 		this.comment = comment;
 	}
 
@@ -108,7 +112,11 @@ class Waypoint {
 
 	toString() {
 		var comment = (this.comment.length > 0) ? " //" + this.comment : "";
-		return "sWaypoints.add(new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+"));" + comment;
+
+		if (this.marker === "")
+			return "sWaypoints.add(new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+"));" + comment;
+		else
+            return "sWaypoints.add(new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+",\""+this.marker+"\"));" + comment;
 	}
 }
 
@@ -340,7 +348,7 @@ function init() {
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle="#FF0000";
     image = new Image();
-    image.src = 'field.png';
+    image.src = 'files/field.png';
     image.onload = function(){
         ctx.drawImage(image, 0, 0, width, height);
         update();
@@ -406,6 +414,7 @@ function addPoint(x, y, radius) {
 		+"<td><input value='"+(y)+"'></td>"
 		+"<td><input value='"+(radius)+"'></td>"
 		+"<td><input value='60'></td>"
+		+"<td class='marker'><input placeholder='Marker'></td>"
 		+"<td class='comments'><input placeholder='Comments'></td>"
 		+"<td><button onclick='$(this).parent().parent().remove();update()'>Delete</button></td></tr>"
 	);
@@ -439,8 +448,9 @@ function update() {
         	radius = 0;
         	speed = 0;
         }
-        var comment = ( $($($(this).children()).children()[4]).val() )
-        waypoints.push(new Waypoint(new Translation2d(x,y), speed, radius, comment));
+        var marker = ( $($($(this).children()).children()[4]).val() )
+        var comment = ( $($($(this).children()).children()[5]).val() )
+        waypoints.push(new Waypoint(new Translation2d(x,y), speed, radius, marker, comment));
     });
     drawPoints();
     drawRobot();
@@ -560,13 +570,14 @@ function importData() {
 			waypoints = []
 			$("tbody").empty();
 			jd.forEach((wpd) => {
-				let wp = new Waypoint(new Translation2d(wpd.position.x, wpd.position.y), wpd.speed, wpd.radius, wpd.comment);
+				let wp = new Waypoint(new Translation2d(wpd.position.x, wpd.position.y), wpd.speed, wpd.radius, wpd.marker, wpd.comment);
 				// console.log(wp);
 				$("tbody").append("<tr>"
 					+"<td><input value='" + wp.position.x + "'></td>"
 					+"<td><input value='" + wp.position.y + "'></td>"
 					+"<td><input value='" + wp.radius + "'></td>"
 					+"<td><input value='" + wp.speed + "'></td>"
+					+"<td class='marker'><input placeholder='Marker' value='" + wp.marker + "'></td>"
 					+"<td class='comments'><input placeholder='Comments' value='" + wp.comment + "'></td>"
 					+"<td><button onclick='$(this).parent().parent().remove();''>Delete</button></td></tr>"
 				);
@@ -594,15 +605,13 @@ function getDataString() {
 	var startPoint = "new Translation2d(" + waypoints[0].position.x + ", " + waypoints[0].position.y + ")";
 	var importStr = "WAYPOINT_DATA: " + JSON.stringify(waypoints);
 	var isReversed = $("#isReversed").is(':checked');
-	var str = `package org.usfirst.frc.team195.robot.auto.paths;
+	var deg = isReversed ? 180 : 0;
+	var str = `package org.usfirst.frc.team195.robot.Autonomous.Paths;
+
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 
 import java.util.ArrayList;
-
-import org.usfirst.frc.team195.robot.auto.paths.PathBuilder.Waypoint;
-import org.usfirst.frc.team195.robot.util.control.Path;
-import org.usfirst.frc.team195.robot.util.math.RigidTransform2d;
-import org.usfirst.frc.team195.robot.util.math.Rotation2d;
-import org.usfirst.frc.team195.robot.util.math.Translation2d;
 
 public class ${title} implements PathContainer {
     
@@ -615,7 +624,7 @@ ${pathInit}
     
     @Override
     public RigidTransform2d getStartPose() {
-        return new RigidTransform2d(${startPoint}, Rotation2d.fromDegrees(180.0)); 
+        return new RigidTransform2d(${startPoint}, Rotation2d.fromDegrees(${deg})); 
     }
 
     @Override
@@ -664,6 +673,15 @@ function flipField() {
 	else
 		ctx.drawImage(image, 0, 0, width, height);
 	update();
+}
+
+function changeStartPoint() {
+    if (parseInt( $($($($('tbody').children()[0]).children()[1]).children()).val() ) == startLeftY) {
+        $($($($('tbody').children()[0]).children()[1]).children()).val(startRightY);
+	} else if (parseInt(  $($($($('tbody').children()[0]).children()[1]).children()).val() ) == startRightY) {
+        $($($($('tbody').children()[0]).children()[1]).children()).val(startLeftY);
+	}
+    update();
 }
 
 function canvasClick(canvas, evt) {
