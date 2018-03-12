@@ -37,6 +37,7 @@ public class Robot extends RobbieRobot {
 	private Looper mLooper;
 	private GameSpecificMessageParser gameSpecificMessageParser;
 	private ThreadRateControl threadRateControl = new ThreadRateControl();
+	private AutoSelectionReceiver autoSelectionReceiver;
 	
 	public Robot() {
 		;
@@ -58,6 +59,9 @@ public class Robot extends RobbieRobot {
 		ConnectionMonitor.getInstance().start();
 
 		gameSpecificMessageParser = GameSpecificMessageParser.getInstance();
+		autoSelectionReceiver = AutoSelectionReceiver.getInstance();
+		autoSelectionReceiver.setPortNumber(Constants.AUTO_SELECTOR_PORT);
+		autoSelectionReceiver.start();
 
 		robotControllers = Controllers.getInstance();
 		mLooper = new Looper();
@@ -100,8 +104,9 @@ public class Robot extends RobbieRobot {
 		mLooper.start(true);
 		autoModeExecuter = new AutoModeExecuter();
 
-		//TODO: Get this value from the dashboard
-		StartingPosition startingPosition = StartingPosition.RIGHT;
+		StartingPosition startingPosition = autoSelectionReceiver.getStartingPosition();
+		autoSelectionReceiver.terminate();
+		ConsoleReporter.report("Remove Me! Auto mode chosen: " + startingPosition.toString(), MessageLevel.ERROR);
 
 		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
 		AutoModeBase autoMode = null;

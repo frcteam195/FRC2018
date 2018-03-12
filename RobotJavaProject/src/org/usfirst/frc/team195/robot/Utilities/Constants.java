@@ -14,6 +14,7 @@ public class Constants {
 
 	public static final String DASHBOARD_IP = "10.1.95.14";
 	public static final int DASHBOARD_REPORTER_PORT = 5801;
+	public static final int AUTO_SELECTOR_PORT = 5803;
 
 	//Thread prioritization - 5 is default
 	public static final int kRobotThreadPriority = 9;
