@@ -71,6 +71,8 @@ public class AutoSelectionReceiver {
 					threadRateControl.doRateControl(MIN_AUTO_RECEIVE_RATE_MS);
 				}
 
+				clientSocket.close();
+
 			});
 
 			t.start();
@@ -104,6 +106,8 @@ public class AutoSelectionReceiver {
 							break;
 					}
 				} catch (Exception ex) {
+					retVal = -1;
+
 					if (Constants.DEBUG)
 						ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 				}
