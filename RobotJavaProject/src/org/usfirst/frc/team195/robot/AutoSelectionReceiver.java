@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
@@ -11,7 +12,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 
-public class AutoSelectionReceiver extends Thread {
+public class AutoSelectionReceiver {
 	public static final int MIN_AUTO_RECEIVE_RATE_MS = 250;
 	private static AutoSelectionReceiver instance = null;
 
@@ -22,6 +23,8 @@ public class AutoSelectionReceiver extends Thread {
 	private byte[] receiveData;
 	private DatagramPacket receivePacket;
 	private DatagramSocket clientSocket;
+	private Thread t;
+
 
 	private StartingPosition startingPosition = StartingPosition.RIGHT;
 
@@ -43,35 +46,39 @@ public class AutoSelectionReceiver extends Thread {
 		return instance;
 	}
 
-	public void setPortNumber(int portNumber) {
+	public synchronized void setPortNumber(int portNumber) {
 		this.portNumber = portNumber;
 	}
 
-	@Override
-	public void start() {
-		runThread = true;
-		super.start();
-	}
+	public synchronized void start() {
+		if (t == null || !t.isAlive()) {
+			runThread = true;
 
-	public void terminate() {
-		runThread = false;
-	}
+			t = new Thread(() -> {
+				t.setPriority(Thread.NORM_PRIORITY);
 
-	@Override
-	public void run() {
-		threadRateControl.start();
-		while (runThread) {
-			receiveData = new byte[1024];
-			receivePacket = new DatagramPacket(receiveData, receiveData.length, new InetSocketAddress(0).getAddress(), portNumber);
-			try {
-				clientSocket.receive(receivePacket);
-				startingPosition = processUDPPacket(receivePacket.getData());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				threadRateControl.start();
+				while (runThread) {
+					receiveData = new byte[1024];
+					receivePacket = new DatagramPacket(receiveData, receiveData.length, new InetSocketAddress(0).getAddress(), portNumber);
+					try {
+						clientSocket.receive(receivePacket);
+						startingPosition = processUDPPacket(receivePacket.getData());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 
-			threadRateControl.doRateControl(MIN_AUTO_RECEIVE_RATE_MS);
+					threadRateControl.doRateControl(MIN_AUTO_RECEIVE_RATE_MS);
+				}
+
+			});
+
+			t.start();
 		}
+	}
+
+	public synchronized void terminate() {
+		runThread = false;
 	}
 
 	public StartingPosition getStartingPosition() {

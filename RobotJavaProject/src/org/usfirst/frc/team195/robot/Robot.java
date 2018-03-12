@@ -106,7 +106,6 @@ public class Robot extends RobbieRobot {
 
 		StartingPosition startingPosition = autoSelectionReceiver.getStartingPosition();
 		autoSelectionReceiver.terminate();
-		ConsoleReporter.report("Remove Me! Auto mode chosen: " + startingPosition.toString(), MessageLevel.ERROR);
 
 		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
 		AutoModeBase autoMode = null;
