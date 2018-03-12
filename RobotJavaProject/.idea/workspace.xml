@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b495d11-29d3-41c9-b321-0a9401a8199c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" />
     </list>
@@ -16,25 +15,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RightLeftFromRightMode_2cube.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RightLeftFromRightMode_2cube.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="46" column="49" lean-forward="false" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
+            <state relative-caret-position="223">
+              <caret line="46" column="36" lean-forward="false" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RightLeftFromRightStep2.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RightLeftFromRightStep2.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
               <caret line="36" column="1" lean-forward="false" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
               <folding>
                 <element signature="e#440#450#0" expanded="true" />
-                <element signature="e#1100#1101#0" expanded="true" />
-                <element signature="e#1119#1120#0" expanded="true" />
+                <element signature="e#1099#1100#0" expanded="true" />
+                <element signature="e#1118#1119#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -43,7 +42,7 @@
       <file leaf-file-name="AutomatedActions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="719">
+            <state relative-caret-position="1515">
               <caret line="133" column="59" lean-forward="false" selection-start-line="133" selection-start-column="59" selection-end-line="133" selection-end-column="59" />
               <folding />
             </state>
@@ -115,9 +114,9 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRight_2cube.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" />
       </list>
     </option>
   </component>
@@ -147,6 +146,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -254,9 +255,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -400,11 +399,12 @@
       <workItem from="1520797154584" duration="3723000" />
       <workItem from="1520810678848" duration="208000" />
       <workItem from="1520811100769" duration="2752000" />
+      <workItem from="1520814620498" duration="784000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56017000" />
+    <option name="totallyTimeSpent" value="56801000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -417,7 +417,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -432,7 +431,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25457877" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25763127" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18219037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -630,7 +629,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
           <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -835,10 +833,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="10" column="11" lean-forward="false" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding>
-            <element signature="e#498#499#0" expanded="false" />
-            <element signature="e#541#542#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -846,7 +840,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -854,7 +847,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="106">
           <caret line="50" column="49" lean-forward="false" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -894,7 +886,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="719">
+        <state relative-caret-position="1515">
           <caret line="133" column="59" lean-forward="false" selection-start-line="133" selection-start-column="59" selection-end-line="133" selection-end-column="59" />
           <folding />
         </state>
@@ -908,23 +900,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="46" column="49" lean-forward="false" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="36" column="1" lean-forward="false" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
           <folding>
             <element signature="e#440#450#0" expanded="true" />
-            <element signature="e#1100#1101#0" expanded="true" />
-            <element signature="e#1119#1120#0" expanded="true" />
+            <element signature="e#1099#1100#0" expanded="true" />
+            <element signature="e#1118#1119#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="46" column="36" lean-forward="false" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>

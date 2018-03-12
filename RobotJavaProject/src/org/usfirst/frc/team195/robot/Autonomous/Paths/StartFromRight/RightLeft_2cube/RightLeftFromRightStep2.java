@@ -16,8 +16,8 @@ public class RightLeftFromRightStep2 implements PathContainer {
 		sWaypoints.add(new Waypoint(242,56,15,60));
 		sWaypoints.add(new Waypoint(242,73,0,60));
 		sWaypoints.add(new Waypoint(242,190,10,60,"StartIntake"));
-		sWaypoints.add(new Waypoint(246,216,10,60));
-		sWaypoints.add(new Waypoint(234,226,0,60));
+		sWaypoints.add(new Waypoint(248,216,8,60));
+		sWaypoints.add(new Waypoint(238,224,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
@@ -31,7 +31,7 @@ public class RightLeftFromRightStep2 implements PathContainer {
 	public boolean isReversed() {
 		return false;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":176,"y":73},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":176,"y":56},"speed":60,"radius":15,"marker":"","comment":""},{"position":{"x":209,"y":40},"speed":60,"radius":15,"marker":"PreparePickupCube","comment":""},{"position":{"x":242,"y":56},"speed":60,"radius":15,"marker":"","comment":""},{"position":{"x":242,"y":73},"speed":60,"radius":0,"marker":"","comment":""},{"position":{"x":242,"y":190},"speed":60,"radius":10,"marker":"StartIntake","comment":""},{"position":{"x":246,"y":216},"speed":60,"radius":10,"marker":"","comment":""},{"position":{"x":234,"y":226},"speed":60,"radius":0,"marker":"","comment":""}]
+	// WAYPOINT_DATA: [{"position":{"x":176,"y":73},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":176,"y":56},"speed":60,"radius":15,"marker":"","comment":""},{"position":{"x":209,"y":40},"speed":60,"radius":15,"marker":"PreparePickupCube","comment":""},{"position":{"x":242,"y":56},"speed":60,"radius":15,"marker":"","comment":""},{"position":{"x":242,"y":73},"speed":60,"radius":0,"marker":"","comment":""},{"position":{"x":242,"y":190},"speed":60,"radius":10,"marker":"StartIntake","comment":""},{"position":{"x":248,"y":216},"speed":60,"radius":8,"marker":"","comment":""},{"position":{"x":238,"y":224},"speed":60,"radius":0,"marker":"","comment":""}]
 	// IS_REVERSED: false
 	// FILE_NAME: RightLeftFromRightStep2
 }
