@@ -322,7 +322,7 @@ public class Constants {
 	public static final double kPathFollowingMaxAccel = 100.0; // inches per second^2
 	public static final double kPathFollowingMaxVel = 140.0; // inches per second
 
-	public static final double kPathFollowingProfileKp = 5.0;
+	public static final double kPathFollowingProfileKp = 5.0;   //Used to be 5 when tuning our paths
 	public static final double kPathFollowingProfileKi = 0.03;
 	public static final double kPathFollowingProfileKv = 0.2;
 	public static final double kPathFollowingProfileKffv = 1.0;

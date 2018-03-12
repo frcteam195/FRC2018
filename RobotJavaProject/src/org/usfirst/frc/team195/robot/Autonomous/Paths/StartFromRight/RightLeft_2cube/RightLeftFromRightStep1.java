@@ -15,7 +15,7 @@ public class RightLeftFromRightStep1 implements PathContainer {
 		sWaypoints.add(new Waypoint(70,35,15,120));
 		sWaypoints.add(new Waypoint(130,35,0,100,"PreparePlaceCube"));
 		sWaypoints.add(new Waypoint(162,35,25,100));
-		sWaypoints.add(new Waypoint(176,73,0,80));
+		sWaypoints.add(new Waypoint(176,74,0,80));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

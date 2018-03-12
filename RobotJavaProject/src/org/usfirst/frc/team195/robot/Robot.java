@@ -102,6 +102,7 @@ public class Robot extends RobbieRobot {
 	@Override
 	public void autonomous() {
 		mLooper.start(true);
+		driveBaseSubsystem.setBrakeMode(true);
 		autoModeExecuter = new AutoModeExecuter();
 
 		StartingPosition startingPosition = autoSelectionReceiver.getStartingPosition();
@@ -138,34 +139,21 @@ public class Robot extends RobbieRobot {
 	
 	@Override
 	protected void disabled() {
-		try {
-			if (autoModeExecuter != null)
-				autoModeExecuter.stop();
-
-			autoModeExecuter = null;
-		} catch (Throwable t) {
-			ConsoleReporter.report(t, MessageLevel.ERROR);
-		}
+		exitAuto();
 
 		mLooper.stop();
 
 		threadRateControl.start(true);
 
 		while (isDisabled()) {
+			driveBaseSubsystem.setBrakeMode(false);
 			threadRateControl.doRateControl(100);
 		}
 	}
 
 	@Override
 	public void operatorControl() {
-		try {
-			if (autoModeExecuter != null)
-				autoModeExecuter.stop();
-
-			autoModeExecuter = null;
-		} catch (Throwable t) {
-			ConsoleReporter.report(t, MessageLevel.ERROR);
-		}
+		exitAuto();
 
 		mLooper.start(false);
 		driveBaseSubsystem.setControlMode(DriveControlState.OPEN_LOOP);
@@ -196,6 +184,17 @@ public class Robot extends RobbieRobot {
 
 		//Crash the JVM and force the code to reset so we no longer have the motor controllers configured for testing
 		System.exit(1);
+	}
+
+	private void exitAuto() {
+		try {
+			if (autoModeExecuter != null)
+				autoModeExecuter.stop();
+
+			autoModeExecuter = null;
+		} catch (Throwable t) {
+			ConsoleReporter.report(t, MessageLevel.ERROR);
+		}
 	}
 
 	private AutoModeBase getModeStartingLeft(FieldLayout fieldLayout) {

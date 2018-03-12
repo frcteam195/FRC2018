@@ -78,7 +78,7 @@ public class Looper {
 
     private synchronized void start() {
         if (!running_) {
-            ConsoleReporter.report("Starting loops");
+            //ConsoleReporter.report("Starting loops");
             synchronized (taskRunningLock_) {
                 timestamp_ = Timer.getFPGATimestamp();
                 for (Loop loop : loops_) {
@@ -96,13 +96,13 @@ public class Looper {
 
     public synchronized void stop() {
         if (running_) {
-            ConsoleReporter.report("Stopping loops");
+            //ConsoleReporter.report("Stopping loops");
             notifier_.stop();
             synchronized (taskRunningLock_) {
                 running_ = false;
                 timestamp_ = Timer.getFPGATimestamp();
                 for (Loop loop : loops_) {
-                    ConsoleReporter.report("Stopping " + loop);
+                    //ConsoleReporter.report("Stopping " + loop);
                     loop.onStop(timestamp_);
                 }
             }
