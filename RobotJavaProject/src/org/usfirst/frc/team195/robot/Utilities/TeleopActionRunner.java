@@ -29,7 +29,7 @@ public class TeleopActionRunner {
 	private void start() {
 		double startTime = Timer.getFPGATimestamp();
 		t = new Thread(() -> {
-			Thread.currentThread().setPriority(Thread.NORM_PRIORITY);
+			//t.setPriority(Thread.NORM_PRIORITY);
 
 			action.start();
 
