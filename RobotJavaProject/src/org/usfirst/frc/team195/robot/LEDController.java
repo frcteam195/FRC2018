@@ -4,21 +4,21 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
-import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriverRGB;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriver;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriverCANifier;
 
 public class LEDController extends Thread {
     private static final int MIN_LED_THREAD_LOOP_MS = 100;
     public static final int kDefaultBlinkCount = 6;
     public static final double kDefaultBlinkDuration = 0.2; // seconds for full cycle
     private static final double kDefaultTotalBlinkDuration = kDefaultBlinkCount * kDefaultBlinkDuration;
-    public static final RGBColor kDefaultColor = new RGBColor(210, 0, 255);  //Default purple color
 
-    private static LEDController instance = null;
+	private static LEDController instance = null;
     private LEDState mDefaultState = LEDState.FIXED_ON;
     private SystemState mSystemState = SystemState.OFF;
     private LEDState mRequestedState = LEDState.OFF;
     private boolean mIsLEDOn;
-    private LEDDriverRGB mLED;
+    private LEDDriver mLED;
     private boolean runThread = true;
     private double mCurrentStateStartTime;
     private double mBlinkDuration;
@@ -29,14 +29,14 @@ public class LEDController extends Thread {
     private LEDController() throws Exception {
     	super();
 		super.setPriority(Constants.kLEDThreadPriority);
-        mLED = new LEDDriverRGB(Controllers.getInstance().getRedLED(), Controllers.getInstance().getGreenLED(), Controllers.getInstance().getBlueLED());
+        mLED = new LEDDriverCANifier(Controllers.getInstance().getCANifierLED());
         mLED.set(false);
 
         // Force a relay change.
         mIsLEDOn = true;
         setLEDOff();
 
-        setLEDColor(kDefaultColor);
+        setLEDColor(Constants.kDefaultColor);
         mBlinkDuration = kDefaultBlinkDuration;
         mBlinkCount = kDefaultBlinkCount;
         mTotalBlinkDuration = kDefaultTotalBlinkDuration;
@@ -168,11 +168,11 @@ public class LEDController extends Thread {
     }
 
     public synchronized void setLEDColor(RGBColor rgbColor) {
-        setLEDColor(rgbColor.red, rgbColor.green, rgbColor.blue);
+		mLED.setLEDColor(rgbColor);
     }
 
     public synchronized void setLEDColor(int redPWMOut, int greenPWMOut, int bluePWMOut) {
-        mLED.setLEDColor(redPWMOut, greenPWMOut, bluePWMOut);
+        setLEDColor(new RGBColor(redPWMOut, greenPWMOut, bluePWMOut));
     }
 
     public synchronized void setLEDDefaultState(LEDState defaultState) {
