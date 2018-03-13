@@ -90,7 +90,7 @@ public class ConnectionMonitor extends Thread {
 
     private void justReconnected() {
         // Reconfigure blink if we are just connected.
-        mLED.setLEDColor(LEDController.kDefaultColor);
+        mLED.setLEDColor(Constants.kDefaultColor);
         mLED.configureBlink(LEDController.kDefaultBlinkCount, LEDController.kDefaultBlinkDuration);
     }
 

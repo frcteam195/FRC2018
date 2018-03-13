@@ -3,7 +3,7 @@ package org.usfirst.frc.team195.robot.Utilities.Drivers;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import org.usfirst.frc.team195.robot.Utilities.RGBColor;
 
-public class LEDDriverRGB {
+public class LEDDriverRGB implements LEDDriver{
 	private static final int PWM_FREQ = 500;
 
 	private DigitalOutput rLED;
@@ -13,6 +13,8 @@ public class LEDDriverRGB {
 	private int redPWMOut = 255;
 	private int greenPWMOut = 255;
 	private int bluePWMOut = 255;
+
+	private boolean on = false;
 
 	public LEDDriverRGB(DigitalOutput rLED, DigitalOutput gLED, DigitalOutput bLED) {
 		this.rLED = rLED;
@@ -37,6 +39,7 @@ public class LEDDriverRGB {
 			gLED.updateDutyCycle(0);
 			bLED.updateDutyCycle(0);
 		}
+		this.on = on;
 	}
 
 	public synchronized void setLEDColor(RGBColor rgbColor) {
@@ -47,6 +50,7 @@ public class LEDDriverRGB {
 		this.redPWMOut = redPWMOut;
 		this.greenPWMOut = greenPWMOut;
 		this.bluePWMOut = bluePWMOut;
+		set(on);
 	}
 
 }

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot.Utilities;
 
+import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.*;
@@ -36,9 +37,11 @@ public class Controllers {
 	private Solenoid intakeSolenoid;
 	private DoubleSolenoid climberLockSolenoid;
 
-	private DigitalOutput rLED;
-	private DigitalOutput gLED;
-	private DigitalOutput bLED;
+	private CANifier canifierLED;
+
+//	private DigitalOutput rLED;
+//	private DigitalOutput gLED;
+//	private DigitalOutput bLED;
 
 	private KnightDigitalInput elevatorHomeSwitch;
 	private KnightDigitalInput cubeSensor;
@@ -90,9 +93,11 @@ public class Controllers {
 		//shiftHelper = new ShiftHelper(Constants.kShifterSolenoidId, Constants.kShifterSolenoidId2);
 
 		//LED Setup
-		rLED = new DigitalOutput(Constants.kRedLEDId);
-		gLED = new DigitalOutput(Constants.kGreenLEDId);
-		bLED = new DigitalOutput(Constants.kBlueLEDId);
+//		rLED = new DigitalOutput(Constants.kRedLEDId);
+//		gLED = new DigitalOutput(Constants.kGreenLEDId);
+//		bLED = new DigitalOutput(Constants.kBlueLEDId);
+
+		canifierLED = new CANifier(Constants.kCANifierLEDId);
 
 		elevatorHomeSwitch = new KnightDigitalInput(Constants.kElevatorHomeSwitchId);
 		cubeSensor = new KnightDigitalInput(Constants.kCubeSensorId);
@@ -189,17 +194,21 @@ public class Controllers {
 		return navX;
 	}
 
-	public DigitalOutput getRedLED() {
-		return rLED;
+	public CANifier getCANifierLED() {
+		return canifierLED;
 	}
 
-	public DigitalOutput getGreenLED() {
-		return gLED;
-	}
-
-	public DigitalOutput getBlueLED() {
-		return bLED;
-	}
+//	public DigitalOutput getRedLED() {
+//		return rLED;
+//	}
+//
+//	public DigitalOutput getGreenLED() {
+//		return gLED;
+//	}
+//
+//	public DigitalOutput getBlueLED() {
+//		return bLED;
+//	}
 
 	public PowerDistributionPanel getPowerDistributionPanel() {
 		return powerDistributionPanel;

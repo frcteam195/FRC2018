@@ -594,6 +594,7 @@ function importData() {
 		}
 		fr.readAsText(file);
 	});
+    update();
 }
 
 function getDataString() {

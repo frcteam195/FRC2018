@@ -7,6 +7,7 @@ public class Constants {
 	public static final boolean DEBUG = false;
 	public static final boolean REPORTING_ENABLED = true;
 	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
+	public static final RGBColor kDefaultColor = new RGBColor(210, 0, 255);  //Default purple color
 
 	public static final boolean ENABLE_DRIVE_DIAG = false;
 	public static final boolean ENABLE_CUBE_HANDLER_DIAG = true;
@@ -96,6 +97,9 @@ public class Constants {
 	//Climber
 	public static final int kClimberMasterId = 13;
 	public static final int kClimberSlaveId = 12;
+
+	//CANifier
+	public static final int kCANifierLEDId = 30;
 
 
 
@@ -302,9 +306,9 @@ public class Constants {
 	public static final int kCubeSensorId = 1;
 
 	// Digital Outputs
-	public static final int kRedLEDId = 2;
-	public static final int kGreenLEDId = 3;
-	public static final int kBlueLEDId = 4;
+//	public static final int kRedLEDId = 2;
+//	public static final int kGreenLEDId = 3;
+//	public static final int kBlueLEDId = 4;
 
 	//TODO: Tune path following gains
 	// Path following constants
@@ -330,7 +334,6 @@ public class Constants {
 	public static final double kPathFollowingGoalPosTolerance = 1;
 	public static final double kPathFollowingGoalVelTolerance = 18.0;
 	public static final double kPathStopSteeringDistance = 9.0;
-
 
 
 	private static int getMSDurationForBreakerLimit(double peakCurrentInput, double breakerRating) {
