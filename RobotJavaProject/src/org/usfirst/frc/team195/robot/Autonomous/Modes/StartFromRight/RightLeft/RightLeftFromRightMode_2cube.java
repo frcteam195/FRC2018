@@ -47,8 +47,8 @@ public class RightLeftFromRightMode_2cube extends AutoModeBase {
 		runAction(new WaitAction(0.2));
 		runAction(AutomatedActions.StopIntake());
 
-		runAction(AutomatedActions.LiftArmTo90());
-		runAction(new WaitAction(0.2));
+		//runAction(AutomatedActions.LiftArmTo90());
+		//runAction(new WaitAction(0.2));
 
 		//runAction(new DrivePathAction(new RightLeftFromRightStep3()));
 
