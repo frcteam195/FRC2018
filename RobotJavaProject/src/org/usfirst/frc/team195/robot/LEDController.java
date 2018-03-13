@@ -7,6 +7,9 @@ import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriver;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriverCANifier;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class LEDController extends Thread {
     private static final int MIN_LED_THREAD_LOOP_MS = 100;
     public static final int kDefaultBlinkCount = 6;
@@ -25,6 +28,10 @@ public class LEDController extends Thread {
     private int mBlinkCount;
     private double mTotalBlinkDuration;
     private ThreadRateControl threadRateControl = new ThreadRateControl();
+    private MorseCodeTranslator morseCodeTranslator = new MorseCodeTranslator();
+    private LinkedList<String> morseMessage;
+    private double mPrevMorseTime;
+    private double mMorseTransitionTime = 0.5;
 
     private LEDController() throws Exception {
     	super();
@@ -83,6 +90,9 @@ public class LEDController extends Thread {
 					case FIXED_ON:
 						newState = handleFixedOn();
 						break;
+					case MORSE:
+						newState = handleMorse(timeInState);
+						break;
 					default:
 						ConsoleReporter.report("Fell through on LEDController states!!", MessageLevel.ERROR);
 						newState = SystemState.OFF;
@@ -105,6 +115,8 @@ public class LEDController extends Thread {
                 return SystemState.BLINKING;
             case FIXED_ON:
                 return SystemState.FIXED_ON;
+			case MORSE:
+				return SystemState.MORSE;
             default:
                 return SystemState.OFF;
         }
@@ -138,6 +150,21 @@ public class LEDController extends Thread {
         }
         return SystemState.BLINKING;
     }
+
+	private synchronized SystemState handleMorse(double timeInState) {
+
+		if (morseMessage.peek() != null) {
+
+		}
+
+		int cycleNum = (int) (timeInState / (mBlinkDuration / 2.0));
+		if ((cycleNum % 2) == 0) {
+			setLEDOn();
+		} else {
+			setLEDOff();
+		}
+		return SystemState.MORSE;
+	}
 
     public synchronized void setRequestedState(LEDState state) {
         mRequestedState = state;
@@ -179,12 +206,16 @@ public class LEDController extends Thread {
         this.mDefaultState = defaultState;
     }
 
+    public synchronized void setMorseMessage(LinkedList<String> morseMessage) {
+    	this.morseMessage = morseMessage;
+	}
+
     // Internal state of the system
     private enum SystemState {
-        OFF, FIXED_ON, BLINKING
+        OFF, FIXED_ON, BLINKING, MORSE
     }
 
     public enum LEDState {
-        OFF, FIXED_ON, BLINK
+        OFF, FIXED_ON, BLINK, MORSE
     }
 }
