@@ -359,7 +359,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						if (collisionOccurring && !isAuto) {
 							//setElevatorHeight(ElevatorPosition.HOME);
 						}
-
+//
 //						if (elevatorHeight <= ElevatorPosition.HOME &&
 //								Math.abs(QuickMaths.convertNativeUnitsToRotations(mElevatorMotorMaster.getSelectedSensorPosition(0)) - elevatorHeight)
 //										< Constants.kElevatorDeviationThreshold &&
@@ -377,7 +377,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //								Util.limit(tmpElevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
 						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto) {
-							//zeroElevator();
+							zeroElevator();
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
 
@@ -465,7 +465,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					if (!isAuto) {
 						liftArmTimerStart = Timer.getFPGATimestamp();
 
-						if (elevatorHeight <= ElevatorPosition.HOME)
+						if (elevatorHeight <= ElevatorPosition.HOME && !Controllers.getInstance().getButtonBox1().getRawButton(Constants.BB1_ARM_DOWN))
 							requestLiftArmForCube = true;
 					}
 				}
