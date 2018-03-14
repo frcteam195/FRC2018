@@ -6,6 +6,7 @@ import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriver;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriverCANifier;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriverRGB;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -17,7 +18,6 @@ public class LEDController extends Thread {
     private static final double kDefaultTotalBlinkDuration = kDefaultBlinkCount * kDefaultBlinkDuration;
 	private static final double kSlowBlinkDivisor = 0.75;
 	private static final double kFastBlinkDivisor = 1.5;
-	private static final double kLetterPause = 0.5;
 
 	private static LEDController instance = null;
     private LEDState mDefaultState = LEDState.FIXED_ON;
@@ -45,7 +45,7 @@ public class LEDController extends Thread {
     private LEDController() throws Exception {
     	super();
 		super.setPriority(Constants.kLEDThreadPriority);
-        mLED = new LEDDriverCANifier(Controllers.getInstance().getCANifierLED());
+        mLED = new LEDDriverRGB(Controllers.getInstance().getRedLED(), Controllers.getInstance().getGreenLED(), Controllers.getInstance().getBlueLED());
         mLED.set(false);
 
         // Force a relay change.
@@ -164,6 +164,7 @@ public class LEDController extends Thread {
 
 		switch (mMorseState) {
 			case LOAD:
+				//ConsoleReporter.report("Load mode called.");
 				if (requestedMorseMessage == null || requestedMorseMessage.size() <= 0) {
 					return returnOffMorse();
 				}
@@ -190,10 +191,8 @@ public class LEDController extends Thread {
 						morseStateTime = Timer.getFPGATimestamp();
 					} else {
 						//Delay to delineate between letters in a string
-						if ((Timer.getFPGATimestamp() - morseStateTime) > kLetterPause) {
+						if ((Timer.getFPGATimestamp() - morseStateTime) > 0.5)
 							mMorseState = MorseState.NEXT_CHAR;
-							//morseStateTime = Timer.getFPGATimestamp();
-						}
 					}
 				} else {
 					return returnOffMorse();
@@ -236,8 +235,8 @@ public class LEDController extends Thread {
     }
 
     private synchronized SystemState returnOffMorse() {
-		mMorseState = MorseState.LOAD;
-		morseStateTime = 0;
+    	mMorseState = MorseState.LOAD;
+    	morseStateTime = 0;
 		currentMorseChar = ' ';
 		//setLEDDefaultState();
 		setLEDOff();

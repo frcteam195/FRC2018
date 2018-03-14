@@ -59,6 +59,7 @@ public class Robot extends RobbieRobot {
 		ConnectionMonitor.getInstance().start();
 
 		gameSpecificMessageParser = GameSpecificMessageParser.getInstance();
+
 		autoSelectionReceiver = AutoSelectionReceiver.getInstance();
 		autoSelectionReceiver.setPortNumber(Constants.AUTO_SELECTOR_PORT);
 		autoSelectionReceiver.start();
