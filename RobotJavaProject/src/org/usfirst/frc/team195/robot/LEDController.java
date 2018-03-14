@@ -153,8 +153,10 @@ public class LEDController extends Thread {
 
 	private synchronized SystemState handleMorse(double timeInState) {
 
-		if (morseMessage.peek() != null) {
-
+		if (morseMessage.peek() == null) {
+			setLEDDefaultState();
+			setLEDOff();
+			return SystemState.OFF;
 		}
 
 		int cycleNum = (int) (timeInState / (mBlinkDuration / 2.0));
