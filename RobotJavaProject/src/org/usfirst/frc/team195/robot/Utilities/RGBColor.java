@@ -10,4 +10,11 @@ public class RGBColor {
 		this.green = green;
 		this.blue = blue;
 	}
+
+	public boolean equals(RGBColor o) {
+		if (o.red == red && o.green == green && o.blue == blue)
+			return true;
+		else
+			return false;
+	}
 }

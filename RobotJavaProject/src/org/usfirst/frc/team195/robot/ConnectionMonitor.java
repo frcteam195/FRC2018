@@ -67,7 +67,8 @@ public class ConnectionMonitor extends Thread {
             }
             else {
                 mLED.setLEDColor(new RGBColor(255, 0, 0));
-                mLED.setRequestedState(LEDController.LEDState.BLINK);
+                mLED.setMessage("sos", true);
+                //mLED.setRequestedState(LEDController.LEDState.BLINK);
             }
 
             if (mJustReconnected.update(hasConnection))

@@ -7,11 +7,11 @@ import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriver;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.LEDDriverCANifier;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class LEDController extends Thread {
-    private static final int MIN_LED_THREAD_LOOP_MS = 100;
+    private static final int MIN_LED_THREAD_LOOP_MS = 50;
     public static final int kDefaultBlinkCount = 6;
     public static final double kDefaultBlinkDuration = 0.2; // seconds for full cycle
     private static final double kDefaultTotalBlinkDuration = kDefaultBlinkCount * kDefaultBlinkDuration;
@@ -29,9 +29,15 @@ public class LEDController extends Thread {
     private double mTotalBlinkDuration;
     private ThreadRateControl threadRateControl = new ThreadRateControl();
     private MorseCodeTranslator morseCodeTranslator = new MorseCodeTranslator();
-    private LinkedList<String> morseMessage;
+    private LinkedList<String> requestedMorseMessage;
+    private LinkedList<String> runningMorseMessage;
     private double mPrevMorseTime;
     private double mMorseTransitionTime = 0.5;
+    private MorseState mMorseState = MorseState.LOAD;
+    private double morseStateTime = 0;
+    private Character currentMorseChar = ' ';
+    private LinkedList<Character> currentMorseCode;
+    private String mPrevMessage = "";
 
     private LEDController() throws Exception {
     	super();
@@ -91,7 +97,7 @@ public class LEDController extends Thread {
 						newState = handleFixedOn();
 						break;
 					case MORSE:
-						newState = handleMorse(timeInState);
+						newState = handleMorse();
 						break;
 					default:
 						ConsoleReporter.report("Fell through on LEDController states!!", MessageLevel.ERROR);
@@ -151,26 +157,85 @@ public class LEDController extends Thread {
         return SystemState.BLINKING;
     }
 
-	private synchronized SystemState handleMorse(double timeInState) {
+	private synchronized SystemState handleMorse() {
 
-		if (morseMessage.peek() == null) {
-			setLEDDefaultState();
-			setLEDOff();
-			return SystemState.OFF;
+		switch (mMorseState) {
+			case LOAD:
+				if (requestedMorseMessage == null || requestedMorseMessage.size() <= 0) {
+					return returnOffMorse();
+				}
+				runningMorseMessage = new LinkedList<String>(requestedMorseMessage);
+				if (runningMorseMessage.size() > 0) {
+					setLEDOff();
+					mMorseState = MorseState.NEXT_CHAR;
+				} else {
+					return returnOffMorse();
+				}
+				break;
+			case NEXT_CHAR:
+				if (runningMorseMessage != null && runningMorseMessage.peek() != null) {
+					currentMorseCode = new LinkedList<Character>(Arrays.asList(runningMorseMessage.poll().chars().mapToObj(c -> (char)c).toArray(Character[]::new)));
+					mMorseState = MorseState.NEXT_MORSE_CODE;
+				} else
+					return returnOffMorse();
+				break;
+			case NEXT_MORSE_CODE:
+				if (currentMorseCode != null) {
+					if (currentMorseCode.peek() != null) {
+						currentMorseChar = currentMorseCode.poll();
+						mMorseState = MorseState.BLINK_ON;
+						morseStateTime = Timer.getFPGATimestamp();
+					} else {
+						//Delay to delineate between letters in a string
+						if ((Timer.getFPGATimestamp() - morseStateTime) > 0.25)
+							mMorseState = MorseState.NEXT_CHAR;
+					}
+				} else {
+					return returnOffMorse();
+				}
+				break;
+			case BLINK_ON:
+				if (currentMorseChar == '.' || currentMorseChar == '-') {
+					double divisorVal = currentMorseChar == '.' ? 4.0 : 2.0;
+					setLEDOn();
+					if ((Timer.getFPGATimestamp() - morseStateTime) > mBlinkDuration / divisorVal) {
+						mMorseState = MorseState.BLINK_OFF;
+						morseStateTime = Timer.getFPGATimestamp();
+					}
+				} else {
+					mMorseState = MorseState.NEXT_MORSE_CODE;
+				}
+				break;
+			case BLINK_OFF:
+				if (currentMorseChar == '.' || currentMorseChar == '-') {
+					double divisorVal = currentMorseChar == '.' ? 4.0 : 2.0;
+					setLEDOff();
+					if ((Timer.getFPGATimestamp() - morseStateTime) > mBlinkDuration / divisorVal) {
+						mMorseState = MorseState.NEXT_MORSE_CODE;
+						currentMorseChar = ' ';
+						morseStateTime = Timer.getFPGATimestamp();
+					}
+				} else {
+					mMorseState = MorseState.NEXT_MORSE_CODE;
+				}
+				break;
+			default:
+				return returnOffMorse();
 		}
 
-		int cycleNum = (int) (timeInState / (mBlinkDuration / 2.0));
-		if ((cycleNum % 2) == 0) {
-			setLEDOn();
-		} else {
-			setLEDOff();
-		}
 		return SystemState.MORSE;
 	}
 
     public synchronized void setRequestedState(LEDState state) {
         mRequestedState = state;
     }
+
+    private synchronized SystemState returnOffMorse() {
+    	mMorseState = MorseState.LOAD;
+		setLEDDefaultState();
+		setLEDOff();
+		return SystemState.OFF;
+	}
 
     private synchronized void setLEDOn() {
         if (!mIsLEDOn) {
@@ -208,14 +273,28 @@ public class LEDController extends Thread {
         this.mDefaultState = defaultState;
     }
 
-    public synchronized void setMorseMessage(LinkedList<String> morseMessage) {
-    	this.morseMessage = morseMessage;
+    public synchronized void setMessage(String message) {
+		setMessage(message, false);
+	}
+
+	public synchronized void setMessage(String message, boolean autoStartMessage) {
+    	if (!message.equalsIgnoreCase(mPrevMessage)) {
+			this.requestedMorseMessage = morseCodeTranslator.getMorseCode(message);
+			mPrevMessage = message;
+		}
+
+		if (autoStartMessage)
+			setRequestedState(LEDState.MORSE);
 	}
 
     // Internal state of the system
     private enum SystemState {
         OFF, FIXED_ON, BLINKING, MORSE
     }
+
+    private enum MorseState {
+    	LOAD, BLINK_ON, BLINK_OFF, NEXT_CHAR, NEXT_MORSE_CODE
+	}
 
     public enum LEDState {
         OFF, FIXED_ON, BLINK, MORSE
