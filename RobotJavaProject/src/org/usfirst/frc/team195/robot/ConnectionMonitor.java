@@ -66,7 +66,7 @@ public class ConnectionMonitor extends Thread {
                 mLastPacketTime = Timer.getFPGATimestamp();
             }
             else {
-                mLED.setLEDColor(new RGBColor(255, 0, 0));
+                mLED.setLEDColor(Constants.kCommLossColor);
                 mLED.setMessage("sos", true);
                 //mLED.setRequestedState(LEDController.LEDState.BLINK);
             }
@@ -93,6 +93,7 @@ public class ConnectionMonitor extends Thread {
         // Reconfigure blink if we are just connected.
         mLED.setLEDColor(Constants.kDefaultColor);
         mLED.configureBlink(LEDController.kDefaultBlinkCount, LEDController.kDefaultBlinkDuration);
+        mLED.setRequestedState(LEDController.LEDState.BLINK);
     }
 
     private void justDisconnected() {

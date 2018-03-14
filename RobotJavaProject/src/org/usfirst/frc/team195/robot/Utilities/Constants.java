@@ -8,6 +8,8 @@ public class Constants {
 	public static final boolean REPORTING_ENABLED = true;
 	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
 	public static final RGBColor kDefaultColor = new RGBColor(210, 0, 255);  //Default purple color
+	public static final RGBColor kCommLossColor = new RGBColor(255, 0, 0);
+
 
 	public static final boolean ENABLE_DRIVE_DIAG = false;
 	public static final boolean ENABLE_CUBE_HANDLER_DIAG = true;

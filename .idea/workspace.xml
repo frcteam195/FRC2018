@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a6c4234-4227-40c6-800f-338f58e70ba5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/ConnectionMonitor.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/ConnectionMonitor.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverCANifier.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverCANifier.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java" />
+      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
     </list>
     <ignored path="$PROJECT_DIR$/CKAutoHelperCPP/bin/" />
     <ignored path="$PROJECT_DIR$/CKAutoHelperJava/bin/" />
@@ -39,12 +36,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LEDController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LEDController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="285" column="29" lean-forward="true" selection-start-line="285" selection-start-column="29" selection-end-line="285" selection-end-column="29" />
-              <folding />
+            <state relative-caret-position="690">
+              <caret line="54" column="57" lean-forward="true" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
+              <folding>
+                <element signature="e#7354#7355#0" expanded="true" />
+                <element signature="e#7393#7394#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,17 +53,27 @@
         <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectionMonitor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConnectionMonitor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/ConnectionMonitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+            <state relative-caret-position="345">
+              <caret line="67" column="18" lean-forward="true" selection-start-line="67" selection-start-column="18" selection-end-line="67" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="47" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -197,13 +207,13 @@
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/AutoSelectionReceiver.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriver.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverRGB.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/MorseCodeTranslator.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/ConnectionMonitor.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverCANifier.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
+        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/ConnectionMonitor.java" />
       </list>
     </option>
   </component>
@@ -557,9 +567,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -878,6 +888,7 @@
       <workItem from="1520970025084" duration="2015000" />
       <workItem from="1521002002973" duration="13000" />
       <workItem from="1521002051535" duration="4811000" />
+      <workItem from="1521007071131" duration="367000" />
     </task>
     <task id="LOCAL-00001" summary="Update all">
       <created>1516597796485</created>
@@ -911,7 +922,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="355892000" />
+    <option name="totallyTimeSpent" value="356259000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -928,7 +939,6 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28863868" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -939,7 +949,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1941392" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1965812" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25281474" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -954,6 +964,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28863868" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.48779" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1257,13 +1268,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="99" lean-forward="false" selection-start-line="9" selection-start-column="99" selection-end-line="9" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/CANifier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
@@ -1310,7 +1314,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1333,7 +1336,7 @@
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1346,19 +1349,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java">
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="285" column="29" lean-forward="true" selection-start-line="285" selection-start-column="29" selection-end-line="285" selection-end-column="29" />
+        <state relative-caret-position="150">
+          <caret line="10" column="47" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/ConnectionMonitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+        <state relative-caret-position="345">
+          <caret line="67" column="18" lean-forward="true" selection-start-line="67" selection-start-column="18" selection-end-line="67" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="54" column="57" lean-forward="true" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
+          <folding>
+            <element signature="e#7354#7355#0" expanded="true" />
+            <element signature="e#7393#7394#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
