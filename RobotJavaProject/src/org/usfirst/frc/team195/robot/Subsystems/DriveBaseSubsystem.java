@@ -472,6 +472,10 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		return mNavXBoard.getYaw();
 	}
 
+	public synchronized double getRoll() { return mNavXBoard.getRoll(); }
+
+	public synchronized double getPitch() { return mNavXBoard.getPitch(); }
+
 	public synchronized NavX getNavXBoard() {
 		return mNavXBoard;
 	}

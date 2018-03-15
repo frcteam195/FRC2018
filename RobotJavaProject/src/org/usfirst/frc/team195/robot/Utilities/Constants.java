@@ -293,6 +293,16 @@ public class Constants {
 	public static final int kClimberMaxVelocity = 700;
 	public static final int kClimberMaxAccel = 450;
 
+	public static final double kClimberRollKp = 0.1;
+	public static final double kClimberRollKi = 0;
+	public static final double kClimberRollKd = 0;
+	public static final double kClimberRollKf = 0;
+	public static final double kClimberRollMinMotorOutput = -0.2;
+	public static final double kClimberRollMaxMotorOutput = 0.2;
+	public static final double kClimberRollMinInputDeg = -12;
+	public static final double kClimberRollMaxInputDeg = 12;
+	public static final double kClimberRollDeadbandDeg = 0.5;
+
 
 
 	////////////////////////////////////////////////////////////////////////////////////

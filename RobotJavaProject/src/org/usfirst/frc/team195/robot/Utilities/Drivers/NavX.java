@@ -82,6 +82,14 @@ public class NavX {
         return mAngleAdjustment.rotateBy(Rotation2d.fromDegrees(getRawYawDegrees()));
     }
 
+    public double getRoll() {
+        return mAHRS.getRoll();
+    }
+
+    public double getPitch() {
+        return mAHRS.getPitch();
+    }
+
     public double getYawRateDegreesPerSec() {
         return mYawRateDegreesPerSecond;
     }

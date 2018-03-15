@@ -19,7 +19,7 @@ public class CriticalSystemsMonitor extends Thread {
 	private ThreadRateControl threadRateControl = new ThreadRateControl();
 	private ArrayList<CriticalSystemStatus> mSystemArr;
 
-	public CriticalSystemsMonitor(ArrayList<CustomSubsystem> subsystems) {
+	private CriticalSystemsMonitor(ArrayList<CustomSubsystem> subsystems) {
 		super();
 		super.setPriority(Constants.kCriticalSystemsMonitorThreadPriority);
 		mSystemArr = new ArrayList<CriticalSystemStatus>();
