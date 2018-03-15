@@ -18,6 +18,7 @@ public class LEDController extends Thread {
 	private static final double kSlowBlinkDivisor = 1.5;
 	private static final double kFastBlinkDivisor = 3;
 	private static final double kLetterPause = 0.5;
+	private static final double kWordPause = 0.75;
 
 	private static LEDController instance = null;
     private LEDState mDefaultState = LEDState.FIXED_ON;
@@ -179,8 +180,10 @@ public class LEDController extends Thread {
 				if (runningMorseMessage != null && runningMorseMessage.peek() != null) {
 					currentMorseCode = new LinkedList<Character>(Arrays.asList(runningMorseMessage.poll().chars().mapToObj(c -> (char)c).toArray(Character[]::new)));
 					mMorseState = MorseState.NEXT_MORSE_CODE;
-				} else
-					return returnOffMorse();
+				} else {
+					mMorseState = MorseState.DONE;
+					morseStateTime = Timer.getFPGATimestamp();
+				}
 				break;
 			case NEXT_MORSE_CODE:
 				if (currentMorseCode != null) {
@@ -222,6 +225,11 @@ public class LEDController extends Thread {
 					}
 				} else {
 					mMorseState = MorseState.NEXT_MORSE_CODE;
+				}
+				break;
+			case DONE:
+				if ((Timer.getFPGATimestamp() - morseStateTime) > kWordPause) {
+					return returnOffMorse();
 				}
 				break;
 			default:
@@ -301,7 +309,7 @@ public class LEDController extends Thread {
     }
 
     private enum MorseState {
-    	LOAD, BLINK_ON, BLINK_OFF, NEXT_CHAR, NEXT_MORSE_CODE
+    	LOAD, BLINK_ON, BLINK_OFF, NEXT_CHAR, NEXT_MORSE_CODE, DONE
 	}
 
     public enum LEDState {

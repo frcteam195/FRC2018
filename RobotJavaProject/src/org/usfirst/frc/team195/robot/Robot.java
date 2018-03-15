@@ -111,7 +111,8 @@ public class Robot extends RobbieRobot {
 		autoModeExecuter = new AutoModeExecuter();
 
 		StartingPosition startingPosition = autoSelectionReceiver.getStartingPosition();
-		autoSelectionReceiver.terminate();
+		// Don't terminate if you want to run auto again without rebooting code
+//		autoSelectionReceiver.terminate();
 
 		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
 		AutoModeBase autoMode = null;

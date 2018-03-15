@@ -13,12 +13,8 @@ public class MorseCodeTranslator {
 	private static final String morseCode [] = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", "|", ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-----"};
 	private HashMap<Character, String> morseCodes = new HashMap<Character, String>();
 
-	private static final String predefinedStrings [] = {""};
-	private static final String predefinedCodes [] = {""};
-	private HashMap<String, String> mappedPredefinedMorseCodes = new HashMap<String, String>();
-
 	public MorseCodeTranslator() {
-		if (alphabet.length != morseCode.length || predefinedStrings.length != predefinedCodes.length) {
+		if (alphabet.length != morseCode.length) {
 			ConsoleReporter.report("Error occurred instantiating Morse Code Translator! Check your translation maps.", MessageLevel.ERROR);
 			return;
 		}
@@ -26,16 +22,10 @@ public class MorseCodeTranslator {
 		for (int i = 0; i < alphabet.length; i++) {
 			morseCodes.put(alphabet[i], morseCode[i]);
 		}
-
-		for (int i = 0; i < predefinedStrings.length; i++) {
-			mappedPredefinedMorseCodes.put(predefinedStrings[i], predefinedCodes[i]);
-		}
 	}
 
 	public LinkedList<String> getMorseCode(String input) {
 		input = input.toLowerCase();
-		if (mappedPredefinedMorseCodes.containsKey(input))
-			return new LinkedList<String>(Arrays.asList(mappedPredefinedMorseCodes.get(input)));
 
 		LinkedList<String> morseCodeReturn = new LinkedList<String>();
 		for (Character c : input.toCharArray()) {

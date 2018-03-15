@@ -31,7 +31,6 @@ public class AutoSelectionReceiver {
 	private AutoSelectionReceiver() throws Exception {
 		super();
 		runThread = false;
-		clientSocket = new DatagramSocket(this.portNumber);
 	}
 
 	public static AutoSelectionReceiver getInstance() {
@@ -56,6 +55,11 @@ public class AutoSelectionReceiver {
 
 			t = new Thread(() -> {
 				t.setPriority(Thread.NORM_PRIORITY);
+				try {
+					clientSocket = new DatagramSocket(this.portNumber);
+				} catch (Exception ex) {
+					ConsoleReporter.report(ex, MessageLevel.ERROR);
+				}
 
 				threadRateControl.start();
 				while (runThread) {
