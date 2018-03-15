@@ -183,7 +183,7 @@ public class Constants {
 	// Arm
 	public static final double kArmEncoderGearRatio = 1.0;
 	public static final double kArmMotorPulley = 18.0;	//Teeth
-	public static final double kArmArmPulley = 40.0;	//Teeth
+	public static final double kArmArmPulley = 42.0;	//Teeth
 	public static final double kArmFinalRotationsPerDegree = kArmArmPulley/kArmMotorPulley/360.0;
 	public static final double kArmSoftMin = 0 * kArmFinalRotationsPerDegree;	//Number in degrees of arm converted to rotations
 	public static final double kArmSoftMax = 137 * kArmFinalRotationsPerDegree; //Number in degrees of arm converted to rotations

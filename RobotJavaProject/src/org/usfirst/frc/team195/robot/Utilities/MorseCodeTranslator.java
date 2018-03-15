@@ -13,8 +13,8 @@ public class MorseCodeTranslator {
 	private static final String morseCode [] = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", "|", ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-----"};
 	private HashMap<Character, String> morseCodes = new HashMap<Character, String>();
 
-	private static final String predefinedStrings [] = {"sos"};
-	private static final String predefinedCodes [] = {"...---..."};
+	private static final String predefinedStrings [] = {""};
+	private static final String predefinedCodes [] = {""};
 	private HashMap<String, String> mappedPredefinedMorseCodes = new HashMap<String, String>();
 
 	public MorseCodeTranslator() {

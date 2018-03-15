@@ -15,8 +15,8 @@ public class LEDController extends Thread {
     public static final int kDefaultBlinkCount = 6;
     public static final double kDefaultBlinkDuration = 0.2; // seconds for full cycle
     private static final double kDefaultTotalBlinkDuration = kDefaultBlinkCount * kDefaultBlinkDuration;
-	private static final double kSlowBlinkDivisor = 0.75;
-	private static final double kFastBlinkDivisor = 1.5;
+	private static final double kSlowBlinkDivisor = 1.5;
+	private static final double kFastBlinkDivisor = 3;
 	private static final double kLetterPause = 0.5;
 
 	private static LEDController instance = null;

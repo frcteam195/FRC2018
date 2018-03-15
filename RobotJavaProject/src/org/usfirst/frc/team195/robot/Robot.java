@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Autonomous.AutoModeSample;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_1cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_2cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_1cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftLeftFromLeftMode_3cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_3cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRight_2cube;
@@ -235,13 +239,13 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				break;
+				return new LeftFromCenterMode_1cube();
 			case LEFT_RIGHT:
-				break;
+				return new LeftFromCenterMode_2cube();
 			case RIGHT_LEFT:
-				break;
+				return new RightFromCenterMode_2cube();
 			case RIGHT_RIGHT:
-				break;
+				return new RightFromCenterMode_1cube();
 			case UNDEFINED:
 			default:
 				break;

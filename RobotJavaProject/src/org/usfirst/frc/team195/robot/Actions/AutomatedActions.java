@@ -52,6 +52,11 @@ public class AutomatedActions {
 												new SetArmRotationAction(ArmPosition.DOWN)));
 	}
 
+	public static ParallelAction SetRestingPosition() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.HOME),
+												new SetArmRotationAction(ArmPosition.VERTICAL)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnScaleHigh() {
 		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.HIGH),
 												new SetArmRotationAction(ArmPosition.DOWN)));
