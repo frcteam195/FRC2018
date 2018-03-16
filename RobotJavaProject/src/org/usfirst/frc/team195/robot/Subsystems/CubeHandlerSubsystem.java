@@ -72,6 +72,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private double armOpenLoopDriveVal = 0;
 	private double mPrevArmOpenLoopDriveVal = 0;
 
+	private double mPrevArmEncoderVal = 0;
+
 
 
 	private CubeHandlerSubsystem() throws Exception {
@@ -285,7 +287,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report("Failed to zero Arm!!!", MessageLevel.DEFCON1);
 
 		mArmMotor.set(ControlMode.MotionMagic, homeArmValue);
-		setArmRotationDeg(Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
+		//setArmRotationDeg(Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
 
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
@@ -346,6 +348,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							armHomingTimeStart = Timer.getFPGATimestamp();
 
 						zeroArm(0);
+						setArmRotationDeg(ArmPosition.VERTICAL);
 						setArmControl(ArmControl.POSITION);
 
 						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
@@ -713,7 +716,15 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		armFault = !armSensorPresent;
 
 		if (mArmMotor.hasResetOccurred()) {
-			setArmControl(ArmControl.OPEN_LOOP);
+			//setArmControl(ArmControl.OPEN_LOOP);
+
+			if(armSensorPresent) {
+				setArmControl(ArmControl.OFF);
+				zeroArm((int) mPrevArmEncoderVal);
+			}
+			else {
+				setArmControl(ArmControl.OPEN_LOOP);
+			}
 
 			ConsoleReporter.report("Arm Talon has reset! Arm requires rehoming!", MessageLevel.DEFCON1);
 
@@ -729,6 +740,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				ConsoleReporter.report("Failed to clear Arm Reset !!!!!!", MessageLevel.DEFCON1);
 
 			armFault = true;
+		}
+		else if (armSensorPresent){
+			mPrevArmEncoderVal = mArmMotor.getSelectedSensorPosition(0);
 		}
 
 		//armFault = false;
