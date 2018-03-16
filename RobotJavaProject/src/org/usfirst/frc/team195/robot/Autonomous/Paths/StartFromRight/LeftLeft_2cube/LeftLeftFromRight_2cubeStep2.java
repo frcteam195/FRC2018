@@ -1,18 +1,18 @@
-package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.LeftLeft_3cube;
+package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.LeftLeft_2cube;
 
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 
 import java.util.ArrayList;
 
-public class LeftLeftFromRightStep2 implements PathContainer {
+public class LeftLeftFromRight_2cubeStep2 implements PathContainer {
 
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(290,257,0,0));
-		sWaypoints.add(new Waypoint(253,257,15,50,"PreparePickupCube"));
-		sWaypoints.add(new Waypoint(217,239,0,30));
+		sWaypoints.add(new Waypoint(265,257,15,20,"PreparePickupCube"));
+		sWaypoints.add(new Waypoint(232,248,0,20));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
@@ -26,7 +26,7 @@ public class LeftLeftFromRightStep2 implements PathContainer {
 	public boolean isReversed() {
 		return false;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":290,"y":257},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":253,"y":257},"speed":50,"radius":15,"marker":"PreparePickupCube","comment":""},{"position":{"x":217,"y":239},"speed":30,"radius":0,"marker":"","comment":""}]
+	// WAYPOINT_DATA: [{"position":{"x":290,"y":257},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":265,"y":257},"speed":20,"radius":15,"marker":"PreparePickupCube","comment":""},{"position":{"x":232,"y":248},"speed":20,"radius":0,"marker":"","comment":""}]
 	// IS_REVERSED: false
-	// FILE_NAME: LeftLeftFromRightStep2
+	// FILE_NAME: LeftLeftFromRight_2cubeStep2
 }
