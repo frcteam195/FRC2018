@@ -536,7 +536,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		retVal += "Arm1PosReq:" + armRotation + ";";
 		retVal += "Arm1PosAct:" + (mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree) + ";";
-		retVal += "ArmFault:" + isArmFaulted() + ";";
+		retVal += "ArmFault:" + (isArmFaulted() || mArmControl == ArmControl.OPEN_LOOP) + ";";
 
 		retVal += "HasCube:" + mCubeSensor.get() + ";";
 

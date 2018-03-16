@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a6c4234-4227-40c6-800f-338f58e70ba5" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep5Final.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep2.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_3cube.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_3cube.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRight_2cube.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cube.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep1.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep1.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep3.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep3.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep2.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep2.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep3.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep3.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep4Final.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep4.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep6.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep6.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/HIDController.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/HIDController.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/LEDController.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Robot.java" />
       <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmControl.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmControl.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/IntakeControl.java" afterPath="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/IntakeControl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/CKAutoHelperCPP/bin/" />
     <ignored path="$PROJECT_DIR$/CKAutoHelperJava/bin/" />
@@ -61,8 +38,8 @@
       <file leaf-file-name="CubeHandlerSubsystem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="562" column="79" lean-forward="true" selection-start-line="562" selection-start-column="79" selection-end-line="562" selection-end-column="79" />
+            <state relative-caret-position="311">
+              <caret line="545" column="5" lean-forward="true" selection-start-line="545" selection-start-column="5" selection-end-line="545" selection-end-column="5" />
               <folding>
                 <element signature="e#23349#23350#0" expanded="true" />
                 <element signature="e#23374#23375#0" expanded="true" />
@@ -76,20 +53,20 @@
                 <element signature="e#23911#23912#0" expanded="true" />
                 <element signature="e#23951#23952#0" expanded="true" />
                 <element signature="e#23981#23982#0" expanded="true" />
-                <element signature="e#33264#33265#0" expanded="true" />
-                <element signature="e#33286#33287#0" expanded="true" />
-                <element signature="e#34587#34588#0" expanded="true" />
-                <element signature="e#34614#34615#0" expanded="true" />
-                <element signature="e#36156#36157#0" expanded="true" />
-                <element signature="e#36226#36227#0" expanded="true" />
-                <element signature="e#36281#36282#0" expanded="true" />
-                <element signature="e#36351#36352#0" expanded="true" />
-                <element signature="e#36768#36769#0" expanded="true" />
-                <element signature="e#36837#36838#0" expanded="true" />
-                <element signature="e#36879#36880#0" expanded="true" />
-                <element signature="e#36904#36905#0" expanded="true" />
-                <element signature="e#37779#37780#0" expanded="true" />
-                <element signature="e#37810#37811#0" expanded="true" />
+                <element signature="e#33305#33306#0" expanded="true" />
+                <element signature="e#33327#33328#0" expanded="true" />
+                <element signature="e#34628#34629#0" expanded="true" />
+                <element signature="e#34655#34656#0" expanded="true" />
+                <element signature="e#36197#36198#0" expanded="true" />
+                <element signature="e#36267#36268#0" expanded="true" />
+                <element signature="e#36322#36323#0" expanded="true" />
+                <element signature="e#36392#36393#0" expanded="true" />
+                <element signature="e#36809#36810#0" expanded="true" />
+                <element signature="e#36878#36879#0" expanded="true" />
+                <element signature="e#36920#36921#0" expanded="true" />
+                <element signature="e#36945#36946#0" expanded="true" />
+                <element signature="e#37820#37821#0" expanded="true" />
+                <element signature="e#37851#37852#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -974,7 +951,7 @@
       <workItem from="1521056745280" duration="159000" />
       <workItem from="1521089677208" duration="3732000" />
       <workItem from="1521139274790" duration="501000" />
-      <workItem from="1521149120906" duration="20455000" />
+      <workItem from="1521149120906" duration="20543000" />
     </task>
     <task id="LOCAL-00001" summary="Update all">
       <created>1516597796485</created>
@@ -1008,7 +985,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="384190000" />
+    <option name="totallyTimeSpent" value="384278000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1533,8 +1510,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="562" column="79" lean-forward="true" selection-start-line="562" selection-start-column="79" selection-end-line="562" selection-end-column="79" />
+        <state relative-caret-position="311">
+          <caret line="545" column="5" lean-forward="true" selection-start-line="545" selection-start-column="5" selection-end-line="545" selection-end-column="5" />
           <folding>
             <element signature="e#23349#23350#0" expanded="true" />
             <element signature="e#23374#23375#0" expanded="true" />
@@ -1548,20 +1525,20 @@
             <element signature="e#23911#23912#0" expanded="true" />
             <element signature="e#23951#23952#0" expanded="true" />
             <element signature="e#23981#23982#0" expanded="true" />
-            <element signature="e#33264#33265#0" expanded="true" />
-            <element signature="e#33286#33287#0" expanded="true" />
-            <element signature="e#34587#34588#0" expanded="true" />
-            <element signature="e#34614#34615#0" expanded="true" />
-            <element signature="e#36156#36157#0" expanded="true" />
-            <element signature="e#36226#36227#0" expanded="true" />
-            <element signature="e#36281#36282#0" expanded="true" />
-            <element signature="e#36351#36352#0" expanded="true" />
-            <element signature="e#36768#36769#0" expanded="true" />
-            <element signature="e#36837#36838#0" expanded="true" />
-            <element signature="e#36879#36880#0" expanded="true" />
-            <element signature="e#36904#36905#0" expanded="true" />
-            <element signature="e#37779#37780#0" expanded="true" />
-            <element signature="e#37810#37811#0" expanded="true" />
+            <element signature="e#33305#33306#0" expanded="true" />
+            <element signature="e#33327#33328#0" expanded="true" />
+            <element signature="e#34628#34629#0" expanded="true" />
+            <element signature="e#34655#34656#0" expanded="true" />
+            <element signature="e#36197#36198#0" expanded="true" />
+            <element signature="e#36267#36268#0" expanded="true" />
+            <element signature="e#36322#36323#0" expanded="true" />
+            <element signature="e#36392#36393#0" expanded="true" />
+            <element signature="e#36809#36810#0" expanded="true" />
+            <element signature="e#36878#36879#0" expanded="true" />
+            <element signature="e#36920#36921#0" expanded="true" />
+            <element signature="e#36945#36946#0" expanded="true" />
+            <element signature="e#37820#37821#0" expanded="true" />
+            <element signature="e#37851#37852#0" expanded="true" />
           </folding>
         </state>
       </provider>
