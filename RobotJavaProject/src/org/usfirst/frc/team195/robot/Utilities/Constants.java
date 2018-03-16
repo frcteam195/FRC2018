@@ -353,6 +353,14 @@ public class Constants {
 	public static final double kPathStopSteeringDistance = 9.0;
 
 
+	// Turn to heading gains
+	public static final double kDriveTurnKp = 1.3;
+	public static final double kDriveTurnKi = 0.3;
+	public static final double kDriveTurnKd = 0;
+	public static final double kDriveTurnKf = 0.7;
+	public static final double kDriveTurnMaxVel = 220.0;
+
+
 	private static int getMSDurationForBreakerLimit(double peakCurrentInput, double breakerRating) {
 		return getMSDurationForBreakerLimit(peakCurrentInput, breakerRating, kPDPDefaultSafetyFactor);
 	}
@@ -403,15 +411,6 @@ public class Constants {
 
 	////////NOT USED THIS YEAR
 
-
-	// Turn to heading gains
-	public static final double kDriveTurnKp = 3.0;
-	public static final double kDriveTurnKi = 1.5;
-	public static final double kDriveTurnKv = 0.0;
-	public static final double kDriveTurnKffv = 1.0;
-	public static final double kDriveTurnKffa = 0.0;
-	public static final double kDriveTurnMaxVel = 360.0;
-	public static final double kDriveTurnMaxAcc = 720.0;
 
 	// Goal tracker constants
 	public static final double kMaxGoalTrackAge = 1.0;

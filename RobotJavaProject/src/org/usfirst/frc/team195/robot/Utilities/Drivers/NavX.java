@@ -102,6 +102,10 @@ public class NavX {
         return mAHRS.getRawAccelX();
     }
 
+    public double getRawYaw() {
+        return mAHRS.getYaw();
+    }
+
     public synchronized void setCollisionJerkThreshold(double jerkCollisionThreshold) {
         mJerkCollisionThreshold = jerkCollisionThreshold;
     }

@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -42,6 +43,9 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	private TuneablePID tuneableRightDrive;
 	private SetpointValue leftSetpointValue = new SetpointValue();
 	private SetpointValue rightSetpointValue = new SetpointValue();
+	private SynchronousPIDF turnToHeadingPID;
+	private boolean turnIsFinished = false;
+	private double mPrevTurnTime = 0;
 
 	private boolean emergencySafetyRequired = false;
 
@@ -69,6 +73,16 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 					case OPEN_LOOP:
 						break;
 					case VELOCITY:
+						break;
+					case TURN_TO_HEADING:
+						double currentAngle = mNavXBoard.getRawYaw();
+						double val = turnToHeadingPID.calculate(currentAngle, timestamp - mPrevTurnTime);
+						setDriveVelocity(new DriveMotorValues(val, -val), false);
+						mPrevTurnTime = timestamp;
+						if (Math.abs(currentAngle - turnToHeadingPID.getSetpoint()) < 2) {
+							setDoneWithTurn(true);
+							setDriveVelocity(new DriveMotorValues(0, 0));
+						}
 						break;
 					case PATH_FOLLOWING:
 						if (mPathFollower != null) {
@@ -123,6 +137,11 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		setBrakeMode(true);
 
 		mControlMode = DriveControlState.PATH_FOLLOWING;
+
+		turnToHeadingPID = new SynchronousPIDF(Constants.kDriveTurnKp, Constants.kDriveTurnKi, Constants.kDriveTurnKd, Constants.kDriveTurnKf);
+		turnToHeadingPID.setInputRange(-180, 180);
+		turnToHeadingPID.setOutputRange(-Constants.kDriveTurnMaxVel, Constants.kDriveTurnMaxVel);
+		turnToHeadingPID.setDeadband(2);
 
 //		tuneableLeftDrive = new TuneablePID("Drive Tuning", mLeftMaster, mRightMaster, leftSetpointValue, 5808, true, false);
 //		tuneableRightDrive = new TuneablePID("Right Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
@@ -416,7 +435,12 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	}
 
 	public synchronized void setDriveVelocity(DriveMotorValues d) {
-		setControlMode(DriveControlState.VELOCITY);
+		setDriveVelocity(d, true);
+	}
+
+	public synchronized void setDriveVelocity(DriveMotorValues d, boolean autoChangeMode) {
+		if (autoChangeMode)
+			setControlMode(DriveControlState.VELOCITY);
 		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.leftDrive));
 		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.rightDrive));
 	}
@@ -433,6 +457,22 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			mPrevBrakeModeVal = brakeMode;
 			_subsystemMutex.unlock();
 		}
+	}
+
+	public synchronized void setTurnToHeading(double headingDeg, boolean headingIsAbsolute) {
+		if (headingIsAbsolute)
+			turnToHeadingPID.setSetpoint(headingDeg);
+		else
+			turnToHeadingPID.setSetpoint(headingDeg + mNavXBoard.getRawYaw());
+
+		turnToHeadingPID.resetIntegrator();
+		setDoneWithTurn(false);
+		mPrevTurnTime = Timer.getFPGATimestamp();
+		setControlMode(DriveControlState.TURN_TO_HEADING);
+	}
+
+	private synchronized void setDoneWithTurn(boolean done) {
+		turnIsFinished = done;
 	}
 
 	/**
@@ -553,6 +593,15 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			return mPathFollower.isFinished();
 		} else {
 			ConsoleReporter.report("Robot is not in path following mode");
+			return true;
+		}
+	}
+
+	public synchronized boolean isDoneWithTurn() {
+		if (mControlMode == DriveControlState.TURN_TO_HEADING) {
+			return turnIsFinished;
+		} else {
+			ConsoleReporter.report("Robot is not in turning mode");
 			return true;
 		}
 	}

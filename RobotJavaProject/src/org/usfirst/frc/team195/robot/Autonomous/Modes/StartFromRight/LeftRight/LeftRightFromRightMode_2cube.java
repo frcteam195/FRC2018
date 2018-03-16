@@ -10,6 +10,7 @@ import org.usfirst.frc.team195.robot.Actions.Framework.SeriesAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.WaitAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.WaitForPathMarkerAction;
 import org.usfirst.frc.team195.robot.Actions.ResetPoseFromPathAction;
+import org.usfirst.frc.team195.robot.Actions.TurnToHeadingAction;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeEndedException;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.LeftRight_2cube.*;
@@ -63,6 +64,7 @@ public class LeftRightFromRightMode_2cube extends AutoModeBase {
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("StartIntake"),
 													   new SetIntakeAction(IntakeControl.INTAKE_IN))))));
 
+		runAction(new DrivePathAction(new LeftRightFromRightTestStep2()));
 		runAction(new DrivePathAction(new LeftRightFromRightTestStep3()));
 
 		runAction(AutomatedActions.ClampIntake());
@@ -71,9 +73,13 @@ public class LeftRightFromRightMode_2cube extends AutoModeBase {
 
 		runAction(new SetElevatorHeightAction(ElevatorPosition.LOW));
 
-		runAction(new DrivePathAction(new LeftRightFromRightTestStep4()));
+		runAction(new TurnToHeadingAction(45, false));
 
-		runAction(new WaitAction(1.3));
+		//runAction(new DrivePathAction(new LeftRightFromRightTestStep4()));
+
+		runAction(new WaitAction(.5));
+
+		runAction(new DrivePathAction(new LeftRightFromRightTestStep5()));
 
 		runAction(new SetArmRotationAction(ArmPosition.DOWN));
 
