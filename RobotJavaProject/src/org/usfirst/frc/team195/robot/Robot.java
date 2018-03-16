@@ -1,7 +1,7 @@
 package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.team195.robot.Autonomous.AutoModeSample;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_1cube;
@@ -10,7 +10,7 @@ import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.Righ
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftLeftFromLeftMode_3cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_3cube;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRight_2cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightLeft.RightLeftFromRightMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightRight.RightRightFromRightMode_4cube;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
@@ -225,7 +225,7 @@ public class Robot extends RobbieRobot {
 			case LEFT_LEFT:
 				return new LeftLeftFromRightMode_3cube();
 			case LEFT_RIGHT:
-				return new LeftRightFromRight_2cube();
+				return new LeftRightFromRightMode_2cube();
 			case RIGHT_LEFT:
 				return new RightLeftFromRightMode_2cube();
 			case RIGHT_RIGHT:
@@ -240,13 +240,13 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				return new LeftFromCenterMode_1cube();
+				return new LeftFromCenterMode_2cube();
 			case LEFT_RIGHT:
 				return new LeftFromCenterMode_2cube();
 			case RIGHT_LEFT:
 				return new RightFromCenterMode_2cube();
 			case RIGHT_RIGHT:
-				return new RightFromCenterMode_1cube();
+				return new RightFromCenterMode_2cube();
 			case UNDEFINED:
 			default:
 				break;

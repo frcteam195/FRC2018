@@ -269,6 +269,7 @@ public class LEDController extends Thread {
 
     private synchronized void setLEDDefaultState() {
         setRequestedState(mDefaultState);
+        setLEDColor(Constants.kDefaultColor);
     }
 
     public synchronized void configureBlink(int blinkCount, double blinkDuration) {

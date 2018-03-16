@@ -15,6 +15,9 @@ public class LeftLeftFromRightMode_3cube extends AutoModeBase {
 		PathContainer pathContainer = new LeftLeftFromRightStep1();
 		runAction(new ResetPoseFromPathAction(pathContainer));
 		runAction(new DrivePathAction(pathContainer));
+
+
+
 		runAction(new DrivePathAction(new LeftLeftFromRightStep2()));
 		runAction(new DrivePathAction(new LeftLeftFromRightStep3()));
 		runAction(new DrivePathAction(new LeftLeftFromRightStep4()));

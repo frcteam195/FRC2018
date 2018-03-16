@@ -8,10 +8,7 @@ import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.*;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorControl;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.*;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.KnightJoystick;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
@@ -26,6 +23,7 @@ public class HIDController implements Runnable {
 	//private KnightJoystick driveJoystickWheel;
 	private KnightJoystick armControlJoystick;
 	private KnightJoystick buttonBox1;
+	private KnightJoystick buttonBox2;
 	private DriveHelper driveHelper;
 	//private ShiftAction shiftAction;
 	private IntakePositionAction intakePositionAction;
@@ -38,6 +36,7 @@ public class HIDController implements Runnable {
 		//driveJoystickWheel = robotControllers.getDriveJoystickWheel();
 		armControlJoystick = robotControllers.getArmControlJoystick();
 		buttonBox1 = robotControllers.getButtonBox1();
+		buttonBox2 = robotControllers.getButtonBox2();
 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 		cubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
@@ -149,10 +148,16 @@ public class HIDController implements Runnable {
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_REQUEST_CUBE_FROM_WALL) || driveJoystickThrottle.getRisingEdgeButton(Constants.DRIVE_REQUEST_CUBE_FROM_WALL)) {
 			if (ConnectionMonitor.getInstance().isConnected()) {
-				ledController.configureBlink(10, LEDController.kDefaultBlinkDuration);
+				ledController.configureBlink(4, LEDController.kDefaultBlinkDuration);
+				ledController.setLEDColor(Constants.kRequestCubeColor);
 				ledController.setRequestedState(LEDController.LEDState.BLINK);
 			}
 		}
+
+		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_ZERO) && cubeHandlerSubsystem.getArmControlMode() == ArmControl.OPEN_LOOP)
+			cubeHandlerSubsystem.setArmControl(ArmControl.HOMING);
+
+		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/4.0);
 
 //		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
 //		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);

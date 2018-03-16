@@ -6,30 +6,27 @@ import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBui
 import java.util.ArrayList;
 
 public class LeftRightFromRightStep2 implements PathContainer {
-    
+
     @Override
     public Path buildPath() {
         ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
         sWaypoints.add(new Waypoint(286,88,0,0));
-        sWaypoints.add(new Waypoint(270,76,15,40,"PreparePickupCube"));
-        sWaypoints.add(new Waypoint(240,76,15,40));
-        sWaypoints.add(new Waypoint(240,200,15,60));
-        sWaypoints.add(new Waypoint(235,230,10,40));
-        sWaypoints.add(new Waypoint(222,230,0,20));
+        sWaypoints.add(new Waypoint(257,82,15,50));
+        sWaypoints.add(new Waypoint(231,90,0,30));
 
         return PathBuilder.buildPathFromWaypoints(sWaypoints);
     }
-    
+
     @Override
     public RigidTransform2d getStartPose() {
-        return new RigidTransform2d(new Translation2d(286, 88), Rotation2d.fromDegrees(0)); 
+        return new RigidTransform2d(new Translation2d(286, 88), Rotation2d.fromDegrees(0));
     }
 
     @Override
     public boolean isReversed() {
-        return false; 
+        return false;
     }
-	// WAYPOINT_DATA: [{"position":{"x":286,"y":88},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":270,"y":76},"speed":40,"radius":15,"marker":"PreparePickupCube","comment":""},{"position":{"x":240,"y":76},"speed":40,"radius":15,"marker":"","comment":""},{"position":{"x":240,"y":200},"speed":60,"radius":15,"marker":"","comment":""},{"position":{"x":235,"y":230},"speed":40,"radius":10,"marker":"","comment":""},{"position":{"x":222,"y":230},"speed":20,"radius":0,"marker":"","comment":""}]
-	// IS_REVERSED: false
-	// FILE_NAME: LeftRightFromRightStep2
+    // WAYPOINT_DATA: [{"position":{"x":286,"y":86},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":257,"y":82},"speed":20,"radius":15,"marker":"","comment":""},{"position":{"x":228,"y":90},"speed":20,"radius":0,"marker":"","comment":""}]
+    // IS_REVERSED: false
+    // FILE_NAME: RightRightFromRightStep2
 }

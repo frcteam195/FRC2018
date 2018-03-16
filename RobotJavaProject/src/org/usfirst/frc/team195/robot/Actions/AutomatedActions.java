@@ -44,7 +44,7 @@ public class AutomatedActions {
 
 	public static ParallelAction PreparePlaceCubeOnScaleOverBack() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
-												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_HIGH)));
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID)));
 	}
 
 	public static ParallelAction PreparePlaceCubeOnSwitchElevator() {
@@ -133,6 +133,10 @@ public class AutomatedActions {
 
 	public static Action OutakeCubeFast() {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
+	}
+
+	public static Action OutakeCubeExtraFast() {
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT_EXTRA_FAST, 0.3);
 	}
 
 	public static Action OutakeCubeALittleLessFast() {

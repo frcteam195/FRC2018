@@ -56,6 +56,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private boolean elevatorFault = false;
 	private boolean armFault = false;
+	private boolean intakeFault = false;
 
 	private double elevatorHeight = 0;	//Value in rotations of output shaft
 	private double mPrevElevatorHeight = 0;
@@ -68,6 +69,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private double liftArmTimerStart = 0;
 	private boolean requestLiftArmForCube = false;
+	private double armOpenLoopDriveVal = 0;
+	private double mPrevArmOpenLoopDriveVal = 0;
 
 
 
@@ -258,9 +261,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	private boolean zeroArm() {
-		mArmMotor.set(ControlMode.Disabled, 0);
+		return zeroArm((int)(Constants.kArmHomingSetpoint * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio));
+	}
 
-		int homeArmValue = (int)(Constants.kArmHomingSetpoint * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
+	private boolean zeroArm(int homeArmValue) {
+		mArmMotor.set(ControlMode.Disabled, 0);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -272,6 +277,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 			setSucceeded &= mArmMotor.setSelectedSensorPosition(homeArmValue, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mArmMotor.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
@@ -327,24 +333,26 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						}
 
 						break;
-					case MANUAL:
+					case OPEN_LOOP:
+						if (armOpenLoopDriveVal != mPrevArmOpenLoopDriveVal) {
+							mArmMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMsFast);
+							mArmMotor.configReverseSoftLimitEnable(false, Constants.kTimeoutMsFast);
+							mArmMotor.set(ControlMode.PercentOutput, armOpenLoopDriveVal);
+							mPrevArmOpenLoopDriveVal = armOpenLoopDriveVal;
+						}
 						break;
 					case HOMING:
 						if (mPrevArmControl != ArmControl.HOMING)
 							armHomingTimeStart = Timer.getFPGATimestamp();
 
-						mArmMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMsFast);
-						mArmMotor.set(ControlMode.PercentOutput, Constants.kArmHomingSpeed);
-						//TODO: Add arm homing condition
-						if (true) {
-							zeroArm();
-							setArmControl(ArmControl.POSITION);
-						}
+						zeroArm(0);
+						setArmControl(ArmControl.POSITION);
 
 						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
-							setArmControl(ArmControl.OFF);
+							setArmControl(ArmControl.OPEN_LOOP);
 							ConsoleReporter.report("Arm Failed to Home! Arm Disabled!", MessageLevel.DEFCON1);
 						}
+
 						break;
 					case OFF:
 					default:
@@ -419,6 +427,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							mIntakeMotor.set(ControlMode.PercentOutput, 1);
 							mIntake2Motor.set(ControlMode.PercentOutput, 1);
 							break;
+						case INTAKE_OUT_EXTRA_FAST:
+//							mIntakeMotor.set(ControlMode.Current, -55);
+//							mIntake2Motor.set(ControlMode.Current, -55);
+							mIntakeMotor.set(ControlMode.PercentOutput, -1);
+							mIntake2Motor.set(ControlMode.PercentOutput, -1);
+							break;
 						case INTAKE_OUT:
 //							mIntakeMotor.set(ControlMode.Current, -55);
 //							mIntake2Motor.set(ControlMode.Current, -55);
@@ -456,10 +470,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					mPrevIntakeControl = mIntakeControl;
 				}
 
-				if (mCubeSensor.getRisingEdge()) {
+				if (mCubeSensor.getRisingEdge() && intakeSolenoid.get() && getElevatorHeight() < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
 					setIntakeClamp(false);
 
-					ledController.configureBlink(4, LEDController.kDefaultBlinkDuration);
+					ledController.configureBlink(3, LEDController.kDefaultBlinkDuration);
+					ledController.setLEDColor(Constants.kGotCubeColor);
 					ledController.setRequestedState(LEDController.LEDState.BLINK);
 
 					if (!isAuto) {
@@ -488,6 +503,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		in.register(mLoop);
 	}
 
+	public synchronized void setArmOpenLoopDriveVal(double val) {
+		this.armOpenLoopDriveVal = val;
+	}
 
 	public synchronized void setIntakeClamp(boolean open) {
 		intakeSolenoid.set(open);
@@ -533,9 +551,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (ds.isTest() && Constants.ENABLE_CUBE_HANDLER_DIAG) {
 			ConsoleReporter.report("Testing CubeHandler---------------------------------");
 			boolean testPassed = true;
-			testPassed &= runArmDiagnostics();
+			//testPassed &= runArmDiagnostics();
 			testPassed &= runElevatorDiagnostics();
-			testPassed &= runIntakeDiagnostics();
+			//testPassed &= runIntakeDiagnostics();
 			return testPassed;
 		} else
 			return true;
@@ -682,7 +700,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (!armSensorPresent) {
 			//Check for 3 consecutive misses of encoder before disabling arm
 			if (armEncoderLossCounter++ >= 3) {
-				setArmControl(ArmControl.OFF);
+				setArmControl(ArmControl.OPEN_LOOP);
 
 				String msg = "Could not detect encoder! \r\n\tArm Encoder Detected: " + armSensorPresent;
 				ConsoleReporter.report(msg, MessageLevel.DEFCON1);
@@ -695,9 +713,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		armFault = !armSensorPresent;
 
 		if (mArmMotor.hasResetOccurred()) {
-			setArmControl(ArmControl.OFF);
+			setArmControl(ArmControl.OPEN_LOOP);
 
-			ConsoleReporter.report("Arm requires rehoming!", MessageLevel.DEFCON1);
+			ConsoleReporter.report("Arm Talon has reset! Arm requires rehoming!", MessageLevel.DEFCON1);
 
 			boolean setSucceeded;
 			int retryCounter = 0;
@@ -719,6 +737,48 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		//return false;
 
 		return armFault;
+	}
+
+	private synchronized boolean checkIfIntakeIsFaulted() {
+
+		if (mIntakeMotor.hasResetOccurred()) {
+
+			ConsoleReporter.report("Intake 1 Talon has reset!", MessageLevel.DEFCON1);
+
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = true;
+				setSucceeded &= mIntakeMotor.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to clear Intake 1 Reset !!!!!!", MessageLevel.DEFCON1);
+
+			intakeFault = true;
+		}
+
+		if (mIntake2Motor.hasResetOccurred()) {
+
+			ConsoleReporter.report("Intake 2 Talon has reset!", MessageLevel.DEFCON1);
+
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = true;
+				setSucceeded &= mIntake2Motor.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to clear Intake 2 Reset !!!!!!", MessageLevel.DEFCON1);
+
+			intakeFault = true;
+		}
+
+
+		return intakeFault;
 	}
 
 	public boolean isArmFaulted() {
@@ -777,6 +837,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		allSensorsPresent &= !checkIfArmIsFaulted();
 		allSensorsPresent &= !checkIfElevatorIsFaulted();
 		allSensorsPresent &= !checkElevatorCurrent();
+		allSensorsPresent &= !checkIfIntakeIsFaulted();
 
 		return !allSensorsPresent;
 	}
@@ -830,6 +891,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public double getArmRotationDeg() {
 		return mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree;
+	}
+
+	public double getArmAbsolutePosition() {
+		return mArmMotor.getSensorCollection().getPulseWidthPosition();
+	}
+
+	public ArmControl getArmControlMode() {
+		return mArmControl;
 	}
 
 	private void doCurrentSpikeDetected() {

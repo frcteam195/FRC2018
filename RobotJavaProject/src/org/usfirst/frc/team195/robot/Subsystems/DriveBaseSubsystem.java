@@ -331,7 +331,36 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			DriverStation.reportError(msg, false);
 		}
 
+		checkMotorReset(mLeftMaster, "Left Drive Master");
+		checkMotorReset(leftDriveSlave1, "Left Drive Slave 1");
+		checkMotorReset(leftDriveSlave2, "Left Drive Slave 2");
+		checkMotorReset(mRightMaster, "Right Drive Master");
+		checkMotorReset(rightDriveSlave1, "Right Drive Slave 1");
+		checkMotorReset(rightDriveSlave2, "Right Drive Slave 2");
+
 		return !allSensorsPresent;
+	}
+
+	private boolean checkMotorReset(BaseMotorController motorController, String name) {
+		if (motorController.hasResetOccurred()) {
+
+			ConsoleReporter.report(name + " Talon has reset!", MessageLevel.DEFCON1);
+
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = true;
+				setSucceeded &= motorController.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to clear " + name + " Reset !!!!!!", MessageLevel.DEFCON1);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean isHighGear() {

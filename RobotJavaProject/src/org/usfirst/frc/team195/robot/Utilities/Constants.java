@@ -9,6 +9,8 @@ public class Constants {
 	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
 	public static final RGBColor kDefaultColor = new RGBColor(210, 0, 255);  //Default purple color
 	public static final RGBColor kCommLossColor = new RGBColor(255, 0, 0);
+	public static final RGBColor kRequestCubeColor = new RGBColor(0, 255, 0);
+	public static final RGBColor kGotCubeColor = kDefaultColor;
 
 
 	public static final boolean ENABLE_DRIVE_DIAG = false;
@@ -43,6 +45,7 @@ public class Constants {
 //	public static final int DRIVE_HOLD_BRAKE = 8;
 
 	//Arm Config Attack3D
+	public static final int ARM_Y_AXIS = 1;
 	public static final int ARM_INTAKE_IN = 1;
 	public static final int ARM_INTAKE_CLAMP = 3;
 	public static final int ARM_INTAKE_UNCLAMP = 4;
@@ -69,6 +72,8 @@ public class Constants {
 	public static final int BB1_ELEVATOR_OVER_BACK_MID = 3;
 	public static final int BB1_ELEVATOR_OVER_BACK_HIGH = 5;
 	public static final int BB1_REQUEST_CUBE_FROM_WALL = 10;
+
+	public static final int BB2_ARM_SET_ZERO = 1;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */

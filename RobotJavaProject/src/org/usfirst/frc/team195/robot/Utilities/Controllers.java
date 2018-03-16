@@ -15,6 +15,7 @@ public class Controllers {
 	private KnightJoystick driveJoystickWheel;
 	private KnightJoystick armControlJoystick;
 	private KnightJoystick buttonBox1;
+	private KnightJoystick buttonBox2;
 	private TalonSRX leftDrive1;
 	private BaseMotorController leftDrive2;
 	private BaseMotorController leftDrive3;
@@ -59,6 +60,7 @@ public class Controllers {
 		//driveJoystickWheel = new KnightJoystick(1);
 		armControlJoystick = new KnightJoystick(1);
 		buttonBox1 = new KnightJoystick(2);
+		buttonBox2 = new KnightJoystick(3);
 
 		//Choose whether to create Victor or Talon slaves here
 		//Left Drive Setup
@@ -129,6 +131,8 @@ public class Controllers {
 	}
 
 	public KnightJoystick getButtonBox1() { return buttonBox1; }
+
+	public KnightJoystick getButtonBox2() { return buttonBox2; }
 
 	public TalonSRX getLeftDrive1() {
 		return leftDrive1;

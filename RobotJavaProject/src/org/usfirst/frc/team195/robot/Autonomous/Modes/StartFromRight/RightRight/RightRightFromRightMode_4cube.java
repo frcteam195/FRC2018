@@ -35,7 +35,7 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 				AutomatedActions.StopIntake())));
 		runAction(new SetElevatorHeightAction(ElevatorPosition.LOW));
 		runAction(new DrivePathAction(new RightRightFromRightStep3()));
-		runAction(AutomatedActions.OutakeCubeSlow());
+		runAction(AutomatedActions.OutakeCubeExtraFast());
 		runAction(AutomatedActions.StopIntake());
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightStep4()), AutomatedActions.ElevetorTo0())));
 		//runAction(new DrivePathAction(new RightRightFromRightStep4()));
@@ -48,7 +48,7 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightStep6()),
 												   AutomatedActions.LiftArmTo90(),
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PreparePlaceCubeOnScaleOverBack())))));
-		runAction(AutomatedActions.OutakeCubeMidSpeed());
+		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 ////		runAction(new DrivePathAction(new RightRightFromRightStep7()));
 ////		runAction(new DrivePathAction(new RightRightFromRightStep8Final()));
