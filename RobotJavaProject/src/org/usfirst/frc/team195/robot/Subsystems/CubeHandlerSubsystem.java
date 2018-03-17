@@ -289,7 +289,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report("Failed to zero Arm!!!", MessageLevel.DEFCON1);
 
 		mArmMotor.set(ControlMode.MotionMagic, homeArmValue);
-		setArmRotationDeg(homeArmValue);
+		setArmRotationDeg(homeArmValue / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree);
 		setArmControl(ArmControl.POSITION);
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
@@ -727,7 +727,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				setArmControl(ArmControl.OPEN_LOOP);
 			}
 
-			ConsoleReporter.report("Arm Talon has reset! Arm may require rehoming! We tried to prevent this for you, but who knows...  ¯\\\\_(ツ)_/¯", MessageLevel.DEFCON1);
+			ConsoleReporter.report("Arm Talon has reset! Arm may require rehoming! We tried to prevent this for you, but who knows...", MessageLevel.DEFCON1);
 
 			boolean setSucceeded;
 			int retryCounter = 0;
