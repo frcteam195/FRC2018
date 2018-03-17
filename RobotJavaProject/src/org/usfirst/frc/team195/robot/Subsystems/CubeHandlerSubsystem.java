@@ -267,6 +267,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	private boolean zeroArm(int homeArmValue) {
+		setArmControl(ArmControl.OFF);
 		mArmMotor.set(ControlMode.Disabled, 0);
 
 		boolean setSucceeded;
@@ -287,8 +288,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report("Failed to zero Arm!!!", MessageLevel.DEFCON1);
 
 		mArmMotor.set(ControlMode.MotionMagic, homeArmValue);
-		//setArmRotationDeg(Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
-
+		setArmRotationDeg(homeArmValue);
+		setArmControl(ArmControl.POSITION);
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
 
@@ -349,7 +350,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 						zeroArm(0);
 						setArmRotationDeg(ArmPosition.VERTICAL);
-						setArmControl(ArmControl.POSITION);
+//						setArmControl(ArmControl.POSITION);
 
 						if (Timer.getFPGATimestamp() - armHomingTimeStart > Constants.kArmHomingTimeout) {
 							setArmControl(ArmControl.OPEN_LOOP);
@@ -387,7 +388,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //						tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT ? tmpElevatorHeight :
 //								Util.limit(tmpElevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
-						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto) {
+						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
 							zeroElevator();
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
@@ -719,14 +720,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			//setArmControl(ArmControl.OPEN_LOOP);
 
 			if(armSensorPresent) {
-				setArmControl(ArmControl.OFF);
 				zeroArm((int) mPrevArmEncoderVal);
 			}
 			else {
 				setArmControl(ArmControl.OPEN_LOOP);
 			}
 
-			ConsoleReporter.report("Arm Talon has reset! Arm requires rehoming!", MessageLevel.DEFCON1);
+			ConsoleReporter.report("Arm Talon has reset! Arm may require rehoming! We tried to prevent this for you, but who knows...  ¯\\\\_(ツ)_/¯", MessageLevel.DEFCON1);
 
 			boolean setSucceeded;
 			int retryCounter = 0;
