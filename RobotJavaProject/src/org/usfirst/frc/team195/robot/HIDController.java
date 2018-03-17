@@ -160,6 +160,9 @@ public class HIDController implements Runnable {
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_ZERO) && cubeHandlerSubsystem.getArmControlMode() == ArmControl.OPEN_LOOP)
 			cubeHandlerSubsystem.setArmControl(ArmControl.HOMING);
 
+		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_MANUAL))
+			cubeHandlerSubsystem.setArmControl(ArmControl.OPEN_LOOP);
+
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_ATTACH_HOOK))
 			(new TeleopActionRunner(AutomatedActions.AttachHook(), Constants.kActionTimeoutS)).runAction();
 
@@ -168,12 +171,12 @@ public class HIDController implements Runnable {
 
 		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_MAIN))
 			climberSubsystem.climbMain(1);
-		else if (buttonBox2.getFallingEdgeButton(Constants.BB2_CLIMBER_CLIMB_MAIN))
+		else
 			climberSubsystem.climbMain(0);
 
 		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_PITCH))
 			climberSubsystem.climbPitch(1);
-		else if (buttonBox2.getFallingEdgeButton(Constants.BB2_CLIMBER_CLIMB_PITCH))
+		else
 			climberSubsystem.climbPitch(0);
 
 		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/4.0);

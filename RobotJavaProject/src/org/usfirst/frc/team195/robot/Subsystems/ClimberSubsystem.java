@@ -104,8 +104,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 			setSucceeded &= mClimberMotorMaster.configForwardSoftLimitThreshold((int) (Constants.kClimberSoftMax * Constants.kClimberEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configReverseSoftLimitThreshold((int) (Constants.kClimberSoftMin * Constants.kClimberEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mClimberMotorMaster.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mClimberMotorMaster.configReverseSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberMotorMaster.configForwardSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberMotorMaster.configReverseSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 

@@ -13,7 +13,7 @@ public class SetDisableCollisionPreventionAction implements Action {
 
 	@Override
 	public boolean isFinished() {
-		return (mCubeHandlerSubsystem.isCollisionPreventionDisabled() == disable);
+		return true;
 	}
 
 	@Override
