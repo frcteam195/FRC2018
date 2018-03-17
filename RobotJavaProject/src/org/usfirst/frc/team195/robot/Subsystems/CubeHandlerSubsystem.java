@@ -148,6 +148,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mIntakeMotor.setNeutralMode(NeutralMode.Brake);
 		mIntake2Motor.setNeutralMode(NeutralMode.Brake);
 
+		setIntakeClamp(false);
+
 		boolean setSucceeded;
 		int retryCounter = 0;
 

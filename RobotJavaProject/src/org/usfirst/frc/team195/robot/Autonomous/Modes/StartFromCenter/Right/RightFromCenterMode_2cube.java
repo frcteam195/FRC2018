@@ -30,9 +30,9 @@ public class RightFromCenterMode_2cube extends AutoModeBase {
 		//runAction(new DrivePathAction(pathContainer));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
-				new SetElevatorHeightAction(ElevatorPosition.LOW),
-				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
-						new SetArmRotationAction(ArmPosition.DOWN))))));
+												   new SetElevatorHeightAction(ElevatorPosition.LOW),
+												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
+																				  new SetArmRotationAction(ArmPosition.DOWN))))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
@@ -42,10 +42,10 @@ public class RightFromCenterMode_2cube extends AutoModeBase {
 //													   AutomatedActions.PreparePickupCube())))));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightFromCenterStep2()),
-				AutomatedActions.PreparePickupCube())));
+												   AutomatedActions.PreparePickupCube())));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightFromCenterStep3()),
-				new SetIntakeAction(IntakeControl.INTAKE_IN))));
+												   new SetIntakeAction(IntakeControl.INTAKE_IN))));
 
 		runAction(new WaitAction(0.1));
 		runAction(AutomatedActions.ClampIntake());
@@ -53,12 +53,12 @@ public class RightFromCenterMode_2cube extends AutoModeBase {
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightFromCenterStep4()),
-				AutomatedActions.LiftArmTo90())));
+												   AutomatedActions.LiftArmTo90())));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightFromCenterStep5Final()),
-				new SetElevatorHeightAction(ElevatorPosition.LOW),
-				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
-						new SetArmRotationAction(ArmPosition.DOWN))))));
+												   new SetElevatorHeightAction(ElevatorPosition.LOW),
+												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
+																				  new SetArmRotationAction(ArmPosition.DOWN))))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
