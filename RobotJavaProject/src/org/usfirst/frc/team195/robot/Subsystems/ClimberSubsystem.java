@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
@@ -33,6 +34,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	private SynchronousPIDF climberPitchControlPID;
 	private double mPrevTimestamp = 0;
 	private boolean climbWithPitchCorrection = false;
+	private Solenoid climberLockSolenoid;
 
 
 	private ClimberSubsystem() {
@@ -43,8 +45,10 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		mClimberMotorMaster = robotControllers.getClimberMotorMaster();
 		mClimberPitchControlMotor = robotControllers.getClimberPitchControlMotor();
 
+		climberLockSolenoid = robotControllers.getClimberLockSolenoid();
+
 		//TODO: Set climber initial control to position once tuned
-		mClimberControl = ClimberControl.OFF;
+		mClimberControl = ClimberControl.OPEN_LOOP;
 		mPrevClimberControl = ClimberControl.OFF;
 
 		climberPitchControlPID = new SynchronousPIDF(Constants.kClimberRollKp, Constants.kClimberRollKi, Constants.kClimberRollKd, Constants.kClimberRollKf);
@@ -173,7 +177,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 								mClimberPitchControlMotor.set(ControlMode.PercentOutput, Util.limit(mClimberMotorMaster.getMotorOutputPercent() + correctionVal, 1));
 							}
 							break;
-						case MANUAL:
+						case OPEN_LOOP:
 							break;
 						case OFF:
 						default:
@@ -291,6 +295,45 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 		climberFault = !climberSensorPresent;
 
+		if (mClimberMotorMaster.hasResetOccurred()) {
+			setClimberControl(ClimberControl.OPEN_LOOP);
+
+			ConsoleReporter.report("Climber requires rehoming!", MessageLevel.DEFCON1);
+
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = true;
+				setSucceeded &= mClimberMotorMaster.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to clear Elevator Reset !!!!!!", MessageLevel.DEFCON1);
+
+			climberFault = true;
+		}
+
 		return climberFault;
+	}
+
+	public synchronized void deployPlatform() {
+		climberLockSolenoid.set(true);
+	}
+
+	public synchronized void setOpenLoop(double mainOutput, double pitchOutput) {
+		setClimberControl(ClimberControl.OPEN_LOOP);
+		mClimberMotorMaster.set(ControlMode.PercentOutput, mainOutput);
+		mClimberPitchControlMotor.set(ControlMode.PercentOutput, pitchOutput);
+	}
+
+	public synchronized void climbMain(double mainOutput) {
+		setClimberControl(ClimberControl.OPEN_LOOP);
+		mClimberMotorMaster.set(ControlMode.PercentOutput, mainOutput);
+	}
+
+	public synchronized void climbPitch(double pitchOutput) {
+		setClimberControl(ClimberControl.OPEN_LOOP);
+		mClimberPitchControlMotor.set(ControlMode.PercentOutput, pitchOutput);
 	}
 }

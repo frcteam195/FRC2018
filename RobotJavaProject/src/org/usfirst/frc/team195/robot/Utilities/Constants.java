@@ -74,6 +74,10 @@ public class Constants {
 	public static final int BB1_REQUEST_CUBE_FROM_WALL = 10;
 
 	public static final int BB2_ARM_SET_ZERO = 1;
+	public static final int BB2_ARM_ATTACH_HOOK = 4;
+	public static final int BB2_CLIMBER_DEPLOY_PLATFORM = 5;
+	public static final int BB2_CLIMBER_CLIMB_MAIN = 6;
+	public static final int BB2_CLIMBER_CLIMB_PITCH = 7;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
@@ -315,8 +319,7 @@ public class Constants {
 	//TODO: Get list of solenoid IDs and input
 	// Solenoids
 	public static final int kIntakeSolenoidId = 0; // PCM 0, Solenoid 0
-	public static final int kClimberLockSolenoidId1 = 1; // PCM 0, Solenoid 0
-	public static final int kClimberLockSolenoidId2 = 2; // PCM 0, Solenoid 0
+	public static final int kClimberLockSolenoidId = 1; // PCM 0, Solenoid 0
 
 	//Digital Inputs
 	public static final int kElevatorHomeSwitchId = 0;

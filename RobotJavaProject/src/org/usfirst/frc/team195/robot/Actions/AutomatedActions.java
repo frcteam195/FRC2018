@@ -1,9 +1,6 @@
 package org.usfirst.frc.team195.robot.Actions;
 
-import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetArmRotationAction;
-import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetElevatorHeightAction;
-import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeAction;
-import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeClampAction;
+import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.*;
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
 import org.usfirst.frc.team195.robot.Actions.Framework.ParallelAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.SeriesAction;
@@ -141,6 +138,15 @@ public class AutomatedActions {
 
 	public static Action OutakeCubeALittleLessFast() {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
+	}
+
+	public static Action AttachHook() {
+		return new SeriesAction(Arrays.asList(new SetDisableCollisionPreventionAction(true),
+											  new SetArmRotationAction(ArmPosition.GET_CLIMBER_HOOK),
+											  new WaitAction(0.5),
+											  new SetElevatorHeightAction(ElevatorPosition.LIFT_HOOK),
+											  new SetArmRotationAction(ArmPosition.VERTICAL),
+											  new SetDisableCollisionPreventionAction(false)));
 	}
 
 }

@@ -36,7 +36,7 @@ public class Controllers {
 
 	private ShiftHelper shiftHelper = null;
 	private Solenoid intakeSolenoid;
-	private DoubleSolenoid climberLockSolenoid;
+	private Solenoid climberLockSolenoid;
 
 	private CANifier canifierLED;
 
@@ -89,7 +89,7 @@ public class Controllers {
 		climberPitchControlMotor = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel);
 
 		intakeSolenoid = new Solenoid(Constants.kIntakeSolenoidId);
-		climberLockSolenoid = new DoubleSolenoid(Constants.kClimberLockSolenoidId1, Constants.kClimberLockSolenoidId2);
+		climberLockSolenoid = new Solenoid(Constants.kClimberLockSolenoidId);
 
 		//NO SHIFTER THIS YEAR! Do not instantiate; leave set to null
 		//shiftHelper = new ShiftHelper(Constants.kShifterSolenoidId, Constants.kShifterSolenoidId2);
@@ -230,7 +230,7 @@ public class Controllers {
 		return intakeSolenoid;
 	}
 
-	public DoubleSolenoid getClimberLockSolenoid() {
+	public Solenoid getClimberLockSolenoid() {
 		return climberLockSolenoid;
 	}
 

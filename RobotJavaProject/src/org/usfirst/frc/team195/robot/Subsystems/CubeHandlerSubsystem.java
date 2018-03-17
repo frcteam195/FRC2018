@@ -1,14 +1,13 @@
 package org.usfirst.frc.team195.robot.Subsystems;
 
 import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
 import org.usfirst.frc.team195.robot.LEDController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -73,6 +72,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private double mPrevArmOpenLoopDriveVal = 0;
 
 	private double mPrevArmEncoderVal = 0;
+
+	private boolean disableCollisionPrevention = false;
 
 
 
@@ -325,9 +326,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 						//Collision interference avoidance
 						//Check both, actual, and requested
-						double tmpArmRotation = elevatorHeight >= ElevatorPosition.ARM_COLLISION_POINT ? armRotation :
+						double tmpArmRotation = elevatorHeight >= ElevatorPosition.ARM_COLLISION_POINT || disableCollisionPrevention ? armRotation :
 								Util.limit(armRotation, 0, Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
-						tmpArmRotation = getElevatorHeight() >= ElevatorPosition.ARM_COLLISION_POINT ? tmpArmRotation :
+						tmpArmRotation = getElevatorHeight() >= ElevatorPosition.ARM_COLLISION_POINT || disableCollisionPrevention ? tmpArmRotation :
 								Util.limit(tmpArmRotation, 0, Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
 //						SmartDashboard.putNumber("ArmTmp", tmpArmRotation);
 						if (tmpArmRotation != mPrevArmRotation) {
@@ -382,7 +383,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 						//Collision interference avoidance
 						//Check elevator actual and requested
-						double tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT ? elevatorHeight :
+						double tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT || disableCollisionPrevention ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 						//TODO: Check this limit V
 //						tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT ? tmpElevatorHeight :
@@ -935,6 +936,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public boolean hasCube() {
 		return mCubeSensor.get();
+	}
+
+	public synchronized void setDisableCollisionPrevention(boolean disable) {
+		this.disableCollisionPrevention = disable;
+	}
+
+	public boolean isCollisionPreventionDisabled() {
+		return disableCollisionPrevention;
 	}
 }
 
