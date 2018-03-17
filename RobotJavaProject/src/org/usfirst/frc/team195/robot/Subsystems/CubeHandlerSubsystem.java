@@ -208,6 +208,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			mIntakeMotor.enableCurrentLimit(false);
 			mElevatorMotorMaster.enableCurrentLimit(true);
 
+			setSucceeded &= mIntakeMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mIntake2Motor.configReverseSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
+
 			setSucceeded &= mArmMotor.configForwardSoftLimitThreshold((int) (Constants.kArmSoftMax * Constants.kArmEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configReverseSoftLimitThreshold((int) (Constants.kArmSoftMin * Constants.kArmEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mArmMotor.configForwardSoftLimitEnable(true, Constants.kTimeoutMs) == ErrorCode.OK;

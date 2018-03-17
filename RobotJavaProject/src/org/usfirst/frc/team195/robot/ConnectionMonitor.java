@@ -68,7 +68,6 @@ public class ConnectionMonitor extends Thread {
             else {
                 mLED.setLEDColor(Constants.kCommLossColor);
                 mLED.setMessage("sos", true);
-                //mLED.setRequestedState(LEDController.LEDState.BLINK);
             }
 
             if (mJustReconnected.update(hasConnection))
