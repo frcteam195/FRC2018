@@ -163,8 +163,10 @@ public class HIDController implements Runnable {
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_MANUAL))
 			cubeHandlerSubsystem.setArmControl(ArmControl.OPEN_LOOP);
 
-		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_ATTACH_HOOK))
-			(new TeleopActionRunner(AutomatedActions.AttachHook(), Constants.kActionTimeoutS)).runAction();
+		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_ATTACH_HOOK)) {
+			ConsoleReporter.report("Attach hook pressed!");
+			(new TeleopActionRunner(AutomatedActions.AttachHook(), 4)).runAction();
+		}
 
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_CLIMBER_DEPLOY_PLATFORM))
 			climberSubsystem.deployPlatform();

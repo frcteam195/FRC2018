@@ -1,10 +1,11 @@
 package org.usfirst.frc.team195.robot.Actions.CubeHandlerActions;
 
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 
 public class SetDisableCollisionPreventionAction implements Action {
-	private boolean disable = false;
+	private boolean disable;
 	private CubeHandlerSubsystem mCubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
 
 	public SetDisableCollisionPreventionAction(boolean disable) {
@@ -13,7 +14,7 @@ public class SetDisableCollisionPreventionAction implements Action {
 
 	@Override
 	public boolean isFinished() {
-		return true;
+		return mCubeHandlerSubsystem.isCollisionPreventionDisabled() == disable;
 	}
 
 	@Override
@@ -28,6 +29,7 @@ public class SetDisableCollisionPreventionAction implements Action {
 
 	@Override
 	public void start() {
+		ConsoleReporter.report("Disable Collision Action! : " + disable);
 		mCubeHandlerSubsystem.setDisableCollisionPrevention(disable);
 	}
 }

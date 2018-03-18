@@ -321,6 +321,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //				SmartDashboard.putBoolean("ElevatorHomeSwitch", mElevatorHomeSwitch.get());
 //				SmartDashboard.putString("ElevatorControlMode", mElevatorControl.toString());
 //				SmartDashboard.putString("ArmControlMode", mArmControl.toString());
+//				ConsoleReporter.report("Disable collision: " + isCollisionPreventionDisabled());
 				switch (mArmControl) {
 					case POSITION:
 						if (collisionOccurring && !isAuto) {

@@ -91,6 +91,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			setSucceeded = true;
 
 			setSucceeded &= mClimberMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberPitchControlMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mClimberMotorMaster.configContinuousCurrentLimit(Constants.kClimberMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configPeakCurrentLimit(Constants.kClimberMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -107,6 +108,9 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			setSucceeded &= mClimberMotorMaster.configForwardSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configReverseSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
 
+			setSucceeded &= mClimberPitchControlMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberPitchControlMotor.configReverseSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
+
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
 		setSucceeded &= TalonHelper.setPIDGains(mClimberMotorMaster, 0, Constants.kClimberKp, Constants.kClimberKi, Constants.kClimberKd, Constants.kClimberKf, Constants.kClimberRampRate, Constants.kClimberIZone);
@@ -120,6 +124,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 	@Override
 	public void subsystemHome() {
+		mClimberMotorMaster.set(ControlMode.Disabled, 0);
 		mClimberMotorMaster.set(ControlMode.Disabled, 0);
 
 		int homeClimberValue = (int)(Constants.kClimberSoftMax * Constants.kClimberEncoderGearRatio * Constants.kSensorUnitsPerRotation);
@@ -145,7 +150,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		@Override
 		public void onFirstStart(double timestamp) {
 			synchronized (ClimberSubsystem.this) {
-				subsystemHome();
+				//subsystemHome();
 			}
 		}
 
@@ -286,7 +291,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		boolean climberSensorPresent = mClimberMotorMaster.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
 
 		if (!climberSensorPresent) {
-			setClimberControl(ClimberControl.OFF);
+			setClimberControl(ClimberControl.OPEN_LOOP);
 
 			String msg = "Could not detect encoder! \r\n\tClimber Encoder Detected: " + climberSensorPresent;
 			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
