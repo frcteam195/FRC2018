@@ -157,16 +157,25 @@ public class HIDController implements Runnable {
 			}
 		}
 
-		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_ZERO) && cubeHandlerSubsystem.getArmControlMode() == ArmControl.OPEN_LOOP)
+		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_ZERO) && cubeHandlerSubsystem.getArmControlMode() == ArmControl.OPEN_LOOP) {
 			cubeHandlerSubsystem.setArmControl(ArmControl.HOMING);
-
-		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_MANUAL))
-			cubeHandlerSubsystem.setArmControl(ArmControl.OPEN_LOOP);
-
-		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_ATTACH_HOOK)) {
-			ConsoleReporter.report("Attach hook pressed!");
-			(new TeleopActionRunner(AutomatedActions.AttachHook(), 4)).runAction();
+			cubeHandlerSubsystem.setDisableCollisionPrevention(false);
 		}
+
+		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_MANUAL)) {
+			cubeHandlerSubsystem.setDisableCollisionPrevention(true);
+			cubeHandlerSubsystem.setArmControl(ArmControl.OPEN_LOOP);
+		}
+
+//		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_REENABLE_POSITION)) {
+//			cubeHandlerSubsystem.setDisableCollisionPrevention(false);
+//			cubeHandlerSubsystem.setArmControl(ArmControl.POSITION);
+//		}
+
+//		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_ATTACH_HOOK)) {
+//			ConsoleReporter.report("Attach hook pressed!");
+//			(new TeleopActionRunner(AutomatedActions.AttachHook(), 4)).runAction();
+//		}
 
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_CLIMBER_DEPLOY_PLATFORM))
 			climberSubsystem.deployPlatform();

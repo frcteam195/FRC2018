@@ -75,7 +75,7 @@ public class Constants {
 
 	public static final int BB2_ARM_SET_ZERO = 1;
 	public static final int BB2_ARM_SET_MANUAL = 2;
-	public static final int BB2_ARM_ATTACH_HOOK = 4;
+	public static final int BB2_ARM_REENABLE_POSITION = 3;
 	public static final int BB2_CLIMBER_DEPLOY_PLATFORM = 5;
 	public static final int BB2_CLIMBER_CLIMB_MAIN = 6;
 	public static final int BB2_CLIMBER_CLIMB_PITCH = 7;
