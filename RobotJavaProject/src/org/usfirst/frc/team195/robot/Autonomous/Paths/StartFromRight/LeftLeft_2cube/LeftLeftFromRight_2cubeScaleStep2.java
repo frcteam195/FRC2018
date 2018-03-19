@@ -12,7 +12,7 @@ public class LeftLeftFromRight_2cubeScaleStep2 implements PathContainer {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(232,248,0,0));
 		sWaypoints.add(new Waypoint(265,257,15,20,"PreparePlaceCube"));
-		sWaypoints.add(new Waypoint(290,257,0,20));
+		sWaypoints.add(new Waypoint(290,248,0,20));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
@@ -26,7 +26,7 @@ public class LeftLeftFromRight_2cubeScaleStep2 implements PathContainer {
 	public boolean isReversed() {
 		return true;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":232,"y":248},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":265,"y":257},"speed":20,"radius":15,"marker":"PreparePlaceCube","comment":""},{"position":{"x":290,"y":257},"speed":20,"radius":0,"marker":"","comment":""}]
+	// WAYPOINT_DATA: [{"position":{"x":232,"y":248},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":265,"y":257},"speed":20,"radius":15,"marker":"PreparePlaceCube","comment":""},{"position":{"x":290,"y":248},"speed":20,"radius":0,"marker":"","comment":""}]
 	// IS_REVERSED: true
 	// FILE_NAME: LeftLeftFromRight_2cubeScaleStep2
 }

@@ -12,7 +12,7 @@ public class RightRightFromRightGOBACK implements PathContainer {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(228,90,0,0));
 		sWaypoints.add(new Waypoint(257,82,15,20,"PreparePlaceCube"));
-		sWaypoints.add(new Waypoint(286,86,0,20));
+		sWaypoints.add(new Waypoint(286,89,0,20));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
@@ -26,7 +26,7 @@ public class RightRightFromRightGOBACK implements PathContainer {
 	public boolean isReversed() {
 		return true;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":228,"y":90},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":257,"y":82},"speed":20,"radius":15,"marker":"PreparePlaceCube","comment":""},{"position":{"x":286,"y":86},"speed":20,"radius":0,"marker":"","comment":""}]
+	// WAYPOINT_DATA: [{"position":{"x":228,"y":90},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":257,"y":82},"speed":20,"radius":15,"marker":"PreparePlaceCube","comment":""},{"position":{"x":286,"y":89},"speed":20,"radius":0,"marker":"","comment":""}]
 	// IS_REVERSED: true
 	// FILE_NAME: RightRightFromRightGOBACK
 }
