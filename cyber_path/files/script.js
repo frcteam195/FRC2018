@@ -416,7 +416,7 @@ function addPoint(x, y, radius) {
 		+"<td><input value='60'></td>"
 		+"<td class='marker'><input placeholder='Marker'></td>"
 		+"<td class='comments'><input placeholder='Comments'></td>"
-		+"<td><button onclick='$(this).parent().parent().remove();update()'>Delete</button></td></tr>"
+		+"<td><button onclick='$(this).parent().parent().remove();update();'>Delete</button></td></tr>"
 	);
 	update();
 	$('input').unbind("change paste keyup");
@@ -550,6 +550,9 @@ function getPoint(i) {
 		return waypoints[i];
 }
 
+/**
+ * Import from waypoint data, not json data
+ */
 function importData() {
 	$('#upl').click();
 	let u = $('#upl')[0];
@@ -558,31 +561,58 @@ function importData() {
 		var fr = new FileReader();
 		fr.onload = function(e) {
 			var c = fr.result;
-			let re = /(?:\/\/\sWAYPOINT_DATA:\s)(.*)/gm;
-			let reversed = /(?:\/\/\sIS_REVERSED:\s)(.*)/gm;
-			let title = /(?:\/\/\sFILE_NAME:\s)(.*)/gm;
-			//console.log();
-			$("#title").val(title.exec(c)[1]);
-			$("#isReversed").prop('checked', reversed.exec(c)[1].includes("true"));
-			let jde = re.exec(c)[1];
-			let jd = JSON.parse(jde);
-			// console.log(jd);
-			waypoints = []
-			$("tbody").empty();
-			jd.forEach((wpd) => {
-				let wp = new Waypoint(new Translation2d(wpd.position.x, wpd.position.y), wpd.speed, wpd.radius, wpd.marker, wpd.comment);
-				// console.log(wp);
-				$("tbody").append("<tr>"
-					+"<td><input value='" + wp.position.x + "'></td>"
-					+"<td><input value='" + wp.position.y + "'></td>"
-					+"<td><input value='" + wp.radius + "'></td>"
-					+"<td><input value='" + wp.speed + "'></td>"
-					+"<td class='marker'><input placeholder='Marker' value='" + wp.marker + "'></td>"
-					+"<td class='comments'><input placeholder='Comments' value='" + wp.comment + "'></td>"
-					+"<td><button onclick='$(this).parent().parent().remove();''>Delete</button></td></tr>"
-				);
-			})
-			update();
+			var s1 = c.split("\n");
+			var tmp = [];
+			let searchString1 = "new Waypoint(";
+            let searchString2 = ")";
+			let searchReversed1 = "public boolean isReversed() {";
+			let searchReversed2 = "}";
+			let searchName1 = "public class";
+			let searchName2 = "implements";
+            $("#title").val(c.split(searchName1)[1].split(searchName2)[0].trim());
+            $("#isReversed").prop('checked', c.split(searchReversed1)[1].split(searchReversed2)[0].trim().includes("true"));
+
+			s1.forEach((line) => {
+				if (line.indexOf("//") != 0 && line.indexOf(searchString1) >= 0) {
+					tmp.push(line.split(searchString1)[1].split(searchString2)[0].split(","));
+				}
+			});
+
+            waypoints = [];
+            $("tbody").empty();
+			tmp.forEach((wptmp) => {
+				var wp;
+				var x = 0;
+				var y = 0;
+				var radius = 0;
+				var speed = 0;
+				var marker = "";
+				var comment = "";
+				if (wptmp.length >= 4) {
+                    x = wptmp[0];
+                    y = wptmp[1];
+                    radius = wptmp[2];
+                    speed = wptmp[3];
+				}
+				if (wptmp.length >= 5) {
+                    marker = wptmp[4];
+				}
+				if (wptmp.length >= 6) {
+                    comment = wptmp[5];
+                }
+                wp = new Waypoint(new Translation2d(x, y), speed, radius, marker, comment);
+                $("tbody").append("<tr>"
+                    +"<td><input value='" + wp.position.x + "'></td>"
+                    +"<td><input value='" + wp.position.y + "'></td>"
+                    +"<td><input value='" + wp.radius + "'></td>"
+                    +"<td><input value='" + wp.speed + "'></td>"
+                    +"<td class='marker'><input placeholder='Marker' value='" + wp.marker + "'></td>"
+                    +"<td class='comments'><input placeholder='Comments' value='" + wp.comment + "'></td>"
+                    +"<td><button onclick='$(this).parent().parent().remove();update();''>Delete</button></td></tr>"
+                );
+			});
+            update();
+
 			$('input').unbind("change paste keyup");
 			$('input').bind("change paste keyup", function() {
 				console.log("change");
@@ -591,11 +621,102 @@ function importData() {
 					update();
 				}, 500);
 			});
+
 		}
 		fr.readAsText(file);
 	});
     update();
 }
+
+//JSON Functions
+// function importData() {
+// 	$('#upl').click();
+// 	let u = $('#upl')[0];
+// 	$('#upl').change(() => {
+// 		var file =  u.files[0];
+// 		var fr = new FileReader();
+// 		fr.onload = function(e) {
+// 			var c = fr.result;
+// 			let re = /(?:\/\/\sWAYPOINT_DATA:\s)(.*)/gm;
+// 			let reversed = /(?:\/\/\sIS_REVERSED:\s)(.*)/gm;
+// 			let title = /(?:\/\/\sFILE_NAME:\s)(.*)/gm;
+// 			//console.log();
+// 			$("#title").val(title.exec(c)[1]);
+// 			$("#isReversed").prop('checked', reversed.exec(c)[1].includes("true"));
+// 			let jde = re.exec(c)[1];
+// 			let jd = JSON.parse(jde);
+// 			// console.log(jd);
+// 			waypoints = []
+// 			$("tbody").empty();
+// 			jd.forEach((wpd) => {
+// 				let wp = new Waypoint(new Translation2d(wpd.position.x, wpd.position.y), wpd.speed, wpd.radius, wpd.marker, wpd.comment);
+// 				// console.log(wp);
+// 				$("tbody").append("<tr>"
+// 					+"<td><input value='" + wp.position.x + "'></td>"
+// 					+"<td><input value='" + wp.position.y + "'></td>"
+// 					+"<td><input value='" + wp.radius + "'></td>"
+// 					+"<td><input value='" + wp.speed + "'></td>"
+// 					+"<td class='marker'><input placeholder='Marker' value='" + wp.marker + "'></td>"
+// 					+"<td class='comments'><input placeholder='Comments' value='" + wp.comment + "'></td>"
+// 					+"<td><button onclick='$(this).parent().parent().remove();''>Delete</button></td></tr>"
+// 				);
+// 			})
+// 			update();
+// 			$('input').unbind("change paste keyup");
+// 			$('input').bind("change paste keyup", function() {
+// 				console.log("change");
+// 				clearTimeout(wto);
+// 					wto = setTimeout(function() {
+// 					update();
+// 				}, 500);
+// 			});
+// 		}
+// 		fr.readAsText(file);
+// 	});
+//     update();
+// }
+//
+// function getDataString() {
+// 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
+// 	var pathInit = "";
+// 	for(var i=0; i<waypoints.length; i++) {
+// 		pathInit += "        " + waypoints[i].toString() + "\n";
+// 	}
+// 	var startPoint = "new Translation2d(" + waypoints[0].position.x + ", " + waypoints[0].position.y + ")";
+// 	var importStr = "WAYPOINT_DATA: " + JSON.stringify(waypoints);
+// 	var isReversed = $("#isReversed").is(':checked');
+// 	var deg = isReversed ? 180 : 0;
+// 	var str = `package org.usfirst.frc.team195.robot.Autonomous.Paths;
+//
+// import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
+// import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
+//
+// import java.util.ArrayList;
+//
+// public class ${title} implements PathContainer {
+//
+//     @Override
+//     public Path buildPath() {
+//         ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
+// ${pathInit}
+//         return PathBuilder.buildPathFromWaypoints(sWaypoints);
+//     }
+//
+//     @Override
+//     public RigidTransform2d getStartPose() {
+//         return new RigidTransform2d(${startPoint}, Rotation2d.fromDegrees(${deg}));
+//     }
+//
+//     @Override
+//     public boolean isReversed() {
+//         return ${isReversed};
+//     }
+// 	// ${importStr}
+// 	// IS_REVERSED: ${isReversed}
+// 	// FILE_NAME: ${title}
+// }`
+// 	return str;
+// }
 
 function getDataString() {
 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
@@ -604,7 +725,6 @@ function getDataString() {
 		pathInit += "        " + waypoints[i].toString() + "\n";
 	}
 	var startPoint = "new Translation2d(" + waypoints[0].position.x + ", " + waypoints[0].position.y + ")";
-	var importStr = "WAYPOINT_DATA: " + JSON.stringify(waypoints);
 	var isReversed = $("#isReversed").is(':checked');
 	var deg = isReversed ? 180 : 0;
 	var str = `package org.usfirst.frc.team195.robot.Autonomous.Paths;
@@ -632,10 +752,7 @@ ${pathInit}
     public boolean isReversed() {
         return ${isReversed}; 
     }
-	// ${importStr}
-	// IS_REVERSED: ${isReversed}
-	// FILE_NAME: ${title}
-}`
+}`;
 	return str;
 }
 
