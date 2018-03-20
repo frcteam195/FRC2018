@@ -74,7 +74,7 @@ public class NavX {
         mAngleAdjustment = adjustment;
     }
 
-    protected synchronized double getRawYawDegrees() {
+    public synchronized double getRawYawDegrees() {
         return mYawDegrees;
     }
 
@@ -100,10 +100,6 @@ public class NavX {
 
     public double getRawAccelX() {
         return mAHRS.getRawAccelX();
-    }
-
-    public double getRawYaw() {
-        return mAHRS.getYaw();
     }
 
     public synchronized void setCollisionJerkThreshold(double jerkCollisionThreshold) {

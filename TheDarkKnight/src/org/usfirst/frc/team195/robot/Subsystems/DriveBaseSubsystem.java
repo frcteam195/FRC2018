@@ -75,9 +75,10 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 					case VELOCITY:
 						break;
 					case TURN_TO_HEADING:
-						double currentAngle = mNavXBoard.getRawYaw();
+						//TODO: Test now with updated heading vals
+						double currentAngle = mNavXBoard.getRawYawDegrees();
 						double val = turnToHeadingPID.calculate(currentAngle, timestamp - mPrevTurnTime);
-						setDriveVelocity(new DriveMotorValues(val, -val), false);
+						setDriveVelocity(new DriveMotorValues(-val, val), false);
 						mPrevTurnTime = timestamp;
 						if (Math.abs(currentAngle - turnToHeadingPID.getSetpoint()) < 2) {
 							setDoneWithTurn(true);
@@ -463,7 +464,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		if (headingIsAbsolute)
 			turnToHeadingPID.setSetpoint(headingDeg);
 		else
-			turnToHeadingPID.setSetpoint(headingDeg + mNavXBoard.getRawYaw());
+			turnToHeadingPID.setSetpoint(headingDeg + mNavXBoard.getRawYawDegrees());
 
 		turnToHeadingPID.resetIntegrator();
 		setDoneWithTurn(false);
