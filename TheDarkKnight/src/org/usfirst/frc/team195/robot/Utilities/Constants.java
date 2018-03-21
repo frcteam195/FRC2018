@@ -11,6 +11,7 @@ public class Constants {
 	public static final RGBColor kCommLossColor = new RGBColor(255, 0, 0);
 	public static final RGBColor kRequestCubeColor = new RGBColor(0, 255, 0);
 	public static final RGBColor kGotCubeColor = kDefaultColor;
+	public static final RGBColor kElevatorHomeColor = new RGBColor(211, 204, 0);
 
 
 	public static final boolean ENABLE_DRIVE_DIAG = false;

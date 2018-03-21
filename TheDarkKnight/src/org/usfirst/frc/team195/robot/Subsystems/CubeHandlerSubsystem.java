@@ -399,7 +399,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
 							zeroElevator();
-							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta);
+							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
 
@@ -417,7 +417,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						if (!mElevatorHomeSwitch.get()) {
 							zeroElevator();
 							setElevatorControl(ElevatorControl.POSITION);
-							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta);
+							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
+							ledController.configureBlink(3, LEDController.kDefaultBlinkDuration);
+							ledController.setLEDColor(Constants.kElevatorHomeColor);
+							ledController.setRequestedState(LEDController.LEDState.BLINK);
 						}
 
 						if (Timer.getFPGATimestamp() - elevatorHomingTimeStart > Constants.kElevatorHomingTimeout) {
