@@ -27,9 +27,11 @@ public abstract class FieldProfile {
 	double mBlueRightScaleToBackWall;
 	double mBlueRightScaleToSideWall;
 
+	double mSideWalltoSideWall;
+
 
 	public Translation2d getLeftBlueSwitch() {
-		return new Translation2d(mBlueBackLeftSwitchToBackWall, mBlueLeftSwitchToSideWall);
+		return new Translation2d(mBlueBackLeftSwitchToBackWall, mSideWalltoSideWall - mBlueLeftSwitchToSideWall);
 	}
 
 	public Translation2d getRightBlueSwitch() {
@@ -37,7 +39,7 @@ public abstract class FieldProfile {
 	}
 
 	public Translation2d getLeftBlueScale() {
-		return new Translation2d(mBlueLeftScaleToBackWall, mBlueLeftScaleToSideWall);
+		return new Translation2d(mBlueLeftScaleToBackWall, mSideWalltoSideWall - mBlueLeftScaleToSideWall);
 	}
 
 	public Translation2d getRightBlueScale() {
@@ -45,7 +47,7 @@ public abstract class FieldProfile {
 	}
 
 	public Translation2d getLeftRedSwitch() {
-		return new Translation2d(mRedBackLeftSwitchToBackWall, mRedLeftSwitchToSideWall);
+		return new Translation2d(mRedBackLeftSwitchToBackWall, mSideWalltoSideWall - mRedLeftSwitchToSideWall);
 	}
 
 	public Translation2d getRightRedSwitch() {
@@ -53,7 +55,7 @@ public abstract class FieldProfile {
 	}
 
 	public Translation2d getLeftRedScale() {
-		return new Translation2d(mRedLeftScaleToBackWall, mRedLeftScaleToSideWall);
+		return new Translation2d(mRedLeftScaleToBackWall, mSideWalltoSideWall - mRedLeftScaleToSideWall);
 	}
 
 	public Translation2d getRightRedScale() {

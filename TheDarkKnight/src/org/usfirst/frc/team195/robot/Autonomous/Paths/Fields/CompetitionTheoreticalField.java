@@ -1,8 +1,5 @@
 package org.usfirst.frc.team195.robot.Autonomous.Paths.Fields;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
-
 public class CompetitionTheoreticalField extends FieldProfile {
 
 	public CompetitionTheoreticalField() {
@@ -29,6 +26,8 @@ public class CompetitionTheoreticalField extends FieldProfile {
 		mBlueRightSwitchToSideWall = 85.25;
 		mBlueRightScaleToBackWall = 299.65;
 		mBlueRightScaleToSideWall = 71.57;
+
+		mSideWalltoSideWall = 324;
 	}
 
 }

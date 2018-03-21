@@ -1,8 +1,5 @@
 package org.usfirst.frc.team195.robot.Autonomous.Paths.Fields;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
-
 public class PracticeField extends FieldProfile {
 	public PracticeField() {
 		mRedFrontLeftSwitchToBackWall = 141;
@@ -28,5 +25,7 @@ public class PracticeField extends FieldProfile {
 		mBlueRightSwitchToSideWall = 84.75;
 		mBlueRightScaleToBackWall = 297;
 		mBlueRightScaleToSideWall = 72.75;
+
+		mSideWalltoSideWall = 324.5;
 	}
 }
