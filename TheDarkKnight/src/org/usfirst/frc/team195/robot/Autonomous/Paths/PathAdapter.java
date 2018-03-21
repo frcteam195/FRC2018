@@ -1,25 +1,66 @@
 package org.usfirst.frc.team195.robot.Autonomous.Paths;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.CompetitionTheoreticalField;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.FieldProfile;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.PracticeField;
+import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.TestingField;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
 
+import java.sql.Driver;
+
 public class PathAdapter {
+	private static final DriverStation ds = DriverStation.getInstance();
+
 	private static FieldProfile kReferenceField = new PracticeField();
-	private static FieldProfile kCurrentField = new CompetitionTheoreticalField();
+	private static FieldProfile kCurrentField = new TestingField();
 
-	private static double switchXTransform = kCurrentField.getSwitchX() - kReferenceField.getSwitchX();
-	private static double scaleXTransform = kCurrentField.getScaleX() - kReferenceField.getScaleX();
+	private static Translation2d leftBlueSwitchTransform = kCurrentField.getLeftBlueSwitch().translateBy(kReferenceField.getLeftBlueSwitch().inverse());
+	private static Translation2d rightBlueSwitchTransform = kCurrentField.getRightBlueSwitch().translateBy(kReferenceField.getRightBlueSwitch().inverse());
+	private static Translation2d leftBlueScaleTransform = kCurrentField.getLeftBlueScale().translateBy(kReferenceField.getLeftBlueScale().inverse());
+	private static Translation2d rightBlueScaleTransform = kCurrentField.getRightBlueScale().translateBy(kReferenceField.getRightBlueScale().inverse());
 
-	public static Waypoint getAdaptedSwitchWaypoint(Waypoint input) {
-		input.setPosition(input.getPosition().translateBy(new Translation2d(switchXTransform, 0)));
+	private static Translation2d leftRedSwitchTransform = kCurrentField.getLeftRedSwitch().translateBy(kReferenceField.getLeftRedSwitch().inverse());
+	private static Translation2d rightRedSwitchTransform = kCurrentField.getRightRedSwitch().translateBy(kReferenceField.getRightRedSwitch().inverse());
+	private static Translation2d leftRedScaleTransform = kCurrentField.getLeftRedScale().translateBy(kReferenceField.getLeftRedScale().inverse());
+	private static Translation2d rightRedScaleTransform = kCurrentField.getRightRedScale().translateBy(kReferenceField.getRightRedScale().inverse());
+
+	public static Waypoint getAdaptedLeftSwitchWaypoint(Waypoint input) {
+		if (ds.getAlliance() == DriverStation.Alliance.Blue)
+			input.setPosition(input.getPosition().translateBy(leftBlueSwitchTransform));
+		else
+			input.setPosition(input.getPosition().translateBy(leftRedSwitchTransform));
+
 		return input;
 	}
 
-	public static Waypoint getAdaptedScaleWaypoint(Waypoint input) {
-		input.setPosition(input.getPosition().translateBy(new Translation2d(scaleXTransform, 0)));
+	public static Waypoint getAdaptedRightSwitchWaypoint(Waypoint input) {
+		if (ds.getAlliance() == DriverStation.Alliance.Blue)
+			input.setPosition(input.getPosition().translateBy(rightBlueSwitchTransform));
+		else
+			input.setPosition(input.getPosition().translateBy(rightRedSwitchTransform));
+
 		return input;
 	}
+
+	public static Waypoint getAdaptedLeftScaleWaypoint(Waypoint input) {
+		if (ds.getAlliance() == DriverStation.Alliance.Blue)
+			input.setPosition(input.getPosition().translateBy(leftBlueScaleTransform));
+		else
+			input.setPosition(input.getPosition().translateBy(leftRedScaleTransform));
+
+		return input;
+	}
+
+	public static Waypoint getAdaptedRightScaleWaypoint(Waypoint input) {
+		if (ds.getAlliance() == DriverStation.Alliance.Blue)
+			input.setPosition(input.getPosition().translateBy(rightBlueScaleTransform));
+		else
+			input.setPosition(input.getPosition().translateBy(rightRedScaleTransform));
+
+		return input;
+	}
+
+
 }

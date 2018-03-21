@@ -572,12 +572,23 @@ function importData() {
             $("#isReversed").prop('checked', c.split(searchReversed1)[1].split(searchReversed2)[0].trim().includes("true"));
             if (c.indexOf(searchAdaption1) >= 0) {
                 var adaptStr = c.split(searchAdaption1)[1].split(searchAdaption2)[0].trim();
-                if (adaptStr === "getAdaptedSwitchWaypoint")
-                	$("#adaptionValue").val("switch").prop('selected', true);
-                else if (adaptStr === "getAdaptedScaleWaypoint")
-                    $("#adaptionValue").val("scale").prop('selected', true);
-                else
-                    $("#adaptionValue").val("none").prop('selected', true);
+                switch (adaptStr) {
+					case "getAdaptedLeftSwitchWaypoint":
+                        $("#adaptionValue").val("switchleft").prop('selected', true);
+                        break;
+                    case "getAdaptedRightSwitchWaypoint":
+                        $("#adaptionValue").val("switchright").prop('selected', true);
+                        break;
+                    case "getAdaptedLeftScaleWaypoint":
+                        $("#adaptionValue").val("scaleleft").prop('selected', true);
+                        break;
+                    case "getAdaptedRightScaleWaypoint":
+                        $("#adaptionValue").val("scaleright").prop('selected', true);
+                        break;
+					default:
+                        $("#adaptionValue").val("none").prop('selected', true);
+                        break;
+				}
             } else {
                 $("#adaptionValue").val("none").prop('selected', true);
 			}
@@ -727,16 +738,32 @@ function importData() {
 function getDataString() {
 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
 	var pathInit = "";
-    var adaptVal = $("#adaptionValue").val();
+    var adaptStr = $("#adaptionValue").val();
 	for(var i=0; i<waypoints.length; i++) {
-		if (i == waypoints.length - 1 && adaptVal !== "none") {
-			if (adaptVal === "scale")
-                pathInit += "        sWaypoints.add(PathAdapter.getAdaptedScaleWaypoint(" + waypoints[i].toString() + "));\n";
-			else
-                pathInit += "        sWaypoints.add(PathAdapter.getAdaptedSwitchWaypoint(" + waypoints[i].toString() + "));\n";
-		} else {
-            pathInit += "        sWaypoints.add(" + waypoints[i].toString() + ");\n";
-        }
+		pathInit += "        sWaypoints.add(";
+
+		if (i == waypoints.length - 1) {
+            switch (adaptStr) {
+                case "scaleleft":
+                    pathInit += "PathAdapter.getAdaptedLeftScaleWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                case "scaleright":
+                    pathInit += "PathAdapter.getAdaptedRightScaleWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                case "switchleft":
+                    pathInit += "PathAdapter.getAdaptedLeftSwitchWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                case "switchright":
+                    pathInit += "PathAdapter.getAdaptedRightSwitchWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                default:
+                	pathInit += waypoints[i].toString();
+                    break;
+            }
+		} else
+            pathInit += waypoints[i].toString();
+
+		pathInit += ");\n";
 	}
 	var startPoint = "new Translation2d(" + waypoints[0].position.x + ", " + waypoints[0].position.y + ")";
 	var isReversed = $("#isReversed").is(':checked');

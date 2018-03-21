@@ -2,22 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a6c4234-4227-40c6-800f-338f58e70ba5" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/RobotJavaProject/.idea/workspace.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/AutoModeSample.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/CubeToScaleLeft.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/ScaleCloseIn.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartToCubeLeft.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/SwitchCubeThenScaleMode.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/cyber_path/.idea/workspace.xml" afterPath="$PROJECT_DIR$/cyber_path/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/cyber_path/files/script.js" afterPath="$PROJECT_DIR$/cyber_path/files/script.js" />
-      <change beforePath="$PROJECT_DIR$/cyber_path/index.html" afterPath="$PROJECT_DIR$/cyber_path/index.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/TestingField.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java" />
     </list>
     <ignored path="$PROJECT_DIR$/CKAutoHelperCPP/bin/" />
     <ignored path="$PROJECT_DIR$/CKAutoHelperJava/bin/" />
@@ -49,7 +41,58 @@
     <favorites_list name="frc2018" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="TestingField.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/TestingField.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RightRightFromRightStep1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RightRightFromRightMode_4cube.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PathAdapter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CompetitionTheoreticalField.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -134,8 +177,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_3cube.java" />
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep1.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep3.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep6.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/IntakeControl.java" />
@@ -179,12 +220,14 @@
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/NavX.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/FieldProfile.java" />
-        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java" />
-        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/TestingField.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java" />
       </list>
     </option>
   </component>
@@ -538,10 +581,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -566,6 +605,33 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
               <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frc2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Modes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frc2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Modes" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frc2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Modes" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
+              <item name="RightRight" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="frc2018" type="b2602c69:ProjectViewProjectNode" />
@@ -601,6 +667,16 @@
               <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
               <item name="Paths" type="462c0819:PsiDirectoryNode" />
               <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
+              <item name="RightLeft_2cube" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frc2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
+              <item name="Paths" type="462c0819:PsiDirectoryNode" />
+              <item name="StartFromRight" type="462c0819:PsiDirectoryNode" />
               <item name="RightRight_4cube" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -622,6 +698,10 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -937,6 +1017,7 @@
       <workItem from="1521570326827" duration="388000" />
       <workItem from="1521570781470" duration="682000" />
       <workItem from="1521604925841" duration="3489000" />
+      <workItem from="1521656590105" duration="2790000" />
     </task>
     <task id="LOCAL-00001" summary="Update all">
       <created>1516597796485</created>
@@ -970,7 +1051,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="410094000" />
+    <option name="totallyTimeSpent" value="412884000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -983,10 +1064,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28863868" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -997,10 +1078,9 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2002442" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2026862" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2466735" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.48779" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2014652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1013,7 +1093,9 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28863868" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.48779" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1059,16 +1141,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="2" selection-end-line="172" selection-end-column="9" />
-          <folding>
-            <element signature="e#10073#10149#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Reporters/DashboardReporter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-30">
@@ -1195,13 +1267,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="42" column="84" lean-forward="false" selection-start-line="42" selection-start-column="84" selection-end-line="42" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep5.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -1217,13 +1282,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/SamplePath.java" />
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/TheDarkKnight.eml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1353,30 +1412,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="66" lean-forward="false" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/CubeToScaleLeft.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/SwitchCubeThenScaleMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/CubeToScaleLeft.java" />
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/SwitchCubeThenScaleMode.java" />
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="568">
@@ -1390,25 +1427,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Translation2d.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-          <folding>
-            <element signature="e#1665#1666#0" expanded="false" />
-            <element signature="e#1735#1736#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightGOBACK.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1417,26 +1435,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java">
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Translation2d.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        <state relative-caret-position="281">
+          <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
+          <folding>
+            <element signature="e#1665#1666#0" expanded="true" />
+            <element signature="e#1735#1736#0" expanded="true" />
+            <element signature="e#2420#2421#0" expanded="true" />
+            <element signature="e#2470#2471#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="37" lean-forward="true" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+          <folding>
+            <element signature="e#1756#1757#0" expanded="true" />
+            <element signature="e#1837#1838#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="29" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/TestingField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java">
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="330">
+          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="450">
+          <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding />
         </state>
       </provider>
