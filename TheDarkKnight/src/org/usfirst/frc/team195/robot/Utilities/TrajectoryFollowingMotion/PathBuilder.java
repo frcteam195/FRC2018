@@ -73,6 +73,14 @@ public class PathBuilder {
             speed = s;
             marker = m;
         }
+
+        public Translation2d getPosition() {
+            return position;
+        }
+
+        public void setPosition(Translation2d position) {
+            this.position = position;
+        }
     }
 
     /**

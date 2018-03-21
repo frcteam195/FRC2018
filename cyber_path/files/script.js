@@ -111,12 +111,10 @@ class Waypoint {
 	}
 
 	toString() {
-		var comment = (this.comment.length > 0) ? " //" + this.comment : "";
-
 		if (this.marker === "")
-			return "sWaypoints.add(new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+"));" + comment;
+			return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+")";
 		else
-            return "sWaypoints.add(new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+",\""+this.marker+"\"));" + comment;
+            return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+",\""+this.marker+"\")";
 	}
 }
 
@@ -415,7 +413,6 @@ function addPoint(x, y, radius) {
 		+"<td><input value='"+(radius)+"'></td>"
 		+"<td><input value='60'></td>"
 		+"<td class='marker'><input placeholder='Marker'></td>"
-		+"<td class='comments'><input placeholder='Comments'></td>"
 		+"<td><button onclick='$(this).parent().parent().remove();update();'>Delete</button></td></tr>"
 	);
 	update();
@@ -569,8 +566,21 @@ function importData() {
 			let searchReversed2 = "}";
 			let searchName1 = "public class";
 			let searchName2 = "implements";
+			let searchAdaption1 = "PathAdapter.";
+			let searchAdaption2 = "(";
             $("#title").val(c.split(searchName1)[1].split(searchName2)[0].trim());
             $("#isReversed").prop('checked', c.split(searchReversed1)[1].split(searchReversed2)[0].trim().includes("true"));
+            if (c.indexOf(searchAdaption1) >= 0) {
+                var adaptStr = c.split(searchAdaption1)[1].split(searchAdaption2)[0].trim();
+                if (adaptStr === "getAdaptedSwitchWaypoint")
+                	$("#adaptionValue").val("switch").prop('selected', true);
+                else if (adaptStr === "getAdaptedScaleWaypoint")
+                    $("#adaptionValue").val("scale").prop('selected', true);
+                else
+                    $("#adaptionValue").val("none").prop('selected', true);
+            } else {
+                $("#adaptionValue").val("none").prop('selected', true);
+			}
 
 			s1.forEach((line) => {
 				if (line.indexOf("//") != 0 && line.indexOf(searchString1) >= 0) {
@@ -587,7 +597,6 @@ function importData() {
 				var radius = 0;
 				var speed = 0;
 				var marker = "";
-				var comment = "";
 				if (wptmp.length >= 4) {
                     x = wptmp[0];
                     y = wptmp[1];
@@ -597,17 +606,14 @@ function importData() {
 				if (wptmp.length >= 5) {
                     marker = wptmp[4];
 				}
-				if (wptmp.length >= 6) {
-                    comment = wptmp[5];
-                }
-                wp = new Waypoint(new Translation2d(x, y), speed, radius, marker, comment);
+
+                wp = new Waypoint(new Translation2d(x, y), speed, radius, marker);
                 $("tbody").append("<tr>"
                     +"<td><input value='" + wp.position.x + "'></td>"
                     +"<td><input value='" + wp.position.y + "'></td>"
                     +"<td><input value='" + wp.radius + "'></td>"
                     +"<td><input value='" + wp.speed + "'></td>"
                     +"<td class='marker'><input placeholder='Marker' value='" + wp.marker + "'></td>"
-                    +"<td class='comments'><input placeholder='Comments' value='" + wp.comment + "'></td>"
                     +"<td><button onclick='$(this).parent().parent().remove();update();''>Delete</button></td></tr>"
                 );
 			});
@@ -721,8 +727,16 @@ function importData() {
 function getDataString() {
 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
 	var pathInit = "";
+    var adaptVal = $("#adaptionValue").val();
 	for(var i=0; i<waypoints.length; i++) {
-		pathInit += "        " + waypoints[i].toString() + "\n";
+		if (i == waypoints.length - 1 && adaptVal !== "none") {
+			if (adaptVal === "scale")
+                pathInit += "        sWaypoints.add(PathAdapter.getAdaptedScaleWaypoint(" + waypoints[i].toString() + "));\n";
+			else
+                pathInit += "        sWaypoints.add(PathAdapter.getAdaptedSwitchWaypoint(" + waypoints[i].toString() + "));\n";
+		} else {
+            pathInit += "        sWaypoints.add(" + waypoints[i].toString() + ");\n";
+        }
 	}
 	var startPoint = "new Translation2d(" + waypoints[0].position.x + ", " + waypoints[0].position.y + ")";
 	var isReversed = $("#isReversed").is(':checked');

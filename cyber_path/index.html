@@ -181,6 +181,11 @@
 		<button onclick="changeStartPoint()">Switch Start Point</button>
 		<!--<button onclick="doStuff()">GetPoints</button>-->
 		<!--<button onclick="flipField()">Flip Field</button>-->
+		<select id="adaptionValue">
+			<option value="none">Don't Adapt Last Point</option>
+			<option value="scale">Adapt Last Point for Scale</option>
+			<option value="switch">Adapt Last Point for Switch</option>
+		</select>
 		<span style="font-size: 15px; float: right;">Is reversed: <input type="checkbox" id="isReversed"></span>
 	</div>
 	<table>
@@ -190,7 +195,6 @@
 			<th>Radius</th>
 			<th>Speed</th>
 			<th>Marker</th>
-			<th>Comments</th>
 			<th>Delete</th>
 		</thead>
 		<tbody>
@@ -200,7 +204,6 @@
 				<td class="radius"><span>0</span></td>
 				<td class="speed"><span>0</span></td>
 				<td class="marker"><input placeholder="Marker"></td>
-				<td class="comments"><input placeholder="Comments"></td>
 			</tr>
 		</tbody>
 	</table>
