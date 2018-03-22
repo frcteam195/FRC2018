@@ -1,13 +1,13 @@
 package org.usfirst.frc.team195.robot.Reporters;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -18,7 +18,7 @@ public class ConsoleReporter extends Thread {
 
 	private static final int MIN_CONSOLE_SEND_RATE_MS = 250;
 	private static MessageLevel reportingLevel = MessageLevel.ERROR;
-	private static LinkedList<CKMessage> sendMessageQueue = new LinkedList<CKMessage>();
+	private static LinkedHashSet<CKMessage> sendMessageSet = new LinkedHashSet<CKMessage>();
 	private static ReentrantLock _reporterMutex = new ReentrantLock();
 	private static ConsoleReporter instance = null;
 	private boolean runThread;
@@ -59,24 +59,10 @@ public class ConsoleReporter extends Thread {
 	}
 
 	public static void report(String message, MessageLevel msgLvl) {
-		if (Constants.REPORTING_ENABLED || msgLvl == MessageLevel.DEFCON1) {
+		if (msgLvl == MessageLevel.DEFCON1 || (Constants.REPORTING_ENABLED && (msgLvl.ordinal() <= reportingLevel.ordinal()))) {
 			_reporterMutex.lock();
 			try {
-				switch (msgLvl) {
-					case DEFCON1:
-						message = "DEFCON1: " + message;
-						break;
-					case ERROR:
-						message = "ERROR: " + message;
-						break;
-					case WARNING:
-						message = "WARNING: " + message;
-						break;
-					case INFO:
-					default:
-						break;
-				}
-				sendMessageQueue.add(new CKMessage(message + "\n\r", msgLvl));
+				sendMessageSet.add(new CKMessage(message, msgLvl));
 			} finally {
 				_reporterMutex.unlock();
 			}
@@ -100,31 +86,30 @@ public class ConsoleReporter extends Thread {
 			try {
 				_reporterMutex.lock();
 				try {
-					if (sendMessageQueue.peek() != null) {
-						CKMessage ckm = sendMessageQueue.poll();
-						while (ckm != null) {
-							if (ckm.messageLevel == MessageLevel.DEFCON1 || ((ckm.messageLevel.ordinal() <= reportingLevel.ordinal()) && Constants.REPORTING_ENABLED)) {
-								if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE) {
-									switch (ckm.messageLevel) {
-										case DEFCON1:
-											System.out.println(ckm.message);
-										case ERROR:
-											DriverStation.reportError(ckm.message, false);
-											break;
-										case WARNING:
-										case INFO:
-											DriverStation.reportWarning(ckm.message, false);
-											break;
-										default:
-											break;
-									}
-								} else {
-									System.out.println(ckm.message);
-									if (ckm.messageLevel == MessageLevel.DEFCON1)
-										DriverStation.reportError(ckm.message, false);
+					for (Iterator<CKMessage> i = sendMessageSet.iterator(); i.hasNext();) {
+						CKMessage ckm = i.next();
+						if (ckm.messageLevel == MessageLevel.DEFCON1 || (Constants.REPORTING_ENABLED && (ckm.messageLevel.ordinal() <= reportingLevel.ordinal()))) {
+							String s = ckm.toString();
+							if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE) {
+								switch (ckm.messageLevel) {
+									case DEFCON1:
+										System.out.println(s);
+									case ERROR:
+										DriverStation.reportError(s, false);
+										break;
+									case WARNING:
+									case INFO:
+										DriverStation.reportWarning(s, false);
+										break;
+									default:
+										break;
 								}
+							} else {
+								System.out.println(s);
+								if (ckm.messageLevel == MessageLevel.DEFCON1)
+									DriverStation.reportError(s, false);
 							}
-							ckm = sendMessageQueue.poll();
+							i.remove();
 						}
 					}
 				} finally {
