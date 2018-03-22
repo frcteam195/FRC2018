@@ -18,7 +18,7 @@ public class ConsoleReporter extends Thread {
 
 	private static final int MIN_CONSOLE_SEND_RATE_MS = 250;
 	private static MessageLevel reportingLevel = MessageLevel.ERROR;
-	private static LinkedHashSet<CKMessage> sendMessageSet = new LinkedHashSet<CKMessage>();
+	private static LinkedHashSet<CKMessage> sendMessageSet = new LinkedHashSet<>();
 	private static ReentrantLock _reporterMutex = new ReentrantLock();
 	private static ConsoleReporter instance = null;
 	private boolean runThread;
