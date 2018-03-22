@@ -5,5 +5,5 @@ public interface DiagnosableSubsystem {
 	 * Method to diagnose a subsystem
 	 * @return Returns true if the system passes all tests
 	 */
-	public boolean runDiagnostics();
+	 boolean runDiagnostics();
 }

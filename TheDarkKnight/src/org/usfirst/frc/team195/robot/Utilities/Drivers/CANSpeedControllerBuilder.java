@@ -108,7 +108,6 @@ public class CANSpeedControllerBuilder {
 
 	public static TalonSRX createTalonSRX(int id, Configuration config) {
         TalonSRX talon = new TalonSRX(id);
-        //TODO: Test to make sure CAN utilization is not too high
         configTalon(talon, config);
         return talon;
     }

@@ -101,31 +101,30 @@ public class ConsoleReporter extends Thread {
 				_reporterMutex.lock();
 				try {
 					if (sendMessageQueue.peek() != null) {
-						if (Constants.REPORTING_ENABLED || sendMessageQueue.peek().messageLevel == MessageLevel.DEFCON1) {
-							while (sendMessageQueue.peek() != null) {
-								CKMessage ckm = sendMessageQueue.poll();
-								if (ckm.messageLevel.ordinal() <= reportingLevel.ordinal()) {
-									if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE) {
-										switch (ckm.messageLevel) {
-											case DEFCON1:
-												System.out.println(ckm.message);
-											case ERROR:
-												DriverStation.reportError(ckm.message, false);
-												break;
-											case WARNING:
-											case INFO:
-												DriverStation.reportWarning(ckm.message, false);
-												break;
-											default:
-												break;
-										}
-									} else {
-										System.out.println(ckm.message);
-										if (ckm.messageLevel == MessageLevel.DEFCON1)
+						CKMessage ckm = sendMessageQueue.poll();
+						while (ckm != null) {
+							if (ckm.messageLevel == MessageLevel.DEFCON1 || ((ckm.messageLevel.ordinal() <= reportingLevel.ordinal()) && Constants.REPORTING_ENABLED)) {
+								if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE) {
+									switch (ckm.messageLevel) {
+										case DEFCON1:
+											System.out.println(ckm.message);
+										case ERROR:
 											DriverStation.reportError(ckm.message, false);
+											break;
+										case WARNING:
+										case INFO:
+											DriverStation.reportWarning(ckm.message, false);
+											break;
+										default:
+											break;
 									}
+								} else {
+									System.out.println(ckm.message);
+									if (ckm.messageLevel == MessageLevel.DEFCON1)
+										DriverStation.reportError(ckm.message, false);
 								}
 							}
+							ckm = sendMessageQueue.poll();
 						}
 					}
 				} finally {

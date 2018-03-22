@@ -76,10 +76,9 @@ public class Constants {
 
 	public static final int BB2_ARM_SET_ZERO = 1;
 	public static final int BB2_ARM_SET_MANUAL = 2;
-	public static final int BB2_ARM_REENABLE_POSITION = 3;
 	public static final int BB2_CLIMBER_DEPLOY_PLATFORM = 5;
-	public static final int BB2_CLIMBER_CLIMB_MAIN = 6;
-	public static final int BB2_CLIMBER_CLIMB_PITCH = 7;
+	public static final int BB2_CLIMBER_CLIMB_ROLL_IN = 6;
+	public static final int BB2_CLIMBER_CLIMB_ROLL_OUT = 7;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
@@ -242,7 +241,6 @@ public class Constants {
 
 	/* CONTROL LOOP GAINS */
 
-	//TODO: Tune drive base gains for velocity control
 	// PID gains for drive velocity loop (HIGH GEAR)
 	// Units: setpoint, error, and output are in inches per second.
 	public static final double kDriveHighGearVelocityKp = 1;
@@ -298,27 +296,15 @@ public class Constants {
 	public static final double kClimberKp = 1;
 	public static final double kClimberKi = 0.006;
 	public static final double kClimberKd = 4;
-	public static final double kClimberKf = 0.8;
+	public static final double kClimberKf = 0.8814912684;
 	public static final int kClimberIZone = 10;
 	public static final double kClimberRampRate = 0;
-	public static final int kClimberMaxVelocity = 700;
-	public static final int kClimberMaxAccel = 450;
-
-	public static final double kClimberRollKp = 0.1;
-	public static final double kClimberRollKi = 0;
-	public static final double kClimberRollKd = 0;
-	public static final double kClimberRollKf = 0;
-	public static final double kClimberRollMinMotorOutput = -0.2;
-	public static final double kClimberRollMaxMotorOutput = 0.2;
-	public static final double kClimberRollMinInputDeg = -12;
-	public static final double kClimberRollMaxInputDeg = 12;
-	public static final double kClimberRollDeadbandDeg = 0.5;
-
+	public static final int kClimberMaxVelocity = 170;
+	public static final int kClimberMaxAccel = 340;
 
 
 	////////////////////////////////////////////////////////////////////////////////////
 
-	//TODO: Get list of solenoid IDs and input
 	// Solenoids
 	public static final int kIntakeSolenoidId = 0; // PCM 0, Solenoid 0
 	public static final int kClimberLockSolenoidId = 1; // PCM 0, Solenoid 0
@@ -332,7 +318,6 @@ public class Constants {
 //	public static final int kGreenLEDId = 3;
 //	public static final int kBlueLEDId = 4;
 
-	//TODO: Tune path following gains
 	// Path following constants
 	public static final double kMinLookAhead = 12.0; // inches
 	public static final double kMinLookAheadSpeed = 9.0; // inches per second

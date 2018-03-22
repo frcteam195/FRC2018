@@ -2,7 +2,6 @@ package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
-import org.usfirst.frc.team195.robot.Actions.IntakePositionAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
@@ -28,7 +27,6 @@ public class HIDController implements Runnable {
 	private KnightJoystick buttonBox2;
 	private DriveHelper driveHelper;
 	//private ShiftAction shiftAction;
-	private IntakePositionAction intakePositionAction;
 
 	private HIDController() throws Exception {
 		ds = DriverStation.getInstance();
@@ -47,7 +45,6 @@ public class HIDController implements Runnable {
 
 		driveHelper = new DriveHelper();
 		//shiftAction = new ShiftAction();
-		intakePositionAction = new IntakePositionAction();
 	}
 
 	public static HIDController getInstance() {
@@ -167,32 +164,18 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setArmControl(ArmControl.OPEN_LOOP);
 		}
 
-//		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_REENABLE_POSITION)) {
-//			cubeHandlerSubsystem.setDisableCollisionPrevention(false);
-//			cubeHandlerSubsystem.setArmControl(ArmControl.POSITION);
-//		}
-
-//		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_ATTACH_HOOK)) {
-//			ConsoleReporter.report("Attach hook pressed!");
-//			(new TeleopActionRunner(AutomatedActions.AttachHook(), 4)).runAction();
-//		}
 
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_CLIMBER_DEPLOY_PLATFORM))
 			climberSubsystem.deployPlatform();
 
-		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_MAIN))
-			climberSubsystem.climbMain(1);
-		else if (buttonBox2.getRawButton(8))
-			climberSubsystem.climbMain(-0.5);
-		else
-			climberSubsystem.climbMain(0);
 
-		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_PITCH))
-			climberSubsystem.climbPitch(1);
-		else if (buttonBox2.getRawButton(9))
-			climberSubsystem.climbPitch(-0.5);
+		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_IN))
+			climberSubsystem.setOpenLoop(1);
+		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_OUT))
+			climberSubsystem.setOpenLoop(-0.5);
 		else
-			climberSubsystem.climbPitch(0);
+			climberSubsystem.setOpenLoop(0);
+
 
 		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/4.0);
 

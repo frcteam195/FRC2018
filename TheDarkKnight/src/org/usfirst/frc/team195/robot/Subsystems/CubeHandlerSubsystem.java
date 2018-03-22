@@ -393,9 +393,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						//Check elevator actual and requested
 						double tmpElevatorHeight = (getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT) || disableCollisionPrevention ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
-						//TODO: Check this limit V
-//						tmpElevatorHeight = getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT ? tmpElevatorHeight :
-//								Util.limit(tmpElevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
 						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
 							zeroElevator();

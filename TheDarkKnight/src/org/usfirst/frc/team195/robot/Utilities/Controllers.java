@@ -32,7 +32,7 @@ public class Controllers {
 	private TalonSRX intakeMotor;
 	private TalonSRX intake2Motor;
 	private TalonSRX climberMotorMaster;
-	private TalonSRX climberPitchControlMotor;
+	private TalonSRX climberMotorSlave;
 
 	private ShiftHelper shiftHelper = null;
 	private Solenoid intakeSolenoid;
@@ -85,8 +85,8 @@ public class Controllers {
 		elevatorMotorSlave3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kElevatorSlave3Id, Constants.kElevatorSlave3PDPChannel, elevatorMotorMaster);
 
 		//Climber Motor Setup
-		climberMotorMaster = CANSpeedControllerBuilder.createFastMasterTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
-		climberPitchControlMotor = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel);
+		climberMotorMaster = CANSpeedControllerBuilder.createMasterTalonSRX(Constants.kClimberMasterId, Constants.kClimberMasterPDPChannel);
+		climberMotorSlave = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kClimberSlaveId, Constants.kClimberSlavePDPChannel, climberMotorMaster);
 
 		intakeSolenoid = new Solenoid(Constants.kIntakeSolenoidId);
 		climberLockSolenoid = new Solenoid(Constants.kClimberLockSolenoidId);
@@ -190,8 +190,8 @@ public class Controllers {
 		return climberMotorMaster;
 	}
 
-	public TalonSRX getClimberPitchControlMotor() {
-		return climberPitchControlMotor;
+	public TalonSRX getClimberMotorSlave() {
+		return climberMotorSlave;
 	}
 
 	public NavX	getNavX() {

@@ -44,7 +44,7 @@ public class ShiftHelper {
 					break;
 			}
 		} else {
-			mSolenoid.set(highGear ? highGearSingleSolValue : !highGearSingleSolValue);
+			mSolenoid.set(highGear == highGearSingleSolValue);
 		}
 	}
 }

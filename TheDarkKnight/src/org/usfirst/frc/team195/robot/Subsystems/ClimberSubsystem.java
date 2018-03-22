@@ -26,14 +26,11 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private DriverStation ds;
 	private TalonSRX mClimberMotorMaster;
-	private TalonSRX mClimberPitchControlMotor;
+	private TalonSRX mClimberMotorSlave;
 	private ClimberControl mClimberControl;
 	private ClimberControl mPrevClimberControl;
 	private double climberPosition = 0;
 	private boolean climberFault = false;
-	private SynchronousPIDF climberPitchControlPID;
-	private double mPrevTimestamp = 0;
-	private boolean climbWithPitchCorrection = false;
 	private Solenoid climberLockSolenoid;
 
 
@@ -43,19 +40,13 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
 
 		mClimberMotorMaster = robotControllers.getClimberMotorMaster();
-		mClimberPitchControlMotor = robotControllers.getClimberPitchControlMotor();
+		mClimberMotorSlave = robotControllers.getClimberMotorSlave();
 
 		climberLockSolenoid = robotControllers.getClimberLockSolenoid();
 
 		//TODO: Set climber initial control to position once tuned
 		mClimberControl = ClimberControl.OPEN_LOOP;
 		mPrevClimberControl = ClimberControl.OFF;
-
-		climberPitchControlPID = new SynchronousPIDF(Constants.kClimberRollKp, Constants.kClimberRollKi, Constants.kClimberRollKd, Constants.kClimberRollKf);
-		climberPitchControlPID.setOutputRange(Constants.kClimberRollMinMotorOutput, Constants.kClimberRollMaxMotorOutput);
-		climberPitchControlPID.setInputRange(Constants.kClimberRollMinInputDeg, Constants.kClimberRollMaxInputDeg);
-		climberPitchControlPID.setDeadband(Constants.kClimberRollDeadbandDeg);
-		climberPitchControlPID.setSetpoint(0);
 	}
 
 	public static ClimberSubsystem getInstance() {
@@ -79,10 +70,10 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	public void init() {
 		mClimberMotorMaster.setSensorPhase(true);
 
-		mClimberPitchControlMotor.setInverted(true);
+		mClimberMotorSlave.setInverted(true);
 
 		mClimberMotorMaster.setNeutralMode(NeutralMode.Brake);
-		mClimberPitchControlMotor.setNeutralMode(NeutralMode.Brake);
+		mClimberMotorSlave.setNeutralMode(NeutralMode.Brake);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -91,25 +82,25 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			setSucceeded = true;
 
 			setSucceeded &= mClimberMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mClimberPitchControlMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			//setSucceeded &= mClimberMotorSlave.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mClimberMotorMaster.configContinuousCurrentLimit(Constants.kClimberMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configPeakCurrentLimit(Constants.kClimberMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configPeakCurrentDuration(Constants.kClimberMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
 			mClimberMotorMaster.enableCurrentLimit(true);
 
-			setSucceeded &= mClimberPitchControlMotor.configContinuousCurrentLimit(Constants.kClimberMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mClimberPitchControlMotor.configPeakCurrentLimit(Constants.kClimberMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mClimberPitchControlMotor.configPeakCurrentDuration(Constants.kClimberMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
-			mClimberPitchControlMotor.enableCurrentLimit(true);
+			setSucceeded &= mClimberMotorSlave.configContinuousCurrentLimit(Constants.kClimberMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberMotorSlave.configPeakCurrentLimit(Constants.kClimberMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberMotorSlave.configPeakCurrentDuration(Constants.kClimberMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+			mClimberMotorSlave.enableCurrentLimit(true);
 
 			setSucceeded &= mClimberMotorMaster.configForwardSoftLimitThreshold((int) (Constants.kClimberSoftMax * Constants.kClimberEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configReverseSoftLimitThreshold((int) (Constants.kClimberSoftMin * Constants.kClimberEncoderGearRatio * Constants.kSensorUnitsPerRotation), Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configForwardSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mClimberMotorMaster.configReverseSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
 
-			setSucceeded &= mClimberPitchControlMotor.configForwardSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mClimberPitchControlMotor.configReverseSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberMotorSlave.configForwardSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberMotorSlave.configReverseSoftLimitEnable(false, Constants.kTimeoutMs) == ErrorCode.OK;
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
@@ -124,7 +115,6 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 	@Override
 	public void subsystemHome() {
-		mClimberMotorMaster.set(ControlMode.Disabled, 0);
 		mClimberMotorMaster.set(ControlMode.Disabled, 0);
 
 		int homeClimberValue = (int)(Constants.kClimberSoftMax * Constants.kClimberEncoderGearRatio * Constants.kSensorUnitsPerRotation);
@@ -164,30 +154,18 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		@Override
 		public void onLoop(double timestamp, boolean isAuto) {
 			synchronized (ClimberSubsystem.this) {
-				boolean collisionOccurring = DriveBaseSubsystem.getInstance().isEmergencySafetyRequired();
+				boolean collisionOccurring = driveBaseSubsystem.isEmergencySafetyRequired();
 
 				if (mClimberControl != mPrevClimberControl) {
 					switch (mClimberControl) {
 						case POSITION:
 							mClimberMotorMaster.set(ControlMode.MotionMagic, climberPosition * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
-
-							if (climbWithPitchCorrection) {
-								double correctionVal = 0;
-
-								if (mPrevTimestamp != 0)
-									correctionVal = climberPitchControlPID.calculate(driveBaseSubsystem.getPitch(), timestamp - mPrevTimestamp);
-
-								mPrevTimestamp = timestamp;
-
-								mClimberPitchControlMotor.set(ControlMode.PercentOutput, Util.limit(mClimberMotorMaster.getMotorOutputPercent() + correctionVal, 1));
-							}
 							break;
 						case OPEN_LOOP:
 							break;
 						case OFF:
 						default:
 							mClimberMotorMaster.set(ControlMode.Disabled, 0);
-							mClimberPitchControlMotor.set(ControlMode.Disabled, 0);
 							break;
 					}
 					mPrevClimberControl = mClimberControl;
@@ -213,8 +191,6 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		this.mClimberControl = climberControl;
 	}
 
-	public synchronized void setClimbWithPitchCorrection(boolean climbWithPitchCorrection) { this.climbWithPitchCorrection = climbWithPitchCorrection; }
-
 	@Override
 	public String generateReport() {
 		String retVal = "";
@@ -223,7 +199,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		retVal += "ClimberPosAct:" + (mClimberMotorMaster.getSelectedSensorPosition(0) * Constants.kClimberEncoderGearRatio / Constants.kSensorUnitsPerRotation) + ";";
 		retVal += "ClimberFault:" + isClimberFaulted() + ";";
 		retVal += "Climber1Current:" + mClimberMotorMaster.getOutputCurrent() + ";";
-		retVal += "Climber2Current:" + mClimberPitchControlMotor.getOutputCurrent() + ";";
+		retVal += "Climber2Current:" + mClimberMotorSlave.getOutputCurrent() + ";";
 
 		return retVal;
 	}
@@ -237,7 +213,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 			ArrayList<MotorDiagnostics> mClimberDiagArr = new ArrayList<MotorDiagnostics>();
 			mClimberDiagArr.add(new MotorDiagnostics("Climber Motor Master", mClimberMotorMaster, Constants.kClimberTestSpeed, Constants.kClimberTestDuration, false));
-			mClimberDiagArr.add(new MotorDiagnostics("Climber Motor Slave", mClimberPitchControlMotor, mClimberMotorMaster, Constants.kClimberTestSpeed, Constants.kClimberTestDuration, false));
+			mClimberDiagArr.add(new MotorDiagnostics("Climber Motor Slave", mClimberMotorSlave, mClimberMotorMaster, Constants.kClimberTestSpeed, Constants.kClimberTestDuration, false));
 
 			boolean failure = false;
 
@@ -326,19 +302,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		climberLockSolenoid.set(true);
 	}
 
-	public synchronized void setOpenLoop(double mainOutput, double pitchOutput) {
+	public synchronized void setOpenLoop(double mainOutput) {
 		setClimberControl(ClimberControl.OPEN_LOOP);
 		mClimberMotorMaster.set(ControlMode.PercentOutput, mainOutput);
-		mClimberPitchControlMotor.set(ControlMode.PercentOutput, pitchOutput);
-	}
-
-	public synchronized void climbMain(double mainOutput) {
-		setClimberControl(ClimberControl.OPEN_LOOP);
-		mClimberMotorMaster.set(ControlMode.PercentOutput, mainOutput);
-	}
-
-	public synchronized void climbPitch(double pitchOutput) {
-		setClimberControl(ClimberControl.OPEN_LOOP);
-		mClimberPitchControlMotor.set(ControlMode.PercentOutput, pitchOutput);
 	}
 }

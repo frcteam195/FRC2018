@@ -140,13 +140,4 @@ public class AutomatedActions {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
 	}
 
-	public static SeriesAction AttachHook() {
-		ConsoleReporter.report("Attach called");
-		return new SeriesAction(Arrays.asList(
-											  new SetArmRotationAction(ArmPosition.GET_CLIMBER_HOOK),
-											  new WaitAction(1.5),
-											  new SetElevatorHeightAction(ElevatorPosition.LIFT_HOOK),
-											  new SetArmRotationAction(ArmPosition.VERTICAL)));
-	}
-
 }

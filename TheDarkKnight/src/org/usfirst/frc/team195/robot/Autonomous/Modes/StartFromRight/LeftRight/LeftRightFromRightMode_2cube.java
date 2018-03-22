@@ -73,7 +73,7 @@ public class LeftRightFromRightMode_2cube extends AutoModeBase {
 
 		runAction(new SetElevatorHeightAction(ElevatorPosition.LOW));
 
-		runAction(new TurnToHeadingAction(45, false));
+		runAction(new TurnToHeadingAction(-45, false));
 
 		//runAction(new DrivePathAction(new LeftRightFromRightTestStep4()));
 

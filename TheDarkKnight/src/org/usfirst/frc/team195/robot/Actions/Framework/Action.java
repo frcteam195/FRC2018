@@ -14,21 +14,21 @@ public interface Action {
      * 
      * @return boolean
      */
-    public abstract boolean isFinished();
+    boolean isFinished();
 
     /**
      * Called by runAction in AutoModeBase iteratively until isFinished returns true. Iterative logic lives in this
      * method
      */
-    public abstract void update();
+    void update();
 
     /**
      * Run code once when the action finishes, usually for clean up
      */
-    public abstract void done();
+    void done();
 
     /**
      * Run code once when the action is started, for set up
      */
-    public abstract void start();
+    void start();
 }
