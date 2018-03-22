@@ -182,21 +182,15 @@ public class HIDController implements Runnable {
 
 		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_MAIN))
 			climberSubsystem.climbMain(1);
+		else if (buttonBox2.getRawButton(8))
+			climberSubsystem.climbMain(-0.5);
 		else
 			climberSubsystem.climbMain(0);
 
 		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_PITCH))
 			climberSubsystem.climbPitch(1);
-		else
-			climberSubsystem.climbPitch(0);
-
-		if (buttonBox2.getRawButton(8))
-			climberSubsystem.climbMain(-0.5);
-		else
-			climberSubsystem.climbMain(0);
-
-		if (buttonBox2.getRawButton(9))
-			climberSubsystem.climbMain(-0.5);
+		else if (buttonBox2.getRawButton(9))
+			climberSubsystem.climbPitch(-0.5);
 		else
 			climberSubsystem.climbPitch(0);
 
