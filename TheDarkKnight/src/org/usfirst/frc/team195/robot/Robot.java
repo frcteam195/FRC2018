@@ -165,7 +165,7 @@ public class Robot extends RobbieRobot {
 		exitAuto();
 
 		mLooper.start(false);
-		driveBaseSubsystem.setControlMode(DriveControlState.OPEN_LOOP);
+		driveBaseSubsystem.setDriveOpenLoop(DriveMotorValues.NEUTRAL);
 		threadRateControl.start(true);
 
 		while (isOperatorControl() && isEnabled()) {

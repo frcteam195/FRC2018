@@ -589,20 +589,20 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		return emergencySafetyRequired;
 	}
 
-	public synchronized boolean isDoneWithPath() {
-		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
-			return mPathFollower.isFinished();
-		} else {
-			ConsoleReporter.report("Robot is not in path following mode");
-			return true;
-		}
-	}
-
 	public synchronized boolean isDoneWithTurn() {
 		if (mControlMode == DriveControlState.TURN_TO_HEADING) {
 			return turnIsFinished;
 		} else {
 			ConsoleReporter.report("Robot is not in turning mode");
+			return true;
+		}
+	}
+
+	public synchronized boolean isDoneWithPath() {
+		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
+			return mPathFollower.isFinished();
+		} else {
+			ConsoleReporter.report("Robot is not in path following mode");
 			return true;
 		}
 	}
