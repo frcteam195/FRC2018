@@ -559,7 +559,8 @@ function importData() {
 		fr.onload = function(e) {
 			var c = fr.result;
 			var s1 = c.split("\n");
-			var tmp = [];
+			var tmpWaypoints = [];
+			var tmpLine = [];
 			let searchString1 = "new Waypoint(";
             let searchString2 = ")";
 			let searchReversed1 = "public boolean isReversed() {";
@@ -570,38 +571,63 @@ function importData() {
 			let searchAdaption2 = "(";
             $("#title").val(c.split(searchName1)[1].split(searchName2)[0].trim());
             $("#isReversed").prop('checked', c.split(searchReversed1)[1].split(searchReversed2)[0].trim().includes("true"));
-            if (c.indexOf(searchAdaption1) >= 0) {
-                var adaptStr = c.split(searchAdaption1)[1].split(searchAdaption2)[0].trim();
-                switch (adaptStr) {
-					case "getAdaptedLeftSwitchWaypoint":
-                        $("#adaptionValue").val("switchleft").prop('selected', true);
-                        break;
-                    case "getAdaptedRightSwitchWaypoint":
-                        $("#adaptionValue").val("switchright").prop('selected', true);
-                        break;
-                    case "getAdaptedLeftScaleWaypoint":
-                        $("#adaptionValue").val("scaleleft").prop('selected', true);
-                        break;
-                    case "getAdaptedRightScaleWaypoint":
-                        $("#adaptionValue").val("scaleright").prop('selected', true);
-                        break;
-					default:
-                        $("#adaptionValue").val("none").prop('selected', true);
-                        break;
-				}
-            } else {
-                $("#adaptionValue").val("none").prop('selected', true);
-			}
 
 			s1.forEach((line) => {
 				if (line.indexOf("//") != 0 && line.indexOf(searchString1) >= 0) {
-					tmp.push(line.split(searchString1)[1].split(searchString2)[0].split(","));
+					tmpLine.push(line);
+                    tmpWaypoints.push(line.split(searchString1)[1].split(searchString2)[0].split(","));
 				}
 			});
 
+			if (tmpLine[0].indexOf(searchAdaption1) >= 0) {
+                var adaptStr = tmpLine[0].split(searchAdaption1)[1].split(searchAdaption2)[0].trim();
+                switch (adaptStr) {
+                    case "getAdaptedLeftSwitchWaypoint":
+                        $("#startAdaptionValue").val("startswitchleft").prop('selected', true);
+                        break;
+                    case "getAdaptedRightSwitchWaypoint":
+                        $("#startAdaptionValue").val("startswitchright").prop('selected', true);
+                        break;
+                    case "getAdaptedLeftScaleWaypoint":
+                        $("#startAdaptionValue").val("startscaleleft").prop('selected', true);
+                        break;
+                    case "getAdaptedRightScaleWaypoint":
+                        $("#startAdaptionValue").val("startscaleright").prop('selected', true);
+                        break;
+                    default:
+                        $("#startAdaptionValue").val("startnone").prop('selected', true);
+                        break;
+                }
+			} else {
+                $("#startAdaptionValue").val("startnone").prop('selected', true);
+			}
+
+			if (tmpLine[tmpLine.length-1].indexOf(searchAdaption1) >= 0) {
+				var adaptStr = tmpLine[tmpLine.length-1].split(searchAdaption1)[1].split(searchAdaption2)[0].trim();
+				switch (adaptStr) {
+					case "getAdaptedLeftSwitchWaypoint":
+						$("#endAdaptionValue").val("endswitchleft").prop('selected', true);
+						break;
+					case "getAdaptedRightSwitchWaypoint":
+						$("#endAdaptionValue").val("endswitchright").prop('selected', true);
+						break;
+					case "getAdaptedLeftScaleWaypoint":
+						$("#endAdaptionValue").val("endscaleleft").prop('selected', true);
+						break;
+					case "getAdaptedRightScaleWaypoint":
+						$("#endAdaptionValue").val("endscaleright").prop('selected', true);
+						break;
+					default:
+						$("#endAdaptionValue").val("endnone").prop('selected', true);
+						break;
+				}
+			} else {
+                $("#endAdaptionValue").val("endnone").prop('selected', true);
+			}
+
             waypoints = [];
             $("tbody").empty();
-			tmp.forEach((wptmp) => {
+            tmpWaypoints.forEach((wptmp) => {
 				var wp;
 				var x = 0;
 				var y = 0;
@@ -738,22 +764,41 @@ function importData() {
 function getDataString() {
 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
 	var pathInit = "";
-    var adaptStr = $("#adaptionValue").val();
+    var startAdaptStr = $("#startAdaptionValue").val();
+    var endAdaptStr = $("#endAdaptionValue").val();
 	for(var i=0; i<waypoints.length; i++) {
 		pathInit += "        sWaypoints.add(";
 
-		if (i == waypoints.length - 1) {
-            switch (adaptStr) {
-                case "scaleleft":
+        if (i == 0) {
+            switch (startAdaptStr) {
+                case "startscaleleft":
                     pathInit += "PathAdapter.getAdaptedLeftScaleWaypoint(" + waypoints[i].toString() + ")";
                     break;
-                case "scaleright":
+                case "startscaleright":
                     pathInit += "PathAdapter.getAdaptedRightScaleWaypoint(" + waypoints[i].toString() + ")";
                     break;
-                case "switchleft":
+                case "startswitchleft":
                     pathInit += "PathAdapter.getAdaptedLeftSwitchWaypoint(" + waypoints[i].toString() + ")";
                     break;
-                case "switchright":
+                case "startswitchright":
+                    pathInit += "PathAdapter.getAdaptedRightSwitchWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                default:
+                    pathInit += waypoints[i].toString();
+                    break;
+            }
+        } else if (i == waypoints.length - 1) {
+            switch (endAdaptStr) {
+                case "endscaleleft":
+                    pathInit += "PathAdapter.getAdaptedLeftScaleWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                case "endscaleright":
+                    pathInit += "PathAdapter.getAdaptedRightScaleWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                case "endswitchleft":
+                    pathInit += "PathAdapter.getAdaptedLeftSwitchWaypoint(" + waypoints[i].toString() + ")";
+                    break;
+                case "endswitchright":
                     pathInit += "PathAdapter.getAdaptedRightSwitchWaypoint(" + waypoints[i].toString() + ")";
                     break;
                 default:

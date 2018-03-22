@@ -11,6 +11,8 @@
 	<!--<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">-->
 	<link href="files/Roboto.css" rel="stylesheet">
 	<link href="files/SourceCodePro.css" rel="stylesheet">
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+	<link rel="stylesheet" href="files/font-awesome.css">
 	<style type="text/css">
 	* {
 		font-family: 'Roboto', sans-serif;
@@ -81,6 +83,17 @@
 	.buttonContainer {
 		width: 828px;
 		margin: 10px auto;
+	}
+
+	.buttonContainer > div {
+		display: inline-block;
+		display: -moz-inline-box;
+		*display: inline; /* For IE7 */
+		zoom: 1; /* Trigger hasLayout */
+		margin-left: 1%;
+		width: 32%;
+		text-align: center;
+		vertical-align: middle;
 	}
 
 	.modal {
@@ -173,22 +186,35 @@
 	<input id="title" placeholder="Title">
 	<canvas onclick="canvasClick(this, event)" id="field"></canvas>
 	<div class="buttonContainer">
-		<button onclick="addPoint()">Add Point</button>
+		<div>
+		<button title="Add Point" onclick="addPoint()"><i class="fa fa-plus-circle"></i></button>
 		<!-- <button onclick="update()">Update</button> -->
-		<button onclick="showData()">Display Path Code</button>
-		<button onclick="exportData()">Download</button>
-		<button onclick="importData()">Import</button>
-		<button onclick="changeStartPoint()">Switch Start Point</button>
+		<button title="Display Path Code" onclick="showData()"><i class="fa fa-tv"></i></button>
+		<button title="Download File" onclick="exportData()"><i class="fa fa-download"></i></button>
+		<button title="Import File" onclick="importData()"><i class="fa fa-arrow-circle-up"></i></button>
+		<button title="Change Start Point" onclick="changeStartPoint()"><i class="fa fa-arrows-v"></i></button>
 		<!--<button onclick="doStuff()">GetPoints</button>-->
 		<!--<button onclick="flipField()">Flip Field</button>-->
-		<select id="adaptionValue">
-			<option value="none">Don't Adapt Last Point</option>
-			<option value="scaleleft">Adapt Last Point for Left Scale</option>
-			<option value="scaleright">Adapt Last Point for Right Scale</option>
-			<option value="switchleft">Adapt Last Point for Left Switch</option>
-			<option value="switchright">Adapt Last Point for Right Switch</option>
+		</div>
+		<div>
+		<select id="startAdaptionValue">
+			<option value="startnone">Don't Adapt First Point</option>
+			<option value="startscaleleft">Adapt First Point for Left Scale</option>
+			<option value="startscaleright">Adapt First Point for Right Scale</option>
+			<option value="startswitchleft">Adapt First Point for Left Switch</option>
+			<option value="startswitchright">Adapt First Point for Right Switch</option>
 		</select>
-		<span style="font-size: 15px; float: right;">Is reversed: <input type="checkbox" id="isReversed"></span>
+		<select id="endAdaptionValue">
+			<option value="endnone">Don't Adapt Last Point</option>
+			<option value="endscaleleft">Adapt Last Point for Left Scale</option>
+			<option value="endscaleright">Adapt Last Point for Right Scale</option>
+			<option value="endswitchleft">Adapt Last Point for Left Switch</option>
+			<option value="endswitchright">Adapt Last Point for Right Switch</option>
+		</select>
+		</div>
+		<div>
+		Reversed: <input type="checkbox" id="isReversed">
+		</div>
 	</div>
 	<table>
 		<thead>
