@@ -21,7 +21,7 @@ public class AutomatedActions {
 		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK), new SetElevatorHeightAction(ElevatorPosition.MID))));
 		actionArrayList.add(new SeriesAction(Arrays.asList(new WaitAction(0.25), new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.2))));
 		actionArrayList.add(new SetIntakeAction(IntakeControl.OFF));
-		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SeriesAction(Arrays.asList(new WaitAction(0.2), new SetElevatorHeightAction(ElevatorPosition.HOME))))));
+		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SeriesAction(Arrays.asList(new WaitAction(0.2), new SetElevatorHeightAction(ElevatorPosition.GO_DOWN))))));
 
 		return new SeriesAction(actionArrayList);
 	}
@@ -30,7 +30,7 @@ public class AutomatedActions {
 		ArrayList<Action> actionArrayList = new ArrayList<Action>();
 
 		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.SWITCH),
-															 new SetElevatorHeightAction(ElevatorPosition.HOME))));
+															 new SetElevatorHeightAction(ElevatorPosition.GO_DOWN))));
 		actionArrayList.add(new SeriesAction(Arrays.asList(new WaitAction(0.1),
 														   new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.2))));
 		actionArrayList.add(new SetIntakeAction(IntakeControl.OFF));
@@ -50,7 +50,7 @@ public class AutomatedActions {
 	}
 
 	public static ParallelAction SetRestingPosition() {
-		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.HOME),
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.GO_DOWN),
 												new SetArmRotationAction(ArmPosition.VERTICAL)));
 	}
 
