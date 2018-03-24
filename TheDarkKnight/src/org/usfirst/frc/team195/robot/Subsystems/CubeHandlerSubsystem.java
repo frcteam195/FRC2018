@@ -247,7 +247,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private boolean zeroElevator() {
 		mElevatorMotorMaster.set(ControlMode.Disabled, 0);
-		int homeElevatorValue = (int)(Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
+		int homeElevatorValue = (int)(Constants.kElevatorHome * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
 
 		boolean setSucceeded;
 		int retryCounter = 0;

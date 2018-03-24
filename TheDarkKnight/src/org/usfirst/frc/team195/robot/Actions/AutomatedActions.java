@@ -96,7 +96,7 @@ public class AutomatedActions {
 	public static ParallelAction PreparePickupCube() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0),
 												new SetIntakeClampAction(true),
-												new SetElevatorHeightAction(ElevatorPosition.HOME)));
+												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
 	}
 
 	public static ParallelAction PreparePlaceCubeOnSwitchOverBack() {
@@ -109,7 +109,7 @@ public class AutomatedActions {
 	}
 
 	public static Action ElevetorTo0() {
-		return new SetElevatorHeightAction(ElevatorPosition.HOME);
+		return new SetElevatorHeightAction(ElevatorPosition.GO_DOWN);
 	}
 
 	public static Action ClampIntake() {

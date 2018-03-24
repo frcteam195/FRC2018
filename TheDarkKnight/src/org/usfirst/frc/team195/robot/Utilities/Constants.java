@@ -212,7 +212,8 @@ public class Constants {
 
 	// Elevator
 	public static final double kElevatorEncoderGearRatio = 1.0;
-	public static final double kElevatorSoftMin = 0;	//In rotations of output shaft
+	public static final double kElevatorSoftMin = -0.2;	//In rotations of output shaft
+	public static final double kElevatorHome = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.2;	//In rotations of output shaft
 	public static final double kElevatorDeviationThreshold = 0.1;	//In rotations of output shaft

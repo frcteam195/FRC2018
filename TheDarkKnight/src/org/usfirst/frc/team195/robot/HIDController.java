@@ -111,7 +111,7 @@ public class HIDController implements Runnable {
 //		}
 
 		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
-			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_LOW))
