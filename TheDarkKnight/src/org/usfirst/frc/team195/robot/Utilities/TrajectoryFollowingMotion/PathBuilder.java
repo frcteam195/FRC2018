@@ -81,6 +81,15 @@ public class PathBuilder {
         public void setPosition(Translation2d position) {
             this.position = position;
         }
+
+        @Override
+        public String toString() {
+            String retVal = "";
+            retVal += "Position: " + position.toString() + "\n";
+            retVal += "Radius: " + radius + "\n";
+            retVal += "Speed: " + speed + "\n";
+            return retVal;
+        }
     }
 
     /**

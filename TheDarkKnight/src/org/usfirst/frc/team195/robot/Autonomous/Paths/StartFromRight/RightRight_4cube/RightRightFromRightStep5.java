@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.RightRight_4cube;
 
+import org.usfirst.frc.team195.robot.Autonomous.Paths.PathAdapter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 
@@ -38,7 +39,7 @@ public class RightRightFromRightStep5 implements PathContainer {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(225,66,0,0));
 		sWaypoints.add(new Waypoint(232,80,10,40));
-		sWaypoints.add(new Waypoint(220,111,0,40));
+		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(220,111,0,40)));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

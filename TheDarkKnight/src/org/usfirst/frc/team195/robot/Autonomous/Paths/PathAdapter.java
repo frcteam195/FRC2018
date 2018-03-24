@@ -5,6 +5,7 @@ import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.CompetitionTheoreti
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.FieldProfile;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.PracticeField;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.TestingField;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
 
@@ -14,7 +15,7 @@ public class PathAdapter {
 	private static final DriverStation ds = DriverStation.getInstance();
 
 	private static FieldProfile kReferenceField = new PracticeField();
-	private static FieldProfile kCurrentField = new TestingField();
+	private static FieldProfile kCurrentField = new PracticeField();
 
 	private static Translation2d leftBlueSwitchTransform = kCurrentField.getLeftBlueSwitch().translateBy(kReferenceField.getLeftBlueSwitch().inverse());
 	private static Translation2d rightBlueSwitchTransform = kCurrentField.getRightBlueSwitch().translateBy(kReferenceField.getRightBlueSwitch().inverse());
