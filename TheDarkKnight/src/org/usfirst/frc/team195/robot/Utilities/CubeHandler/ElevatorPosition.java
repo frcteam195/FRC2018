@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Utilities.CubeHandler;
 
 public class ElevatorPosition {
+	public static final double GO_DOWN = -0.1;
 	public static final double HOME = 0.05;
 	public static final double LIFT_HOOK = 0.8;
 	public static final double PICKUP_CUBE_THRESHOLD = 3;

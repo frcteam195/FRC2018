@@ -11,7 +11,7 @@ public class RightRightFromRightStep3 implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(228,90,0,0)));
+		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(231,90,0,0)));
 		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(219,94,0,40)));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
@@ -26,7 +26,4 @@ public class RightRightFromRightStep3 implements PathContainer {
 	public boolean isReversed() {
 		return false;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":228,"y":90},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":219,"y":93},"speed":20,"radius":0,"marker":"","comment":""}]
-	// IS_REVERSED: false
-	// FILE_NAME: RightRightFromRightStep3
 }

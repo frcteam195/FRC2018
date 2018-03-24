@@ -394,9 +394,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						double tmpElevatorHeight = (getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT) || disableCollisionPrevention ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
-						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
+						if (mElevatorHomeSwitch.getFallingEdge() && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
 							zeroElevator();
-							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
+							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
 
@@ -414,7 +414,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						if (!mElevatorHomeSwitch.get()) {
 							zeroElevator();
 							setElevatorControl(ElevatorControl.POSITION);
-							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
+							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 							ledController.configureBlink(3, LEDController.kDefaultBlinkDuration);
 							ledController.setLEDColor(Constants.kElevatorHomeColor);
 							ledController.setRequestedState(LEDController.LEDState.BLINK);
