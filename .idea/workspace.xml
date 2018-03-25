@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a6c4234-4227-40c6-800f-338f58e70ba5" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" />
+      <change beforePath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" afterPath="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
     </list>
     <ignored path="$PROJECT_DIR$/CKAutoHelperCPP/bin/" />
     <ignored path="$PROJECT_DIR$/CKAutoHelperJava/bin/" />
@@ -34,78 +40,7 @@
     <favorites_list name="frc2018" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Robot.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Robot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2115">
-              <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CubeHandlerSubsystem.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-724">
-              <caret line="279" column="29" lean-forward="true" selection-start-line="279" selection-start-column="29" selection-end-line="279" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HIDController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1560">
-              <caret line="114" column="75" lean-forward="false" selection-start-line="114" selection-start-column="75" selection-end-line="114" selection-end-column="75" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AutomatedActions.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="23" column="194" lean-forward="false" selection-start-line="23" selection-start-column="194" selection-end-line="23" selection-end-column="194" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RightRightFromRightMode_4cube.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="29" column="74" lean-forward="false" selection-start-line="29" selection-start-column="74" selection-end-line="29" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="221" column="31" lean-forward="false" selection-start-line="221" selection-start-column="31" selection-end-line="221" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ElevatorPosition.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -119,7 +54,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ex.prin</find>
       <find>ex.printStackTrace()</find>
       <find>blob</find>
       <find>exportData()</find>
@@ -149,6 +83,7 @@
       <find>&quot;</find>
       <find>clamp</find>
       <find>isDoneWith</find>
+      <find>arm</find>
     </findStrings>
     <replaceStrings>
       <replace>ConsoleReporter.report</replace>
@@ -190,7 +125,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_1cubeScale.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_2cubeScale.java" />
         <option value="$PROJECT_DIR$/RobotJavaProject/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/LeftRightFromRightMode_2cubeScale.java" />
@@ -236,11 +170,12 @@
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep5.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep6.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep7.java" />
-        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
-        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java" />
-        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
         <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
+        <option value="$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java" />
       </list>
     </option>
   </component>
@@ -594,9 +529,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -764,6 +696,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -780,6 +715,7 @@
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.selected.package.stylelint" value="" />
+    <property name="SearchEverywhereHistoryKey" value="Cube&#9;FILE&#9;file:///Users/roberthilton/Documents/FRC/frc2018/TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java&#10;armPo&#9;PSI&#9;JAVA://org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition" />
   </component>
   <component name="RecentsManager">
     <key name="MoveMembersDialog.RECENTS_KEY">
@@ -1096,6 +1032,8 @@
       <workItem from="1521854571437" duration="689000" />
       <workItem from="1521862046142" duration="2383000" />
       <workItem from="1521868852561" duration="297000" />
+      <workItem from="1521936489798" duration="148000" />
+      <workItem from="1521936653158" duration="3152000" />
     </task>
     <task id="LOCAL-00001" summary="Update all">
       <created>1516597796485</created>
@@ -1129,7 +1067,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="429970000" />
+    <option name="totallyTimeSpent" value="433270000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1142,10 +1080,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28863868" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1156,10 +1094,9 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23931624" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24542125" sideWeight="0.48051947" order="0" side_tool="false" content_ui="combo" />
       <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24155578" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.48779" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2014652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1172,8 +1109,8 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28863868" sideWeight="0.495116" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.48779" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1219,20 +1156,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TeleopActionRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/StartingPosition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/DiagnosableSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1550,42 +1473,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/QuickMaths.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="22" lean-forward="false" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1560">
-          <caret line="114" column="75" lean-forward="false" selection-start-line="114" selection-start-column="75" selection-end-line="114" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="23" column="194" lean-forward="false" selection-start-line="23" selection-start-column="194" selection-end-line="23" selection-end-column="194" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+        <state relative-caret-position="450">
+          <caret line="131" column="119" lean-forward="false" selection-start-line="131" selection-start-column="119" selection-end-line="131" selection-end-column="119" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="221" column="31" lean-forward="false" selection-start-line="221" selection-start-column="31" selection-end-line="221" selection-end-column="31" />
+        <state relative-caret-position="333">
+          <caret line="78" column="59" lean-forward="false" selection-start-line="78" selection-start-column="59" selection-end-line="78" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="44" column="5" lean-forward="false" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="method#PlaceCubeOnScaleOverBack#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PlaceCubeOnSwitchArmOnly#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleOverBack#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnSwitchElevator#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#SetRestingPosition#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleHigh#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleMid#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleLow#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleOverBackLow#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleOverBackMid#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleOverBackHigh#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnScaleShortHigh#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePickupCube#0;class#AutomatedActions#0" expanded="false" />
+            <element signature="method#PreparePlaceCubeOnSwitchOverBack#0;class#AutomatedActions#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-724">
-          <caret line="279" column="29" lean-forward="true" selection-start-line="279" selection-start-column="29" selection-end-line="279" selection-end-column="29" />
+        <state relative-caret-position="186">
+          <caret line="327" column="123" lean-forward="false" selection-start-line="327" selection-start-column="123" selection-end-line="327" selection-end-column="123" />
           <folding />
         </state>
       </provider>

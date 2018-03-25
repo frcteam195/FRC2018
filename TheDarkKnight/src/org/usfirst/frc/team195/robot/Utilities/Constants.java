@@ -69,10 +69,14 @@ public class Constants {
 	public static final int BB1_ARM_DOWN = 7;
 	public static final int BB1_ARM_BACK = 9;
 	public static final int BB1_ARM_SWITCH = 8;
-	public static final int BB1_ELEVATOR_OVER_BACK_LOW = 2;
-	public static final int BB1_ELEVATOR_OVER_BACK_MID = 3;
+	public static final int BB1_AUTO_SWITCH = 2;
+	public static final int BB1_ELEVATOR_LOW = 9;
+	public static final int BB1_ELEVATOR_MID = 10;
+	public static final int BB1_ELEVATOR_HIGH = 11;
+	public static final int BB1_ELEVATOR_OVER_BACK_LOW = 3;
+	public static final int BB1_ELEVATOR_OVER_BACK_MID = 4;
 	public static final int BB1_ELEVATOR_OVER_BACK_HIGH = 5;
-	public static final int BB1_REQUEST_CUBE_FROM_WALL = 10;
+	public static final int BB1_REQUEST_CUBE_FROM_WALL = 15;
 
 	public static final int BB2_ARM_SET_ZERO = 1;
 	public static final int BB2_ARM_SET_MANUAL = 2;
@@ -196,7 +200,7 @@ public class Constants {
 	public static final double kArmArmPulley = 42.0;	//Teeth
 	public static final double kArmFinalRotationsPerDegree = kArmArmPulley/kArmMotorPulley/360.0;
 	public static final double kArmSoftMin = 0 * kArmFinalRotationsPerDegree;	//Number in degrees of arm converted to rotations
-	public static final double kArmSoftMax = 137 * kArmFinalRotationsPerDegree; //Number in degrees of arm converted to rotations
+	public static final double kArmSoftMax = 175 * kArmFinalRotationsPerDegree; //Number in degrees of arm converted to rotations
 	public static final double kArmHomingTimeout = 2;	//In seconds
 	public static final double kArmHomingSpeed = 0.3;	//In PercentOutput
 	public static final double kArmHomingSetpoint = 86.3 * kArmFinalRotationsPerDegree;	//Number in degrees of arm converted to rotations
