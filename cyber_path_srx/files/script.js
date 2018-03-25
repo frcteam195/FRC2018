@@ -622,7 +622,12 @@ function showData() {
 	update();
 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
 	$("#modalTitle").html(title + ".java");
-	$(".modal > pre").text(getDataString());
+	$(".modal > pre").html("<code class='java'>"+getDataString()+"</code>");
+
+	$(".modal > pre").each((i, block) => {
+        hljs.highlightBlock(block);
+    });
+
 	showModal();
 }
 
