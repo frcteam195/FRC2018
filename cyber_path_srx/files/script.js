@@ -575,7 +575,7 @@ function getDataString() {
             }
             continuousHeading += headingDifference;
         }
-        lastHeading = nextHeading;
+        lastHeading = continuousHeading;
 
 		var segment = `		{${convertInchesToNativeUnits(center.pos).toFixed(3)}, ${convertIpstoTicksPer100ms(center.vel).toFixed(3)}, ${(left.dt*1000.0).toFixed(3)}, ${continuousHeading.toFixed(3)}}\n`;
 		set_segments += segment;
