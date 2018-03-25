@@ -40,6 +40,7 @@ public class Controllers {
 	private Solenoid climberLockSolenoid;
 
 	private CANifier canifierLED;
+//	private PigeonDriver pigeonIMU;
 
 //	private DigitalOutput rLED;
 //	private DigitalOutput gLED;
@@ -101,6 +102,7 @@ public class Controllers {
 //		bLED = new DigitalOutput(Constants.kBlueLEDId);
 
 		canifierLED = new CANifier(Constants.kCANifierLEDId);
+//		pigeonIMU = new PigeonDriver(2);
 
 		elevatorHomeSwitch = new KnightDigitalInput(Constants.kElevatorHomeSwitchId);
 		cubeSensor = new KnightDigitalInput(Constants.kCubeSensorId);
@@ -242,4 +244,8 @@ public class Controllers {
 	public KnightDigitalInput getCubeSensor() {
 		return cubeSensor;
 	}
+
+//	public PigeonDriver getPigeonIMU() {
+//		return pigeonIMU;
+//	}
 }

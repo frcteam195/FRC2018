@@ -11,8 +11,8 @@ public class RightRightFromRightGOBACK implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(228,90,0,0));
-		sWaypoints.add(new Waypoint(257,82,15,20,"PreparePlaceCube"));
-		sWaypoints.add(new Waypoint(286,89,0,20));
+		sWaypoints.add(new Waypoint(257,82,15,60,"PreparePlaceCube"));
+		sWaypoints.add(new Waypoint(286,89,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

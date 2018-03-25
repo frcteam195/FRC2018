@@ -39,9 +39,9 @@ public class AutomatedActions {
 		return new SeriesAction(actionArrayList);
 	}
 
-	public static SeriesAction PreparePlaceCubeOnSwitch() {
-		return new SeriesAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
-											  new SetArmRotationAction(ArmPosition.LOW)));
+	public static ParallelAction PreparePlaceCubeOnSwitch() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
+												new SetArmRotationAction(ArmPosition.LOW)));
 	}
 
 	public static ParallelAction PreparePlaceCubeOnScaleOverBack() {
