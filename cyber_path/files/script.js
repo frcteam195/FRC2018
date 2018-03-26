@@ -627,7 +627,7 @@ function importData() {
 
             waypoints = [];
             $("tbody").empty();
-            tmpWaypoints.forEach((wptmp) => {
+            tmpWaypoints.forEach((wptmp, i) => {
 				var wp;
 				var x = 0;
 				var y = 0;
@@ -651,7 +651,7 @@ function importData() {
                     +"<td><input value='" + wp.radius + "'></td>"
                     +"<td><input value='" + wp.speed + "'></td>"
                     +"<td class='marker'><input placeholder='Marker' value='" + wp.marker + "'></td>"
-                    +"<td><button onclick='$(this).parent().parent().remove();update();''>Delete</button></td></tr>"
+                    +(i == 0 ? "" : "<td><button onclick='$(this).parent().parent().remove();update();''>Delete</button></td></tr>")
                 );
 			});
             update();

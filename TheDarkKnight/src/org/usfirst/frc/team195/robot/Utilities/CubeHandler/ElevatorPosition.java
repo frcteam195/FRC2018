@@ -5,7 +5,7 @@ public class ElevatorPosition {
 	public static final double HOME = 0.05;
 	public static final double LIFT_HOOK = 0.8;
 	public static final double PICKUP_CUBE_THRESHOLD = 3;
-	public static final double SWITCH = 5;
+	public static final double SWITCH = 6;
 	public static final double ARM_COLLISION_POINT = 6.7;
 	public static final double LOW = 11.75;
 	public static final double MID = 13.5;

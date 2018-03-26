@@ -30,7 +30,7 @@ public class LeftFromCenterMode_2cube extends AutoModeBase {
 		//runAction(new DrivePathAction(pathContainer));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
-												   new SetElevatorHeightAction(ElevatorPosition.LOW),
+												   new SetElevatorHeightAction(ElevatorPosition.SWITCH),
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
 																				  new SetArmRotationAction(ArmPosition.DOWN))))));
 
@@ -56,7 +56,7 @@ public class LeftFromCenterMode_2cube extends AutoModeBase {
 												   AutomatedActions.LiftArmTo90())));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new LeftFromCenterStep5Final()),
-												   new SetElevatorHeightAction(ElevatorPosition.LOW),
+												   new SetElevatorHeightAction(ElevatorPosition.SWITCH),
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
 													   							  new SetArmRotationAction(ArmPosition.DOWN))))));
 
