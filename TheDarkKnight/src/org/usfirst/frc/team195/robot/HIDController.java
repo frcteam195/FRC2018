@@ -180,7 +180,7 @@ public class HIDController implements Runnable {
 		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_IN))
 			climberSubsystem.setOpenLoop(1);
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_OUT))
-			climberSubsystem.setOpenLoop(-0.5);
+			climberSubsystem.setOpenLoop(-1);
 		else
 			climberSubsystem.setOpenLoop(0);
 
