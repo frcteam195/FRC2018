@@ -16,6 +16,7 @@ import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathContainer;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
@@ -28,7 +29,7 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PreparePlaceCubeOnScaleOverBack())))));
 
-		runAction(AutomatedActions.OutakeCubeMidSpeed());
+		runAction(AutomatedActions.OutakeCubeFast());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
 				new DrivePathAction(new RightRightFromRightStep2()),
@@ -42,7 +43,7 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 						AutomatedActions.PreparePlaceCubeOnScaleOverBackMid())))));
 
-		runAction(AutomatedActions.OutakeCubeSlow());
+		runAction(AutomatedActions.OutakeCubeMidSpeed());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
@@ -53,12 +54,18 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 												 new WaitAction(0.1),
 												 AutomatedActions.StopIntake())));
 
-		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightCube3GOBACK()),
-									 new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
-											 						AutomatedActions.PreparePlaceCubeOnScaleOverBackMid())))));
+//		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightCube3GOBACK()),
+//									 new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
+//											 						AutomatedActions.PreparePlaceCubeOnScaleOverBackMid())))));
 
-		runAction(AutomatedActions.OutakeCubeSlow());
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePlaceCubeOnScaleOverBackMid(),
+												   new DrivePathAction(new RightRightFromRightCube3GOBACK()))));
+
+		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
+
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.SetRestingPosition(),
+												   new DrivePathAction(new RightRightFromRightCube3Ready44()))));
 
 		runAction(new WaitAction(15));
 	}
