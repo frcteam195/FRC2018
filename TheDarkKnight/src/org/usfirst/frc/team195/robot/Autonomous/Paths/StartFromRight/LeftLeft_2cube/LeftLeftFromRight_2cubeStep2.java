@@ -11,8 +11,8 @@ public class LeftLeftFromRight_2cubeStep2 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(290,257,0,0));
-		sWaypoints.add(new Waypoint(265,257,15,20,"PreparePickupCube"));
-		sWaypoints.add(new Waypoint(232,248,0,20));
+		sWaypoints.add(new Waypoint(265,257,15,23,"PreparePickupCube"));
+		sWaypoints.add(new Waypoint(232,248,0,23));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
