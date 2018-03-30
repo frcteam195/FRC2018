@@ -641,7 +641,7 @@ function importData() {
                     speed = wptmp[3];
 				}
 				if (wptmp.length >= 5) {
-                    marker = wptmp[4];
+                    marker = wptmp[4].replace(/"/g, "");
 				}
 
                 wp = new Waypoint(new Translation2d(x, y), speed, radius, marker);
