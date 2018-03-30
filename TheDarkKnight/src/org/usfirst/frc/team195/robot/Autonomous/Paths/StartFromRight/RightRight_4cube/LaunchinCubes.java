@@ -6,25 +6,27 @@ import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBui
 
 import java.util.ArrayList;
 
-public class RightRightFromRightStep2 implements PathContainer {
+public class LaunchinCubes implements PathContainer {
 
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(PathAdapter.getAdaptedRightScaleWaypoint(new Waypoint(286,88,0,0)));
-		sWaypoints.add(new Waypoint(257,82,15,70));
-		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(231,90,0,30)));
+		sWaypoints.add(new Waypoint(20,48,0,0));
+		sWaypoints.add(new Waypoint(60,48,0,137,"LiftElevator"));
+		sWaypoints.add(new Waypoint(180,48,45,137));
+		sWaypoints.add(new Waypoint(270,75,0,137,"ChuteMe"));
+		sWaypoints.add(PathAdapter.getAdaptedRightScaleWaypoint(new Waypoint(300,84,0,137)));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(286, 88), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(20, 48), Rotation2d.fromDegrees(180));
 	}
 
 	@Override
 	public boolean isReversed() {
-		return false;
+		return true;
 	}
 }

@@ -114,7 +114,7 @@ class Waypoint {
 		if (this.marker === "")
 			return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+")";
 		else
-            return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+",\""+this.marker+"\")";
+            return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+",\""+this.marker.trim()+"\")";
 	}
 }
 

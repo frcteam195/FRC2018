@@ -14,4 +14,5 @@ public class ElevatorPosition {
 	public static final double OVER_THE_BACK_LOW = 11.75;
 	public static final double OVER_THE_BACK_MID = 13.5;
 	public static final double OVER_THE_BACK_HIGH = 16;
+	public static final double BALL_LIKE_558 = 4.4;
 }

@@ -1,11 +1,11 @@
-package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.Right;
+package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.Right3Cube;
 
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 
 import java.util.ArrayList;
 
-public class RightFromCenterStep5Final implements PathContainer {
+public class RightFromCenterStep5 implements PathContainer {
 
 	@Override
 	public Path buildPath() {

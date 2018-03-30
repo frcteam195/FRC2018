@@ -1,10 +1,7 @@
 package org.usfirst.frc.team195.robot.Autonomous.Paths;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.CompetitionTheoreticalField;
-import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.FieldProfile;
-import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.PracticeField;
-import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.TestingField;
+import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
@@ -14,7 +11,7 @@ import java.sql.Driver;
 public class PathAdapter {
 	private static final DriverStation ds = DriverStation.getInstance();
 
-	private static FieldProfile kReferenceField = new PracticeField();
+	private static FieldProfile kReferenceField = new ReferenceField();
 	private static FieldProfile kCurrentField = new PracticeField();
 
 	private static Translation2d leftBlueSwitchTransform = kCurrentField.getLeftBlueSwitch().translateBy(kReferenceField.getLeftBlueSwitch().inverse());

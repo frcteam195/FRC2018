@@ -12,7 +12,7 @@ import org.usfirst.frc.team195.robot.Actions.Framework.WaitForPathMarkerAction;
 import org.usfirst.frc.team195.robot.Actions.ResetPoseFromPathAction;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeEndedException;
-import org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.Left.*;
+import org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.Left2Cube.*;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;

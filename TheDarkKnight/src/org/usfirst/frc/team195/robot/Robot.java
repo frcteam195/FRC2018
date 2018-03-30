@@ -8,6 +8,7 @@ import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftF
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_1cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_2cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_3cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftLeftFromLeftMode_3cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_3cube;
@@ -250,9 +251,9 @@ public class Robot extends RobbieRobot {
 			case LEFT_RIGHT:
 				return new LeftFromCenterMode_2cube();
 			case RIGHT_LEFT:
-				return new RightFromCenterMode_2cube();
+				return new RightFromCenterMode_3cube();
 			case RIGHT_RIGHT:
-				return new RightFromCenterMode_2cube();
+				return new RightFromCenterMode_3cube();
 			case UNDEFINED:
 			default:
 				break;

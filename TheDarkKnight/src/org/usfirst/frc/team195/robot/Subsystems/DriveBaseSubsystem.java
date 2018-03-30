@@ -145,7 +145,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		turnToHeadingPID.setDeadband(2);
 
 //		tuneableLeftDrive = new TuneablePID("Drive Tuning", mLeftMaster, mRightMaster, leftSetpointValue, 5808, true, false);
-//		tuneableRightDrive = new TuneablePID("Right Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
+//		tuneableRightDrive = new TuneablePID("Right2Cube Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
 //		tuneableLeftDrive.start();
 
 	}
@@ -267,12 +267,12 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			ArrayList<MotorDiagnostics> mAllMotorsDiagArr = new ArrayList<MotorDiagnostics>();
 			ArrayList<MotorDiagnostics> mLeftDiagArr = new ArrayList<MotorDiagnostics>();
 			ArrayList<MotorDiagnostics> mRightDiagArr = new ArrayList<MotorDiagnostics>();
-			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Master", mLeftMaster));
-			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 1", leftDriveSlave1, mLeftMaster));
-			mLeftDiagArr.add(new MotorDiagnostics("Drive Left Slave 2", leftDriveSlave2, mLeftMaster));
-			mRightDiagArr.add(new MotorDiagnostics("Drive Right Master", mRightMaster));
-			mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 1", rightDriveSlave1, mRightMaster));
-			mRightDiagArr.add(new MotorDiagnostics("Drive Right Slave 2", rightDriveSlave2, mRightMaster));
+			mLeftDiagArr.add(new MotorDiagnostics("Drive Left2Cube Master", mLeftMaster));
+			mLeftDiagArr.add(new MotorDiagnostics("Drive Left2Cube Slave 1", leftDriveSlave1, mLeftMaster));
+			mLeftDiagArr.add(new MotorDiagnostics("Drive Left2Cube Slave 2", leftDriveSlave2, mLeftMaster));
+			mRightDiagArr.add(new MotorDiagnostics("Drive Right2Cube Master", mRightMaster));
+			mRightDiagArr.add(new MotorDiagnostics("Drive Right2Cube Slave 1", rightDriveSlave1, mRightMaster));
+			mRightDiagArr.add(new MotorDiagnostics("Drive Right2Cube Slave 2", rightDriveSlave2, mRightMaster));
 
 			mAllMotorsDiagArr.addAll(mLeftDiagArr);
 			mAllMotorsDiagArr.addAll(mRightDiagArr);
@@ -306,13 +306,13 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 				List<Double> leftMotorCurrents = mLeftDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
 				if (!Util.allCloseTo(leftMotorCurrents, leftMotorCurrents.get(0), Constants.kDriveBaseTestCurrentDelta)) {
 					failure = true;
-					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Left Currents Different !!!!!!!!!!");
+					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Left2Cube Currents Different !!!!!!!!!!");
 				}
 
 				List<Double> rightMotorCurrents = mRightDiagArr.stream().map(MotorDiagnostics::getMotorCurrent).collect(Collectors.toList());
 				if (!Util.allCloseTo(rightMotorCurrents, rightMotorCurrents.get(0), Constants.kDriveBaseTestCurrentDelta)) {
 					failure = true;
-					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Right Currents Different !!!!!!!!!!");
+					ConsoleReporter.report("!!!!!!!!!!!!!!!!!! Drive Right2Cube Currents Different !!!!!!!!!!");
 				}
 
 				List<Double> driveMotorRPMs = mAllMotorsDiagArr.stream().map(MotorDiagnostics::getMotorRPM).collect(Collectors.toList());
@@ -338,7 +338,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		allSensorsPresent &= leftSensorPresent;
 		allSensorsPresent &= rightSensorPresent;
 		if (!leftSensorPresent || !rightSensorPresent) {
-			String msg = "Could not detect encoder! \r\n\tLeft Encoder Detected: " + leftSensorPresent + "\r\n\tRight Encoder Detected: " + rightSensorPresent;
+			String msg = "Could not detect encoder! \r\n\tLeft2Cube Encoder Detected: " + leftSensorPresent + "\r\n\tRight2Cube Encoder Detected: " + rightSensorPresent;
 			ConsoleReporter.report(msg, MessageLevel.DEFCON1);
 			DriverStation.reportError(msg, false);
 		}
@@ -351,12 +351,12 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			DriverStation.reportError(msg, false);
 		}
 
-		checkMotorReset(mLeftMaster, "Left Drive Master");
-		checkMotorReset(leftDriveSlave1, "Left Drive Slave 1");
-		checkMotorReset(leftDriveSlave2, "Left Drive Slave 2");
-		checkMotorReset(mRightMaster, "Right Drive Master");
-		checkMotorReset(rightDriveSlave1, "Right Drive Slave 1");
-		checkMotorReset(rightDriveSlave2, "Right Drive Slave 2");
+		checkMotorReset(mLeftMaster, "Left2Cube Drive Master");
+		checkMotorReset(leftDriveSlave1, "Left2Cube Drive Slave 1");
+		checkMotorReset(leftDriveSlave2, "Left2Cube Drive Slave 2");
+		checkMotorReset(mRightMaster, "Right2Cube Drive Master");
+		checkMotorReset(rightDriveSlave1, "Right2Cube Drive Slave 1");
+		checkMotorReset(rightDriveSlave2, "Right2Cube Drive Slave 2");
 
 		return !allSensorsPresent;
 	}
@@ -490,8 +490,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			updatePathVelocitySetpoint(setpoint.left, setpoint.right);
 
 			//ConsoleReporter.report(mPathFollower.getDebug());
-			//ConsoleReporter.report("Left: " + inchesPerSecondToRpm(setpoint.left) + ", Right: " + inchesPerSecondToRpm(setpoint.right));
-			//ConsoleReporter.report("Left Actual: " + Util.convertNativeUnitsToRPM(mLeftMaster.getSelectedSensorVelocity(0)) + ", Right Actual: " + Util.convertNativeUnitsToRPM(mRightMaster.getSelectedSensorVelocity(0)));
+			//ConsoleReporter.report("Left2Cube: " + inchesPerSecondToRpm(setpoint.left) + ", Right2Cube: " + inchesPerSecondToRpm(setpoint.right));
+			//ConsoleReporter.report("Left2Cube Actual: " + Util.convertNativeUnitsToRPM(mLeftMaster.getSelectedSensorVelocity(0)) + ", Right2Cube Actual: " + Util.convertNativeUnitsToRPM(mRightMaster.getSelectedSensorVelocity(0)));
 		} else {
 			updatePathVelocitySetpoint(0, 0);
 			ConsoleReporter.report("Completed path!");
@@ -506,8 +506,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(left_inches_per_sec * scale)));
 		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(right_inches_per_sec * scale)));
 
-		//ConsoleReporter.report("Requested Drive Velocity Left/Right: " + left_inches_per_sec + "/" + right_inches_per_sec);
-		//ConsoleReporter.report("Actual Drive Velocity Left/Right: " + getLeftVelocityInchesPerSec() + "/" + getRightVelocityInchesPerSec());
+		//ConsoleReporter.report("Requested Drive Velocity Left2Cube/Right2Cube: " + left_inches_per_sec + "/" + right_inches_per_sec);
+		//ConsoleReporter.report("Actual Drive Velocity Left2Cube/Right2Cube: " + getLeftVelocityInchesPerSec() + "/" + getRightVelocityInchesPerSec());
 	}
 
 	private static double rotationsToInches(double rotations) {

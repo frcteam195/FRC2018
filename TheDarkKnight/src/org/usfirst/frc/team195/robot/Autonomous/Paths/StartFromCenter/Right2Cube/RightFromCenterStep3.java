@@ -1,4 +1,4 @@
-package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.Right;
+package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.Right2Cube;
 
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
