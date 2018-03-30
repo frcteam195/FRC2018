@@ -17,6 +17,7 @@ var imageFlipped;
 var wto;
 
 var startLeftY = 276;
+var startCenterY = 157;
 var startRightY = 48;
 
 var maxSpeed = 120;
@@ -880,11 +881,13 @@ function flipField() {
 }
 
 function changeStartPoint() {
-    if (parseInt( $($($($('tbody').children()[0]).children()[1]).children()).val() ) == startLeftY) {
+    if (parseInt($($($($('tbody').children()[0]).children()[1]).children()).val()) == startLeftY) {
+        $($($($('tbody').children()[0]).children()[1]).children()).val(startCenterY);
+    } else if (parseInt($($($($('tbody').children()[0]).children()[1]).children()).val()) == startCenterY) {
         $($($($('tbody').children()[0]).children()[1]).children()).val(startRightY);
-	} else if (parseInt(  $($($($('tbody').children()[0]).children()[1]).children()).val() ) == startRightY) {
+    } else if (parseInt($($($($('tbody').children()[0]).children()[1]).children()).val()) == startRightY) {
         $($($($('tbody').children()[0]).children()[1]).children()).val(startLeftY);
-	}
+    }
     update();
 }
 
