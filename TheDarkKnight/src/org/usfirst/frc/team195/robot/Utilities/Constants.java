@@ -1,7 +1,5 @@
 package org.usfirst.frc.team195.robot.Utilities;
 
-import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
-
 public class Constants {
 	public static final boolean TUNING_PIDS = true;
 	public static final boolean DEBUG = false;
@@ -222,8 +220,8 @@ public class Constants {
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.2;	//In rotations of output shaft
 	public static final double kElevatorDeviationThreshold = 0.1;	//In rotations of output shaft
-	public static final double kElevatorHomingSpeed = -0.3;	//In rotations of output shaft
-	public static final double kElevatorSafetyCurrent = 18;	//In rotations of output shaft
+	public static final double kElevatorHomingSpeed = -0.3;	//In percent output
+	public static final double kElevatorSafetyCurrent = 18;	//In amps
 	public static final double kElevatorSafetyDelta = 0.05;	//In rotations of output shaft
 	public static final double kElevatorHomingTimeout = 5;	//In seconds
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
@@ -265,8 +263,8 @@ public class Constants {
 	public static final double kDriveLowGearPositionKf = .165;
 	public static final int kDriveLowGearPositionIZone = 0;
 	public static final double kDriveLowGearPositionRampRate = 0.1; // V/s
-	public static final double kDriveLowGearMaxVelocity = 6.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 12 fps, value in RPM
-	public static final double kDriveLowGearMaxAccel = 8.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 20 fps/s, value in RPM/s
+	public static final double kDriveLowGearMaxVelocity = 6.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 6 fps, value in RPM
+	public static final double kDriveLowGearMaxAccel = 8.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 8 fps/s, value in RPM/s
 
 	//Tuned with 100:1 Transmission
 	public static final double kArmKp = 6.7;
