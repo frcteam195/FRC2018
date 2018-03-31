@@ -83,6 +83,7 @@ public class Constants {
 	public static final int BB2_CLIMBER_DEPLOY_PLATFORM = 5;
 	public static final int BB2_CLIMBER_CLIMB_ROLL_DEPLOY = 6;
 	public static final int BB2_CLIMBER_CLIMB_IN = 7;
+	public static final int BB2_CLIMBER_CLIMB_HOOK_SLOW = 8;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
@@ -254,7 +255,7 @@ public class Constants {
 	public static final double kDriveHighGearVelocityKf = 0.165;
 	public static final int kDriveHighGearVelocityIZone = 0;
 	public static final double kDriveHighGearVelocityRampRate = 0.1;
-	public static final double kDriveHighGearMaxSetpoint = 12.0 * 12.0; // 14 fps
+	public static final double kDriveHighGearMaxSetpoint = 12.0 * 12.0; // 12 fps
 
 	// PID gains for drive velocity loop (LOW GEAR)
 	// Units: setpoint, error, and output are in inches per second.
@@ -264,8 +265,8 @@ public class Constants {
 	public static final double kDriveLowGearPositionKf = .165;
 	public static final int kDriveLowGearPositionIZone = 0;
 	public static final double kDriveLowGearPositionRampRate = 0.1; // V/s
-	public static final double kDriveLowGearMaxVelocity = 12.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 14 fps, value in RPM
-	public static final double kDriveLowGearMaxAccel = 20.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 20 fps/s, value in RPM/s
+	public static final double kDriveLowGearMaxVelocity = 6.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 12 fps, value in RPM
+	public static final double kDriveLowGearMaxAccel = 8.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 20 fps/s, value in RPM/s
 
 	//Tuned with 100:1 Transmission
 	public static final double kArmKp = 6.7;

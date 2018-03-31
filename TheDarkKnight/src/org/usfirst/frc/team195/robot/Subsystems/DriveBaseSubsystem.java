@@ -43,9 +43,9 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	private TuneablePID tuneableRightDrive;
 	private SetpointValue leftSetpointValue = new SetpointValue();
 	private SetpointValue rightSetpointValue = new SetpointValue();
-	private SynchronousPIDF turnToHeadingPID;
-	private boolean turnIsFinished = false;
-	private double mPrevTurnTime = 0;
+	private Rotation2d mTargetHeading = new Rotation2d();
+	private boolean mIsOnTarget = false;
+
 
 	private boolean emergencySafetyRequired = false;
 
@@ -75,15 +75,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 					case VELOCITY:
 						break;
 					case TURN_TO_HEADING:
-						//TODO: Test now with updated heading vals
-						double currentAngle = mNavXBoard.getRawYawDegrees();
-						double val = turnToHeadingPID.calculate(currentAngle, timestamp - mPrevTurnTime);
-						setDriveVelocity(new DriveMotorValues(-val, val), false);
-						mPrevTurnTime = timestamp;
-						if (Math.abs(currentAngle - turnToHeadingPID.getSetpoint()) < 2) {
-							setDoneWithTurn(true);
-							setDriveVelocity(new DriveMotorValues(0, 0));
-						}
+						updateTurnToHeading(timestamp);
 						break;
 					case PATH_FOLLOWING:
 						if (mPathFollower != null) {
@@ -139,11 +131,6 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 		mControlMode = DriveControlState.PATH_FOLLOWING;
 
-		turnToHeadingPID = new SynchronousPIDF(Constants.kDriveTurnKp, Constants.kDriveTurnKi, Constants.kDriveTurnKd, Constants.kDriveTurnKf);
-		turnToHeadingPID.setInputRange(-180, 180);
-		turnToHeadingPID.setOutputRange(-Constants.kDriveTurnMaxVel, Constants.kDriveTurnMaxVel);
-		turnToHeadingPID.setDeadband(2);
-
 //		tuneableLeftDrive = new TuneablePID("Drive Tuning", mLeftMaster, mRightMaster, leftSetpointValue, 5808, true, false);
 //		tuneableRightDrive = new TuneablePID("Right2Cube Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
 //		tuneableLeftDrive.start();
@@ -198,7 +185,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		setSucceeded &= TalonHelper.setPIDGains(mLeftMaster, kHighGearPIDSlot, Constants.kDriveHighGearVelocityKp, Constants.kDriveHighGearVelocityKi, Constants.kDriveHighGearVelocityKd, Constants.kDriveHighGearVelocityKf, Constants.kDriveHighGearVelocityRampRate, Constants.kDriveHighGearVelocityIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mRightMaster, kLowGearPIDSlot, Constants.kDriveLowGearPositionKp, Constants.kDriveLowGearPositionKi, Constants.kDriveLowGearPositionKd, Constants.kDriveLowGearPositionKf, Constants.kDriveLowGearPositionRampRate, Constants.kDriveLowGearPositionIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mRightMaster, kHighGearPIDSlot, Constants.kDriveHighGearVelocityKp, Constants.kDriveHighGearVelocityKi, Constants.kDriveHighGearVelocityKd, Constants.kDriveHighGearVelocityKf, Constants.kDriveHighGearVelocityRampRate, Constants.kDriveHighGearVelocityIZone);
-
+		setSucceeded &= TalonHelper.setMotionMagicParams(mLeftMaster, (int)Constants.kDriveLowGearMaxVelocity, (int)Constants.kDriveLowGearMaxAccel);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mRightMaster, (int)Constants.kDriveLowGearMaxVelocity, (int)Constants.kDriveLowGearMaxAccel);
 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to initialize DriveBaseSubsystem!!!", MessageLevel.DEFCON1);
@@ -460,22 +448,6 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		}
 	}
 
-	public synchronized void setTurnToHeading(double headingDeg, boolean headingIsAbsolute) {
-		if (headingIsAbsolute)
-			turnToHeadingPID.setSetpoint(headingDeg);
-		else
-			turnToHeadingPID.setSetpoint(headingDeg + mNavXBoard.getRawYawDegrees());
-
-		turnToHeadingPID.resetIntegrator();
-		setDoneWithTurn(false);
-		mPrevTurnTime = Timer.getFPGATimestamp();
-		setControlMode(DriveControlState.TURN_TO_HEADING);
-	}
-
-	private synchronized void setDoneWithTurn(boolean done) {
-		turnIsFinished = done;
-	}
-
 	/**
 	 * Called periodically when the robot is in path following mode. Updates the path follower with the robots latest
 	 * pose, distance driven, and velocity, then updates the wheel velocity setpoints.
@@ -560,6 +532,65 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	}
 
 	/**
+	 * Configures the drivebase to turn to a desired heading
+	 */
+	public synchronized void setWantTurnToHeading(Rotation2d heading) {
+		if (mControlMode != DriveControlState.TURN_TO_HEADING) {
+			mControlMode = DriveControlState.TURN_TO_HEADING;
+			updatePositionSetpoint(getLeftDistanceInches(), getRightDistanceInches());
+		}
+		if (Math.abs(heading.inverse().rotateBy(mTargetHeading).getDegrees()) > 1E-3) {
+			mTargetHeading = heading;
+			mIsOnTarget = false;
+		}
+	}
+
+	/**
+	 * Turn the robot to a target heading.
+	 *
+	 * Is called periodically when the robot is auto-aiming towards the boiler.
+	 */
+	private void updateTurnToHeading(double timestamp) {
+//        if (Superstructure.getInstance().isShooting()) {
+//            // Do not update heading while shooting - just base lock. By not updating the setpoint, we will fight to
+//            // keep position.
+//            return;
+//        }
+		final Rotation2d field_to_robot = mRobotState.getLatestFieldToVehicle().getValue().getRotation();
+
+		// Figure out the rotation necessary to turn to face the goal.
+		final Rotation2d robot_to_target = field_to_robot.inverse().rotateBy(mTargetHeading);
+
+		// Check if we are on target
+		final double kGoalPosTolerance = 1.5; // degrees
+		final double kGoalVelTolerance = 5.0; // inches per second
+		if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance
+				&& Math.abs(getLeftVelocityInchesPerSec()) < kGoalVelTolerance
+				&& Math.abs(getRightVelocityInchesPerSec()) < kGoalVelTolerance) {
+			// Use the current setpoint and base lock.
+			mIsOnTarget = true;
+			updatePositionSetpoint(getLeftDistanceInches(), getRightDistanceInches());
+			return;
+		}
+
+		Kinematics.DriveVelocity wheel_delta = Kinematics
+				.inverseKinematics(new Twist2d(0, 0, robot_to_target.getRadians()));
+		updatePositionSetpoint(wheel_delta.left + getLeftDistanceInches(),
+				wheel_delta.right + getRightDistanceInches());
+	}
+
+	/**
+	 * Adjust position setpoint (if already in position mode)
+	 *
+	 * @param left_position_inches
+	 * @param right_position_inches
+	 */
+	private synchronized void updatePositionSetpoint(double left_position_inches, double right_position_inches) {
+		mLeftMaster.set(ControlMode.MotionMagic, inchesToRotations(left_position_inches) * 4096);
+		mRightMaster.set(ControlMode.MotionMagic, inchesToRotations(right_position_inches) * 4096);
+	}
+
+	/**
 	 * Configures the drivebase to drive a path. Used for autonomous driving
 	 *
 	 * @see Path
@@ -591,7 +622,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 	public synchronized boolean isDoneWithTurn() {
 		if (mControlMode == DriveControlState.TURN_TO_HEADING) {
-			return turnIsFinished;
+			return mIsOnTarget;
 		} else {
 			ConsoleReporter.report("Robot is not in turning mode");
 			return true;
