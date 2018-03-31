@@ -145,7 +145,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		@Override
 		public void onFirstStart(double timestamp) {
 			synchronized (ClimberSubsystem.this) {
-				//subsystemHome();
+				subsystemHome();
 			}
 		}
 
@@ -321,7 +321,11 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	}
 
 	public synchronized void setVelocity(double rpm) {
-		setClimberControl(ClimberControl.VELOCITY);
-		climberVelocity = rpm;
+		if (!isClimberFaulted()) {
+			setClimberControl(ClimberControl.VELOCITY);
+			climberVelocity = rpm;
+		} else {
+			setOpenLoop(Util.limit(rpm, 1));
+		}
 	}
 }

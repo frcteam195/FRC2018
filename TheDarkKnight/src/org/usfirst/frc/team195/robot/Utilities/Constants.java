@@ -348,12 +348,6 @@ public class Constants {
 	public static final double kPathStopSteeringDistance = 9.0;
 
 
-	// Turn to heading gains
-	public static final double kDriveTurnKp = 1.3;
-	public static final double kDriveTurnKi = 0.3;
-	public static final double kDriveTurnKd = 0;
-	public static final double kDriveTurnKf = 0.7;
-	public static final double kDriveTurnMaxVel = 220.0;
 
 
 	private static int getMSDurationForBreakerLimit(double peakCurrentInput, double breakerRating) {

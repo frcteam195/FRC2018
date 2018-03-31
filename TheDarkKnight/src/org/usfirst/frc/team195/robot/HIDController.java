@@ -186,7 +186,7 @@ public class HIDController implements Runnable {
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_IN))
 			climberSubsystem.setVelocity(Constants.kClimberMaxVelocity);
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_HOOK_SLOW))
-			climberSubsystem.setVelocity(0.2 * Constants.kClimberMaxVelocity);
+			climberSubsystem.setVelocity(0.05 * Constants.kClimberMaxVelocity);
 		else
 			climberSubsystem.setVelocity(0);
 
