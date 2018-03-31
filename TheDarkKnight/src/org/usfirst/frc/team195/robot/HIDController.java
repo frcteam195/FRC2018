@@ -2,6 +2,7 @@ package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
+import org.usfirst.frc.team195.robot.Actions.TurnToHeadingAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
@@ -176,15 +177,15 @@ public class HIDController implements Runnable {
 
 
 		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_DEPLOY)) {
-			cubeHandlerSubsystem.setIntakeClamp(true);
-			cubeHandlerSubsystem.setDisableCollisionPrevention(true);
-			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.GET_CLIMBER_HOOK);
+			cubeHandlerSubsystem.prepareCLimb();
 			climberSubsystem.setVelocity(-0.5*Constants.kClimberMaxVelocity);
 		}
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_IN))
 			climberSubsystem.setVelocity(Constants.kClimberMaxVelocity);
-		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_HOOK_SLOW))
-			climberSubsystem.setVelocity(0.05 * Constants.kClimberMaxVelocity);
+		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_HOOK_SLOW)) {
+			cubeHandlerSubsystem.prepareCLimb();
+			climberSubsystem.setOpenLoop(0.77);
+		}
 		else
 			climberSubsystem.setVelocity(0);
 

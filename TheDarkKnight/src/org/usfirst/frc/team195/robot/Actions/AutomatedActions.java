@@ -51,7 +51,7 @@ public class AutomatedActions {
 
 	public static ParallelAction PreparePlaceCubeOnSwitchElevator() {
 		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
-												new SetArmRotationAction(ArmPosition.DOWN)));
+												new SetArmRotationAction(ArmPosition.LOW)));
 	}
 
 	public static ParallelAction SetRestingPosition() {
@@ -99,7 +99,7 @@ public class AutomatedActions {
 	}
 
 	public static ParallelAction PreparePickupCube() {
-		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0),
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.DOWN),
 												new SetIntakeClampAction(true),
 												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
 	}

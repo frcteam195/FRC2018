@@ -71,18 +71,18 @@ public class LeftRightFromRightMode_2cube extends AutoModeBase {
 		runAction(new WaitAction(0.1));
 		runAction(AutomatedActions.StopIntake());
 
-		runAction(new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
-											   new SetArmRotationAction(ArmPosition.VERTICAL))));
+		runAction(new SetArmRotationAction(ArmPosition.VERTICAL));
+//		runAction(new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
+//											   new SetArmRotationAction(ArmPosition.VERTICAL))));
 
-		runAction(new TurnToHeadingAction(120));
+		runAction(new TurnToHeadingAction(160));
 
 		//runAction(new DrivePathAction(new LeftRightFromRightTestStep4()));
 
-		runAction(new WaitAction(.5));
+//		runAction(new WaitAction(.5));
 
-		runAction(new DrivePathAction(new LeftRightFromRightTestStep5()));
-
-		runAction(new SetArmRotationAction(ArmPosition.DOWN));
+		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new LeftRightFromRightTestStep5()),
+												    new SetArmRotationAction(ArmPosition.SWITCH))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());

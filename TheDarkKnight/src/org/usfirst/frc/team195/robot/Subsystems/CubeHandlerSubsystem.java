@@ -957,5 +957,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	public boolean isCollisionPreventionDisabled() {
 		return disableCollisionPrevention;
 	}
+
+	public synchronized void prepareCLimb() {
+		setIntakeClamp(true);
+		setDisableCollisionPrevention(true);
+		setArmRotationDeg(ArmPosition.GET_CLIMBER_HOOK);
+	}
 }
 

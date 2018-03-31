@@ -816,6 +816,7 @@ function getDataString() {
 	var deg = isReversed ? 180 : 0;
 	var str = `package org.usfirst.frc.team195.robot.Autonomous.Paths;
 
+import org.usfirst.frc.team195.robot.Autonomous.Paths.PathAdapter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 

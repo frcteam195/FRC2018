@@ -33,7 +33,7 @@ public class RightFromCenterMode_3cube extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
 				new SetElevatorHeightAction(ElevatorPosition.SWITCH),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
-						new SetArmRotationAction(ArmPosition.DOWN))))));
+						new SetArmRotationAction(ArmPosition.LOW))))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
@@ -59,7 +59,7 @@ public class RightFromCenterMode_3cube extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightFromCenterStep5()),
 				new SetElevatorHeightAction(ElevatorPosition.SWITCH),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
-						new SetArmRotationAction(ArmPosition.DOWN))))));
+						new SetArmRotationAction(ArmPosition.LOW))))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
@@ -75,12 +75,15 @@ public class RightFromCenterMode_3cube extends AutoModeBase {
 		runAction(new WaitAction(0.1));
 		runAction(AutomatedActions.StopIntake());
 
-		new DrivePathAction(new RightFromCenterStep8());
 
-		new DrivePathAction(new RightFromCenterStep9());
+//		runAction(new SetArmRotationAction(ArmPosition.VERTICAL));
 
-		runAction(AutomatedActions.OutakeCubeFast());
-		runAction(AutomatedActions.StopIntake());
+//		new DrivePathAction(new RightFromCenterStep8());
+//
+//		new DrivePathAction(new RightFromCenterStep9());
+//
+//		runAction(AutomatedActions.OutakeCubeFast());
+//		runAction(AutomatedActions.StopIntake());
 
 		runAction(new WaitAction(15));
 	}

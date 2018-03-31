@@ -161,15 +161,17 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			synchronized (ClimberSubsystem.this) {
 				boolean collisionOccurring = driveBaseSubsystem.isEmergencySafetyRequired();
 
+				boolean updateMode = mClimberControl != mPrevClimberControl;
+
 				switch (mClimberControl) {
 					case POSITION:
-						if (climberPosition != mPrevClimberPosition) {
+						if (climberPosition != mPrevClimberPosition || updateMode) {
 							mClimberMotorMaster.set(ControlMode.MotionMagic, climberPosition * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
 							mPrevClimberPosition = climberPosition;
 						}
 						break;
 					case VELOCITY:
-						if (climberVelocity != mPrevClimberVelocity) {
+						if (climberVelocity != mPrevClimberVelocity || updateMode) {
 							mClimberMotorMaster.set(ControlMode.Velocity, climberVelocity * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
 							mPrevClimberVelocity = climberVelocity;
 						}

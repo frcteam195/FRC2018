@@ -32,7 +32,7 @@ public class RightFromCenterMode_2cube extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
 												   new SetElevatorHeightAction(ElevatorPosition.SWITCH),
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
-																				  new SetArmRotationAction(ArmPosition.DOWN))))));
+																				  new SetArmRotationAction(ArmPosition.LOW))))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
@@ -58,7 +58,7 @@ public class RightFromCenterMode_2cube extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightFromCenterStep5Final()),
 												   new SetElevatorHeightAction(ElevatorPosition.SWITCH),
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
-																				  new SetArmRotationAction(ArmPosition.DOWN))))));
+																				  new SetArmRotationAction(ArmPosition.LOW))))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());

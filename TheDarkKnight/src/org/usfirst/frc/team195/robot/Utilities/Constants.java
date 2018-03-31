@@ -9,7 +9,7 @@ public class Constants {
 	public static final RGBColor kCommLossColor = new RGBColor(255, 0, 0);
 	public static final RGBColor kRequestCubeColor = new RGBColor(0, 255, 0);
 	public static final RGBColor kGotCubeColor = kDefaultColor;
-	public static final RGBColor kElevatorHomeColor = new RGBColor(211, 204, 0);
+	public static final RGBColor kElevatorHomeColor = new RGBColor(0, 0, 255);
 
 
 	public static final boolean ENABLE_DRIVE_DIAG = false;
@@ -263,8 +263,8 @@ public class Constants {
 	public static final double kDriveLowGearPositionKf = .165;
 	public static final int kDriveLowGearPositionIZone = 0;
 	public static final double kDriveLowGearPositionRampRate = 0.1; // V/s
-	public static final double kDriveLowGearMaxVelocity = 6.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 6 fps, value in RPM
-	public static final double kDriveLowGearMaxAccel = 8.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 8 fps/s, value in RPM/s
+	public static final double kDriveLowGearMaxVelocity = 8.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 6 fps, value in RPM
+	public static final double kDriveLowGearMaxAccel = 5.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 8 fps/s, value in RPM/s
 
 	//Tuned with 100:1 Transmission
 	public static final double kArmKp = 6.7;

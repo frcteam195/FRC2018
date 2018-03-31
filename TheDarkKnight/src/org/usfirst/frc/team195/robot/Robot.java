@@ -234,7 +234,7 @@ public class Robot extends RobbieRobot {
 				return new LeftLeftFromRight_2cubeScale();
 			case LEFT_RIGHT:
 				//return new LeftRightFromRightMode_3cubeScale();
-				return new LeftRightFromRightMode_2cube();
+				return new LeftRightFromRightMode_3cubeScale();
 			case RIGHT_LEFT:
 				return new LeftLeftFromRight_2cubeScale();
 				//return new RightLeftFromRightMode_2cube();
@@ -250,10 +250,11 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				return new LeftLeftFromCenterMode_SwitchScale();
+				return new LeftFromCenterMode_2cube();
+				//return new LeftLeftFromCenterMode_SwitchScale();
 			case LEFT_RIGHT:
-				//return new LeftFromCenterMode_2cube();
-				return new LeftRightFromCenterMode_SwitchScale();
+				return new LeftFromCenterMode_2cube();
+				//return new LeftRightFromCenterMode_SwitchScale();
 			case RIGHT_LEFT:
 				return new RightFromCenterMode_3cube();
 			case RIGHT_RIGHT:
