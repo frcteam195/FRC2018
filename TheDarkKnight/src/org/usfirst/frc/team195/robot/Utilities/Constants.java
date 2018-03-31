@@ -81,8 +81,8 @@ public class Constants {
 	public static final int BB2_ARM_SET_ZERO = 1;
 	public static final int BB2_ARM_SET_MANUAL = 2;
 	public static final int BB2_CLIMBER_DEPLOY_PLATFORM = 5;
-	public static final int BB2_CLIMBER_CLIMB_ROLL_IN = 6;
-	public static final int BB2_CLIMBER_CLIMB_ROLL_OUT = 7;
+	public static final int BB2_CLIMBER_CLIMB_ROLL_DEPLOY = 6;
+	public static final int BB2_CLIMBER_CLIMB_IN = 7;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
@@ -297,14 +297,13 @@ public class Constants {
 	public static final int kElevatorMaxAccel = 1600;
 
 
-	//TODO: Tune Climber Gains
 	public static final double kClimberKp = 1;
 	public static final double kClimberKi = 0.006;
 	public static final double kClimberKd = 4;
-	public static final double kClimberKf = 0.8814912684;
-	public static final int kClimberIZone = 10;
-	public static final double kClimberRampRate = 0;
-	public static final int kClimberMaxVelocity = 170;
+	public static final double kClimberKf = 0.966796875;
+	public static final int kClimberIZone = 60;
+	public static final double kClimberRampRate = 0.5;
+	public static final int kClimberMaxVelocity = 155;
 	public static final int kClimberMaxAccel = 340;
 
 

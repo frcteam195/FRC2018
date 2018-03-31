@@ -64,8 +64,8 @@ public class LeftRightFromRightMode_2cube extends AutoModeBase {
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("StartIntake"),
 													   new SetIntakeAction(IntakeControl.INTAKE_IN))))));
 
-		runAction(new DrivePathAction(new LeftRightFromRightTestStep2()));
-		runAction(new DrivePathAction(new LeftRightFromRightTestStep3()));
+//		runAction(new DrivePathAction(new LeftRightFromRightTestStep2()));
+//		runAction(new DrivePathAction(new LeftRightFromRightTestStep3()));
 
 		runAction(AutomatedActions.ClampIntake());
 		runAction(new WaitAction(0.1));
@@ -73,7 +73,7 @@ public class LeftRightFromRightMode_2cube extends AutoModeBase {
 
 		runAction(new SetElevatorHeightAction(ElevatorPosition.LOW));
 
-		runAction(new TurnToHeadingAction(-45, false));
+		//runAction(new TurnToHeadingAction(-45, false));
 
 		//runAction(new DrivePathAction(new LeftRightFromRightTestStep4()));
 

@@ -30,6 +30,9 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	private ClimberControl mClimberControl;
 	private ClimberControl mPrevClimberControl;
 	private double climberPosition = 0;
+	private double mPrevClimberPosition = 0;
+	private double climberVelocity = 0;
+	private double mPrevClimberVelocity = 0;
 	private boolean climberFault = false;
 	private Solenoid climberLockSolenoid;
 
@@ -45,7 +48,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		climberLockSolenoid = robotControllers.getClimberLockSolenoid();
 
 		//TODO: Set climber initial control to position once tuned
-		mClimberControl = ClimberControl.OPEN_LOOP;
+		mClimberControl = ClimberControl.VELOCITY;
 		mPrevClimberControl = ClimberControl.OFF;
 	}
 
@@ -132,7 +135,9 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to zero ClimberSubsystem!!!", MessageLevel.DEFCON1);
 
-		mClimberMotorMaster.set(ControlMode.MotionMagic, homeClimberValue);
+//		mClimberMotorMaster.set(ControlMode.MotionMagic, homeClimberValue);
+		mClimberMotorMaster.set(ControlMode.Velocity, 0);
+
 	}
 
 
@@ -156,20 +161,27 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			synchronized (ClimberSubsystem.this) {
 				boolean collisionOccurring = driveBaseSubsystem.isEmergencySafetyRequired();
 
-				if (mClimberControl != mPrevClimberControl) {
-					switch (mClimberControl) {
-						case POSITION:
+				switch (mClimberControl) {
+					case POSITION:
+						if (climberPosition != mPrevClimberPosition) {
 							mClimberMotorMaster.set(ControlMode.MotionMagic, climberPosition * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
-							break;
-						case OPEN_LOOP:
-							break;
-						case OFF:
-						default:
-							mClimberMotorMaster.set(ControlMode.Disabled, 0);
-							break;
-					}
-					mPrevClimberControl = mClimberControl;
+							mPrevClimberPosition = climberPosition;
+						}
+						break;
+					case VELOCITY:
+						if (climberVelocity != mPrevClimberVelocity) {
+							mClimberMotorMaster.set(ControlMode.Velocity, climberVelocity * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
+							mPrevClimberVelocity = climberVelocity;
+						}
+						break;
+					case OPEN_LOOP:
+						break;
+					case OFF:
+					default:
+						mClimberMotorMaster.set(ControlMode.Disabled, 0);
+						break;
 				}
+				mPrevClimberControl = mClimberControl;
 			}
 		}
 		@Override
@@ -188,7 +200,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	}
 
 	public synchronized void setClimberControl(ClimberControl climberControl) {
-		this.mClimberControl = climberControl;
+		if (climberControl != mPrevClimberControl)
+			this.mClimberControl = climberControl;
 	}
 
 	@Override
@@ -305,5 +318,10 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	public synchronized void setOpenLoop(double mainOutput) {
 		setClimberControl(ClimberControl.OPEN_LOOP);
 		mClimberMotorMaster.set(ControlMode.PercentOutput, mainOutput);
+	}
+
+	public synchronized void setVelocity(double rpm) {
+		setClimberControl(ClimberControl.VELOCITY);
+		climberVelocity = rpm;
 	}
 }

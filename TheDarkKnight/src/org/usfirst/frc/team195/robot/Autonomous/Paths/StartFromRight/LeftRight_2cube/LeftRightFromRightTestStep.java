@@ -15,7 +15,7 @@ public class LeftRightFromRightTestStep implements PathContainer {
 		sWaypoints.add(new Waypoint(242,139,10,60,"StartIntake"));
 		sWaypoints.add(new Waypoint(252,200,0,30));
 		sWaypoints.add(new Waypoint(248,204,0,30));
-		sWaypoints.add(new Waypoint(230,204,0,30));
+		sWaypoints.add(new Waypoint(228,204,0,30));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

@@ -51,7 +51,8 @@ public class RightRightFromRightMode_4cube extends AutoModeBase {
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 
-
+		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightCube3Ready44()),
+												   AutomatedActions.PreparePickupCube())));
 
 
 

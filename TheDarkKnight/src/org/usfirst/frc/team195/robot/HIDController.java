@@ -177,12 +177,16 @@ public class HIDController implements Runnable {
 			climberSubsystem.deployPlatform();
 
 
-		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_IN))
-			climberSubsystem.setOpenLoop(1);
-		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_OUT))
-			climberSubsystem.setOpenLoop(-1);
+		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_DEPLOY)) {
+			cubeHandlerSubsystem.setIntakeClamp(true);
+			cubeHandlerSubsystem.setDisableCollisionPrevention(true);
+			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.GET_CLIMBER_HOOK);
+			climberSubsystem.setVelocity(-0.5*Constants.kClimberMaxVelocity);
+		}
+		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_IN))
+			climberSubsystem.setVelocity(Constants.kClimberMaxVelocity);
 		else
-			climberSubsystem.setOpenLoop(0);
+			climberSubsystem.setVelocity(0);
 
 
 		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/4.0);
