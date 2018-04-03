@@ -2,27 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b495d11-29d3-41c9-b321-0a9401a8199c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_2cube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_2cube.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_2cube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_2cube.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_3cube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_3cube.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cube.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cyber_path/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../cyber_path/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cyber_path/files/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/../cyber_path/files/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,11 +20,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RightFromCenterMode_3cube.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_3cube.java">
+      <file leaf-file-name="CKTalonSRX.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="50" column="39" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="39" />
+            <state relative-caret-position="459">
+              <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+              <folding>
+                <element signature="e#1319#1320#0" expanded="true" />
+                <element signature="e#1355#1356#0" expanded="true" />
+                <element signature="e#1389#1390#0" expanded="true" />
+                <element signature="e#1479#1480#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DriveBaseSubsystem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="39" column="51" lean-forward="true" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClimberSubsystem.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="295" column="56" lean-forward="true" selection-start-line="295" selection-start-column="56" selection-end-line="295" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -65,6 +72,7 @@
       <find>critical</find>
       <find>zeroarm</find>
       <find>turnToHeadingPID</find>
+      <find>Master.set(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -73,8 +81,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep2.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep3.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep4.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3Ready44.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRight_2cubeScale.java" />
@@ -106,7 +112,6 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Climber/ClimberControl.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/TurnToHeadingAction.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep1.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cube.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep5.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep.java" />
@@ -116,7 +121,6 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
@@ -124,6 +128,10 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_2cube.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_2cube.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java" />
       </list>
     </option>
   </component>
@@ -145,9 +153,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -351,6 +357,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -507,11 +515,12 @@
       <workItem from="1522514984611" duration="5147000" />
       <workItem from="1522530321170" duration="282000" />
       <workItem from="1522531776742" duration="3115000" />
+      <workItem from="1522732815214" duration="1610000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128398000" />
+    <option name="totallyTimeSpent" value="130008000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -528,7 +537,6 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32958034" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3271795" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
@@ -540,7 +548,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4974359" visible="true" weight="0.2735043" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4974359" visible="true" weight="0.2765568" />
       <window_info anchor="bottom" id="FRC" order="7" weight="0.32923076" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" sideWeight="0.50256413" side_tool="true" weight="0.18070818" />
@@ -555,6 +563,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32820514" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3271795" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
@@ -562,13 +571,13 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26373628" />
       <window_info id="Structure" order="1" weight="0.24969475" />
       <window_info anchor="bottom" id="FRC" order="11" visible="true" weight="0.18219037" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.1904762" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32958034" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -578,13 +587,13 @@
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info id="Capture Tool" order="2" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.32753327" />
       <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info id="Favorites" order="6" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -618,34 +627,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftRightFromCenter_SwitchScale/LeftRightFromCenter_AddPath1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftLeftFromCenter_SwitchScale/LeftLeftFromCenter_AddPath1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/LeftLeft/LeftLeftFromCenterMode_SwitchScale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="62" column="98" selection-end-line="72" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/LeftRight/LeftRightFromCenterMode_SwitchScale.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -727,13 +708,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TalonHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="44" column="51" selection-start-line="44" selection-start-column="51" selection-end-line="44" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -854,9 +828,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -864,13 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="778">
           <caret line="963" column="52" selection-start-line="963" selection-start-column="52" selection-end-line="963" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="173" column="81" selection-start-line="173" selection-start-column="81" selection-end-line="173" selection-end-column="81" />
         </state>
       </provider>
     </entry>
@@ -918,17 +882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="849">
           <caret line="79" column="29" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
-          <folding>
-            <element signature="e#3506#3507#0" expanded="true" />
-            <element signature="e#3544#3545#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="601" column="63" lean-forward="true" selection-start-line="601" selection-start-column="63" selection-end-line="601" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -995,6 +948,61 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="426">
           <caret line="50" column="39" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TalonHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="18" column="44" lean-forward="true" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar!/com/ctre/phoenix/motorcontrol/can/BaseMotorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="1248" column="16" selection-start-line="1248" selection-start-column="16" selection-end-line="1248" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding>
+            <element signature="e#1319#1320#0" expanded="true" />
+            <element signature="e#1355#1356#0" expanded="true" />
+            <element signature="e#1389#1390#0" expanded="true" />
+            <element signature="e#1479#1480#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CANSpeedControllerBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="115" column="36" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2385">
+          <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="39" column="51" lean-forward="true" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="295" column="56" lean-forward="true" selection-start-line="295" selection-start-column="56" selection-end-line="295" selection-end-column="56" />
         </state>
       </provider>
     </entry>

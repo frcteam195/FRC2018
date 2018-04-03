@@ -9,7 +9,8 @@ import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
 
 public class CKTalonSRX extends TalonSRX {
-	int pdpChannel;
+	private int pdpChannel;
+	private int currentSelectedSlot = 0;
 
 	public CKTalonSRX(int deviceId, int pdpChannel) {
 		super(deviceId);
@@ -22,6 +23,24 @@ public class CKTalonSRX extends TalonSRX {
 //		SmartDashboard.putNumber("OutputTalon" + getDeviceID(), outputValue);
 //		SmartDashboard.putString("ModeTalon" + getDeviceID(), getControlMode().toString());
 //	}
+
+
+	@Override
+	public void selectProfileSlot(int slotIdx, int pidIdx) {
+		super.selectProfileSlot(slotIdx, pidIdx);
+		setCurrentSlotValue(slotIdx);
+	}
+
+	public void set(ControlMode mode, double outputValue, int slotIdx) {
+		if (currentSelectedSlot != slotIdx)
+			selectProfileSlot(slotIdx, 0);
+
+		set(mode, outputValue);
+	}
+
+	private synchronized void setCurrentSlotValue(int slotIdx) {
+		currentSelectedSlot = slotIdx;
+	}
 
 	public double getPDPCurrent() {
 		return Controllers.getInstance().getPowerDistributionPanel().getCurrent(pdpChannel);

@@ -11,6 +11,7 @@ import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Climber.ClimberControl;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.CKTalonSRX;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
@@ -25,7 +26,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	private static ClimberSubsystem instance;
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private DriverStation ds;
-	private TalonSRX mClimberMotorMaster;
+	private CKTalonSRX mClimberMotorMaster;
 	private TalonSRX mClimberMotorSlave;
 	private ClimberControl mClimberControl;
 	private ClimberControl mPrevClimberControl;

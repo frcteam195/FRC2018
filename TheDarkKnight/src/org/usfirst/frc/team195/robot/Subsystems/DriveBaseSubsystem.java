@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.CKTalonSRX;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.NavX;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TuneablePID;
@@ -29,7 +30,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	private static ReentrantLock _subsystemMutex = new ReentrantLock();
 	private PathFollowerRobotState mRobotState = PathFollowerRobotState.getInstance();
 	private DriveControlState mControlMode;
-	private TalonSRX mLeftMaster, mRightMaster;
+	private CKTalonSRX mLeftMaster, mRightMaster;
 	private BaseMotorController leftDriveSlave1, leftDriveSlave2, rightDriveSlave1, rightDriveSlave2;
 	private DriverStation ds;
 	private NavX mNavXBoard;
@@ -339,12 +340,12 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			DriverStation.reportError(msg, false);
 		}
 
-		checkMotorReset(mLeftMaster, "Left2Cube Drive Master");
-		checkMotorReset(leftDriveSlave1, "Left2Cube Drive Slave 1");
-		checkMotorReset(leftDriveSlave2, "Left2Cube Drive Slave 2");
-		checkMotorReset(mRightMaster, "Right2Cube Drive Master");
-		checkMotorReset(rightDriveSlave1, "Right2Cube Drive Slave 1");
-		checkMotorReset(rightDriveSlave2, "Right2Cube Drive Slave 2");
+		checkMotorReset(mLeftMaster, "Left Drive Master");
+		checkMotorReset(leftDriveSlave1, "Left Drive Slave 1");
+		checkMotorReset(leftDriveSlave2, "Left Drive Slave 2");
+		checkMotorReset(mRightMaster, "Right Drive Master");
+		checkMotorReset(rightDriveSlave1, "Right Drive Slave 1");
+		checkMotorReset(rightDriveSlave2, "Right Drive Slave 2");
 
 		return !allSensorsPresent;
 	}
@@ -556,7 +557,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 //            // keep position.
 //            return;
 //        }
-		SmartDashboard.putBoolean("TurnOnTarget", mIsOnTarget);
+		//SmartDashboard.putBoolean("TurnOnTarget", mIsOnTarget);
 		final Rotation2d field_to_robot = mRobotState.getLatestFieldToVehicle().getValue().getRotation();
 
 		// Figure out the rotation necessary to turn to face the goal.
