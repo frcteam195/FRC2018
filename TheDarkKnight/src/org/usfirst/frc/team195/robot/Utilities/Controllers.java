@@ -17,10 +17,10 @@ public class Controllers {
 	private KnightJoystick armControlJoystick;
 	private KnightJoystick buttonBox1;
 	private KnightJoystick buttonBox2;
-	private TalonSRX leftDrive1;
+	private CKTalonSRX leftDrive1;
 	private BaseMotorController leftDrive2;
 	private BaseMotorController leftDrive3;
-	private TalonSRX rightDrive1;
+	private CKTalonSRX rightDrive1;
 	private BaseMotorController rightDrive2;
 	private BaseMotorController rightDrive3;
 
@@ -32,7 +32,7 @@ public class Controllers {
 	private BaseMotorController elevatorMotorSlave3;
 	private TalonSRX intakeMotor;
 	private TalonSRX intake2Motor;
-	private TalonSRX climberMotorMaster;
+	private CKTalonSRX climberMotorMaster;
 	private TalonSRX climberMotorSlave;
 
 	private ShiftHelper shiftHelper = null;
@@ -137,7 +137,7 @@ public class Controllers {
 
 	public KnightJoystick getButtonBox2() { return buttonBox2; }
 
-	public TalonSRX getLeftDrive1() {
+	public CKTalonSRX getLeftDrive1() {
 		return leftDrive1;
 	}
 	
@@ -149,7 +149,7 @@ public class Controllers {
 		return leftDrive3;
 	}
 	
-	public TalonSRX getRightDrive1() {
+	public CKTalonSRX getRightDrive1() {
 		return rightDrive1;
 	}
 	
@@ -189,7 +189,7 @@ public class Controllers {
 		return elevatorMotorSlave3;
 	}
 
-	public TalonSRX getClimberMotorMaster() {
+	public CKTalonSRX getClimberMotorMaster() {
 		return climberMotorMaster;
 	}
 
