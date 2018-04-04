@@ -189,6 +189,9 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		setSucceeded &= TalonHelper.setMotionMagicParams(mLeftMaster, (int)Constants.kDriveLowGearMaxVelocity, (int)Constants.kDriveLowGearMaxAccel);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mRightMaster, (int)Constants.kDriveLowGearMaxVelocity, (int)Constants.kDriveLowGearMaxAccel);
 
+		mLeftMaster.selectProfileSlot(kHighGearPIDSlot, 0);
+		mRightMaster.selectProfileSlot(kHighGearPIDSlot, 0);
+
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to initialize DriveBaseSubsystem!!!", MessageLevel.DEFCON1);
 
@@ -431,8 +434,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	public synchronized void setDriveVelocity(DriveMotorValues d, boolean autoChangeMode) {
 		if (autoChangeMode)
 			setControlMode(DriveControlState.VELOCITY);
-		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.leftDrive));
-		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.rightDrive));
+		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.leftDrive), kHighGearPIDSlot);
+		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(d.rightDrive), kHighGearPIDSlot);
 	}
 
 	public void setBrakeMode(boolean brakeMode) {
@@ -476,8 +479,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		final double max_desired = Math.max(Math.abs(left_inches_per_sec), Math.abs(right_inches_per_sec));
 		final double scale = max_desired > Constants.kDriveHighGearMaxSetpoint ? Constants.kDriveHighGearMaxSetpoint / max_desired : 1.0;
 
-		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(left_inches_per_sec * scale)));
-		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(right_inches_per_sec * scale)));
+		mLeftMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(left_inches_per_sec * scale)), kHighGearPIDSlot);
+		mRightMaster.set(ControlMode.Velocity, Util.convertRPMToNativeUnits(inchesPerSecondToRpm(right_inches_per_sec * scale)), kHighGearPIDSlot);
 
 		//ConsoleReporter.report("Requested Drive Velocity Left2Cube/Right2Cube: " + left_inches_per_sec + "/" + right_inches_per_sec);
 		//ConsoleReporter.report("Actual Drive Velocity Left2Cube/Right2Cube: " + getLeftVelocityInchesPerSec() + "/" + getRightVelocityInchesPerSec());
@@ -588,8 +591,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	 * @param right_position_inches
 	 */
 	private synchronized void updatePositionSetpoint(double left_position_inches, double right_position_inches) {
-		mLeftMaster.set(ControlMode.MotionMagic, inchesToRotations(left_position_inches) * 4096);
-		mRightMaster.set(ControlMode.MotionMagic, inchesToRotations(right_position_inches) * 4096);
+		mLeftMaster.set(ControlMode.MotionMagic, inchesToRotations(left_position_inches) * 4096, kLowGearPIDSlot);
+		mRightMaster.set(ControlMode.MotionMagic, inchesToRotations(right_position_inches) * 4096, kLowGearPIDSlot);
 	}
 
 	/**

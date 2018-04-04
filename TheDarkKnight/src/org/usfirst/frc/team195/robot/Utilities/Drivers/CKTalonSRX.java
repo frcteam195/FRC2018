@@ -1,16 +1,19 @@
 package org.usfirst.frc.team195.robot.Utilities.Drivers;
 
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
 
 public class CKTalonSRX extends TalonSRX {
 	private int pdpChannel;
 	private int currentSelectedSlot = 0;
+	private double[] mCLRampRate = {0, 0};
 
 	public CKTalonSRX(int deviceId, int pdpChannel) {
 		super(deviceId);
@@ -26,9 +29,35 @@ public class CKTalonSRX extends TalonSRX {
 
 
 	@Override
+	public ErrorCode configClosedloopRamp(double secondsFromNeutralToFull, int timeoutMs) {
+		return configClosedloopRamp(secondsFromNeutralToFull, currentSelectedSlot, timeoutMs);
+	}
+
+	public ErrorCode configClosedloopRamp(double secondsFromNeutralToFull, int slotIdx, int timeoutMs) {
+		setCurrentSlotCLRampRate(secondsFromNeutralToFull, slotIdx);
+		return super.configClosedloopRamp(secondsFromNeutralToFull, timeoutMs);
+	}
+
+	/**
+	 * Make sure you call this method before first use of set() to ensure CL ramp rate and PID gains are selected properly when using CKTalonSRX
+	 * @param slotIdx Gain profile slot
+	 * @param pidIdx PID ID, 0 for main, 1 for aux
+	 */
+	@Override
 	public void selectProfileSlot(int slotIdx, int pidIdx) {
 		super.selectProfileSlot(slotIdx, pidIdx);
 		setCurrentSlotValue(slotIdx);
+		if (currentSelectedSlot < mCLRampRate.length) {
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = configClosedloopRamp(mCLRampRate[currentSelectedSlot], currentSelectedSlot, Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to change Talon ID" + getDeviceID() +  " profile slot!!!", MessageLevel.DEFCON1);
+		}
 	}
 
 	public void set(ControlMode mode, double outputValue, int slotIdx) {
@@ -40,6 +69,12 @@ public class CKTalonSRX extends TalonSRX {
 
 	private synchronized void setCurrentSlotValue(int slotIdx) {
 		currentSelectedSlot = slotIdx;
+	}
+
+	private synchronized void setCurrentSlotCLRampRate(double rampRate, int slot) {
+		if (slot < mCLRampRate.length) {
+			mCLRampRate[slot] = rampRate;
+		}
 	}
 
 	public double getPDPCurrent() {

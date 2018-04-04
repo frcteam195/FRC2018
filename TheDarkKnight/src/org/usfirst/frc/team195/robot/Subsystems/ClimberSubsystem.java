@@ -86,6 +86,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			setSucceeded = true;
 
 			setSucceeded &= mClimberMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			//TODO: Add configuration for velocity period and measurement window to improve control. Then retune climber winch
+
 			//setSucceeded &= mClimberMotorSlave.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mClimberMotorMaster.configContinuousCurrentLimit(Constants.kClimberMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
