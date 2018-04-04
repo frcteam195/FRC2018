@@ -79,9 +79,29 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
 	}
 
+	public static ParallelAction PrepareShootCubeOverBack() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
+	}
+
+	public static ParallelAction PrepareShootCubeOverBackLow() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_LOW)));
+	}
+
+	public static ParallelAction PrepareShootCubeOverBackExtraLow() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT),
+				new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_EXTRA_LOW)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnScaleOverBackMid() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleOverBackKindaMid() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_KINDA_MID)));
 	}
 
 	public static ParallelAction PreparePlaceCubeOnScaleOverBackHigh() {
@@ -123,6 +143,12 @@ public class AutomatedActions {
 
 	public static Action StopIntake() {
 		return new SetIntakeAction(IntakeControl.OFF);
+	}
+
+	public static SeriesAction GrabCube() {
+		return new SeriesAction(Arrays.asList(AutomatedActions.ClampIntake(),
+											  new WaitAction(0.1),
+											  AutomatedActions.StopIntake()));
 	}
 
 	public static Action OutakeCubeSlow() {

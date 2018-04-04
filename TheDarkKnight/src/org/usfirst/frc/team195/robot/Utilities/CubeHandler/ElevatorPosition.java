@@ -11,7 +11,10 @@ public class ElevatorPosition {
 	public static final double MID = 14;
 	public static final double SHORT_HIGH = 11; // minutes
 	public static final double HIGH = 16.5;
+	public static final double OVER_THE_BACK_SHOOT_EXTRA_LOW = 9;
+	public static final double OVER_THE_BACK_SHOOT_LOW = 10;
 	public static final double OVER_THE_BACK_LOW = 12;
+	public static final double OVER_THE_BACK_KINDA_MID = 13;
 	public static final double OVER_THE_BACK_MID = 14;
 	public static final double OVER_THE_BACK_HIGH = 16.5;
 	public static final double BALL_LIKE_558 = 4.4;
