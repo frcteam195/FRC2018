@@ -936,7 +936,7 @@ function showData() {
 function copyToClipBoard() {
 	const data = document.createElement("textarea");
 	data.value = getReducedDataString();
-	document.body.appendChild(el);
+	document.body.appendChild(data);
 	data.select();
 	document.execCommand("copy");
 	document.body.removeChild(data);
