@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.Controllers;
 
@@ -47,8 +49,17 @@ public class CKTalonSRX extends TalonSRX {
 	public void selectProfileSlot(int slotIdx, int pidIdx) {
 		super.selectProfileSlot(slotIdx, pidIdx);
 		setCurrentSlotValue(slotIdx);
-		if (currentSelectedSlot < mCLRampRate.length)
-			configClosedloopRamp(mCLRampRate[currentSelectedSlot], Constants.kTimeoutMsFast);
+		if (currentSelectedSlot < mCLRampRate.length) {
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = configClosedloopRamp(mCLRampRate[currentSelectedSlot], currentSelectedSlot, Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to change Talon ID" + getDeviceID() +  " profile slot!!!", MessageLevel.DEFCON1);
+		}
 	}
 
 	public void set(ControlMode mode, double outputValue, int slotIdx) {
