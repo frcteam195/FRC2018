@@ -30,8 +30,14 @@ public class CKTalonSRX extends TalonSRX {
 
 	@Override
 	public ErrorCode configClosedloopRamp(double secondsFromNeutralToFull, int timeoutMs) {
+		///////////////////////////////
+		//Debating on removing this code
+		//Used to set both, slot 1 and 0 ramp rates, if slot is not specified
+		//May change to only set currently selected slot by removing
 		int auxSlot = currentSelectedSlot == 0 ? 1 : 0;
 		setCurrentSlotCLRampRate(secondsFromNeutralToFull, auxSlot);
+		////////////////////////////////////
+
 		return configClosedloopRamp(secondsFromNeutralToFull, currentSelectedSlot, timeoutMs);
 	}
 
