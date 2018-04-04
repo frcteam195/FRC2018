@@ -762,6 +762,80 @@ function importData() {
 // 	return str;
 // }
 
+function getReducedDataString() {
+	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
+	var pathInit = "";
+	var startAdaptStr = $("#startAdaptionValue").val();
+	var endAdaptStr = $("#endAdaptionValue").val();
+	for(var i=0; i<waypoints.length; i++) {
+		pathInit += "        sWaypoints.add(";
+
+		if (i == 0) {
+			switch (startAdaptStr) {
+				case "startscaleleft":
+					pathInit += "PathAdapter.getAdaptedLeftScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "startscaleright":
+					pathInit += "PathAdapter.getAdaptedRightScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "startswitchleft":
+					pathInit += "PathAdapter.getAdaptedLeftSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "startswitchright":
+					pathInit += "PathAdapter.getAdaptedRightSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				default:
+					pathInit += waypoints[i].toString();
+					break;
+			}
+		} else if (i == waypoints.length - 1) {
+			switch (endAdaptStr) {
+				case "endscaleleft":
+					pathInit += "PathAdapter.getAdaptedLeftScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "endscaleright":
+					pathInit += "PathAdapter.getAdaptedRightScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "endswitchleft":
+					pathInit += "PathAdapter.getAdaptedLeftSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "endswitchright":
+					pathInit += "PathAdapter.getAdaptedRightSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				default:
+					pathInit += waypoints[i].toString();
+					break;
+			}
+		} else
+			pathInit += waypoints[i].toString();
+
+		pathInit += ");\n";
+	}
+	var startPoint = "new Translation2d(" + waypoints[0].position.x + ", " + waypoints[0].position.y + ")";
+	var isReversed = $("#isReversed").is(':checked');
+	var deg = isReversed ? 180 : 0;
+	var str = `public class ${title} implements PathContainer {
+    
+    @Override
+    public Path buildPath() {
+        ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
+${pathInit}
+        return PathBuilder.buildPathFromWaypoints(sWaypoints);
+    }
+    
+    @Override
+    public RigidTransform2d getStartPose() {
+        return new RigidTransform2d(${startPoint}, Rotation2d.fromDegrees(${deg})); 
+    }
+
+    @Override
+    public boolean isReversed() {
+        return ${isReversed}; 
+    }
+}`;
+	return str;
+}
+
 function getDataString() {
 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
 	var pathInit = "";
@@ -857,6 +931,15 @@ function showData() {
 	$("#modalTitle").html(title + ".java");
 	$(".modal > pre").text(getDataString());
 	showModal();
+}
+
+function copyToClipBoard() {
+	const data = document.createElement("textarea");
+	data.value = getReducedDataString();
+	document.body.appendChild(el);
+	data.select();
+	document.execCommand("copy");
+	document.body.removeChild(data);
 }
 
 function showModal() {
