@@ -53,6 +53,28 @@ public class TalonHelper {
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
 
+	public static boolean setPIDGains(CKTalonSRX talon, int slotID, double kP, double kI, double kD, double kF, double rampRate, int iZone) {
+		return setPIDGains(talon, slotID, kP, kI, kD, kF, rampRate, iZone, Constants.kTimeoutMs);
+	}
+	public static boolean setPIDGains(CKTalonSRX talon, int slotID, double kP, double kI, double kD, double kF, double rampRate, int iZone, int timeout) {
+		boolean setSucceeded = setPIDGains(talon, slotID, kP, kI, kD, kF, timeout);
+		int retryCounter = 0;
+
+		if (timeout > 0) {
+			do {
+				setSucceeded = true;
+
+				setSucceeded &= talon.configClosedloopRamp(rampRate, slotID, timeout) == ErrorCode.OK;
+				setSucceeded &= talon.config_IntegralZone(slotID, iZone, timeout) == ErrorCode.OK;
+
+			} while (!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+		} else {
+			talon.configClosedloopRamp(rampRate, slotID, timeout);
+			talon.config_IntegralZone(slotID, iZone, timeout);
+		}
+		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
+	}
+
 	public static boolean setMotionMagicParams(TalonSRX talon, int cruiseVelocityRPM, int maxAccelRPM) {
 		return setMotionMagicParams(talon, cruiseVelocityRPM, maxAccelRPM, Constants.kTimeoutMs);
 	}

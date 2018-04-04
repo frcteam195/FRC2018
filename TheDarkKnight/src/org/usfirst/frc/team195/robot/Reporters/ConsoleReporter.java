@@ -54,6 +54,14 @@ public class ConsoleReporter extends Thread {
 		report(s.toString(), messageLevel);
 	}
 
+	public static void report(Object message) {
+		report(String.valueOf(message));
+	}
+
+	public static void report(Object message, MessageLevel msgLvl) {
+		report(String.valueOf(message), msgLvl);
+	}
+
 	public static void report(String message) {
 		report(message, MessageLevel.WARNING);
 	}
