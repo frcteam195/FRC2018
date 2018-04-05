@@ -11,7 +11,7 @@ public class RightFromCenterStep2 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(120,110,0,0));
-		sWaypoints.add(new Waypoint(85,112,20,60));
+		sWaypoints.add(new Waypoint(85,112,20,80));
 		sWaypoints.add(new Waypoint(67,150,15,60,"PreparePickupCube"));
 		sWaypoints.add(new Waypoint(50,163,0,60));
 

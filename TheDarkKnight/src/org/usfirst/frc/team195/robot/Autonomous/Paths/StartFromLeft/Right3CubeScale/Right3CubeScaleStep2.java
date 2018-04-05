@@ -12,8 +12,8 @@ public class Right3CubeScaleStep2 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(PathAdapter.getAdaptedRightScaleWaypoint(new Waypoint(280,74,0,0)));
-		sWaypoints.add(new Waypoint(255,74,15,23));
-		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(232,80,0,23)));
+		sWaypoints.add(new Waypoint(255,74,15,27));
+		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(232,79,0,27)));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

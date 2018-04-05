@@ -11,8 +11,8 @@ public class RightFromCenterStep6 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(116,112,0,0));
-		sWaypoints.add(new Waypoint(80,116,15,60));
-		sWaypoints.add(new Waypoint(49,139,0,60));
+		sWaypoints.add(new Waypoint(80,116,15,80));
+		sWaypoints.add(new Waypoint(49,139,0,80));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
