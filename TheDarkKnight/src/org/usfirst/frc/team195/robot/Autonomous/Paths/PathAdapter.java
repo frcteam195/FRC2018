@@ -2,6 +2,8 @@ package org.usfirst.frc.team195.robot.Autonomous.Paths;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.*;
+import org.usfirst.frc.team195.robot.Autonomous.Paths.Robots.CompBot;
+import org.usfirst.frc.team195.robot.Autonomous.Paths.Robots.RobotProfile;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
 
@@ -9,7 +11,10 @@ public class PathAdapter {
 	private static final DriverStation ds = DriverStation.getInstance();
 
 	private static FieldProfile kReferenceField = new ReferenceField();
-	private static FieldProfile kCurrentField = new PracticeField();
+	private static FieldProfile kCurrentField = new HartfordWeek6Field();
+
+	//TODO: Change inversion of values to be correct for near or far, not left or right. Is not correct now
+	private static RobotProfile kRobotProfile = new CompBot();
 
 	private static Translation2d leftBlueSwitchTransform = kCurrentField.getLeftBlueSwitch().translateBy(kReferenceField.getLeftBlueSwitch().inverse());
 	private static Translation2d rightBlueSwitchTransform = kCurrentField.getRightBlueSwitch().translateBy(kReferenceField.getRightBlueSwitch().inverse());
@@ -23,39 +28,42 @@ public class PathAdapter {
 
 	public static Waypoint getAdaptedLeftSwitchWaypoint(Waypoint input) {
 		if (ds.getAlliance() == DriverStation.Alliance.Blue)
-			input.setPosition(input.getPosition().translateBy(leftBlueSwitchTransform));
+			input.setPosition(input.getPosition().translateBy(leftBlueSwitchTransform).translateBy(kRobotProfile.getTransform()));
 		else
-			input.setPosition(input.getPosition().translateBy(leftRedSwitchTransform));
+			input.setPosition(input.getPosition().translateBy(leftRedSwitchTransform).translateBy(kRobotProfile.getTransform()));
 
 		return input;
 	}
 
 	public static Waypoint getAdaptedRightSwitchWaypoint(Waypoint input) {
 		if (ds.getAlliance() == DriverStation.Alliance.Blue)
-			input.setPosition(input.getPosition().translateBy(rightBlueSwitchTransform));
+			input.setPosition(input.getPosition().translateBy(rightBlueSwitchTransform).translateBy(kRobotProfile.getTransform().invertY()));
 		else
-			input.setPosition(input.getPosition().translateBy(rightRedSwitchTransform));
+			input.setPosition(input.getPosition().translateBy(rightRedSwitchTransform).translateBy(kRobotProfile.getTransform().invertY()));
 
 		return input;
 	}
 
 	public static Waypoint getAdaptedLeftScaleWaypoint(Waypoint input) {
 		if (ds.getAlliance() == DriverStation.Alliance.Blue)
-			input.setPosition(input.getPosition().translateBy(leftBlueScaleTransform));
+			input.setPosition(input.getPosition().translateBy(leftBlueScaleTransform).translateBy(kRobotProfile.getTransform()));
 		else
-			input.setPosition(input.getPosition().translateBy(leftRedScaleTransform));
+			input.setPosition(input.getPosition().translateBy(leftRedScaleTransform).translateBy(kRobotProfile.getTransform()));
 
 		return input;
 	}
 
 	public static Waypoint getAdaptedRightScaleWaypoint(Waypoint input) {
 		if (ds.getAlliance() == DriverStation.Alliance.Blue)
-			input.setPosition(input.getPosition().translateBy(rightBlueScaleTransform));
+			input.setPosition(input.getPosition().translateBy(rightBlueScaleTransform).translateBy(kRobotProfile.getTransform().invertY()));
 		else
-			input.setPosition(input.getPosition().translateBy(rightRedScaleTransform));
+			input.setPosition(input.getPosition().translateBy(rightRedScaleTransform).translateBy(kRobotProfile.getTransform().invertY()));
 
 		return input;
 	}
 
+	public static double getAdaptedWheelDiameter() {
+		return kRobotProfile.getWheelDiameter();
+	}
 
 }

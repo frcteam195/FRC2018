@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
 import org.usfirst.frc.team195.robot.LEDController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -173,12 +172,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded &= mIntakeMotor.configContinuousCurrentLimit(Constants.kIntakeMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntakeMotor.configPeakCurrentLimit(Constants.kIntakeMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntakeMotor.configPeakCurrentDuration(Constants.kIntakeMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mIntakeMotor.configOpenloopRamp(0.1, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mIntakeMotor.configOpenloopRamp(Constants.kIntakeOLRampRate, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mIntake2Motor.configContinuousCurrentLimit(Constants.kIntakeMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntake2Motor.configPeakCurrentLimit(Constants.kIntakeMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntake2Motor.configPeakCurrentDuration(Constants.kIntakeMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= mIntake2Motor.configOpenloopRamp(0.1, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mIntake2Motor.configOpenloopRamp(Constants.kIntakeOLRampRate, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mElevatorMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -229,8 +228,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, 0, Constants.kArmKp, Constants.kArmKi, Constants.kArmKd, Constants.kArmKf, Constants.kArmRampRate, Constants.kArmIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, 0, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
-		setSucceeded &= TalonHelper.setPIDGains(mIntakeMotor, 0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeRampRate, Constants.kIntakeIZone);
-		setSucceeded &= TalonHelper.setPIDGains(mIntake2Motor,  0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeRampRate, Constants.kIntakeIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mIntakeMotor, 0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeCLRampRate, Constants.kIntakeIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mIntake2Motor,  0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeCLRampRate, Constants.kIntakeIZone);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mArmMotor, Constants.kArmMaxVelocity, Constants.kArmMaxAccel);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, Constants.kElevatorMaxVelocity, Constants.kElevatorMaxAccel);
 

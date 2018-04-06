@@ -5,6 +5,7 @@ import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_3CubeSwitch;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_2cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_3CubeSwitch;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_3cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft3CubeScaleMode;
@@ -232,8 +233,9 @@ public class Robot extends RobbieRobot {
 				//return new LeftRightFromRightMode_3cubeScale();
 				return new LeftRightFromRightMode_3cubeScale();
 			case RIGHT_LEFT:
-				return new LeftLeftFromRight_2cubeScale();
+//				return new LeftLeftFromRight_2cubeScale();
 				//return new RightLeftFromRightMode_2cube();
+				return new LeftFromRight3CubeScaleMode();
 			case RIGHT_RIGHT:
 				return new RightRightFromRightMode_4cube();
 			case UNDEFINED:
@@ -246,17 +248,18 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				//return new LeftFromCenterMode_2cube();
+				return new LeftFromCenterMode_2cube();
 				//return new LeftLeftFromCenterMode_SwitchScale();
-				return new LeftFromCenterMode_3CubeSwitch();
+//				return new LeftFromCenterMode_3CubeSwitch();
 			case LEFT_RIGHT:
 				return new LeftFromCenterMode_2cube();
 				//return new LeftRightFromCenterMode_SwitchScale();
 			case RIGHT_LEFT:
-				return new RightFromCenterMode_3cube();
+				return new RightFromCenterMode_2cube();
 			case RIGHT_RIGHT:
+				return new RightFromCenterMode_2cube();
 				//return new RightFromCenterMode_3cube();
-				return new RightFromCenterMode_3CubeSwitch();
+				//return new RightFromCenterMode_3CubeSwitch();
 			case UNDEFINED:
 			default:
 				break;
