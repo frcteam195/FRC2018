@@ -124,9 +124,25 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
 	}
 
+	public static SeriesAction PreparePickupCubeSlow() {
+//		return new SeriesAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+//											  new SetElevatorHeightAction(ElevatorPosition.HOME),
+//											  new SetArmRotationAction(ArmPosition.DOWN)));
+
+		return new SeriesAction(Arrays.asList(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+																			   new SetElevatorHeightAction(ElevatorPosition.HOME))),
+											  new SetIntakeClampAction(true),
+											  new SetArmRotationAction(ArmPosition.DOWN)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnSwitchOverBack() {
 		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.LOW),
 												new SetArmRotationAction(ArmPosition.BACK)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnSwitchOverBackLow() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.OVER_BACK_SWITCH),
+												new SetArmRotationAction(ArmPosition.BACK_SHOOT)));
 	}
 
 	public static Action LiftArmTo90() {

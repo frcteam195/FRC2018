@@ -2,11 +2,8 @@ package org.usfirst.frc.team195.robot.Autonomous.Paths;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.Fields.*;
-import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
-
-import java.sql.Driver;
 
 public class PathAdapter {
 	private static final DriverStation ds = DriverStation.getInstance();
