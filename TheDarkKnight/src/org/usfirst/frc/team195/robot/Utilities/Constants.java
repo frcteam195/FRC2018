@@ -65,7 +65,7 @@ public class Constants {
 	public static final int BB1_ELEVATOR_SCALE_HIGH = 6;
 	public static final int BB1_ELEVATOR_REHOME = 16;
 	public static final int BB1_ARM_DOWN = 7;
-	public static final int BB1_ARM_BACK = 9;
+	public static final int BB1_ARM_BACK = 13;
 	public static final int BB1_ARM_SWITCH = 8;
 	public static final int BB1_AUTO_SWITCH = 2;
 	public static final int BB1_ELEVATOR_LOW = 9;
