@@ -1,5 +1,7 @@
 package org.usfirst.frc.team195.robot.Utilities;
 
+import org.usfirst.frc.team195.robot.Autonomous.Paths.PathAdapter;
+
 public class Constants {
 	public static final boolean TUNING_PIDS = true;
 	public static final boolean DEBUG = false;
@@ -183,7 +185,9 @@ public class Constants {
 	/* ROBOT PHYSICAL CONSTANTS */
 
 	// Wheels
-	public static final double kDriveWheelDiameterInches = 4.875;
+	//public static final double kDriveWheelDiameterInches = 4.875;	//Practice bot calibrated 4.875
+	//public static final double kDriveWheelDiameterInches = 5;	//Comp bot measured val
+	public static final double kDriveWheelDiameterInches = PathAdapter.getAdaptedWheelDiameter();
 	public static final double kTrackWidthInches = 25.5;
 	public static final double kTrackScrubFactor = 1.0; // 0.924 ?
 
@@ -283,7 +287,8 @@ public class Constants {
 	public static final double kIntakeKd = 0;
 	public static final double kIntakeKf = 0.06;
 	public static final int kIntakeIZone = 0;
-	public static final double kIntakeRampRate = 0;
+	public static final double kIntakeCLRampRate = 0.1;
+	public static final double kIntakeOLRampRate = 0.1;
 
 	//Tuned with 30:1 Transmission
 	public static final double kElevatorKp = 1.6;

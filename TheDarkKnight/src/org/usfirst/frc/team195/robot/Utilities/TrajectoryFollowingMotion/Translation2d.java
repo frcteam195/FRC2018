@@ -99,6 +99,15 @@ public class Translation2d implements Interpolable<Translation2d> {
         return new Translation2d(-x_, -y_);
     }
 
+    /**
+     * The inverse simply means a Translation2d that "undoes" this object.
+     *
+     * @return Translation by -x and -y.
+     */
+    public Translation2d invertY() {
+        return new Translation2d(x_, -y_);
+    }
+
     @Override
     public Translation2d interpolate(Translation2d other, double x) {
         if (x <= 0) {
