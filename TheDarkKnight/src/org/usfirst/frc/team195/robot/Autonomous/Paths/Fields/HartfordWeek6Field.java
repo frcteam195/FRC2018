@@ -3,30 +3,30 @@ package org.usfirst.frc.team195.robot.Autonomous.Paths.Fields;
 public class HartfordWeek6Field extends FieldProfile {
 	//TODO: Enter correct values for this
 	public HartfordWeek6Field() {
-		mRedFrontLeftSwitchToBackWall = 141;
-		mRedBackLeftSwitchToBackWall = 196.25;
-		mRedLeftSwitchToSideWall = 85.75;
-		mRedLeftScaleToBackWall = 301.5;
-		mRedLeftScaleToSideWall = 72.75;
+		mRedFrontLeftSwitchToBackWall = 139.25;
+		mRedBackLeftSwitchToBackWall = 195.75;
+		mRedLeftSwitchToSideWall = 84.75;
+		mRedLeftScaleToBackWall = 300;
+		mRedLeftScaleToSideWall = 71.375;
 
-		mRedFrontRightSwitchToBackWall = 139.75;
-		mRedBackRightSwitchToBackWall = 195.625;
-		mRedRightSwitchToSideWall = 85.25;
-		mRedRightScaleToBackWall = 298.125;
-		mRedRightScaleToSideWall = 73;
+		mRedFrontRightSwitchToBackWall = 138.875;
+		mRedBackRightSwitchToBackWall = 195.25;
+		mRedRightSwitchToSideWall = 84.5;
+		mRedRightScaleToBackWall = 299.375;
+		mRedRightScaleToSideWall = 71.75;
 
-		mBlueFrontLeftSwitchToBackWall = 141;
-		mBlueBackLeftSwitchToBackWall = 196.5;
-		mBlueLeftSwitchToSideWall = 85.5;
-		mBlueLeftScaleToBackWall = 301;
-		mBlueLeftScaleToSideWall = 73;
+		mBlueFrontLeftSwitchToBackWall = 139.125;
+		mBlueBackLeftSwitchToBackWall = 195.75;
+		mBlueLeftSwitchToSideWall = 84.5;
+		mBlueLeftScaleToBackWall = 300.5;
+		mBlueLeftScaleToSideWall = 71.75;
 
-		mBlueFrontRightSwitchToBackWall = 139.75;
-		mBlueBackRightSwitchToBackWall = 195.5;
+		mBlueFrontRightSwitchToBackWall = 140;
+		mBlueBackRightSwitchToBackWall = 196.375;
 		mBlueRightSwitchToSideWall = 84.75;
-		mBlueRightScaleToBackWall = 297;
-		mBlueRightScaleToSideWall = 72.75;
+		mBlueRightScaleToBackWall = 299.75;
+		mBlueRightScaleToSideWall = 71.375;
 
-		mSideWalltoSideWall = 324.5;
+		mSideWalltoSideWall = 324;
 	}
 }

@@ -248,18 +248,20 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				return new LeftFromCenterMode_2cube();
+				//return new LeftFromCenterMode_2cube();
 				//return new LeftLeftFromCenterMode_SwitchScale();
-//				return new LeftFromCenterMode_3CubeSwitch();
+				return new LeftFromCenterMode_3CubeSwitch();
 			case LEFT_RIGHT:
-				return new LeftFromCenterMode_2cube();
+				//return new LeftFromCenterMode_2cube();
+				return new LeftFromCenterMode_3CubeSwitch();
 				//return new LeftRightFromCenterMode_SwitchScale();
 			case RIGHT_LEFT:
-				return new RightFromCenterMode_2cube();
+				//return new RightFromCenterMode_2cube();
+				return new RightFromCenterMode_3CubeSwitch();
 			case RIGHT_RIGHT:
-				return new RightFromCenterMode_2cube();
+				//return new RightFromCenterMode_2cube();
 				//return new RightFromCenterMode_3cube();
-				//return new RightFromCenterMode_3CubeSwitch();
+				return new RightFromCenterMode_3CubeSwitch();
 			case UNDEFINED:
 			default:
 				break;
