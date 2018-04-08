@@ -4,6 +4,7 @@ import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetArmRotationAction;
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetElevatorHeightAction;
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeAction;
+import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeClampAction;
 import org.usfirst.frc.team195.robot.Actions.DrivePathAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.ParallelAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.SeriesAction;
@@ -44,6 +45,8 @@ public class LeftFromCenterMode_2cube extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new LeftFromCenterStep2()),
 												   AutomatedActions.PreparePickupCube())));
 
+		runAction(new SetIntakeClampAction(true));
+
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new LeftFromCenterStep3()),
 												   new SetIntakeAction(IntakeControl.INTAKE_IN))));
 
@@ -60,7 +63,7 @@ public class LeftFromCenterMode_2cube extends AutoModeBase {
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("ArmDown"),
 													   							  new SetArmRotationAction(ArmPosition.LOW))))));
 
-		runAction(AutomatedActions.OutakeCubeFast());
+		runAction(AutomatedActions.OutakeCubeMidSpeed());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(AutomatedActions.SetRestingPosition());
