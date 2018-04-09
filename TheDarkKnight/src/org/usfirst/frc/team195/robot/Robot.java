@@ -237,7 +237,7 @@ public class Robot extends RobbieRobot {
 				//return new RightLeftFromRightMode_2cube();
 				return new LeftFromRight3CubeScaleMode();
 			case RIGHT_RIGHT:
-				return new RightRightFromRightMode_4cube();
+				return new LeftRightFromRightMode_3cubeScale();
 			case UNDEFINED:
 			default:
 				break;

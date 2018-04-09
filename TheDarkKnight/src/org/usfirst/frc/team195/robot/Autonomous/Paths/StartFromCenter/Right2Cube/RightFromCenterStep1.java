@@ -13,7 +13,7 @@ public class RightFromCenterStep1 implements PathContainer {
 		sWaypoints.add(new Waypoint(20,157,0,0));
 		sWaypoints.add(new Waypoint(50,157,25,100));
 		sWaypoints.add(new Waypoint(80,114,25,80,"ArmDown"));
-		sWaypoints.add(new Waypoint(120,112,0,60));
+		sWaypoints.add(new Waypoint(120,108,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

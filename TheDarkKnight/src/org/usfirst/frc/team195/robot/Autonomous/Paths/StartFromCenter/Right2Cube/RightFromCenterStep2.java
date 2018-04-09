@@ -10,7 +10,7 @@ public class RightFromCenterStep2 implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(new Waypoint(120,110,0,0));
+		sWaypoints.add(new Waypoint(120,108,0,0));
 		sWaypoints.add(new Waypoint(85,112,20,60));
 		sWaypoints.add(new Waypoint(67,150,15,60,"PreparePickupCube"));
 		sWaypoints.add(new Waypoint(50,163,0,60));
@@ -20,7 +20,7 @@ public class RightFromCenterStep2 implements PathContainer {
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(120, 110), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(120, 108), Rotation2d.fromDegrees(0));
 	}
 
 	@Override

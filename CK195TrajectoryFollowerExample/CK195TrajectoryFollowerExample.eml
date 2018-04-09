@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component jdk="1.8.162SDK" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="wpilib" scope="COMPILE">
+		<srcroot url="jar://$wpilib.sources$!/"/>
+	</lib>
+	<lib name="networktables" scope="COMPILE">
+		<srcroot url="jar://$networktables.sources$!/"/>
+	</lib>
+	<lib name="opencv" scope="COMPILE">
+		<srcroot url="jar://$opencv.sources$!/"/>
+	</lib>
+	<lib name="cscore" scope="COMPILE">
+		<srcroot url="jar://$cscore.sources$!/"/>
+	</lib>
+	<lib name="wpiutil" scope="COMPILE">
+		<srcroot url="jar://$wpiutil.sources$!/"/>
+	</lib>
+</component>
