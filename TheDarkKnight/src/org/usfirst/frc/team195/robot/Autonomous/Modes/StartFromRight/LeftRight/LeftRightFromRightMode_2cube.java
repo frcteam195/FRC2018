@@ -59,29 +59,30 @@ public class LeftRightFromRightMode_2cube extends AutoModeBase {
 //		//runAction(new DrivePathAction(new LeftRightFromRightStep5Final()));
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new LeftRightFromRightTestStep()),
+												   AutomatedActions.SetRestingPosition(),
 												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePickupCube"),
-													   AutomatedActions.PreparePickupCube())),
-												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("StartIntake"),
-													   new SetIntakeAction(IntakeControl.INTAKE_IN))))));
+													   				AutomatedActions.PreparePickupCube(),
+														   			new SetIntakeAction(IntakeControl.INTAKE_IN))))));
 
-		runAction(new DrivePathAction(new LeftRightFromRightTestStep2()));
-		runAction(new DrivePathAction(new LeftRightFromRightTestStep3()));
+//		runAction(new DrivePathAction(new LeftRightFromRightTestStep2()));
+//		runAction(new DrivePathAction(new LeftRightFromRightTestStep3()));
 
 		runAction(AutomatedActions.ClampIntake());
 		runAction(new WaitAction(0.1));
 		runAction(AutomatedActions.StopIntake());
 
-		runAction(new SetElevatorHeightAction(ElevatorPosition.LOW));
+		runAction(new SetArmRotationAction(ArmPosition.VERTICAL));
+//		runAction(new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
+//											   new SetArmRotationAction(ArmPosition.VERTICAL))));
 
-		runAction(new TurnToHeadingAction(-45, false));
+		runAction(new TurnToHeadingAction(160));
 
 		//runAction(new DrivePathAction(new LeftRightFromRightTestStep4()));
 
-		runAction(new WaitAction(.5));
+//		runAction(new WaitAction(.5));
 
-		runAction(new DrivePathAction(new LeftRightFromRightTestStep5()));
-
-		runAction(new SetArmRotationAction(ArmPosition.DOWN));
+		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new LeftRightFromRightTestStep5()),
+												    new SetArmRotationAction(ArmPosition.SWITCH))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());

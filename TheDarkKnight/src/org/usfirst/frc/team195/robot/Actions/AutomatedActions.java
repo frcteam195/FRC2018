@@ -21,7 +21,7 @@ public class AutomatedActions {
 		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK), new SetElevatorHeightAction(ElevatorPosition.MID))));
 		actionArrayList.add(new SeriesAction(Arrays.asList(new WaitAction(0.25), new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.2))));
 		actionArrayList.add(new SetIntakeAction(IntakeControl.OFF));
-		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SeriesAction(Arrays.asList(new WaitAction(0.2), new SetElevatorHeightAction(ElevatorPosition.HOME))))));
+		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(0), new SeriesAction(Arrays.asList(new WaitAction(0.2), new SetElevatorHeightAction(ElevatorPosition.GO_DOWN))))));
 
 		return new SeriesAction(actionArrayList);
 	}
@@ -30,7 +30,7 @@ public class AutomatedActions {
 		ArrayList<Action> actionArrayList = new ArrayList<Action>();
 
 		actionArrayList.add(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.SWITCH),
-															 new SetElevatorHeightAction(ElevatorPosition.HOME))));
+															 new SetElevatorHeightAction(ElevatorPosition.GO_DOWN))));
 		actionArrayList.add(new SeriesAction(Arrays.asList(new WaitAction(0.1),
 														   new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.2))));
 		actionArrayList.add(new SetIntakeAction(IntakeControl.OFF));
@@ -39,18 +39,23 @@ public class AutomatedActions {
 		return new SeriesAction(actionArrayList);
 	}
 
+	public static ParallelAction PreparePlaceCubeOnSwitch() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
+												new SetArmRotationAction(ArmPosition.LOW)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnScaleOverBack() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID)));
 	}
 
 	public static ParallelAction PreparePlaceCubeOnSwitchElevator() {
-		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.LOW),
-												new SetArmRotationAction(ArmPosition.DOWN)));
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
+												new SetArmRotationAction(ArmPosition.LOW)));
 	}
 
 	public static ParallelAction SetRestingPosition() {
-		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.HOME),
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.GO_DOWN),
 												new SetArmRotationAction(ArmPosition.VERTICAL)));
 	}
 
@@ -74,9 +79,29 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
 	}
 
+	public static ParallelAction PrepareShootCubeOverBack() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
+	}
+
+	public static ParallelAction PrepareShootCubeOverBackLow() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_LOW)));
+	}
+
+	public static ParallelAction PrepareShootCubeOverBackExtraLow() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT),
+				new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_EXTRA_LOW)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnScaleOverBackMid() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID)));
+	}
+
+	public static ParallelAction PreparePlaceCubeOnScaleOverBackKindaMid() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_KINDA_MID)));
 	}
 
 	public static ParallelAction PreparePlaceCubeOnScaleOverBackHigh() {
@@ -94,9 +119,20 @@ public class AutomatedActions {
 	}
 
 	public static ParallelAction PreparePickupCube() {
-		return new ParallelAction(Arrays.asList(new SetArmRotationAction(0),
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.DOWN),
 												new SetIntakeClampAction(true),
-												new SetElevatorHeightAction(ElevatorPosition.HOME)));
+												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
+	}
+
+	public static SeriesAction PreparePickupCubeSlow() {
+//		return new SeriesAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+//											  new SetElevatorHeightAction(ElevatorPosition.HOME),
+//											  new SetArmRotationAction(ArmPosition.DOWN)));
+
+		return new SeriesAction(Arrays.asList(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+																			   new SetElevatorHeightAction(ElevatorPosition.HOME))),
+											  new SetIntakeClampAction(true),
+											  new SetArmRotationAction(ArmPosition.DOWN)));
 	}
 
 	public static ParallelAction PreparePlaceCubeOnSwitchOverBack() {
@@ -104,12 +140,17 @@ public class AutomatedActions {
 												new SetArmRotationAction(ArmPosition.BACK)));
 	}
 
+	public static ParallelAction PreparePlaceCubeOnSwitchOverBackLow() {
+		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.OVER_BACK_SWITCH),
+												new SetArmRotationAction(ArmPosition.BACK_SHOOT)));
+	}
+
 	public static Action LiftArmTo90() {
 		return new SetArmRotationAction(ArmPosition.VERTICAL);
 	}
 
 	public static Action ElevetorTo0() {
-		return new SetElevatorHeightAction(ElevatorPosition.HOME);
+		return new SetElevatorHeightAction(ElevatorPosition.GO_DOWN);
 	}
 
 	public static Action ClampIntake() {
@@ -118,6 +159,12 @@ public class AutomatedActions {
 
 	public static Action StopIntake() {
 		return new SetIntakeAction(IntakeControl.OFF);
+	}
+
+	public static SeriesAction GrabCube() {
+		return new SeriesAction(Arrays.asList(AutomatedActions.ClampIntake(),
+											  new WaitAction(0.1),
+											  AutomatedActions.StopIntake()));
 	}
 
 	public static Action OutakeCubeSlow() {

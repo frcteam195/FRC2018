@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
 import org.usfirst.frc.team195.robot.LEDController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -173,10 +172,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setSucceeded &= mIntakeMotor.configContinuousCurrentLimit(Constants.kIntakeMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntakeMotor.configPeakCurrentLimit(Constants.kIntakeMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntakeMotor.configPeakCurrentDuration(Constants.kIntakeMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mIntakeMotor.configOpenloopRamp(Constants.kIntakeOLRampRate, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mIntake2Motor.configContinuousCurrentLimit(Constants.kIntakeMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntake2Motor.configPeakCurrentLimit(Constants.kIntakeMaxPeakCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mIntake2Motor.configPeakCurrentDuration(Constants.kIntakeMaxPeakCurrentDurationMS, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mIntake2Motor.configOpenloopRamp(Constants.kIntakeOLRampRate, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mElevatorMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 			setSucceeded &= mElevatorMotorMaster.configContinuousCurrentLimit(Constants.kElevatorMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -227,8 +228,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, 0, Constants.kArmKp, Constants.kArmKi, Constants.kArmKd, Constants.kArmKf, Constants.kArmRampRate, Constants.kArmIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, 0, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
-		setSucceeded &= TalonHelper.setPIDGains(mIntakeMotor, 0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeRampRate, Constants.kIntakeIZone);
-		setSucceeded &= TalonHelper.setPIDGains(mIntake2Motor,  0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeRampRate, Constants.kIntakeIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mIntakeMotor, 0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeCLRampRate, Constants.kIntakeIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mIntake2Motor,  0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeCLRampRate, Constants.kIntakeIZone);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mArmMotor, Constants.kArmMaxVelocity, Constants.kArmMaxAccel);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, Constants.kElevatorMaxVelocity, Constants.kElevatorMaxAccel);
 
@@ -247,7 +248,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private boolean zeroElevator() {
 		mElevatorMotorMaster.set(ControlMode.Disabled, 0);
-		int homeElevatorValue = (int)(Constants.kElevatorSoftMin * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
+		int homeElevatorValue = (int)(Constants.kElevatorHome * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
 
 		boolean setSucceeded;
 		int retryCounter = 0;
@@ -324,6 +325,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //				SmartDashboard.putString("ArmControlMode", mArmControl.toString());
 //				ConsoleReporter.report("Disable collision: " + isCollisionPreventionDisabled());
 //				SmartDashboard.putBoolean("DisableCollisionPrevention", isCollisionPreventionDisabled());
+
+				SmartDashboard.putString("Elevator Position", "" + mElevatorMotorMaster.getSelectedSensorPosition(0)/4096.0);
 				switch (mArmControl) {
 					case POSITION:
 						if (collisionOccurring && !isAuto) {
@@ -394,9 +397,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						double tmpElevatorHeight = (getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT) || disableCollisionPrevention ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
-						if (mElevatorHomeSwitch.getFallingEdge() && !isAuto && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
+						if (mElevatorHomeSwitch.getFallingEdge() && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
 							zeroElevator();
-							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
+							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
 							mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio);
 
@@ -414,7 +417,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						if (!mElevatorHomeSwitch.get()) {
 							zeroElevator();
 							setElevatorControl(ElevatorControl.POSITION);
-							setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
+							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 							ledController.configureBlink(3, LEDController.kDefaultBlinkDuration);
 							ledController.setLEDColor(Constants.kElevatorHomeColor);
 							ledController.setRequestedState(LEDController.LEDState.BLINK);
@@ -451,8 +454,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						case INTAKE_OUT:
 //							mIntakeMotor.set(ControlMode.Current, -55);
 //							mIntake2Motor.set(ControlMode.Current, -55);
-							mIntakeMotor.set(ControlMode.PercentOutput, -0.8);
-							mIntake2Motor.set(ControlMode.PercentOutput, -0.8);
+							mIntakeMotor.set(ControlMode.PercentOutput, -0.65);
+							mIntake2Motor.set(ControlMode.PercentOutput, -0.65);
 							break;
 						case INTAKE_OUT_HALFSPEED:
 //							mIntakeMotor.set(ControlMode.Current, -55);
@@ -954,6 +957,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public boolean isCollisionPreventionDisabled() {
 		return disableCollisionPrevention;
+	}
+
+	public synchronized void prepareCLimb() {
+		setIntakeClamp(true);
+		setDisableCollisionPrevention(true);
+		setArmRotationDeg(ArmPosition.GET_CLIMBER_HOOK);
 	}
 }
 

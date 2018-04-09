@@ -27,7 +27,4 @@ public class RightRightFromRightStep7 implements PathContainer {
 	public boolean isReversed() {
 		return false;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":286,"y":78},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":245,"y":77},"speed":60,"radius":20,"marker":"","comment":""},{"position":{"x":240,"y":133},"speed":80,"radius":15,"marker":"","comment":""},{"position":{"x":223,"y":142},"speed":60,"radius":0,"marker":"","comment":""}]
-	// IS_REVERSED: false
-	// FILE_NAME: RightRightFromRightStep7
 }

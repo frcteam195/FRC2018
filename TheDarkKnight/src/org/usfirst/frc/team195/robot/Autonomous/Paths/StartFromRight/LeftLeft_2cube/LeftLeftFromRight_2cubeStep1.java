@@ -1,5 +1,6 @@
 package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.LeftLeft_2cube;
 
+import org.usfirst.frc.team195.robot.Autonomous.Paths.PathAdapter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 
@@ -10,11 +11,11 @@ public class LeftLeftFromRight_2cubeStep1 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(20,48,0,0));
-		sWaypoints.add(new Waypoint(165,45,30,80));
-		sWaypoints.add(new Waypoint(238,77,30,80));
+		sWaypoints.add(new Waypoint(165,45,30,130));
+		sWaypoints.add(new Waypoint(238,77,30,120));
 		sWaypoints.add(new Waypoint(238,220,15,100,"PreparePlaceCube"));
-		sWaypoints.add(new Waypoint(258,260,15,60));
-		sWaypoints.add(new Waypoint(290,257,0,40));
+		sWaypoints.add(new Waypoint(258,260,15,70));
+		sWaypoints.add(PathAdapter.getAdaptedLeftScaleWaypoint(new Waypoint(290,257,0,50)));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

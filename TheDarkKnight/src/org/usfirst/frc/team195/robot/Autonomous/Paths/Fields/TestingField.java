@@ -11,7 +11,7 @@ public class TestingField extends FieldProfile {
 		mRedFrontRightSwitchToBackWall = 139.75;
 		mRedBackRightSwitchToBackWall = 195.625;
 		mRedRightSwitchToSideWall = 85.25;
-		mRedRightScaleToBackWall = 260;
+		mRedRightScaleToBackWall = 298.125;
 		mRedRightScaleToSideWall = 73;
 
 		mBlueFrontLeftSwitchToBackWall = 141;

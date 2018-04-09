@@ -11,6 +11,7 @@ import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Climber.ClimberControl;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.CKTalonSRX;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
@@ -25,11 +26,14 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	private static ClimberSubsystem instance;
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private DriverStation ds;
-	private TalonSRX mClimberMotorMaster;
+	private CKTalonSRX mClimberMotorMaster;
 	private TalonSRX mClimberMotorSlave;
 	private ClimberControl mClimberControl;
 	private ClimberControl mPrevClimberControl;
 	private double climberPosition = 0;
+	private double mPrevClimberPosition = 0;
+	private double climberVelocity = 0;
+	private double mPrevClimberVelocity = 0;
 	private boolean climberFault = false;
 	private Solenoid climberLockSolenoid;
 
@@ -45,7 +49,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		climberLockSolenoid = robotControllers.getClimberLockSolenoid();
 
 		//TODO: Set climber initial control to position once tuned
-		mClimberControl = ClimberControl.OPEN_LOOP;
+		mClimberControl = ClimberControl.VELOCITY;
 		mPrevClimberControl = ClimberControl.OFF;
 	}
 
@@ -82,6 +86,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			setSucceeded = true;
 
 			setSucceeded &= mClimberMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
+			//TODO: Add configuration for velocity period and measurement window to improve control. Then retune climber winch
+
 			//setSucceeded &= mClimberMotorSlave.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= mClimberMotorMaster.configContinuousCurrentLimit(Constants.kClimberMaxContinuousCurrentLimit, Constants.kTimeoutMs) == ErrorCode.OK;
@@ -132,7 +138,9 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to zero ClimberSubsystem!!!", MessageLevel.DEFCON1);
 
-		mClimberMotorMaster.set(ControlMode.MotionMagic, homeClimberValue);
+//		mClimberMotorMaster.set(ControlMode.MotionMagic, homeClimberValue);
+		mClimberMotorMaster.set(ControlMode.Velocity, 0);
+
 	}
 
 
@@ -140,7 +148,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		@Override
 		public void onFirstStart(double timestamp) {
 			synchronized (ClimberSubsystem.this) {
-				//subsystemHome();
+				subsystemHome();
 			}
 		}
 
@@ -156,20 +164,29 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			synchronized (ClimberSubsystem.this) {
 				boolean collisionOccurring = driveBaseSubsystem.isEmergencySafetyRequired();
 
-				if (mClimberControl != mPrevClimberControl) {
-					switch (mClimberControl) {
-						case POSITION:
+				boolean updateMode = mClimberControl != mPrevClimberControl;
+
+				switch (mClimberControl) {
+					case POSITION:
+						if (climberPosition != mPrevClimberPosition || updateMode) {
 							mClimberMotorMaster.set(ControlMode.MotionMagic, climberPosition * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
-							break;
-						case OPEN_LOOP:
-							break;
-						case OFF:
-						default:
-							mClimberMotorMaster.set(ControlMode.Disabled, 0);
-							break;
-					}
-					mPrevClimberControl = mClimberControl;
+							mPrevClimberPosition = climberPosition;
+						}
+						break;
+					case VELOCITY:
+						if (climberVelocity != mPrevClimberVelocity || updateMode) {
+							mClimberMotorMaster.set(ControlMode.Velocity, climberVelocity * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
+							mPrevClimberVelocity = climberVelocity;
+						}
+						break;
+					case OPEN_LOOP:
+						break;
+					case OFF:
+					default:
+						mClimberMotorMaster.set(ControlMode.Disabled, 0);
+						break;
 				}
+				mPrevClimberControl = mClimberControl;
 			}
 		}
 		@Override
@@ -188,7 +205,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	}
 
 	public synchronized void setClimberControl(ClimberControl climberControl) {
-		this.mClimberControl = climberControl;
+		if (climberControl != mPrevClimberControl)
+			this.mClimberControl = climberControl;
 	}
 
 	@Override
@@ -305,5 +323,14 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	public synchronized void setOpenLoop(double mainOutput) {
 		setClimberControl(ClimberControl.OPEN_LOOP);
 		mClimberMotorMaster.set(ControlMode.PercentOutput, mainOutput);
+	}
+
+	public synchronized void setVelocity(double rpm) {
+		if (!isClimberFaulted()) {
+			setClimberControl(ClimberControl.VELOCITY);
+			climberVelocity = rpm;
+		} else {
+			setOpenLoop(Util.limit(rpm, 1));
+		}
 	}
 }

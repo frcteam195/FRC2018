@@ -166,8 +166,9 @@ public class Path {
     public void removeCurrentSegment() {
         prevSegment = segments.remove(0);
         String marker = prevSegment.getMarker();
-        if (marker != null)
+        if (marker != null) {
             mMarkersCrossed.add(marker);
+        }
     }
 
     /**

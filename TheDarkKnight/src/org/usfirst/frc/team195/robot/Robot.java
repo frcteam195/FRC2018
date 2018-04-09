@@ -1,20 +1,19 @@
 package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_1cube;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_2cube;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_1cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_3CubeSwitch;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_2cube;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftLeftFromLeftMode_3cube;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_2cube;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRightMode_3cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_3CubeSwitch;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_3cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft3CubeScaleMode;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft4CubeScaleMode;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.RightRight.RightFromLeft3CubeScaleMode;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleMode;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRight_2cubeScale;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_2cube;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_2cubeScale;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightLeft.RightLeftFromRightMode_2cube;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScale;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightRight.RightRightFromRightMode_4cube;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
@@ -209,13 +208,14 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingLeft(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				return new LeftLeftFromLeftMode_3cube();
+				//return new LeftLeftFromLeftMode_3cube();
+				return new LeftFromLeft3CubeScaleMode();
 			case LEFT_RIGHT:
-				break;
+				return new RightFromLeft3CubeScaleMode();
 			case RIGHT_LEFT:
-				break;
+				return new LeftFromLeft3CubeScaleMode();
 			case RIGHT_RIGHT:
-				break;
+				return new RightFromLeft3CubeScaleMode();
 			case UNDEFINED:
 			default:
 				break;
@@ -227,14 +227,17 @@ public class Robot extends RobbieRobot {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
 				//return new LeftLeftFromRightMode_2cube();
-				return new LeftLeftFromRight_2cubeScale();
+				//return new LeftLeftFromRight_2cubeScale();
+				return new LeftFromRight3CubeScaleMode();
 			case LEFT_RIGHT:
-				return new LeftRightFromRightMode_2cubeScale();
+				//return new LeftRightFromRightMode_3cubeScale();
+				return new LeftRightFromRightMode_3cubeScale();
 			case RIGHT_LEFT:
-				return new LeftLeftFromRight_2cubeScale();
+//				return new LeftLeftFromRight_2cubeScale();
 				//return new RightLeftFromRightMode_2cube();
+				return new LeftFromRight3CubeScaleMode();
 			case RIGHT_RIGHT:
-				return new RightRightFromRightMode_4cube();
+				return new LeftRightFromRightMode_3cubeScale();
 			case UNDEFINED:
 			default:
 				break;
@@ -245,12 +248,19 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
+				//return new LeftFromCenterMode_2cube();
+				//return new LeftLeftFromCenterMode_SwitchScale();
 				return new LeftFromCenterMode_2cube();
 			case LEFT_RIGHT:
+				//return new LeftFromCenterMode_2cube();
 				return new LeftFromCenterMode_2cube();
+				//return new LeftRightFromCenterMode_SwitchScale();
 			case RIGHT_LEFT:
+				//return new RightFromCenterMode_2cube();
 				return new RightFromCenterMode_2cube();
 			case RIGHT_RIGHT:
+				//return new RightFromCenterMode_2cube();
+				//return new RightFromCenterMode_3cube();
 				return new RightFromCenterMode_2cube();
 			case UNDEFINED:
 			default:

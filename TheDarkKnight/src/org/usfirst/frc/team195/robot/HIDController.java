@@ -2,6 +2,7 @@ package org.usfirst.frc.team195.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
+import org.usfirst.frc.team195.robot.Actions.TurnToHeadingAction;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
@@ -111,9 +112,7 @@ public class HIDController implements Runnable {
 //		}
 
 		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
-			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
-		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
-			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_LOW))
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackLow(), Constants.kActionTimeoutS).runAction();
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_MID))
@@ -122,6 +121,14 @@ public class HIDController implements Runnable {
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackHigh(), Constants.kActionTimeoutS).runAction();
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE_HIGH))
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_LOW))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.LOW);
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_MID))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HIGH))
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
+		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_AUTO_SWITCH))
+			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnSwitch(), Constants.kActionTimeoutS).runAction();
 
 		if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_INCREMENT_POV)
 			cubeHandlerSubsystem.incrementElevatorHeight();
@@ -169,12 +176,18 @@ public class HIDController implements Runnable {
 			climberSubsystem.deployPlatform();
 
 
-		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_IN))
-			climberSubsystem.setOpenLoop(1);
-		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_OUT))
-			climberSubsystem.setOpenLoop(-0.5);
+		if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_ROLL_DEPLOY)) {
+			cubeHandlerSubsystem.prepareCLimb();
+			climberSubsystem.setVelocity(-0.5*Constants.kClimberMaxVelocity);
+		}
+		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_IN))
+			climberSubsystem.setVelocity(Constants.kClimberMaxVelocity);
+		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_HOOK_SLOW)) {
+			cubeHandlerSubsystem.prepareCLimb();
+			climberSubsystem.setOpenLoop(0.55);
+		}
 		else
-			climberSubsystem.setOpenLoop(0);
+			climberSubsystem.setVelocity(0);
 
 
 		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/4.0);

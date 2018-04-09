@@ -33,7 +33,7 @@ public class TeleopActionRunner {
 
 			action.start();
 
-			while (!action.isFinished() && (Timer.getFPGATimestamp() - startTime) > timeout) {
+			while (!action.isFinished() && ((Timer.getFPGATimestamp() - startTime) < timeout)) {
 				action.update();
 				int waitTime = (int) (m_update_rate * 1000.0);
 

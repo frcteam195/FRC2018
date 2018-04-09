@@ -17,6 +17,7 @@ var imageFlipped;
 var wto;
 
 var startLeftY = 276;
+var startCenterY = 157;
 var startRightY = 48;
 
 var maxSpeed = 120;
@@ -114,7 +115,7 @@ class Waypoint {
 		if (this.marker === "")
 			return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+")";
 		else
-            return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+",\""+this.marker+"\")";
+            return "new Waypoint("+this.position.x+","+this.position.y+","+this.radius+","+this.speed+",\""+this.marker.trim()+"\")";
 	}
 }
 
@@ -627,7 +628,7 @@ function importData() {
 
             waypoints = [];
             $("tbody").empty();
-            tmpWaypoints.forEach((wptmp) => {
+            tmpWaypoints.forEach((wptmp, i) => {
 				var wp;
 				var x = 0;
 				var y = 0;
@@ -641,7 +642,7 @@ function importData() {
                     speed = wptmp[3];
 				}
 				if (wptmp.length >= 5) {
-                    marker = wptmp[4];
+                    marker = wptmp[4].replace(/"/g, "");
 				}
 
                 wp = new Waypoint(new Translation2d(x, y), speed, radius, marker);
@@ -651,7 +652,7 @@ function importData() {
                     +"<td><input value='" + wp.radius + "'></td>"
                     +"<td><input value='" + wp.speed + "'></td>"
                     +"<td class='marker'><input placeholder='Marker' value='" + wp.marker + "'></td>"
-                    +"<td><button onclick='$(this).parent().parent().remove();update();''>Delete</button></td></tr>"
+                    +(i == 0 ? "" : "<td><button onclick='$(this).parent().parent().remove();update();''>Delete</button></td></tr>")
                 );
 			});
             update();
@@ -761,6 +762,80 @@ function importData() {
 // 	return str;
 // }
 
+function getReducedDataString() {
+	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
+	var pathInit = "";
+	var startAdaptStr = $("#startAdaptionValue").val();
+	var endAdaptStr = $("#endAdaptionValue").val();
+	for(var i=0; i<waypoints.length; i++) {
+		pathInit += "        sWaypoints.add(";
+
+		if (i == 0) {
+			switch (startAdaptStr) {
+				case "startscaleleft":
+					pathInit += "PathAdapter.getAdaptedLeftScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "startscaleright":
+					pathInit += "PathAdapter.getAdaptedRightScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "startswitchleft":
+					pathInit += "PathAdapter.getAdaptedLeftSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "startswitchright":
+					pathInit += "PathAdapter.getAdaptedRightSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				default:
+					pathInit += waypoints[i].toString();
+					break;
+			}
+		} else if (i == waypoints.length - 1) {
+			switch (endAdaptStr) {
+				case "endscaleleft":
+					pathInit += "PathAdapter.getAdaptedLeftScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "endscaleright":
+					pathInit += "PathAdapter.getAdaptedRightScaleWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "endswitchleft":
+					pathInit += "PathAdapter.getAdaptedLeftSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				case "endswitchright":
+					pathInit += "PathAdapter.getAdaptedRightSwitchWaypoint(" + waypoints[i].toString() + ")";
+					break;
+				default:
+					pathInit += waypoints[i].toString();
+					break;
+			}
+		} else
+			pathInit += waypoints[i].toString();
+
+		pathInit += ");\n";
+	}
+	var startPoint = "new Translation2d(" + waypoints[0].position.x + ", " + waypoints[0].position.y + ")";
+	var isReversed = $("#isReversed").is(':checked');
+	var deg = isReversed ? 180 : 0;
+	var str = `public class ${title} implements PathContainer {
+    
+    @Override
+    public Path buildPath() {
+        ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
+${pathInit}
+        return PathBuilder.buildPathFromWaypoints(sWaypoints);
+    }
+    
+    @Override
+    public RigidTransform2d getStartPose() {
+        return new RigidTransform2d(${startPoint}, Rotation2d.fromDegrees(${deg})); 
+    }
+
+    @Override
+    public boolean isReversed() {
+        return ${isReversed}; 
+    }
+}`;
+	return str;
+}
+
 function getDataString() {
 	var title = ($("#title").val().length > 0) ? $("#title").val() : "UntitledPath";
 	var pathInit = "";
@@ -815,6 +890,7 @@ function getDataString() {
 	var deg = isReversed ? 180 : 0;
 	var str = `package org.usfirst.frc.team195.robot.Autonomous.Paths;
 
+import org.usfirst.frc.team195.robot.Autonomous.Paths.PathAdapter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBuilder.Waypoint;
 
@@ -857,6 +933,15 @@ function showData() {
 	showModal();
 }
 
+function copyToClipBoard() {
+	const data = document.createElement("textarea");
+	data.value = getReducedDataString();
+	document.body.appendChild(data);
+	data.select();
+	document.execCommand("copy");
+	document.body.removeChild(data);
+}
+
 function showModal() {
 	$(".modal, .shade").removeClass("behind");
 	$(".modal, .shade").removeClass("hide");
@@ -880,11 +965,13 @@ function flipField() {
 }
 
 function changeStartPoint() {
-    if (parseInt( $($($($('tbody').children()[0]).children()[1]).children()).val() ) == startLeftY) {
+    if (parseInt($($($($('tbody').children()[0]).children()[1]).children()).val()) == startLeftY) {
+        $($($($('tbody').children()[0]).children()[1]).children()).val(startCenterY);
+    } else if (parseInt($($($($('tbody').children()[0]).children()[1]).children()).val()) == startCenterY) {
         $($($($('tbody').children()[0]).children()[1]).children()).val(startRightY);
-	} else if (parseInt(  $($($($('tbody').children()[0]).children()[1]).children()).val() ) == startRightY) {
+    } else if (parseInt($($($($('tbody').children()[0]).children()[1]).children()).val()) == startRightY) {
         $($($($('tbody').children()[0]).children()[1]).children()).val(startLeftY);
-	}
+    }
     update();
 }
 

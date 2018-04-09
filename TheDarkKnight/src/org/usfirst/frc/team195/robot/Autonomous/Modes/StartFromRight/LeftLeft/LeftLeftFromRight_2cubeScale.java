@@ -26,7 +26,7 @@ public class LeftLeftFromRight_2cubeScale extends AutoModeBase {
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
-						AutomatedActions.PreparePlaceCubeOnScaleOverBackMid())))));
+						AutomatedActions.PreparePlaceCubeOnScaleOverBackHigh())))));
 
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
@@ -46,6 +46,8 @@ public class LeftLeftFromRight_2cubeScale extends AutoModeBase {
 
 		runAction(AutomatedActions.OutakeCubeSlow());
 		runAction(AutomatedActions.StopIntake());
+
+		runAction(AutomatedActions.SetRestingPosition());
 
 		runAction(new WaitAction(15));
 	}

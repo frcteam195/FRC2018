@@ -11,7 +11,7 @@ public class LeftRightFromRightTestStep5 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(230,204,0,0));
-		sWaypoints.add(new Waypoint(216,210,0,20));
+		sWaypoints.add(new Waypoint(215,212,0,20));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
@@ -25,7 +25,4 @@ public class LeftRightFromRightTestStep5 implements PathContainer {
 	public boolean isReversed() {
 		return false;
 	}
-	// WAYPOINT_DATA: [{"position":{"x":230,"y":204},"speed":0,"radius":0,"marker":"","comment":""},{"position":{"x":216,"y":210},"speed":20,"radius":0,"marker":"","comment":""}]
-	// IS_REVERSED: false
-	// FILE_NAME: LeftRightFromRightTestStep5
 }

@@ -3,6 +3,7 @@ package org.usfirst.frc.team195.robot.Utilities;
 import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -16,10 +17,10 @@ public class Controllers {
 	private KnightJoystick armControlJoystick;
 	private KnightJoystick buttonBox1;
 	private KnightJoystick buttonBox2;
-	private TalonSRX leftDrive1;
+	private CKTalonSRX leftDrive1;
 	private BaseMotorController leftDrive2;
 	private BaseMotorController leftDrive3;
-	private TalonSRX rightDrive1;
+	private CKTalonSRX rightDrive1;
 	private BaseMotorController rightDrive2;
 	private BaseMotorController rightDrive3;
 
@@ -31,7 +32,7 @@ public class Controllers {
 	private BaseMotorController elevatorMotorSlave3;
 	private TalonSRX intakeMotor;
 	private TalonSRX intake2Motor;
-	private TalonSRX climberMotorMaster;
+	private CKTalonSRX climberMotorMaster;
 	private TalonSRX climberMotorSlave;
 
 	private ShiftHelper shiftHelper = null;
@@ -39,6 +40,7 @@ public class Controllers {
 	private Solenoid climberLockSolenoid;
 
 	private CANifier canifierLED;
+//	private PigeonDriver pigeonIMU;
 
 //	private DigitalOutput rLED;
 //	private DigitalOutput gLED;
@@ -63,12 +65,12 @@ public class Controllers {
 		buttonBox2 = new KnightJoystick(3);
 
 		//Choose whether to create Victor or Talon slaves here
-		//Left Drive Setup
+		//Left2Cube Drive Setup
 		leftDrive1 = CANSpeedControllerBuilder.createFastMasterTalonSRX(Constants.kLeftDriveMasterId, Constants.kLeftDriveMasterPDPChannel);
 		leftDrive2 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId, Constants.kLeftDriveSlave1PDPChannel, leftDrive1);
 		leftDrive3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kLeftDriveSlaveId2, Constants.kLeftDriveSlave2PDPChannel, leftDrive1);
 
-		//Right Drive Setup
+		//Right2Cube Drive Setup
 		rightDrive1 = CANSpeedControllerBuilder.createFastMasterTalonSRX(Constants.kRightDriveMasterId, Constants.kRightDriveMasterPDPChannel);
 		rightDrive2 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId, Constants.kRightDriveSlave1PDPChannel, rightDrive1);
 		rightDrive3 = CANSpeedControllerBuilder.createPermanentSlaveTalonSRX(Constants.kRightDriverSlaveId2, Constants.kRightDriveSlave2PDPChannel, rightDrive1);
@@ -100,6 +102,7 @@ public class Controllers {
 //		bLED = new DigitalOutput(Constants.kBlueLEDId);
 
 		canifierLED = new CANifier(Constants.kCANifierLEDId);
+//		pigeonIMU = new PigeonDriver(2);
 
 		elevatorHomeSwitch = new KnightDigitalInput(Constants.kElevatorHomeSwitchId);
 		cubeSensor = new KnightDigitalInput(Constants.kCubeSensorId);
@@ -134,7 +137,7 @@ public class Controllers {
 
 	public KnightJoystick getButtonBox2() { return buttonBox2; }
 
-	public TalonSRX getLeftDrive1() {
+	public CKTalonSRX getLeftDrive1() {
 		return leftDrive1;
 	}
 	
@@ -146,7 +149,7 @@ public class Controllers {
 		return leftDrive3;
 	}
 	
-	public TalonSRX getRightDrive1() {
+	public CKTalonSRX getRightDrive1() {
 		return rightDrive1;
 	}
 	
@@ -186,7 +189,7 @@ public class Controllers {
 		return elevatorMotorSlave3;
 	}
 
-	public TalonSRX getClimberMotorMaster() {
+	public CKTalonSRX getClimberMotorMaster() {
 		return climberMotorMaster;
 	}
 
@@ -241,4 +244,8 @@ public class Controllers {
 	public KnightDigitalInput getCubeSensor() {
 		return cubeSensor;
 	}
+
+//	public PigeonDriver getPigeonIMU() {
+//		return pigeonIMU;
+//	}
 }
