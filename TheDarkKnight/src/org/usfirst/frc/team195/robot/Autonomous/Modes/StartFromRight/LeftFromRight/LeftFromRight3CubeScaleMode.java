@@ -29,7 +29,7 @@ public class LeftFromRight3CubeScaleMode extends AutoModeBase {
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 						AutomatedActions.PrepareShootCubeOverBack())))));
 
-		runAction(AutomatedActions.OutakeCubeExtraFast());
+		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
@@ -41,7 +41,7 @@ public class LeftFromRight3CubeScaleMode extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBackLow(),
 				new DrivePathAction(new LeftFromRight3CubeScaleStep3()))));
 
-		runAction(AutomatedActions.OutakeCubeFast());
+		runAction(AutomatedActions.OutakeCubeExtraFast());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
@@ -53,7 +53,7 @@ public class LeftFromRight3CubeScaleMode extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBackExtraLow(),
 				new DrivePathAction(new LeftFromRight3CubeScaleStep5()))));
 
-		runAction(AutomatedActions.OutakeCubeMidSpeed());
+		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(AutomatedActions.SetRestingPosition());

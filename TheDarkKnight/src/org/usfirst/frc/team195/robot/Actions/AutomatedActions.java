@@ -94,6 +94,16 @@ public class AutomatedActions {
 				new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_EXTRA_LOW)));
 	}
 
+	public static ParallelAction PrepareShootCubeOverBackLowHighArm() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT_HIGH),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_LOW)));
+	}
+
+	public static ParallelAction PrepareShootCubeOverBackHighArm() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT_HIGH),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnScaleOverBackMid() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID)));

@@ -11,7 +11,9 @@ import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.Righ
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft3CubeScaleMode;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft4CubeScaleMode;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.RightRight.RightFromLeft3CubeScaleMode;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.RightRight.RightFromLeft3CubeScaleModeAlt;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleMode;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleModeAlt;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftLeft.LeftLeftFromRight_2cubeScale;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScale;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightRight.RightRightFromRightMode_4cube;
@@ -211,7 +213,8 @@ public class Robot extends RobbieRobot {
 				//return new LeftLeftFromLeftMode_3cube();
 				return new LeftFromLeft3CubeScaleMode();
 			case LEFT_RIGHT:
-				return new RightFromLeft3CubeScaleMode();
+				//return new RightFromLeft3CubeScaleMode();
+				return new RightFromLeft3CubeScaleModeAlt();
 			case RIGHT_LEFT:
 				return new LeftFromLeft3CubeScaleMode();
 			case RIGHT_RIGHT:
@@ -235,7 +238,8 @@ public class Robot extends RobbieRobot {
 			case RIGHT_LEFT:
 //				return new LeftLeftFromRight_2cubeScale();
 				//return new RightLeftFromRightMode_2cube();
-				return new LeftFromRight3CubeScaleMode();
+				//return new LeftFromRight3CubeScaleMode();
+				return new LeftFromRight3CubeScaleModeAlt();
 			case RIGHT_RIGHT:
 				return new LeftRightFromRightMode_3cubeScale();
 			case UNDEFINED:
