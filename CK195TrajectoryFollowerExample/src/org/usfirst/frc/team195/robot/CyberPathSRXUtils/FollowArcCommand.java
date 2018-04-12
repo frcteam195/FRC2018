@@ -6,6 +6,8 @@ import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FollowerType;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.Notifier;
@@ -46,8 +48,7 @@ public class FollowArcCommand extends Command {
 		private CyberSrxMotionProfile prof;
 		private final boolean flipped;
 
-		public BufferLoader(TalonSRX talon, CyberSrxMotionProfile prof, boolean flipped, double startPosition,
-							double startHeading) {
+		public BufferLoader(TalonSRX talon, CyberSrxMotionProfile prof, boolean flipped) {
 			this.talon = talon;
 			this.prof = prof;
 			this.flipped = flipped;
@@ -66,7 +67,7 @@ public class FollowArcCommand extends Command {
 				point.position = prof.points[pointIndex][0];
 				point.velocity = prof.points[pointIndex][1];
 				point.timeDur = TrajectoryPointHelper.valueOf((int) prof.points[pointIndex][2]);
-				point.auxiliaryPos = (flipped ? -1 : 1) * prof.points[pointIndex][3];
+				point.auxiliaryPos = (flipped ? -1 : 1) * 10 * prof.points[pointIndex][3];
 				point.profileSlotSelect0 = TrajectoryGainConstants.driveProfileSlot;
 				point.profileSlotSelect1 = TrajectoryGainConstants.turnProfileSlot;
 				point.zeroPos = (pointIndex == 0);
@@ -89,8 +90,7 @@ public class FollowArcCommand extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 
-		setUpTalon(otherDriveTalon);
-		setUpTalon(masterArcTalon);
+		setUpTalons();
 
 		masterArcTalon.set(ControlMode.MotionProfileArc, SetValueMotionProfile.Disable.value);
 		otherDriveTalon.follow(masterArcTalon, FollowerType.AuxOutput1);
@@ -101,8 +101,7 @@ public class FollowArcCommand extends Command {
 			//Shift to low gear here
 		}
 
-		bufferLoader = new Notifier(new BufferLoader(masterArcTalon, trajectoryToFollow.profile, trajectoryToFollow.flipped,
-													 getDistance(), getAngle()));
+		bufferLoader = new Notifier(new BufferLoader(masterArcTalon, trajectoryToFollow.profile, trajectoryToFollow.flipped));
 
 		bufferLoader.startPeriodic(.005);
 	}
@@ -142,16 +141,14 @@ public class FollowArcCommand extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		bufferLoader.stop();
-		resetTalon(masterArcTalon, ControlMode.PercentOutput, 0);
-		resetTalon(otherDriveTalon, ControlMode.PercentOutput, 0);
+		resetTalons(ControlMode.PercentOutput, 0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		bufferLoader.stop();
-		resetTalon(masterArcTalon, ControlMode.PercentOutput, 0);
-		resetTalon(otherDriveTalon, ControlMode.PercentOutput, 0);
+		resetTalons(ControlMode.PercentOutput, 0);
 	}
 	
 	public double getDistance() {
@@ -165,18 +162,33 @@ public class FollowArcCommand extends Command {
 	}
 
 	// set up the talon for motion profile control
-	private void setUpTalon(TalonSRX talon) {
-		talon.clearMotionProfileTrajectories();
-		talon.changeMotionControlFramePeriod(5);
-		talon.clearMotionProfileHasUnderrun(10);
+	private void setUpTalons() {
+		masterArcTalon.clearMotionProfileTrajectories();
+		masterArcTalon.changeMotionControlFramePeriod(5);
+		masterArcTalon.clearMotionProfileHasUnderrun(10);
+		masterArcTalon.setStatusFramePeriod(StatusFrame.Status_1_General, 5, 5);
+
+		otherDriveTalon.clearMotionProfileTrajectories();
+		otherDriveTalon.changeMotionControlFramePeriod(5);
+		otherDriveTalon.clearMotionProfileHasUnderrun(10);
+		otherDriveTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 5, 10);
+		otherDriveTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 5, 10);
 	}
 
 	// set the to the desired controlMode
 	// used at the end of the motion profile
-	private void resetTalon(TalonSRX talon, ControlMode controlMode, double setValue) {
-		talon.clearMotionProfileTrajectories();
-		talon.clearMotionProfileHasUnderrun(10);
-		talon.changeMotionControlFramePeriod(10);
-		talon.set(controlMode, setValue);
+	private void resetTalons(ControlMode controlMode, double setValue) {
+		masterArcTalon.clearMotionProfileTrajectories();
+		masterArcTalon.changeMotionControlFramePeriod(10);
+		masterArcTalon.clearMotionProfileHasUnderrun(10);
+		masterArcTalon.setStatusFramePeriod(StatusFrame.Status_1_General, 10, 5);
+		masterArcTalon.set(controlMode, setValue);
+
+		otherDriveTalon.clearMotionProfileTrajectories();
+		otherDriveTalon.clearMotionProfileHasUnderrun(10);
+		otherDriveTalon.changeMotionControlFramePeriod(10);
+		otherDriveTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 10, 10);
+		otherDriveTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20, 10);
+		otherDriveTalon.set(controlMode, setValue);
 	}
 }

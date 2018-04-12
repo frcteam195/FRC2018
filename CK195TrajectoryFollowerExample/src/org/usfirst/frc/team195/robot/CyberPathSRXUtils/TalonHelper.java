@@ -1,9 +1,8 @@
 package org.usfirst.frc.team195.robot.CyberPathSRXUtils;
 
 import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
-import com.ctre.phoenix.motorcontrol.SensorTerm;
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team195.robot.RobotMap;
 
@@ -55,7 +54,7 @@ public class TalonHelper {
 			setSucceeded &= masterArcTalon.configSelectedFeedbackCoefficient(0.5, 0, RobotMap.kTimeoutMs) == ErrorCode.OK;
 
 			setSucceeded &= masterArcTalon.configRemoteFeedbackFilter(pigeonTalon.getDeviceID(), RemoteSensorSource.GadgeteerPigeon_Yaw, 1, RobotMap.kTimeoutMs) == ErrorCode.OK;
-			setSucceeded &= masterArcTalon.configSelectedFeedbackCoefficient(360.0/8192.0, 1, RobotMap.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= masterArcTalon.configSelectedFeedbackCoefficient(3600.0/8192.0, 1, RobotMap.kTimeoutMs) == ErrorCode.OK;
 
 		} while (!setSucceeded && retryCounter++ < RobotMap.kTalonRetryCount);
 
@@ -68,4 +67,17 @@ public class TalonHelper {
 
 		return retryCounter < RobotMap.kTalonRetryCount && setSucceeded;
 	}
+
+	/**
+	 * Pass all slave controllers into this except the ones that contain sensors.
+	 * This method will open up more CAN BUS bandwidth by slowing down rate of transmission of unused CAN frames
+	 * @param motorControllers The list of slaves to adjust frame rate on
+	 */
+	public static void setLightweightSlaves(IMotorController...motorControllers) {
+		for (IMotorController motorController: motorControllers) {
+			motorController.setStatusFramePeriod(StatusFrame.Status_1_General, 100, 10);
+			motorController.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 100, 10);
+		}
+	}
+
 }
