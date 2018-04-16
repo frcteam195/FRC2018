@@ -12,8 +12,8 @@ public class LeftFromCenter3CubeSwitchStep4 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(120,218,0,0));
-		sWaypoints.add(new Waypoint(60,213,35,26));
-		sWaypoints.add(new Waypoint(96,188,0,26));
+		sWaypoints.add(new Waypoint(60,213,35,24,"DropArm"));
+		sWaypoints.add(new Waypoint(96,188,0,24));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

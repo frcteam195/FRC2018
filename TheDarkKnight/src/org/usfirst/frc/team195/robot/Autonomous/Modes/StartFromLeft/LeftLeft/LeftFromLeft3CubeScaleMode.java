@@ -41,7 +41,7 @@ public class LeftFromLeft3CubeScaleMode extends AutoModeBase {
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePlaceCubeOnScaleOverBackMid(),
 												   new DrivePathAction(new Left3CubeScaleStep3()))));
 
-		runAction(AutomatedActions.OutakeCubeFast());
+		runAction(AutomatedActions.OutakeCubeExtraFast());
 		runAction(AutomatedActions.StopIntake());
 		runAction(new WaitAction(0.2));
 

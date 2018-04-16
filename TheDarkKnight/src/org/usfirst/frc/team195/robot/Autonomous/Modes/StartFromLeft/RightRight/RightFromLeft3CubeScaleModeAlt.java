@@ -39,7 +39,7 @@ public class RightFromLeft3CubeScaleModeAlt extends AutoModeBase {
 
 		runAction(AutomatedActions.GrabCube());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBackLowHighArm(),
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBackLowLessHighArm(),
 				new DrivePathAction(new Right3CubeScaleStep3()))));
 
 		runAction(AutomatedActions.OutakeCubeExtraFast());

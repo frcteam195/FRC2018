@@ -180,14 +180,17 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.prepareCLimb();
 			climberSubsystem.setVelocity(-0.5*Constants.kClimberMaxVelocity);
 		}
-		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_IN))
+		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_IN)) {
 			climberSubsystem.setVelocity(Constants.kClimberMaxVelocity);
+			ledController.setMessage("195", true, true);
+		}
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_HOOK_SLOW)) {
 			cubeHandlerSubsystem.prepareCLimb();
 			climberSubsystem.setOpenLoop(0.55);
 		}
-		else
+		else {
 			climberSubsystem.setVelocity(0);
+		}
 
 
 		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/4.0);

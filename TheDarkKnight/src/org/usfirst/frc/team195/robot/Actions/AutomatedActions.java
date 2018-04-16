@@ -99,6 +99,11 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_LOW)));
 	}
 
+	public static ParallelAction PrepareShootCubeOverBackLowLessHighArm() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT_LESS_HIGH),
+				new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_LOW)));
+	}
+
 	public static ParallelAction PrepareShootCubeOverBackHighArm() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT_HIGH),
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
@@ -186,7 +191,7 @@ public class AutomatedActions {
 	}
 
 	public static Action OutakeCubeFast() {
-		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT_AUTO, 0.25);
 	}
 
 	public static Action OutakeCubeExtraFast() {

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team195.robot.Autonomous.Paths.Fields;
 
 public class HartfordWeek6Field extends FieldProfile {
-	//TODO: Enter correct values for this
 	public HartfordWeek6Field() {
 		mRedFrontLeftSwitchToBackWall = 139.25;
 		mRedBackLeftSwitchToBackWall = 195.75;

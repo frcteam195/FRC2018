@@ -1,7 +1,10 @@
 package org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right;
 
 import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
+import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetArmRotationAction;
+import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetElevatorHeightAction;
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeAction;
+import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeClampAction;
 import org.usfirst.frc.team195.robot.Actions.DrivePathAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.ParallelAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.SeriesAction;
@@ -10,7 +13,10 @@ import org.usfirst.frc.team195.robot.Actions.Framework.WaitForPathMarkerAction;
 import org.usfirst.frc.team195.robot.Actions.ResetPoseFromPathAction;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeEndedException;
+import org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.LeftFromCenter3CubeSwitch.LeftFromCenter3CubeSwitchStep2;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromCenter.RightFromCenter3CubeSwitch.*;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathContainer;
 
@@ -30,9 +36,16 @@ public class RightFromCenterMode_3CubeSwitch extends AutoModeBase {
 		runAction(AutomatedActions.OutakeCubeMidSpeed());
 		runAction(AutomatedActions.StopIntake());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCubeSlow(),
+//		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCubeSlow(),
+//												   new SetIntakeAction(IntakeControl.INTAKE_IN),
+//												   new DrivePathAction(new RightFromCenter3CubeSwitchStep2()))));
+
+		runAction(new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.HOME),
 												   new SetIntakeAction(IntakeControl.INTAKE_IN),
-												   new DrivePathAction(new RightFromCenter3CubeSwitchStep2()))));
+												   new SetIntakeClampAction(true),
+												   new DrivePathAction(new RightFromCenter3CubeSwitchStep2()),
+												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("DropArm"),
+																				  new SetArmRotationAction(ArmPosition.DOWN))))));
 
 		runAction(new SeriesAction(Arrays.asList(AutomatedActions.ClampIntake(),
 												 new WaitAction(0.4))));
@@ -44,9 +57,16 @@ public class RightFromCenterMode_3CubeSwitch extends AutoModeBase {
 		runAction(AutomatedActions.OutakeCubeMidSpeed());
 		runAction(AutomatedActions.StopIntake());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCubeSlow(),
-				new SetIntakeAction(IntakeControl.INTAKE_IN),
-				new DrivePathAction(new RightFromCenter3CubeSwitchStep4()))));
+//		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCubeSlow(),
+//				new SetIntakeAction(IntakeControl.INTAKE_IN),
+//				new DrivePathAction(new RightFromCenter3CubeSwitchStep4()))));
+
+		runAction(new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.HOME),
+												   new SetIntakeAction(IntakeControl.INTAKE_IN),
+												   new SetIntakeClampAction(true),
+												   new DrivePathAction(new RightFromCenter3CubeSwitchStep4()),
+												   new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("DropArm"),
+																				  new SetArmRotationAction(ArmPosition.DOWN))))));
 
 		runAction(new SeriesAction(Arrays.asList(AutomatedActions.ClampIntake(),
 				new WaitAction(0.4))));

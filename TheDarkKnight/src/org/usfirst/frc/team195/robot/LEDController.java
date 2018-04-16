@@ -42,6 +42,7 @@ public class LEDController extends Thread {
     private Character currentMorseChar = ' ';
     private LinkedList<Character> currentMorseCode;
     private String mPrevMessage = "";
+    private boolean loopMsg = false;
 
     private LEDController() throws Exception {
     	super();
@@ -248,9 +249,11 @@ public class LEDController extends Thread {
 		morseStateTime = 0;
 		currentMorseChar = ' ';
 		//setLEDDefaultState();
-		setLEDOff();
-		//ConsoleReporter.report("Off morse called.");
-		return SystemState.OFF;
+		if (!loopMsg) {
+			setLEDOff();
+			return SystemState.OFF;
+		} else
+			return SystemState.MORSE;
 	}
 
     private synchronized void setLEDOn() {
@@ -291,10 +294,14 @@ public class LEDController extends Thread {
     }
 
     public synchronized void setMessage(String message) {
-		setMessage(message, false);
+		setMessage(message, false, false);
 	}
 
 	public synchronized void setMessage(String message, boolean autoStartMessage) {
+		setMessage(message, autoStartMessage, false);
+	}
+
+	public synchronized void setMessage(String message, boolean autoStartMessage, boolean loopMsg) {
     	if (!message.equalsIgnoreCase(mPrevMessage)) {
 			this.requestedMorseMessage = morseCodeTranslator.getMorseCode(message);
 			mPrevMessage = message;
@@ -302,6 +309,12 @@ public class LEDController extends Thread {
 
 		if (autoStartMessage)
 			setRequestedState(LEDState.MORSE);
+
+    	setLoopMsg(loopMsg);
+	}
+
+	private synchronized void setLoopMsg(boolean loopMsg) {
+		this.loopMsg = loopMsg;
 	}
 
     // Internal state of the system

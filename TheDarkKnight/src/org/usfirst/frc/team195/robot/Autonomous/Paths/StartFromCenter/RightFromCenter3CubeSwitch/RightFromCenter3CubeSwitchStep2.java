@@ -12,15 +12,15 @@ public class RightFromCenter3CubeSwitchStep2 implements PathContainer {
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(new Waypoint(120,106,0,0));
-		sWaypoints.add(new Waypoint(55,105,40,32));
-		sWaypoints.add(new Waypoint(86,140,0,32));
+		sWaypoints.add(new Waypoint(55,105,40,30,"DropArm"));
+		sWaypoints.add(new Waypoint(86,140,0,30));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(120, 110), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(120, 106), Rotation2d.fromDegrees(0));
 	}
 
 	@Override
