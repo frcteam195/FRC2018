@@ -4,6 +4,7 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -13,6 +14,7 @@ import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Climber.ClimberControl;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.CKTalonSRX;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.TalonHelper;
+import org.usfirst.frc.team195.robot.Utilities.Drivers.TuneablePID;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Loop;
 import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.SynchronousPIDF;
@@ -23,6 +25,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
+	private static final int kVelocityPIDSlot = 0;
+	private static final int kVelocityHoldPIDSlot = 1;
 	private static ClimberSubsystem instance;
 	private DriveBaseSubsystem driveBaseSubsystem;
 	private DriverStation ds;
@@ -36,9 +40,9 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 	private double mPrevClimberVelocity = 0;
 	private boolean climberFault = false;
 	private Solenoid climberLockSolenoid;
+	private TuneablePID tuneableClimber;
 
-
-	private ClimberSubsystem() {
+	private ClimberSubsystem() throws Exception {
 		ds = DriverStation.getInstance();
 		Controllers robotControllers = Controllers.getInstance();
 		driveBaseSubsystem = DriveBaseSubsystem.getInstance();
@@ -48,9 +52,12 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 		climberLockSolenoid = robotControllers.getClimberLockSolenoid();
 
-		//TODO: Set climber initial control to position once tuned
 		mClimberControl = ClimberControl.VELOCITY;
 		mPrevClimberControl = ClimberControl.OFF;
+
+//		tuneableClimber = new TuneablePID("Climber Tuning", mClimberMotorMaster, null, 5805, true, true);
+//		tuneableClimber.start();
+//		mClimberMotorMaster.set(ControlMode.Velocity, 0);
 	}
 
 	public static ClimberSubsystem getInstance() {
@@ -86,7 +93,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			setSucceeded = true;
 
 			setSucceeded &= mClimberMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
-			//TODO: Add configuration for velocity period and measurement window to improve control. Then retune climber winch
+			setSucceeded &= mClimberMotorMaster.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms, Constants.kTimeoutMs) == ErrorCode.OK;
+			setSucceeded &= mClimberMotorMaster.configVelocityMeasurementWindow(32, Constants.kTimeoutMs) == ErrorCode.OK;
 
 			//setSucceeded &= mClimberMotorSlave.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs) == ErrorCode.OK;
 
@@ -110,7 +118,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
-		setSucceeded &= TalonHelper.setPIDGains(mClimberMotorMaster, 0, Constants.kClimberKp, Constants.kClimberKi, Constants.kClimberKd, Constants.kClimberKf, Constants.kClimberRampRate, Constants.kClimberIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mClimberMotorMaster, kVelocityPIDSlot, Constants.kClimberKp, Constants.kClimberKi, Constants.kClimberKd, Constants.kClimberKf, Constants.kClimberRampRate, Constants.kClimberIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mClimberMotorMaster, kVelocityHoldPIDSlot, Constants.kClimberKp, Constants.kClimberKi, Constants.kClimberKd, Constants.kClimberKf, Constants.kClimberHoldRampRate, Constants.kClimberIZone);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mClimberMotorMaster, Constants.kClimberMaxVelocity, Constants.kClimberMaxAccel);
 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
@@ -169,13 +178,18 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 				switch (mClimberControl) {
 					case POSITION:
 						if (climberPosition != mPrevClimberPosition || updateMode) {
+
 							mClimberMotorMaster.set(ControlMode.MotionMagic, climberPosition * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
+
 							mPrevClimberPosition = climberPosition;
 						}
 						break;
 					case VELOCITY:
 						if (climberVelocity != mPrevClimberVelocity || updateMode) {
-							mClimberMotorMaster.set(ControlMode.Velocity, climberVelocity * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio);
+
+							mClimberMotorMaster.set(ControlMode.Velocity, climberVelocity * Constants.kSensorUnitsPerRotation * Constants.kClimberEncoderGearRatio,
+													climberVelocity == 0 ? kVelocityHoldPIDSlot : kVelocityPIDSlot);
+
 							mPrevClimberVelocity = climberVelocity;
 						}
 						break;

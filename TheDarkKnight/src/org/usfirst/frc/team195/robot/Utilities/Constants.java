@@ -3,7 +3,7 @@ package org.usfirst.frc.team195.robot.Utilities;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.PathAdapter;
 
 public class Constants {
-	public static final boolean TUNING_PIDS = true;
+	public static final boolean TUNING_PIDS = false;
 	public static final boolean DEBUG = false;
 	public static final boolean REPORTING_ENABLED = true;
 	public static final boolean REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE = false;
@@ -261,14 +261,14 @@ public class Constants {
 
 	// PID gains for drive velocity loop (LOW GEAR)
 	// Units: setpoint, error, and output are in inches per second.
-	public static final double kDriveLowGearPositionKp = 1;
-	public static final double kDriveLowGearPositionKi = 0.005;
-	public static final double kDriveLowGearPositionKd = 1.6;
-	public static final double kDriveLowGearPositionKf = .165;
+	public static final double kDriveLowGearPositionKp = 4;
+	public static final double kDriveLowGearPositionKi = 0;
+	public static final double kDriveLowGearPositionKd = 8;
+	public static final double kDriveLowGearPositionKf = .19;
 	public static final int kDriveLowGearPositionIZone = 0;
-	public static final double kDriveLowGearPositionRampRate = 0.1; // V/s
-	public static final double kDriveLowGearMaxVelocity = 8.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 6 fps, value in RPM
-	public static final double kDriveLowGearMaxAccel = 5.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 8 fps/s, value in RPM/s
+	public static final double kDriveLowGearPositionRampRate = 0; // V/s
+	public static final double kDriveLowGearMaxVelocity = 712; // rpm
+	public static final double kDriveLowGearMaxAccel = 500; // rpm/s
 
 	//Tuned with 100:1 Transmission
 	public static final double kArmKp = 6.7;
@@ -300,14 +300,24 @@ public class Constants {
 	public static final int kElevatorMaxVelocity = 950;
 	public static final int kElevatorMaxAccel = 1600;
 
+//	Old gains for climber motor
+//	public static final double kClimberKp = 1;
+//	public static final double kClimberKi = 0.006;
+//	public static final double kClimberKd = 4;
+//	public static final double kClimberKf = 0.966796875;
+//	public static final int kClimberIZone = 60;
+//	public static final double kClimberRampRate = 0.5;
+//	public static final int kClimberMaxVelocity = 155;
+//	public static final int kClimberMaxAccel = 340;
 
 	public static final double kClimberKp = 1;
-	public static final double kClimberKi = 0.006;
+	public static final double kClimberKi = 0.01;
 	public static final double kClimberKd = 4;
-	public static final double kClimberKf = 0.966796875;
+	public static final double kClimberKf = 0.75;
 	public static final int kClimberIZone = 60;
 	public static final double kClimberRampRate = 0.5;
-	public static final int kClimberMaxVelocity = 155;
+	public static final double kClimberHoldRampRate = 0;
+	public static final int kClimberMaxVelocity = 190;
 	public static final int kClimberMaxAccel = 340;
 
 

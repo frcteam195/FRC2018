@@ -132,9 +132,12 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 		mControlMode = DriveControlState.PATH_FOLLOWING;
 
-//		tuneableLeftDrive = new TuneablePID("Drive Tuning", mLeftMaster, mRightMaster, leftSetpointValue, 5808, true, false);
-//		tuneableRightDrive = new TuneablePID("Right2Cube Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, false);
+//		tuneableLeftDrive = new TuneablePID("Left Drive Tuning", mLeftMaster, leftSetpointValue, 5808, true, true);
+//		tuneableRightDrive = new TuneablePID("Right Drive Tuning", mRightMaster, rightSetpointValue, 5809, true, true);
 //		tuneableLeftDrive.start();
+//		tuneableRightDrive.start();
+//		mLeftMaster.set(ControlMode.MotionMagic, 0);
+//		mRightMaster.set(ControlMode.MotionMagic, 0);
 
 	}
 
@@ -567,8 +570,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		final Rotation2d robot_to_target = field_to_robot.inverse().rotateBy(mTargetHeading);
 
 		// Check if we are on target
-		final double kGoalPosTolerance = 1; // degrees
-		final double kGoalVelTolerance = 5.0; // inches per second
+		final double kGoalPosTolerance = 0.5; // degrees
+		final double kGoalVelTolerance = 3.0; // inches per second
 		if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance
 				&& Math.abs(getLeftVelocityInchesPerSec()) < kGoalVelTolerance
 				&& Math.abs(getRightVelocityInchesPerSec()) < kGoalVelTolerance) {
