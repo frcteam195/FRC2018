@@ -14,6 +14,8 @@ public class CKTalonSRX extends TalonSRX {
 	private int pdpChannel;
 	private int currentSelectedSlot = 0;
 	private double[] mCLRampRate = {0, 0};
+	private int[] mMMAccel = {0, 0};
+	private int[] mMMVel = {0, 0};
 
 	public CKTalonSRX(int deviceId, int pdpChannel) {
 		super(deviceId);
@@ -38,6 +40,26 @@ public class CKTalonSRX extends TalonSRX {
 		return super.configClosedloopRamp(secondsFromNeutralToFull, timeoutMs);
 	}
 
+	@Override
+	public ErrorCode configMotionAcceleration(int sensorUnitsPer100msPerSec, int timeoutMs) {
+		return configMotionAcceleration(sensorUnitsPer100msPerSec, currentSelectedSlot, timeoutMs);
+	}
+
+	public ErrorCode configMotionAcceleration(int sensorUnitsPer100msPerSec, int slotIdx, int timeoutMs) {
+		setCurrentMMAccel(sensorUnitsPer100msPerSec, slotIdx);
+		return super.configMotionAcceleration(sensorUnitsPer100msPerSec, timeoutMs);
+	}
+
+	@Override
+	public ErrorCode configMotionCruiseVelocity(int sensorUnitsPer100ms, int timeoutMs) {
+		return configMotionCruiseVelocity(sensorUnitsPer100ms, currentSelectedSlot, timeoutMs);
+	}
+
+	public ErrorCode configMotionCruiseVelocity(int sensorUnitsPer100ms, int slotIdx, int timeoutMs) {
+		setCurrentMMVel(sensorUnitsPer100ms, slotIdx);
+		return super.configMotionCruiseVelocity(sensorUnitsPer100ms, timeoutMs);
+	}
+
 	/**
 	 * Make sure you call this method before first use of set() to ensure CL ramp rate and PID gains are selected properly when using CKTalonSRX
 	 * @param slotIdx Gain profile slot
@@ -47,12 +69,14 @@ public class CKTalonSRX extends TalonSRX {
 	public void selectProfileSlot(int slotIdx, int pidIdx) {
 		super.selectProfileSlot(slotIdx, pidIdx);
 		setCurrentSlotValue(slotIdx);
-		if (currentSelectedSlot < mCLRampRate.length) {
+		if (currentSelectedSlot < mCLRampRate.length && currentSelectedSlot < mMMAccel.length && currentSelectedSlot < mMMVel.length) {
 			boolean setSucceeded;
 			int retryCounter = 0;
 
 			do {
 				setSucceeded = configClosedloopRamp(mCLRampRate[currentSelectedSlot], currentSelectedSlot, Constants.kTimeoutMsFast) == ErrorCode.OK;
+				setSucceeded &= configMotionAcceleration(mMMAccel[currentSelectedSlot], currentSelectedSlot, Constants.kTimeoutMsFast) == ErrorCode.OK;
+				setSucceeded &= configMotionCruiseVelocity(mMMVel[currentSelectedSlot], currentSelectedSlot, Constants.kTimeoutMsFast) == ErrorCode.OK;
 			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
 			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
@@ -74,6 +98,18 @@ public class CKTalonSRX extends TalonSRX {
 	private synchronized void setCurrentSlotCLRampRate(double rampRate, int slot) {
 		if (slot < mCLRampRate.length) {
 			mCLRampRate[slot] = rampRate;
+		}
+	}
+
+	private synchronized void setCurrentMMVel(int vel, int slot) {
+		if (slot < mMMVel.length) {
+			mMMVel[slot] = vel;
+		}
+	}
+
+	private synchronized void setCurrentMMAccel(int accel, int slot) {
+		if (slot < mMMAccel.length) {
+			mMMAccel[slot] = accel;
 		}
 	}
 

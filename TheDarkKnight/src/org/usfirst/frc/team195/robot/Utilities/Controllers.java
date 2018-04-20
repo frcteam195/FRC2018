@@ -26,7 +26,7 @@ public class Controllers {
 
 	private TalonSRX arm1Motor;
 
-	private TalonSRX elevatorMotorMaster;
+	private CKTalonSRX elevatorMotorMaster;
 	private BaseMotorController elevatorMotorSlave;
 	private BaseMotorController elevatorMotorSlave2;
 	private BaseMotorController elevatorMotorSlave3;
@@ -173,7 +173,7 @@ public class Controllers {
 		return intakeMotor;
 	}
 
-	public TalonSRX getElevatorMotorMaster() {
+	public CKTalonSRX getElevatorMotorMaster() {
 		return elevatorMotorMaster;
 	}
 	

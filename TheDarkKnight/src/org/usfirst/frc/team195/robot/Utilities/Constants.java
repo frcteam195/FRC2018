@@ -225,7 +225,7 @@ public class Constants {
 	public static final double kElevatorStepSize = 0.2;	//In rotations of output shaft
 	public static final double kElevatorDeviationThreshold = 0.1;	//In rotations of output shaft
 	public static final double kElevatorHomingSpeed = -0.3;	//In percent output
-	public static final double kElevatorSafetyCurrent = 18;	//In amps
+	public static final double kElevatorSafetyCurrent = 22;	//In amps
 	public static final double kElevatorSafetyDelta = 0.05;	//In rotations of output shaft
 	public static final double kElevatorHomingTimeout = 5;	//In seconds
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
@@ -297,8 +297,10 @@ public class Constants {
 	public static final double kElevatorKf = 0.1638398438;
 	public static final int kElevatorIZone = 0;
 	public static final double kElevatorRampRate = 0;
-	public static final int kElevatorMaxVelocity = 950;
-	public static final int kElevatorMaxAccel = 1600;
+	public static final int kElevatorMaxVelocityUp = 950;
+	public static final int kElevatorMaxAccelUp = 2400;	//Old value was 1600
+	public static final int kElevatorMaxVelocityDown = 1200;
+	public static final int kElevatorMaxAccelDown = 5500;
 
 //	Old gains for climber motor
 //	public static final double kClimberKp = 1;

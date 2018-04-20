@@ -95,4 +95,25 @@ public class TalonHelper {
 		}
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
+
+	public static boolean setMotionMagicParams(CKTalonSRX talon, int slotIdx, int cruiseVelocityRPM, int maxAccelRPM) {
+		return setMotionMagicParams(talon, slotIdx, cruiseVelocityRPM, maxAccelRPM, Constants.kTimeoutMs);
+	}
+	public static boolean setMotionMagicParams(CKTalonSRX talon, int slotIdx, int cruiseVelocityRPM, int maxAccelRPM, int timeout) {
+		boolean setSucceeded = true;
+		int retryCounter = 0;
+		if (timeout > 0) {
+			do {
+				setSucceeded = true;
+
+				setSucceeded &= talon.configMotionCruiseVelocity(Util.convertRPMToNativeUnits(cruiseVelocityRPM), slotIdx, timeout) == ErrorCode.OK;
+				setSucceeded &= talon.configMotionAcceleration(Util.convertRPMToNativeUnits(maxAccelRPM), slotIdx, timeout) == ErrorCode.OK;
+
+			} while (!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+		} else {
+			talon.configMotionCruiseVelocity(Util.convertRPMToNativeUnits(cruiseVelocityRPM), slotIdx, timeout);
+			talon.configMotionAcceleration(Util.convertRPMToNativeUnits(maxAccelRPM), slotIdx, timeout);
+		}
+		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
+	}
 }

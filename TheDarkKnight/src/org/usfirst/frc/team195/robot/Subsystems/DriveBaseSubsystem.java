@@ -70,6 +70,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		@Override
 		public void onLoop(double timestamp, boolean isAuto) {
 			synchronized (DriveBaseSubsystem.this) {
+//				SmartDashboard.putNumber("Left Drive Velocity", getLeftVelocityInchesPerSec());
+//				SmartDashboard.putNumber("Right Drive Velocity", getRightVelocityInchesPerSec());
 				switch (mControlMode) {
 					case OPEN_LOOP:
 						break;
