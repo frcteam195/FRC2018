@@ -26,8 +26,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsystem, DiagnosableSubsystem, Reportable {
-	private static final int kUpRateSlot = 0;
-	private static final int kDownRateSlot = 1;
+	private static final int kElevatorUpRateSlot = 0;
+	private static final int kElevatorDownRateSlot = 1;
+	private static final int kArmNormalRateSlot = 0;
+	private static final int kArmFastRateSlot = 1;
 	private static CubeHandlerSubsystem instance;
 	private IntakeControl mIntakeControl;
 	private IntakeControl mPrevIntakeControl;
@@ -39,7 +41,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private TuneablePID tuneableArmJoint;
 	private TuneablePID tuneableElevator;
 
-	private TalonSRX mArmMotor;
+	private CKTalonSRX mArmMotor;
 	private TalonSRX mIntake2Motor;
 	private TalonSRX mIntakeMotor;
 	private CKTalonSRX mElevatorMotorMaster;
@@ -229,17 +231,20 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
 
-		mElevatorMotorMaster.selectProfileSlot(kUpRateSlot, 0);
-		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, kUpRateSlot, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
-		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, kDownRateSlot, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
-		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, kUpRateSlot, Constants.kElevatorMaxVelocityUp, Constants.kElevatorMaxAccelUp);
-		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, kDownRateSlot, Constants.kElevatorMaxVelocityDown, Constants.kElevatorMaxAccelDown);
+		mElevatorMotorMaster.selectProfileSlot(kElevatorUpRateSlot, 0);
+		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, kElevatorUpRateSlot, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, kElevatorDownRateSlot, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, kElevatorUpRateSlot, Constants.kElevatorMaxVelocityUp, Constants.kElevatorMaxAccelUp);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, kElevatorDownRateSlot, Constants.kElevatorMaxVelocityDown, Constants.kElevatorMaxAccelDown);
 
+		mArmMotor.selectProfileSlot(kArmNormalRateSlot, 0);
+		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, kArmNormalRateSlot, Constants.kArmKp, Constants.kArmKi, Constants.kArmKd, Constants.kArmKf, Constants.kArmRampRate, Constants.kArmIZone);
+		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, kArmFastRateSlot, Constants.kArmKp, Constants.kArmKi, Constants.kArmKd, Constants.kArmKf, Constants.kArmRampRate, Constants.kArmIZone);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mArmMotor, kArmNormalRateSlot, Constants.kArmMaxVelocity, Constants.kArmMaxAccel);
+		setSucceeded &= TalonHelper.setMotionMagicParams(mArmMotor, kArmFastRateSlot, Constants.kArmMaxVelocity, Constants.kArmMaxAccelDownFast);
 
-		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, 0, Constants.kArmKp, Constants.kArmKi, Constants.kArmKd, Constants.kArmKf, Constants.kArmRampRate, Constants.kArmIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mIntakeMotor, 0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeCLRampRate, Constants.kIntakeIZone);
 		setSucceeded &= TalonHelper.setPIDGains(mIntake2Motor,  0, Constants.kIntakeKp, Constants.kIntakeKi, Constants.kIntakeKd, Constants.kIntakeKf, Constants.kIntakeCLRampRate, Constants.kIntakeIZone);
-		setSucceeded &= TalonHelper.setMotionMagicParams(mArmMotor, Constants.kArmMaxVelocity, Constants.kArmMaxAccel);
 
 		if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 			ConsoleReporter.report("Failed to initialize CubeHandlerSubsystem!!!", MessageLevel.DEFCON1);
@@ -273,7 +278,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report("Failed to zero Elevator!!!", MessageLevel.DEFCON1);
 
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
-		setElevatorHeight(ElevatorPosition.HOME);
+		setElevatorHeight(ElevatorPosition.TRUE_HOME);
 
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
@@ -337,6 +342,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				SmartDashboard.putString("Elevator Position", "" + mElevatorMotorMaster.getSelectedSensorPosition(0)/4096.0);
 				switch (mArmControl) {
 					case POSITION:
+
 						if (collisionOccurring && !isAuto) {
 
 						}
@@ -351,7 +357,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 								Util.limit(tmpArmRotation, 0, Constants.kArmHomingSetpoint / Constants.kArmFinalRotationsPerDegree);
 //						SmartDashboard.putNumber("ArmTmp", tmpArmRotation);
 						if (tmpArmRotation != mPrevArmRotation) {
-							mArmMotor.set(ControlMode.MotionMagic, tmpArmRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio);
+							if (tmpArmRotation < getArmRotationDeg() && !hasCube())
+								mArmMotor.set(ControlMode.MotionMagic, tmpArmRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio, kArmFastRateSlot);
+							else
+								mArmMotor.set(ControlMode.MotionMagic, tmpArmRotation * Constants.kArmFinalRotationsPerDegree * Constants.kSensorUnitsPerRotation * Constants.kArmEncoderGearRatio, kArmNormalRateSlot);
 							mPrevArmRotation = tmpArmRotation;
 						}
 
@@ -409,10 +418,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							zeroElevator();
 							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
-							if (getElevatorHeight() < elevatorHeight)
-								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kUpRateSlot);
+							if (getElevatorHeight() < tmpElevatorHeight)
+								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorUpRateSlot);
 							else
-								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kDownRateSlot);
+								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorDownRateSlot);
 
 							mPrevElevatorHeight = tmpElevatorHeight;
 						}
@@ -512,7 +521,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					if (!isAuto) {
 						liftArmTimerStart = Timer.getFPGATimestamp();
 
-						if (elevatorHeight <= ElevatorPosition.HOME && !Controllers.getInstance().getButtonBox1().getRawButton(Constants.BB1_ARM_DOWN))
+						if (elevatorHeight <= ElevatorPosition.TRUE_HOME && !Controllers.getInstance().getButtonBox1().getRawButton(Constants.BB1_ARM_DOWN))
 							requestLiftArmForCube = true;
 					}
 				}

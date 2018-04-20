@@ -12,10 +12,10 @@ public class PathAdapter {
 	private static final DriverStation ds = DriverStation.getInstance();
 
 	private static FieldProfile kReferenceField = new ReferenceField();
-	private static FieldProfile kCurrentField = new BostonWeek7Field();
+	private static FieldProfile kCurrentField = new ReferenceField();
 
 	//TODO: Change inversion of values to be correct for near or far, not left or right. Is not correct now
-	private static RobotProfile kRobotProfile = new CompBot();
+	private static RobotProfile kRobotProfile = new PracticeBot();
 
 	private static Translation2d leftBlueSwitchTransform = kCurrentField.getLeftBlueSwitch().translateBy(kReferenceField.getLeftBlueSwitch().inverse());
 	private static Translation2d rightBlueSwitchTransform = kCurrentField.getRightBlueSwitch().translateBy(kReferenceField.getRightBlueSwitch().inverse());

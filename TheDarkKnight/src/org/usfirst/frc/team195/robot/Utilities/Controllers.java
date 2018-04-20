@@ -24,7 +24,7 @@ public class Controllers {
 	private BaseMotorController rightDrive2;
 	private BaseMotorController rightDrive3;
 
-	private TalonSRX arm1Motor;
+	private CKTalonSRX arm1Motor;
 
 	private CKTalonSRX elevatorMotorMaster;
 	private BaseMotorController elevatorMotorSlave;
@@ -161,7 +161,7 @@ public class Controllers {
 		return rightDrive3;
 	}
 
-	public TalonSRX getArm1Motor() {
+	public CKTalonSRX getArm1Motor() {
 		return arm1Motor;
 	}
 

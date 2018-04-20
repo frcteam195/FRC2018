@@ -1,10 +1,7 @@
 package org.usfirst.frc.team195.robot.Actions;
 
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.*;
-import org.usfirst.frc.team195.robot.Actions.Framework.Action;
-import org.usfirst.frc.team195.robot.Actions.Framework.ParallelAction;
-import org.usfirst.frc.team195.robot.Actions.Framework.SeriesAction;
-import org.usfirst.frc.team195.robot.Actions.Framework.WaitAction;
+import org.usfirst.frc.team195.robot.Actions.Framework.*;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
@@ -133,10 +130,12 @@ public class AutomatedActions {
 		return new SetArmRotationAction(ArmPosition.SWITCH);
 	}
 
-	public static ParallelAction PreparePickupCube() {
-		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.DOWN),
+	public static Action PreparePickupCube() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
 												new SetIntakeClampAction(true),
-												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
+												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN),
+												new SeriesAction(Arrays.asList(new WaitForElevatorDownAction(ElevatorPosition.PICKUP_CUBE_THRESHOLD),
+																			   new SetArmRotationAction(ArmPosition.DOWN)))));
 	}
 
 	public static SeriesAction PreparePickupCubeSlow() {

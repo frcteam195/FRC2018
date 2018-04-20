@@ -279,6 +279,7 @@ public class Constants {
 	public static final double kArmRampRate = 0;
 	public static final int kArmMaxVelocity = 450;
 	public static final int kArmMaxAccel = 200;
+	public static final int kArmMaxAccelDownFast = 350;
 	public static final int kArmAllowedError = (int)(0 * kSensorUnitsPerRotation);
 
 	//Tuned for current control on 16:1 transmission
