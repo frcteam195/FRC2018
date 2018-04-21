@@ -130,14 +130,22 @@ public class HIDController implements Runnable {
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_AUTO_SWITCH))
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnSwitch(), Constants.kActionTimeoutS).runAction();
 
-		if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_INCREMENT_POV)
+		if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_INCREMENT_POV) {
+			cubeHandlerSubsystem.setDisableFastDown(true);
 			cubeHandlerSubsystem.incrementElevatorHeight();
-		else if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_DECREMENT_POV)
+		}
+		else if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_DECREMENT_POV) {
+			cubeHandlerSubsystem.setDisableFastDown(true);
 			cubeHandlerSubsystem.decrementElevatorHeight();
-		else if(armControlJoystick.getPOV() == Constants.ARM_ARM_LOW_POV)
+		}
+		else if(armControlJoystick.getPOV() == Constants.ARM_ARM_LOW_POV) {
 			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.LOW);
-		else if(armControlJoystick.getPOV() == Constants.ARM_ARM_MID_POV)
+		}
+		else if(armControlJoystick.getPOV() == Constants.ARM_ARM_MID_POV) {
 			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.MID);
+		} else {
+			cubeHandlerSubsystem.setDisableFastDown(false);
+		}
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_DOWN))
 			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.DOWN);

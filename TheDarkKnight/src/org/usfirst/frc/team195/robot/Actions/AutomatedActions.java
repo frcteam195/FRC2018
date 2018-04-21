@@ -134,7 +134,7 @@ public class AutomatedActions {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
 												new SetIntakeClampAction(true),
 												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN),
-												new SeriesAction(Arrays.asList(new WaitForElevatorDownAction(ElevatorPosition.PICKUP_CUBE_THRESHOLD),
+												new SeriesAction(Arrays.asList(new WaitForElevatorDownAction(ElevatorPosition.BALL_LIKE_558),
 																			   new SetArmRotationAction(ArmPosition.DOWN)))));
 	}
 

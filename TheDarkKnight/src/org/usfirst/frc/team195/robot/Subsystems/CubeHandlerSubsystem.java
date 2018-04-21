@@ -78,7 +78,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private double mPrevArmEncoderVal = 0;
 
+	private double mPrevIntakeCurrentOutput = 0;
+
 	private boolean disableCollisionPrevention = false;
+	private boolean disableFastDown = false;
 
 
 
@@ -418,7 +421,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							zeroElevator();
 							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
-							if (getElevatorHeight() < tmpElevatorHeight)
+							if (getElevatorHeight() < tmpElevatorHeight || disableFastDown)
 								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorUpRateSlot);
 							else
 								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorDownRateSlot);
@@ -457,7 +460,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				mPrevElevatorControl = mElevatorControl;
 
 
-				if (mIntakeControl != mPrevIntakeControl) {
+				if (mIntakeControl != mPrevIntakeControl || mIntakeControl == IntakeControl.OFF || mIntakeControl == IntakeControl.HOLD) {
 					switch (mIntakeControl) {
 						case INTAKE_IN:
 //							mIntakeMotor.set(ControlMode.Current, 25);
@@ -497,12 +500,12 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							mIntake2Motor.set(ControlMode.PercentOutput, -0.6);
 							break;
 						case HOLD:
-							mIntakeMotor.set(ControlMode.Current, 2);
-							mIntake2Motor.set(ControlMode.Current, 2);
-							break;
 						case OFF:
 						default:
-							if (mIntakeMotor.getControlMode() != ControlMode.Disabled || mIntake2Motor.getControlMode() != ControlMode.Disabled) {
+							if (hasCube()) {
+								mIntakeMotor.set(ControlMode.Current, Constants.kIntakeHoldCurrent);
+								mIntake2Motor.set(ControlMode.Current, Constants.kIntakeHoldCurrent);
+							} else if (mIntakeMotor.getControlMode() != ControlMode.Disabled || mIntake2Motor.getControlMode() != ControlMode.Disabled) {
 								mIntakeMotor.set(ControlMode.Disabled, 0);
 								mIntake2Motor.set(ControlMode.Disabled, 0);
 							}
@@ -967,7 +970,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		elevatorCurrentAverage += mElevatorMotorSlave2.getOutputCurrent();
 		elevatorCurrentAverage += mElevatorMotorSlave3.getOutputCurrent();
 		elevatorCurrentAverage /= 4;
+		double averageOutputTorque = (0.0053 * elevatorCurrentAverage - 0.0037) * 0.737562149;
+		SmartDashboard.putNumber("AverageElevatorTorqueFtlbs", averageOutputTorque);
+		SmartDashboard.putNumber("AverageElevatorCurrent", elevatorCurrentAverage);
 		return elevatorCurrentAverage;
+	}
+
+	public synchronized void setDisableFastDown(boolean disable) {
+		this.disableFastDown = disable;
 	}
 
 	public boolean hasCube() {

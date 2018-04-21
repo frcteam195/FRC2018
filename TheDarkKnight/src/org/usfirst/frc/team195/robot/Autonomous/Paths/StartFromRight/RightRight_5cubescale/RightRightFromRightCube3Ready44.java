@@ -1,4 +1,4 @@
-package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.RightRight_4cube;
+package org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromRight.RightRight_5cubescale;
 
 import org.usfirst.frc.team195.robot.Autonomous.Paths.PathAdapter;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.*;
