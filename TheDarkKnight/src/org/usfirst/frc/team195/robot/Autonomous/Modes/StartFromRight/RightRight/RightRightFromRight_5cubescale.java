@@ -49,7 +49,7 @@ public class RightRightFromRight_5cubescale extends AutoModeBase {
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightGOBACK()),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
-						AutomatedActions.PrepareShootCubeOverBack())))));
+						AutomatedActions.PrepareShootCubeOverBackLow())))));
 
 		runAction(AutomatedActions.OutakeCubeExtraFast());
 		runAction(AutomatedActions.StopIntake());
@@ -66,7 +66,7 @@ public class RightRightFromRight_5cubescale extends AutoModeBase {
 //									 new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 //											 						AutomatedActions.PreparePlaceCubeOnScaleOverBackMid())))));
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBack(),
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBackLow(),
 				new DrivePathAction(new RightRightFromRightCube3GOBACK()))));
 
 		runAction(AutomatedActions.OutakeCubeFast());

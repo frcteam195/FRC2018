@@ -502,7 +502,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						case HOLD:
 						case OFF:
 						default:
-							if (hasCube()) {
+							if (hasCube() && !intakeSolenoid.get() && armRotation == ArmPosition.VERTICAL) {
 								mIntakeMotor.set(ControlMode.Current, Constants.kIntakeHoldCurrent);
 								mIntake2Motor.set(ControlMode.Current, Constants.kIntakeHoldCurrent);
 							} else if (mIntakeMotor.getControlMode() != ControlMode.Disabled || mIntake2Motor.getControlMode() != ControlMode.Disabled) {
@@ -970,9 +970,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		elevatorCurrentAverage += mElevatorMotorSlave2.getOutputCurrent();
 		elevatorCurrentAverage += mElevatorMotorSlave3.getOutputCurrent();
 		elevatorCurrentAverage /= 4;
-		double averageOutputTorque = (0.0053 * elevatorCurrentAverage - 0.0037) * 0.737562149;
-		SmartDashboard.putNumber("AverageElevatorTorqueFtlbs", averageOutputTorque);
-		SmartDashboard.putNumber("AverageElevatorCurrent", elevatorCurrentAverage);
 		return elevatorCurrentAverage;
 	}
 

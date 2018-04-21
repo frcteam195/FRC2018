@@ -131,7 +131,7 @@ public class AutomatedActions {
 	}
 
 	public static Action PreparePickupCube() {
-		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.DOWN),
 												new SetIntakeClampAction(true),
 												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN),
 												new SeriesAction(Arrays.asList(new WaitForElevatorDownAction(ElevatorPosition.BALL_LIKE_558),
