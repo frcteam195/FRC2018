@@ -6,21 +6,21 @@ import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathBui
 
 import java.util.ArrayList;
 
-public class RightRightFromRightGOBACK implements PathContainer {
+public class RightRightFromRightCube3GOBACK_Alt implements PathContainer {
 
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(PathAdapter.getAdaptedRightSwitchWaypoint(new Waypoint(233,89,0,0)));
-		sWaypoints.add(new Waypoint(257,82,15,60,"PreparePlaceCube"));
-		sWaypoints.add(PathAdapter.getAdaptedRightScaleWaypoint(new Waypoint(286,89,0,40)));
+		sWaypoints.add(new Waypoint(238,111,0,0));
+		sWaypoints.add(new Waypoint(270,89,10,50, "PreparePlaceCube"));
+		sWaypoints.add(PathAdapter.getAdaptedRightScaleWaypoint(new Waypoint(286,92,0,50)));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
 
 	@Override
 	public RigidTransform2d getStartPose() {
-		return new RigidTransform2d(new Translation2d(233, 89), Rotation2d.fromDegrees(0));
+		return new RigidTransform2d(new Translation2d(238, 111), Rotation2d.fromDegrees(180));
 	}
 
 	@Override

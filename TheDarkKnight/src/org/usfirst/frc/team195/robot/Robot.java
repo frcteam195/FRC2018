@@ -7,6 +7,7 @@ import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftF
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_3CubeSwitch;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft3CubeScaleModeAlt;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.RightRight.RightFromLeft3CubeScaleModeAlt;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleMode;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleModeAlt;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScale;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScaleAlt;
@@ -104,6 +105,9 @@ public class Robot extends RobbieRobot {
 
 	@Override
 	public void autonomous() {
+//		Controllers.getInstance().getCompressor().start();
+//		Controllers.getInstance().getCompressor().setClosedLoopControl(true);
+
 		mLooper.start(true);
 		driveBaseSubsystem.setBrakeMode(true);
 		autoModeExecuter = new AutoModeExecuter();
@@ -225,7 +229,7 @@ public class Robot extends RobbieRobot {
 			case LEFT_LEFT:
 				//return new LeftLeftFromRightMode_2cube();
 				//return new LeftLeftFromRight_2cubeScale();
-				return new LeftFromRight3CubeScaleModeAlt();
+				return new LeftFromRight3CubeScaleMode();
 			case LEFT_RIGHT:
 				//return new LeftRightFromRightMode_3cubeScale();
 				return new LeftRightFromRightMode_3cubeScale();
@@ -233,10 +237,10 @@ public class Robot extends RobbieRobot {
 //				return new LeftLeftFromRight_2cubeScale();
 				//return new RightLeftFromRightMode_2cube();
 				//return new LeftFromRight3CubeScaleMode();
-				return new LeftFromRight3CubeScaleModeAlt();
+				return new LeftFromRight3CubeScaleMode();
 			case RIGHT_RIGHT:
 				//return new LeftRightFromRightMode_3cubeScaleAlt();
-				return new LeftRightFromRightMode_3cubeScaleAlt();
+				return new LeftRightFromRightMode_3cubeScale();
 			case UNDEFINED:
 			default:
 				break;

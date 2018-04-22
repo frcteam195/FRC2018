@@ -413,15 +413,15 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //						}
 
 						//Collision interference avoidance
-						//Check elevator actual and requested
+						//Check arm actual
 						double tmpElevatorHeight = (getArmRotationDeg() <= ArmPosition.ELEVATOR_COLLISION_POINT) || disableCollisionPrevention ? elevatorHeight :
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
-						if (mElevatorHomeSwitch.getFallingEdge() && elevatorHeight < ElevatorPosition.PICKUP_CUBE_THRESHOLD) {
+						if (!mElevatorHomeSwitch.get() && elevatorHeight <= ElevatorPosition.TRUE_HOME) {
 							zeroElevator();
 							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
-							if (getElevatorHeight() < tmpElevatorHeight || disableFastDown)
+							if ((getElevatorHeight() < tmpElevatorHeight) || isAuto || disableFastDown)
 								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorUpRateSlot);
 							else
 								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorDownRateSlot);
@@ -502,7 +502,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						case HOLD:
 						case OFF:
 						default:
-							if (hasCube() && !intakeSolenoid.get() && armRotation == ArmPosition.VERTICAL) {
+							if (hasCube() && !intakeSolenoid.get() && (armRotation == ArmPosition.VERTICAL || isAuto)) {
 								mIntakeMotor.set(ControlMode.Current, Constants.kIntakeHoldCurrent);
 								mIntake2Motor.set(ControlMode.Current, Constants.kIntakeHoldCurrent);
 							} else if (mIntakeMotor.getControlMode() != ControlMode.Disabled || mIntake2Motor.getControlMode() != ControlMode.Disabled) {

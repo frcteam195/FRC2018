@@ -15,6 +15,7 @@ public class SetArmRotationAction implements Action {
 	@Override
 	public boolean isFinished() {
 		return mCubeHandlerSubsystem.isArmAtSetpoint();
+		//return mCubeHandlerSubsystem.getArmRotationDeg() < armRotationDeg;
 	}
 
 	@Override

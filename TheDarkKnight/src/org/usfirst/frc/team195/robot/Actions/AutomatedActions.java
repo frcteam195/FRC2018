@@ -46,6 +46,11 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID)));
 	}
 
+	public static ParallelAction PreparePlaceCubeOnScaleOverBackMidMore() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK),
+												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_MID_MORE)));
+	}
+
 	public static ParallelAction PreparePlaceCubeOnSwitchElevator() {
 		return new ParallelAction(Arrays.asList(new SetElevatorHeightAction(ElevatorPosition.SWITCH),
 												new SetArmRotationAction(ArmPosition.LOW)));
@@ -133,9 +138,7 @@ public class AutomatedActions {
 	public static Action PreparePickupCube() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.DOWN),
 												new SetIntakeClampAction(true),
-												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN),
-												new SeriesAction(Arrays.asList(new WaitForElevatorDownAction(ElevatorPosition.BALL_LIKE_558),
-																			   new SetArmRotationAction(ArmPosition.DOWN)))));
+												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
 	}
 
 	public static SeriesAction PreparePickupCubeSlow() {
@@ -175,10 +178,14 @@ public class AutomatedActions {
 		return new SetIntakeAction(IntakeControl.OFF);
 	}
 
-	public static SeriesAction GrabCube() {
+	public static SeriesAction GrabCube(double timeToWait) {
 		return new SeriesAction(Arrays.asList(AutomatedActions.ClampIntake(),
-											  new WaitAction(0.1),
+											  new WaitAction(timeToWait),
 											  AutomatedActions.StopIntake()));
+	}
+
+	public static SeriesAction GrabCube() {
+		return GrabCube(0.1);
 	}
 
 	public static Action OutakeCubeSlow() {

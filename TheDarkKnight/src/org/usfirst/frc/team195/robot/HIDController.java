@@ -112,7 +112,8 @@ public class HIDController implements Runnable {
 //		}
 
 		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
-			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
+			new TeleopActionRunner(AutomatedActions.SetRestingPosition(), Constants.kActionTimeoutS).runAction();
+			//cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_LOW))
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackLow(), Constants.kActionTimeoutS).runAction();
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_MID))
@@ -201,7 +202,7 @@ public class HIDController implements Runnable {
 		}
 
 
-		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/4.0);
+		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/3.2);
 
 		double elevatorScaling = 1 - cubeHandlerSubsystem.getElevatorHeight() / Constants.kElevatorSoftMax;
 

@@ -13,7 +13,7 @@ public class SetIntakeClampAction implements Action {
 
 	public SetIntakeClampAction(boolean intakeOpen) {
 		this.intakeOpen = intakeOpen;
-		this.waitTime = 0.01;
+		this.waitTime = 0.1;
 	}
 
 	public SetIntakeClampAction(boolean intakeOpen, double waitTime) {

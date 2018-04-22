@@ -207,7 +207,7 @@ public class Constants {
 	public static final double kArmHomingTimeout = 2;	//In seconds
 	public static final double kArmHomingSpeed = 0.3;	//In PercentOutput
 	public static final double kArmHomingSetpoint = 86.3 * kArmFinalRotationsPerDegree;	//Number in degrees of arm converted to rotations
-	public static final double kArmDeviationThresholdDeg = 1;	//In degrees
+	public static final double kArmDeviationThresholdDeg = 3;	//In degrees
 	public static final int kArmMaxContinuousCurrentLimit = kArmMotorPDPBreakerRating;
 	public static final int kArmMaxPeakCurrentLimit = kArmMaxContinuousCurrentLimit * 2;
 	public static final int kArmMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArmMaxPeakCurrentLimit, kArmMaxContinuousCurrentLimit);
@@ -219,7 +219,7 @@ public class Constants {
 
 	// Elevator
 	public static final double kElevatorEncoderGearRatio = 1.0;
-	public static final double kElevatorSoftMin = -0.2;	//In rotations of output shaft
+	public static final double kElevatorSoftMin = -10;	//In rotations of output shaft
 	public static final double kElevatorHome = 0;	//In rotations of output shaft
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.2;	//In rotations of output shaft
@@ -276,10 +276,10 @@ public class Constants {
 	public static final double kArmKd = 11;
 	public static final double kArmKf = 1;
 	public static final int kArmIZone = 0;
-	public static final double kArmRampRate = 0.1;
+	public static final double kArmRampRate = 0;
 	public static final int kArmMaxVelocity = 450;
 	public static final int kArmMaxAccel = 200;
-	public static final int kArmMaxAccelDownFast = 200;	//350
+	public static final int kArmMaxAccelDownFast = 350;	//350
 	public static final int kArmAllowedError = (int)(0 * kSensorUnitsPerRotation);
 
 	//Tuned for current control on 16:1 transmission
@@ -290,19 +290,19 @@ public class Constants {
 	public static final int kIntakeIZone = 0;
 	public static final double kIntakeCLRampRate = 0.1;
 	public static final double kIntakeOLRampRate = 0.1;
-	public static final double kIntakeHoldCurrent = 1;
+	public static final double kIntakeHoldCurrent = 2;
 
-	//Tuned with 30:1 Transmission
+	//Tuned with 16:1 Transmission
 	public static final double kElevatorKp = 1.6;
 	public static final double kElevatorKi = 0;
 	public static final double kElevatorKd = 3;
 	public static final double kElevatorKf = 0.1638398438;
 	public static final int kElevatorIZone = 0;
 	public static final double kElevatorRampRate = 0;
-	public static final int kElevatorMaxVelocityUp = 1200; //Old value 950
-	public static final int kElevatorMaxAccelUp = 1600;	//Old value was 1600
+	public static final int kElevatorMaxVelocityUp = 950; //Old value 950, fast 1200
+	public static final int kElevatorMaxAccelUp = 1600;	//Old value was 1600, fast 1900
 	public static final int kElevatorMaxVelocityDown = 1200;
-	public static final int kElevatorMaxAccelDown = 1600;
+	public static final int kElevatorMaxAccelDown = 5500;
 
 //	Old gains for climber motor
 //	public static final double kClimberKp = 1;
