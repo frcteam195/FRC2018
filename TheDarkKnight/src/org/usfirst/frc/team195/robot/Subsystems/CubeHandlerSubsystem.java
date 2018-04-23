@@ -283,6 +283,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
 		setElevatorHeight(ElevatorPosition.TRUE_HOME);
 
+		setElevatorFaulted(false, false);
+
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
 
@@ -314,6 +316,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		mArmMotor.set(ControlMode.MotionMagic, homeArmValue);
 		setArmRotationDeg(homeArmValue / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree);
 		setArmControl(ArmControl.POSITION);
+		setArmFaulted(false, false);
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
 
@@ -576,7 +579,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		retVal += "ElevatorPosReq:" + elevatorHeight + ";";
 		retVal += "ElevatorPosAct:" + (mElevatorMotorMaster.getSelectedSensorPosition(0) * Constants.kElevatorEncoderGearRatio / Constants.kSensorUnitsPerRotation) + ";";
-		retVal += "ElevatorFault:" + isElevatorFaulted() + ";";
+		retVal += "ElevatorFault:" + (isElevatorFaulted() || mElevatorControl == ElevatorControl.OFF) + ";";
 
 		retVal += "Arm1PosReq:" + armRotation + ";";
 		retVal += "Arm1PosAct:" + (mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree) + ";";
@@ -754,7 +757,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			armEncoderLossCounter = 0;
 		}
 
-		armFault = !armSensorPresent;
+		setArmFaulted(!armSensorPresent, true);
+		//armFault = !armSensorPresent;
 
 		if (mArmMotor.hasResetOccurred()) {
 			//setArmControl(ArmControl.OPEN_LOOP);
@@ -779,7 +783,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 				ConsoleReporter.report("Failed to clear Arm Reset !!!!!!", MessageLevel.DEFCON1);
 
-			armFault = true;
+			setArmFaulted(true, false);
+			//armFault = true;
 		}
 		else if (armSensorPresent){
 			mPrevArmEncoderVal = mArmMotor.getSelectedSensorPosition(0);
@@ -839,6 +844,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		return armFault;
 	}
 
+	private synchronized void setArmFaulted(boolean fault, boolean or) {
+		armFault = or ? armFault | fault : fault;
+	}
+
+	private synchronized void setElevatorFaulted(boolean fault, boolean or) {
+		elevatorFault = or ? elevatorFault | fault : fault;
+	}
+
 	private synchronized boolean checkIfElevatorIsFaulted() {
 		//Remove when production
 //		if (mElevatorControl != ElevatorControl.POSITION)
@@ -855,7 +868,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			DriverStation.reportError(msg, false);
 		}
 
-		elevatorFault = !elevatorSensorPresent;
+		setElevatorFaulted(!elevatorSensorPresent, true);
+		//elevatorFault = !elevatorSensorPresent;
 
 		if (mElevatorMotorMaster.hasResetOccurred()) {
 			setElevatorControl(ElevatorControl.OFF);
@@ -873,7 +887,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
 				ConsoleReporter.report("Failed to clear Elevator Reset !!!!!!", MessageLevel.DEFCON1);
 
-			elevatorFault = true;
+			setElevatorFaulted(true, false);
+			//elevatorFault = true;
 		}
 
 		return elevatorFault;
