@@ -39,7 +39,7 @@ public class RightFromLeft3CubeScaleModeAlt extends AutoModeBase {
 
 		runAction(AutomatedActions.GrabCube());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBackLowLessHighArm(),
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBack(),
 				new DrivePathAction(new Right3CubeScaleStep3()))));
 
 		runAction(AutomatedActions.OutakeCubeExtraFast());
@@ -51,10 +51,10 @@ public class RightFromLeft3CubeScaleModeAlt extends AutoModeBase {
 
 		runAction(AutomatedActions.GrabCube());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBackLowHighArm(),
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PrepareShootCubeOverBack(),
 				new DrivePathAction(new Right3CubeScaleStep5()))));
 
-		runAction(AutomatedActions.OutakeCubeFast());
+		runAction(AutomatedActions.OutakeCubeExtraFast());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(AutomatedActions.SetRestingPosition());

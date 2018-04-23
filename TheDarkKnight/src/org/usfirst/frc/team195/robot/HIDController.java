@@ -202,7 +202,7 @@ public class HIDController implements Runnable {
 		}
 
 
-		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/3.2);
+		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/2.0);
 
 		double elevatorScaling = 1 - cubeHandlerSubsystem.getElevatorHeight() / Constants.kElevatorSoftMax;
 

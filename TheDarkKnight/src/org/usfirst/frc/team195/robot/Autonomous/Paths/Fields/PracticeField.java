@@ -3,13 +3,13 @@ package org.usfirst.frc.team195.robot.Autonomous.Paths.Fields;
 public class PracticeField extends FieldProfile {
 	public PracticeField() {
 		mRedFrontLeftSwitchToBackWall = 141;
-		mRedBackLeftSwitchToBackWall = 196.25;
+		mRedBackLeftSwitchToBackWall = 196.5;
 		mRedLeftSwitchToSideWall = 85.75;
 		mRedLeftScaleToBackWall = 301.5;
 		mRedLeftScaleToSideWall = 72.75;
 
-		mRedFrontRightSwitchToBackWall = 139.75;
-		mRedBackRightSwitchToBackWall = 195.625;
+		mRedFrontRightSwitchToBackWall = 139.25;
+		mRedBackRightSwitchToBackWall = 195.375;
 		mRedRightSwitchToSideWall = 85.25;
 		mRedRightScaleToBackWall = 298.125;
 		mRedRightScaleToSideWall = 73;

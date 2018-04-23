@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft;
 
 import org.usfirst.frc.team195.robot.Actions.AutomatedActions;
+import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetArmRotationAction;
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.SetIntakeAction;
 import org.usfirst.frc.team195.robot.Actions.DrivePathAction;
 import org.usfirst.frc.team195.robot.Actions.Framework.ParallelAction;
@@ -11,6 +12,7 @@ import org.usfirst.frc.team195.robot.Actions.ResetPoseFromPathAction;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeEndedException;
 import org.usfirst.frc.team195.robot.Autonomous.Paths.StartFromLeft.Left3CubeScale.*;
+import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.IntakeControl;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathContainer;
 
@@ -25,9 +27,9 @@ public class LeftFromLeft3CubeScaleModeAlt extends AutoModeBase {
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
-						AutomatedActions.PreparePlaceCubeOnScaleOverBackMid())))));
+						AutomatedActions.PrepareShootCubeOverBack())))));
 
-		runAction(AutomatedActions.OutakeCubeExtraFast());
+		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
@@ -36,8 +38,10 @@ public class LeftFromLeft3CubeScaleModeAlt extends AutoModeBase {
 
 		runAction(AutomatedActions.GrabCube());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePlaceCubeOnScaleOverBackMid(),
-				new DrivePathAction(new Left3CubeScaleStep3()))));
+		runAction(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+				new DrivePathAction(new Left3CubeScaleStep3()),
+				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
+						AutomatedActions.PrepareShootCubeOverBack())))));
 
 		runAction(AutomatedActions.OutakeCubeExtraFast());
 		runAction(AutomatedActions.StopIntake());
@@ -49,11 +53,12 @@ public class LeftFromLeft3CubeScaleModeAlt extends AutoModeBase {
 
 		runAction(AutomatedActions.GrabCube());
 
-		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new Left3CubeScaleStep5()),
+		runAction(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+				new DrivePathAction(new Left3CubeScaleStep5()),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
-						AutomatedActions.PrepareShootCubeOverBackLow())))));
+						AutomatedActions.PrepareShootCubeOverBack())))));
 
-		runAction(AutomatedActions.OutakeCubeExtraFast());
+		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),

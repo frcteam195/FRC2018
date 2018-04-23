@@ -106,6 +106,11 @@ public class AutomatedActions {
 				new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_SHOOT_LOW)));
 	}
 
+	public static ParallelAction PrepareShootCubeOverBackMidLessHighArm() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT_LESS_HIGH),
+				new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));
+	}
+
 	public static ParallelAction PrepareShootCubeOverBackHighArm() {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.BACK_SHOOT_HIGH),
 												new SetElevatorHeightAction(ElevatorPosition.OVER_THE_BACK_LOW)));

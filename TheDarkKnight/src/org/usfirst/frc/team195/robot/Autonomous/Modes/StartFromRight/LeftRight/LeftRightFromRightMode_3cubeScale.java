@@ -50,7 +50,7 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 		runAction(AutomatedActions.GrabCube());
 
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(new RightRightFromRightGOBACK()),
-												   new SetArmRotationAction(ArmPosition.VERTICAL),
+				new SetArmRotationAction(ArmPosition.VERTICAL),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 						AutomatedActions.PreparePlaceCubeOnScaleOverBackMidMore())))));
 
@@ -58,8 +58,8 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
-												   new SetIntakeAction(IntakeControl.INTAKE_IN),
-												   new DrivePathAction(new RightRightFromRightCube3()))));
+				new SetIntakeAction(IntakeControl.INTAKE_IN),
+				new DrivePathAction(new RightRightFromRightCube3()))));
 
 		runAction(AutomatedActions.GrabCube(0.3));
 
@@ -68,7 +68,7 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 //											 						AutomatedActions.PreparePlaceCubeOnScaleOverBackMid())))));
 
 		runAction(new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
-												   new DrivePathAction(new RightRightFromRightCube3GOBACK_Alt()),
+				new DrivePathAction(new RightRightFromRightCube3GOBACK_Alt()),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 						AutomatedActions.PreparePlaceCubeOnScaleOverBackMidMore())))));
 
@@ -76,12 +76,11 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
-												   new DrivePathAction(new RightRightFromRightCube3Ready44()),
-												   new SetIntakeAction(IntakeControl.INTAKE_IN))));
+				new DrivePathAction(new RightRightFromRightCube3Ready44()),
+				new SetIntakeAction(IntakeControl.INTAKE_IN))));
 
 		runAction(AutomatedActions.StopIntake());
 
 		runAction(new WaitAction(15));
 	}
 }
-

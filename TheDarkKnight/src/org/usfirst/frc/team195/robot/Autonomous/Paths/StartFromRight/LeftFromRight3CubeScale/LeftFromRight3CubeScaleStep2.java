@@ -13,7 +13,7 @@ public class LeftFromRight3CubeScaleStep2 implements PathContainer {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
 		sWaypoints.add(PathAdapter.getAdaptedLeftScaleWaypoint(new Waypoint(280,258,0,0)));
 		sWaypoints.add(new Waypoint(255,258,15,27));
-		sWaypoints.add(PathAdapter.getAdaptedLeftSwitchWaypoint(new Waypoint(234,253,0,27)));
+		sWaypoints.add(PathAdapter.getAdaptedLeftSwitchWaypoint(new Waypoint(236,251,0,27)));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}
