@@ -225,7 +225,7 @@ public class Constants {
 	public static final double kElevatorStepSize = 0.2;	//In rotations of output shaft
 	public static final double kElevatorDeviationThreshold = 0.1;	//In rotations of output shaft
 	public static final double kElevatorHomingSpeed = -0.3;	//In percent output
-	public static final double kElevatorSafetyCurrent = 22;	//In amps
+	public static final double kElevatorSafetyCurrent = 32;	//In amps
 	public static final double kElevatorSafetyDelta = 0.05;	//In rotations of output shaft
 	public static final double kElevatorHomingTimeout = 5;	//In seconds
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
