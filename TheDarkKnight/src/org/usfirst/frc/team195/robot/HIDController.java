@@ -112,8 +112,8 @@ public class HIDController implements Runnable {
 //		}
 
 		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
-			new TeleopActionRunner(AutomatedActions.SetRestingPosition(), Constants.kActionTimeoutS).runAction();
-			//cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
+			//new TeleopActionRunner(AutomatedActions.SetRestingPosition(), Constants.kActionTimeoutS).runAction();
+			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_LOW))
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackLow(), Constants.kActionTimeoutS).runAction();
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_MID))

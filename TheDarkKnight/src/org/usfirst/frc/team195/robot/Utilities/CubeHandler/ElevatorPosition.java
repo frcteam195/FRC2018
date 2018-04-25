@@ -3,7 +3,8 @@ package org.usfirst.frc.team195.robot.Utilities.CubeHandler;
 public class ElevatorPosition {
 	public static final double GO_DOWN = -10;
 	public static final double HOME = -10;
-	public static final double TRUE_HOME = 0.05;
+	public static final double TRUE_HOME = 0.04;
+	public static final double TENSION_OFFSET = 0.01;
 	public static final double LIFT_HOOK = 0.8;
 	public static final double PICKUP_CUBE_THRESHOLD = 3;
 	public static final double SWITCH = 6;

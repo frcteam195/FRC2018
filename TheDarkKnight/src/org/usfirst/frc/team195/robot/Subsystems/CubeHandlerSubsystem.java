@@ -239,6 +239,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		setSucceeded &= TalonHelper.setPIDGains(mElevatorMotorMaster, kElevatorDownRateSlot, Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd, Constants.kElevatorKf, Constants.kElevatorRampRate, Constants.kElevatorIZone);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, kElevatorUpRateSlot, Constants.kElevatorMaxVelocityUp, Constants.kElevatorMaxAccelUp);
 		setSucceeded &= TalonHelper.setMotionMagicParams(mElevatorMotorMaster, kElevatorDownRateSlot, Constants.kElevatorMaxVelocityDown, Constants.kElevatorMaxAccelDown);
+		mElevatorMotorMaster.selectProfileSlot(kElevatorUpRateSlot, 0);
+
 
 		mArmMotor.selectProfileSlot(kArmNormalRateSlot, 0);
 		setSucceeded &= TalonHelper.setPIDGains(mArmMotor, kArmNormalRateSlot, Constants.kArmKp, Constants.kArmKi, Constants.kArmKd, Constants.kArmKf, Constants.kArmRampRate, Constants.kArmIZone);
@@ -263,6 +265,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	private boolean zeroElevator() {
+		return zeroElevator(false);
+	}
+
+	private boolean zeroElevator(boolean retensionRope) {
 		mElevatorMotorMaster.set(ControlMode.Disabled, 0);
 		int homeElevatorValue = (int)(Constants.kElevatorHome * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
 
@@ -281,7 +287,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			ConsoleReporter.report("Failed to zero Elevator!!!", MessageLevel.DEFCON1);
 
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
-		setElevatorHeight(ElevatorPosition.TRUE_HOME);
+		double newPos = ElevatorPosition.TRUE_HOME;
+		newPos += retensionRope ? ElevatorPosition.TENSION_OFFSET : 0;
+		setElevatorHeight(newPos);
 
 		setElevatorFaulted(false, false);
 
@@ -346,6 +354,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //				SmartDashboard.putBoolean("DisableCollisionPrevention", isCollisionPreventionDisabled());
 
 				SmartDashboard.putString("Elevator Position", "" + mElevatorMotorMaster.getSelectedSensorPosition(0)/4096.0);
+				SmartDashboard.putBoolean("Homing switch: ", mElevatorHomeSwitch.get());
 				switch (mArmControl) {
 					case POSITION:
 
@@ -421,7 +430,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 								Util.limit(elevatorHeight, ElevatorPosition.ARM_COLLISION_POINT - Constants.kElevatorDeviationThreshold, Constants.kElevatorSoftMax);
 
 						if (!mElevatorHomeSwitch.get() && elevatorHeight <= ElevatorPosition.TRUE_HOME) {
-							zeroElevator();
+							zeroElevator(true);
 							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
 							if ((getElevatorHeight() < tmpElevatorHeight) || isAuto || disableFastDown)
