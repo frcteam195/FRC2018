@@ -231,6 +231,7 @@ public class Constants {
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
 	public static final int kElevatorMaxPeakCurrentLimit = (int)(kElevatorMaxContinuousCurrentLimit * 1.25);
 	public static final int kElevatorMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kElevatorMaxPeakCurrentLimit, kElevatorMaxContinuousCurrentLimit, 8);;
+	public static final double kElevatorRetensioningTime = 0.4;
 
 	// Climber
 	public static final double kClimberEncoderGearRatio = 1.0;
@@ -301,8 +302,8 @@ public class Constants {
 	public static final double kElevatorRampRate = 0;
 	public static final int kElevatorMaxVelocityUp = 950; //Old value 950, fast 1200
 	public static final int kElevatorMaxAccelUp = 1600;	//Old value was 1600, fast 1900
-	public static final int kElevatorMaxVelocityDown = 1200;
-	public static final int kElevatorMaxAccelDown = 5500;
+	public static final int kElevatorMaxVelocityDown = 1200;	//1200
+	public static final int kElevatorMaxAccelDown = 5500;	//5500
 
 //	Old gains for climber motor
 //	public static final double kClimberKp = 1;

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf23322c-5dc5-4153-9e8a-84dbf4a5bc1d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CurieChampsField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/../RobotJavaProject/src/org/usfirst/frc/team195/robot/Utilities/SplineMotion/" />
@@ -23,20 +21,65 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BostonWeek7Field.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/BostonWeek7Field.java">
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" selection-start-line="4" selection-end-line="31" />
+            <state relative-caret-position="249">
+              <caret line="225" column="68" selection-start-line="225" selection-start-column="68" selection-end-line="225" selection-end-column="68" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PathAdapter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java">
+      <file leaf-file-name="CubeHandlerSubsystem.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="318">
+              <caret line="417" column="17" lean-forward="true" selection-start-line="417" selection-start-column="17" selection-end-line="417" selection-end-column="17" />
+              <folding>
+                <element signature="e#27398#27399#0" expanded="true" />
+                <element signature="e#27423#27424#0" expanded="true" />
+                <element signature="e#27487#27488#0" expanded="true" />
+                <element signature="e#27524#27525#0" expanded="true" />
+                <element signature="e#27582#27583#0" expanded="true" />
+                <element signature="e#27613#27614#0" expanded="true" />
+                <element signature="e#27680#27681#0" expanded="true" />
+                <element signature="e#27717#27718#0" expanded="true" />
+                <element signature="e#27917#27918#0" expanded="true" />
+                <element signature="e#27960#27961#0" expanded="true" />
+                <element signature="e#28000#28001#0" expanded="true" />
+                <element signature="e#28030#28031#0" expanded="true" />
+                <element signature="e#37757#37758#0" expanded="true" />
+                <element signature="e#37779#37780#0" expanded="true" />
+                <element signature="e#37850#37851#0" expanded="true" />
+                <element signature="e#37897#37898#0" expanded="true" />
+                <element signature="e#39423#39424#0" expanded="true" />
+                <element signature="e#39450#39451#0" expanded="true" />
+                <element signature="e#40992#40993#0" expanded="true" />
+                <element signature="e#41062#41063#0" expanded="true" />
+                <element signature="e#41117#41118#0" expanded="true" />
+                <element signature="e#41187#41188#0" expanded="true" />
+                <element signature="e#41604#41605#0" expanded="true" />
+                <element signature="e#41673#41674#0" expanded="true" />
+                <element signature="e#41715#41716#0" expanded="true" />
+                <element signature="e#41740#41741#0" expanded="true" />
+                <element signature="e#42651#42652#0" expanded="true" />
+                <element signature="e#42688#42689#0" expanded="true" />
+                <element signature="e#42717#42718#0" expanded="true" />
+                <element signature="e#42748#42749#0" expanded="true" />
+                <element signature="e#42824#42825#0" expanded="true" />
+                <element signature="e#42872#42873#0" expanded="true" />
+                <element signature="e#42923#42924#0" expanded="true" />
+                <element signature="e#42963#42964#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ElevatorPosition.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -117,15 +160,15 @@
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftFromRight/LeftFromRight3CubeScaleModeAlt.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScale.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScaleAlt.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Robot.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftFromLeft3CubeScaleModeAlt.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
-        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CurieChampsField.java" />
         <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
+        <option value="$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" />
       </list>
     </option>
   </component>
@@ -430,12 +473,12 @@
       <workItem from="1524342463298" duration="5372000" />
       <workItem from="1524353269934" duration="29867000" />
       <workItem from="1524535241178" duration="2187000" />
-      <workItem from="1524680073752" duration="2820000" />
+      <workItem from="1524680073752" duration="7338000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103465000" />
+    <option name="totallyTimeSpent" value="107983000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -455,9 +498,10 @@
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49541286" visible="true" weight="0.2826618" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49541286" visible="true" weight="0.2826618" />
       <window_info anchor="bottom" id="FRC" order="11" weight="0.37435898" />
       <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32923076" />
       <window_info id="Structure" order="1" sideWeight="0.5045872" side_tool="true" weight="0.2771673" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24969475" />
       <window_info id="UI Designer" order="4" />
@@ -469,7 +513,6 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32923076" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,13 +541,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Robots/PracticeBot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -810,51 +846,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="60" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/HIDController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="134" column="46" selection-start-line="134" selection-start-column="46" selection-end-line="134" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-566">
-          <caret line="222" column="31" selection-start-line="222" selection-start-column="31" selection-end-line="222" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="443" column="32" selection-start-line="443" selection-start-column="32" selection-end-line="443" selection-end-column="32" />
-          <folding>
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#14863#14864#0" expanded="true" />
-            <element signature="e#42392#42393#0" expanded="true" />
-            <element signature="e#42429#42430#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CurieChampsField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/BostonWeek7Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" selection-start-line="4" selection-end-line="31" />
         </state>
       </provider>
     </entry>
@@ -869,6 +864,84 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/BostonWeek7Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CurieChampsField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="225" column="68" selection-start-line="225" selection-start-column="68" selection-end-line="225" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="417" column="17" lean-forward="true" selection-start-line="417" selection-start-column="17" selection-end-line="417" selection-end-column="17" />
+          <folding>
+            <element signature="e#27398#27399#0" expanded="true" />
+            <element signature="e#27423#27424#0" expanded="true" />
+            <element signature="e#27487#27488#0" expanded="true" />
+            <element signature="e#27524#27525#0" expanded="true" />
+            <element signature="e#27582#27583#0" expanded="true" />
+            <element signature="e#27613#27614#0" expanded="true" />
+            <element signature="e#27680#27681#0" expanded="true" />
+            <element signature="e#27717#27718#0" expanded="true" />
+            <element signature="e#27917#27918#0" expanded="true" />
+            <element signature="e#27960#27961#0" expanded="true" />
+            <element signature="e#28000#28001#0" expanded="true" />
+            <element signature="e#28030#28031#0" expanded="true" />
+            <element signature="e#37757#37758#0" expanded="true" />
+            <element signature="e#37779#37780#0" expanded="true" />
+            <element signature="e#37850#37851#0" expanded="true" />
+            <element signature="e#37897#37898#0" expanded="true" />
+            <element signature="e#39423#39424#0" expanded="true" />
+            <element signature="e#39450#39451#0" expanded="true" />
+            <element signature="e#40992#40993#0" expanded="true" />
+            <element signature="e#41062#41063#0" expanded="true" />
+            <element signature="e#41117#41118#0" expanded="true" />
+            <element signature="e#41187#41188#0" expanded="true" />
+            <element signature="e#41604#41605#0" expanded="true" />
+            <element signature="e#41673#41674#0" expanded="true" />
+            <element signature="e#41715#41716#0" expanded="true" />
+            <element signature="e#41740#41741#0" expanded="true" />
+            <element signature="e#42651#42652#0" expanded="true" />
+            <element signature="e#42688#42689#0" expanded="true" />
+            <element signature="e#42717#42718#0" expanded="true" />
+            <element signature="e#42748#42749#0" expanded="true" />
+            <element signature="e#42824#42825#0" expanded="true" />
+            <element signature="e#42872#42873#0" expanded="true" />
+            <element signature="e#42923#42924#0" expanded="true" />
+            <element signature="e#42963#42964#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

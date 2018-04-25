@@ -83,6 +83,9 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private boolean disableCollisionPrevention = false;
 	private boolean disableFastDown = false;
 
+	private boolean requestElevatorHoming = false;
+	private double elevatorRequestHomingTime = 0;
+
 
 
 	private CubeHandlerSubsystem() throws Exception {
@@ -268,7 +271,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		return zeroElevator(false);
 	}
 
-	private boolean zeroElevator(boolean retensionRope) {
+	private boolean zeroElevator(boolean enterRehomingMode) {
 		mElevatorMotorMaster.set(ControlMode.Disabled, 0);
 		int homeElevatorValue = (int)(Constants.kElevatorHome * Constants.kElevatorEncoderGearRatio * Constants.kSensorUnitsPerRotation);
 
@@ -288,8 +291,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		mElevatorMotorMaster.set(ControlMode.MotionMagic, homeElevatorValue);
 		double newPos = ElevatorPosition.TRUE_HOME;
-		newPos += retensionRope ? ElevatorPosition.TENSION_OFFSET : 0;
+		newPos += enterRehomingMode ? ElevatorPosition.TENSION_OFFSET : ElevatorPosition.TENSION_OFFSET;
 		setElevatorHeight(newPos);
+
+		if (enterRehomingMode) {
+			elevatorRequestHomingTime = Timer.getFPGATimestamp();
+			setElevatorRequestHoming(true);
+		}
 
 		setElevatorFaulted(false, false);
 
@@ -440,12 +448,21 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 							mPrevElevatorHeight = tmpElevatorHeight;
 						}
+
+						if (requestElevatorHoming && ((timestamp - elevatorRequestHomingTime) >= Constants.kElevatorRetensioningTime)) {
+							setElevatorRequestHoming(false);
+							setElevatorControl(ElevatorControl.HOMING);
+							elevatorHomingTimeStart = Timer.getFPGATimestamp();
+							break;
+						}
+
 						break;
 					case MANUAL:
 						break;
 					case HOMING:
-						if (mPrevElevatorControl != ElevatorControl.HOMING)
+						if (mPrevElevatorControl != ElevatorControl.HOMING) {
 							elevatorHomingTimeStart = Timer.getFPGATimestamp();
+						}
 
 						mElevatorMotorMaster.configReverseSoftLimitEnable(false, Constants.kTimeoutMsFast);
 						mElevatorMotorMaster.set(ControlMode.PercentOutput, Constants.kElevatorHomingSpeed);
@@ -557,6 +574,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	@Override
 	public void registerEnabledLoops(Looper in) {
 		in.register(mLoop);
+	}
+
+	private synchronized void setElevatorRequestHoming(boolean requestElevatorHoming) {
+		this.requestElevatorHoming = requestElevatorHoming;
 	}
 
 	public synchronized void setArmOpenLoopDriveVal(double val) {
