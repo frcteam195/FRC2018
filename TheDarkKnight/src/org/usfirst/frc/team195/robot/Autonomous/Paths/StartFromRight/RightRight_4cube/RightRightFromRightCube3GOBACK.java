@@ -11,7 +11,7 @@ public class RightRightFromRightCube3GOBACK implements PathContainer {
 	@Override
 	public Path buildPath() {
 		ArrayList<Waypoint> sWaypoints = new ArrayList<Waypoint>();
-		sWaypoints.add(new Waypoint(238,111,0,0));
+		sWaypoints.add(new Waypoint(234,113,0,0));
 		sWaypoints.add(new Waypoint(260,80,15,50,"PreparePlaceCube"));
 		sWaypoints.add(PathAdapter.getAdaptedRightScaleWaypoint(new Waypoint(286,88,0,30)));
 

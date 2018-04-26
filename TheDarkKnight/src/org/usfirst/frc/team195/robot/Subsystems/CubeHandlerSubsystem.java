@@ -86,6 +86,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private boolean requestElevatorHoming = false;
 	private double elevatorRequestHomingTime = 0;
 
+	private boolean blinkOnHome = true;
+
 
 
 	private CubeHandlerSubsystem() throws Exception {
@@ -470,9 +472,11 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							zeroElevator();
 							setElevatorControl(ElevatorControl.POSITION);
 							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
-							ledController.configureBlink(3, LEDController.kDefaultBlinkDuration);
-							ledController.setLEDColor(Constants.kElevatorHomeColor);
-							ledController.setRequestedState(LEDController.LEDState.BLINK);
+							if (blinkOnHome) {
+								ledController.configureBlink(3, LEDController.kDefaultBlinkDuration);
+								ledController.setLEDColor(Constants.kElevatorHomeColor);
+								ledController.setRequestedState(LEDController.LEDState.BLINK);
+							}
 						}
 
 						if (Timer.getFPGATimestamp() - elevatorHomingTimeStart > Constants.kElevatorHomingTimeout) {
@@ -553,7 +557,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 					if (!isAuto) {
 						liftArmTimerStart = Timer.getFPGATimestamp();
 
-						if (elevatorHeight <= ElevatorPosition.TRUE_HOME && !Controllers.getInstance().getButtonBox1().getRawButton(Constants.BB1_ARM_DOWN))
+						if (elevatorHeight <= ElevatorPosition.SENSOR_LIFT_OFFSET && !Controllers.getInstance().getButtonBox1().getRawButton(Constants.BB1_ARM_DOWN))
 							requestLiftArmForCube = true;
 					}
 				}
@@ -960,6 +964,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		return retVal;
 	}
 
+	public synchronized void setBlinkOnHome(boolean blinkOnHome) {
+		this.blinkOnHome = blinkOnHome;
+	}
+
 	public synchronized void setElevatorHeight(double elevatorHeight) {
 		this.elevatorHeight = Util.limit(elevatorHeight, Constants.kElevatorSoftMin + Constants.kElevatorSafetyDelta, Constants.kElevatorSoftMax - Constants.kElevatorSafetyDelta);
 	}
@@ -1036,8 +1044,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public synchronized void prepareCLimb() {
 		setIntakeClamp(true);
-		setDisableCollisionPrevention(true);
-		setArmRotationDeg(ArmPosition.GET_CLIMBER_HOOK);
+		//setDisableCollisionPrevention(true);
+		//setArmRotationDeg(ArmPosition.GET_CLIMBER_HOOK);
 	}
 }
 

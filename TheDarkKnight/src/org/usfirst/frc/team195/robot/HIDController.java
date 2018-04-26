@@ -111,9 +111,11 @@ public class HIDController implements Runnable {
 //			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
 //		}
 
-		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
+		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME)) {
 			//new TeleopActionRunner(AutomatedActions.SetRestingPosition(), Constants.kActionTimeoutS).runAction();
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
+			cubeHandlerSubsystem.setBlinkOnHome(false);
+		}
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_LOW))
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackLow(), Constants.kActionTimeoutS).runAction();
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_MID))
@@ -159,6 +161,7 @@ public class HIDController implements Runnable {
 
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME)) {
 			ConsoleReporter.report("Elevator rehoming requested!", MessageLevel.DEFCON1);
+			cubeHandlerSubsystem.setBlinkOnHome(true);
 			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
 		}
 
@@ -191,7 +194,7 @@ public class HIDController implements Runnable {
 		}
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_IN)) {
 			climberSubsystem.setVelocity(Constants.kClimberMaxVelocity);
-			ledController.setMessage("195", true, true);
+			//ledController.setMessage("195", true, true);
 		}
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_HOOK_SLOW)) {
 			cubeHandlerSubsystem.prepareCLimb();

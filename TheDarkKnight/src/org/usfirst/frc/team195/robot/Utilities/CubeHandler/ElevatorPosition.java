@@ -5,6 +5,7 @@ public class ElevatorPosition {
 	public static final double HOME = -10;
 	public static final double TRUE_HOME = 0.001;
 	public static final double TENSION_OFFSET = 0.001;
+	public static final double SENSOR_LIFT_OFFSET = 0.05;
 	public static final double LIFT_HOOK = 0.8;
 	public static final double PICKUP_CUBE_THRESHOLD = 3;
 	public static final double SWITCH = 6;
