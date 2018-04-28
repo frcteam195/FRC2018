@@ -402,7 +402,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						if (mPrevArmControl != ArmControl.HOMING)
 							armHomingTimeStart = Timer.getFPGATimestamp();
 
-						zeroArm(0);
+						zeroArm(-5);
 //						setArmRotationDeg(ArmPosition.DOWN);
 //						setArmControl(ArmControl.POSITION);
 

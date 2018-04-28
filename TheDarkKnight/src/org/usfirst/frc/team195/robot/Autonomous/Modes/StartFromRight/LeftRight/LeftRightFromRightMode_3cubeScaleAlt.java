@@ -27,7 +27,7 @@ public class LeftRightFromRightMode_3cubeScaleAlt extends AutoModeBase{
 		runAction(new ResetPoseFromPathAction(pathContainer));
 		runAction(new ParallelAction(Arrays.asList(new DrivePathAction(pathContainer),
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"), AutomatedActions.PrepareShootCubeOverBack())))));
-
+		runAction(new WaitAction(0.150));
 		runAction(AutomatedActions.OutakeCubeFast());
 
 
@@ -68,6 +68,7 @@ public class LeftRightFromRightMode_3cubeScaleAlt extends AutoModeBase{
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 						AutomatedActions.PrepareShootCubeOverBack())))));
 
+		runAction(new WaitAction(0.150));
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 

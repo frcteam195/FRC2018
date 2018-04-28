@@ -14,7 +14,7 @@ public class RightRightFromRightCube3Ready44 implements PathContainer {
 		sWaypoints.add(PathAdapter.getAdaptedRightScaleWaypoint(new Waypoint(286,86,0,0)));
 		sWaypoints.add(new Waypoint(262,81,15,80));
 		sWaypoints.add(new Waypoint(239,100,10,80));
-		sWaypoints.add(new Waypoint(232,118,0,60));
+		sWaypoints.add(new Waypoint(235,118,0,60));
 
 		return PathBuilder.buildPathFromWaypoints(sWaypoints);
 	}

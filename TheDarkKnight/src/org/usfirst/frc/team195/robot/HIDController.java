@@ -199,6 +199,7 @@ public class HIDController implements Runnable {
 		else if (buttonBox2.getRawButton(Constants.BB2_CLIMBER_CLIMB_HOOK_SLOW)) {
 			cubeHandlerSubsystem.prepareCLimb();
 			climberSubsystem.setOpenLoop(0.55);
+			//0.55
 		}
 		else {
 			climberSubsystem.setVelocity(0);

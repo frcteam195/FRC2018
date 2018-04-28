@@ -30,6 +30,7 @@ public class RightFromLeft3CubeScaleModeAlt extends AutoModeBase {
 				new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("PreparePlaceCube"),
 						AutomatedActions.PrepareShootCubeOverBack())))));
 
+		runAction(new WaitAction(0.15));
 		runAction(AutomatedActions.OutakeCubeExtraFast());
 		runAction(AutomatedActions.StopIntake());
 

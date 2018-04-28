@@ -211,11 +211,13 @@ public class Robot extends RobbieRobot {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
 				//return new LeftLeftFromLeftMode_3cube();
+				//return new LeftFromLeft3CubeScaleModeAlt();
 				return new LeftFromLeft3CubeScaleModeAlt();
 			case LEFT_RIGHT:
 				//return new RightFromLeft3CubeScaleMode();
 				return new RightFromLeft3CubeScaleModeAlt();
 			case RIGHT_LEFT:
+				//return new LeftFromLeft3CubeScaleModeAlt();
 				return new LeftFromLeft3CubeScaleModeAlt();
 			case RIGHT_RIGHT:
 				return new RightFromLeft3CubeScaleModeAlt();

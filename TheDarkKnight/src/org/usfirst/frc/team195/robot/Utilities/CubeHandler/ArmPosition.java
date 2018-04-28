@@ -4,6 +4,7 @@ public class ArmPosition {
 	public static final double DOWN = 0;
 	public static final double LOW = 10;
 	public static final double MID = 40;
+	public static final double HOLD_THRESHOLD = 86.3;
 	public static final double SWITCH = 70;
 	public static final double VERTICAL = 86.3;
 	public static final double BACK_SHOOT = 135;
