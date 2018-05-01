@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
+import org.usfirst.frc.team195.robot.Utilities.ScaleHeightPriority;
 import org.usfirst.frc.team195.robot.Utilities.StartingPosition;
 import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
@@ -25,8 +26,12 @@ public class AutoSelectionReceiver {
 	private DatagramSocket clientSocket;
 	private Thread t;
 
+	private StartingPosition mTempStartingPosition = StartingPosition.RIGHT;
+	private ScaleHeightPriority mTempScalePriority = ScaleHeightPriority.LOW;
+
 
 	private StartingPosition startingPosition = StartingPosition.RIGHT;
+	private ScaleHeightPriority scaleHeightPriority = ScaleHeightPriority.LOW;
 
 	private AutoSelectionReceiver() throws Exception {
 		super();
@@ -67,7 +72,9 @@ public class AutoSelectionReceiver {
 					receivePacket = new DatagramPacket(receiveData, receiveData.length, new InetSocketAddress(0).getAddress(), portNumber);
 					try {
 						clientSocket.receive(receivePacket);
-						startingPosition = processUDPPacket(receivePacket.getData());
+						processUDPPacket(receivePacket.getData());
+						startingPosition = mTempStartingPosition;
+						scaleHeightPriority = mTempScalePriority;
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -91,10 +98,15 @@ public class AutoSelectionReceiver {
 		return startingPosition;
 	}
 
-	private StartingPosition processUDPPacket(byte[] data) {
+	public ScaleHeightPriority getScaleHeightPriority() {
+		return scaleHeightPriority;
+	}
+
+	private void processUDPPacket(byte[] data) {
 		String sData = (new String(data)).trim();
 		String[] sArr = sData.split(";");
-		int retVal = -1;
+		int autoStartPos = -1;
+		int scaleHeight = -1;
 		for (String s : sArr) {
 			String[] sArrProcess = s.split(":");
 			if (sArrProcess.length == 2) {
@@ -104,13 +116,17 @@ public class AutoSelectionReceiver {
 				try {
 					switch (command) {
 						case "autonomous":
-							retVal = Integer.parseInt(value);
+							autoStartPos = Integer.parseInt(value);
+							break;
+						case "scale":
+							scaleHeight = Integer.parseInt(value);
 							break;
 						default:
 							break;
 					}
 				} catch (Exception ex) {
-					retVal = -1;
+					autoStartPos = -1;
+					scaleHeight = -1;
 
 					if (Constants.DEBUG)
 						ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
@@ -118,15 +134,31 @@ public class AutoSelectionReceiver {
 			}
 		}
 
-		switch (retVal) {
+		switch (autoStartPos) {
 			case 0:
-				return StartingPosition.RIGHT;
+				mTempStartingPosition = StartingPosition.RIGHT;
+				break;
 			case 1:
-				return StartingPosition.CENTER;
+				mTempStartingPosition = StartingPosition.CENTER;
+				break;
 			case 2:
-				return StartingPosition.LEFT;
+				mTempStartingPosition = StartingPosition.LEFT;
+				break;
 			default:
-				return StartingPosition.RIGHT;
+				mTempStartingPosition = StartingPosition.RIGHT;
+				break;
+		}
+
+		switch (autoStartPos) {
+			case 0:
+				mTempScalePriority = ScaleHeightPriority.LOW;
+				break;
+			case 1:
+				mTempScalePriority = ScaleHeightPriority.HIGH;
+				break;
+			default:
+				mTempScalePriority = ScaleHeightPriority.LOW;
+				break;
 		}
 	}
 

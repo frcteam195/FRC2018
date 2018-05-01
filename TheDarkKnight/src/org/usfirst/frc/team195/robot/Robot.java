@@ -115,6 +115,7 @@ public class Robot extends RobbieRobot {
 		autoModeExecuter = new AutoModeExecuter();
 
 		StartingPosition startingPosition = autoSelectionReceiver.getStartingPosition();
+		boolean scaleIsHigh = autoSelectionReceiver.getScaleHeightPriority() == ScaleHeightPriority.HIGH;
 		// Don't terminate if you want to run auto again without rebooting code
 //		autoSelectionReceiver.terminate();
 
@@ -123,13 +124,13 @@ public class Robot extends RobbieRobot {
 		if (!gameSpecificMessageParser.isAutoDisabled() && fieldLayout != FieldLayout.UNDEFINED) {
 			switch (startingPosition) {
 				case LEFT:
-					autoMode = getModeStartingLeft(fieldLayout);
+					autoMode = getModeStartingLeft(fieldLayout, scaleIsHigh);
 					break;
 				case RIGHT:
-					autoMode = getModeStartingRight(fieldLayout);
+					autoMode = getModeStartingRight(fieldLayout, scaleIsHigh);
 					break;
 				case CENTER:
-					autoMode = getModeStartingCenter(fieldLayout);
+					autoMode = getModeStartingCenter(fieldLayout, scaleIsHigh);
 					break;
 				default:
 					return;
@@ -207,20 +208,16 @@ public class Robot extends RobbieRobot {
 		}
 	}
 
-	private AutoModeBase getModeStartingLeft(FieldLayout fieldLayout) {
+	private AutoModeBase getModeStartingLeft(FieldLayout fieldLayout, boolean scaleIsHigh) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				//return new LeftLeftFromLeftMode_3cube();
-				//return new LeftFromLeft3CubeScaleModeAlt();
-				return new LeftFromLeft3CubeScaleMode();
+				return scaleIsHigh ? new LeftFromLeft3CubeScaleModeAlt() : new LeftFromLeft3CubeScaleMode();
 			case LEFT_RIGHT:
-				//return new RightFromLeft3CubeScaleMode();
-				return new RightFromLeft3CubeScaleMode();
+				return scaleIsHigh ? new RightFromLeft3CubeScaleModeAlt() :  new RightFromLeft3CubeScaleMode();
 			case RIGHT_LEFT:
-				//return new LeftFromLeft3CubeScaleModeAlt();
-				return new LeftFromLeft3CubeScaleMode();
+				return scaleIsHigh ? new LeftFromLeft3CubeScaleModeAlt() : new LeftFromLeft3CubeScaleMode();
 			case RIGHT_RIGHT:
-				return new RightFromLeft3CubeScaleMode();
+				return scaleIsHigh ? new RightFromLeft3CubeScaleModeAlt() :  new RightFromLeft3CubeScaleMode();
 			case UNDEFINED:
 			default:
 				break;
@@ -228,23 +225,16 @@ public class Robot extends RobbieRobot {
 		return null;
 	}
 
-	private AutoModeBase getModeStartingRight(FieldLayout fieldLayout) {
+	private AutoModeBase getModeStartingRight(FieldLayout fieldLayout, boolean scaleIsHigh) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				//return new LeftLeftFromRightMode_2cube();
-				//return new LeftLeftFromRight_2cubeScale();
-				return new LeftFromRight3CubeScaleMode();
+				return scaleIsHigh ? new LeftFromRight3CubeScaleModeAlt() : new LeftFromRight3CubeScaleMode();
 			case LEFT_RIGHT:
-				//return new LeftRightFromRightMode_3cubeScale();
-				return new LeftRightFromRightMode_3cubeScale();
+				return scaleIsHigh ? new LeftRightFromRightMode_3cubeScaleAlt() : new LeftRightFromRightMode_3cubeScale();
 			case RIGHT_LEFT:
-//				return new LeftLeftFromRight_2cubeScale();
-				//return new RightLeftFromRightMode_2cube();
-				//return new LeftFromRight3CubeScaleMode();
-				return new LeftFromRight3CubeScaleMode();
+				return scaleIsHigh ? new LeftFromRight3CubeScaleModeAlt() : new LeftFromRight3CubeScaleMode();
 			case RIGHT_RIGHT:
-				//return new LeftRightFromRightMode_3cubeScaleAlt();
-				return new LeftRightFromRightMode_3cubeScale();
+				return scaleIsHigh ? new LeftRightFromRightMode_3cubeScaleAlt() : new LeftRightFromRightMode_3cubeScale();
 			case UNDEFINED:
 			default:
 				break;
@@ -252,26 +242,15 @@ public class Robot extends RobbieRobot {
 		return null;
 	}
 
-	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout) {
+	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout, boolean scaleIsHigh) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				//return new LeftFromCenterMode_2cube();
-				//return new LeftLeftFromCenterMode_SwitchScale();
-				//return new LeftFromCenterMode_2cube();
 				return new LeftFromCenterMode_3CubeSwitch();
 			case LEFT_RIGHT:
-				//return new LeftFromCenterMode_2cube();
-				//return new LeftFromCenterMode_2cube();
 				return new LeftFromCenterMode_3CubeSwitch();
-				//return new LeftRightFromCenterMode_SwitchScale();
 			case RIGHT_LEFT:
-				//return new RightFromCenterMode_2cube();
-				//return new RightFromCenterMode_2cube();
 				return new RightFromCenterMode_3CubeSwitch();
 			case RIGHT_RIGHT:
-				//return new RightFromCenterMode_2cube();
-				//return new RightFromCenterMode_3cube();
-				//return new RightFromCenterMode_2cube();
 				return new RightFromCenterMode_3CubeSwitch();
 			case UNDEFINED:
 			default:
