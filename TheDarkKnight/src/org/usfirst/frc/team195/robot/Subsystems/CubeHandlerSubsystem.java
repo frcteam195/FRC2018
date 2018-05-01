@@ -510,6 +510,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						case INTAKE_OUT_AUTO:
 							mIntakeMotor.set(ControlMode.PercentOutput, -0.80);
 							mIntake2Motor.set(ControlMode.PercentOutput, -0.80);
+							//TODO: Fix this bug - missing break
 						case INTAKE_OUT:
 //							mIntakeMotor.set(ControlMode.Current, -55);
 //							mIntake2Motor.set(ControlMode.Current, -55);

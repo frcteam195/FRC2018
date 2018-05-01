@@ -205,6 +205,10 @@ public class AutomatedActions {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT_AUTO, 0.25);
 	}
 
+	public static Action OutakeCubeFast_LittleLess() {
+		return new SetIntakeAction(IntakeControl.INTAKE_OUT_A_LITTLE_LESS, 0.25);
+	}
+
 	public static Action OutakeCubeExtraFast() {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT_EXTRA_FAST, 0.3);
 	}

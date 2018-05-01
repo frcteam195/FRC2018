@@ -12,7 +12,7 @@ public class PathAdapter {
 	private static final DriverStation ds = DriverStation.getInstance();
 
 	private static FieldProfile kReferenceField = new ReferenceField();
-	private static FieldProfile kCurrentField = new MassEinsteinField();
+	private static FieldProfile kCurrentField = new EnergyEinsteinField();
 
 	//TODO: Change inversion of values to be correct for near or far, not left or right. Is not correct now
 	private static RobotProfile kRobotProfile = new CompBot();
