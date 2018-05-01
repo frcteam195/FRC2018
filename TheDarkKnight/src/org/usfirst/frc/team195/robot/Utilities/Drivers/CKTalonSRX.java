@@ -13,6 +13,7 @@ import org.usfirst.frc.team195.robot.Utilities.Controllers;
 public class CKTalonSRX extends TalonSRX {
 	private int pdpChannel;
 	private int currentSelectedSlot = 0;
+	//TODO: Rewrite to support up to 4 slots, as Omar says the talons have 4 slots
 	private double[] mCLRampRate = {0, 0};
 	private int[] mMMAccel = {0, 0};
 	private int[] mMMVel = {0, 0};

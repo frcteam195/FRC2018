@@ -30,5 +30,6 @@ public class SetElevatorHeightAction implements Action {
 	@Override
 	public void start() {
 		mCubeHandlerSubsystem.setElevatorHeight(elevatorHeight);
+		mCubeHandlerSubsystem.setBlinkOnHome(false);
 	}
 }

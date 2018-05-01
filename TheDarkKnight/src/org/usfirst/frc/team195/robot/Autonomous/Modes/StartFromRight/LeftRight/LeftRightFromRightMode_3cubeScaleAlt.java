@@ -19,7 +19,6 @@ import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathCon
 import java.util.Arrays;
 
 public class LeftRightFromRightMode_3cubeScaleAlt extends AutoModeBase{
-	//TODO: FOR LEFT RIGHT FIELD CONFIG
 
 	@Override
 	protected void routine() throws AutoModeEndedException {

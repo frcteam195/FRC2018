@@ -70,6 +70,8 @@ public class HIDController implements Runnable {
 //		}
 
 
+		///////////////////////////////
+		//Arm Intake Control
 		if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_IN))
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_IN);
 		else if (armControlJoystick.getRawButton(Constants.ARM_INTAKE_OUT))
@@ -78,43 +80,24 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.INTAKE_OUT_HALFSPEED);
 		else
 			cubeHandlerSubsystem.setIntakeControl(IntakeControl.OFF);
+		///////////////////////////////
 
+		///////////////////////////////
+		//Arm Clamp Control
 		if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_CLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(false);
 		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_INTAKE_UNCLAMP))
 			cubeHandlerSubsystem.setIntakeClamp(true);
+		///////////////////////////////
 
-//		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME))
-//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HOME);
-//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SWITCH))
-//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.LOW);
-//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE))
-//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.MID);
-//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_SCALE_HIGH))
-//			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
-//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_INCREMENT))
-//			cubeHandlerSubsystem.incrementElevatorHeight();
-//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_DECREMENT))
-//			cubeHandlerSubsystem.decrementElevatorHeight();
-//
-//		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_DOWN))
-//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.DOWN);
-//		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ARM_VERTICAL))
-//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.VERTICAL);
-//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_BACK))
-//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.BACK);
-//		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_SWITCH))
-//			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.SWITCH);
-//
-//		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME)) {
-//			ConsoleReporter.report("Elevator rehoming requested!", MessageLevel.DEFCON1);
-//			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
-//		}
 
+		///////////////////////////////
+		//Elevator Control
 		if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_HOME)) {
-			//new TeleopActionRunner(AutomatedActions.SetRestingPosition(), Constants.kActionTimeoutS).runAction();
-			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
-			cubeHandlerSubsystem.setBlinkOnHome(false);
+			//TODO: Put back before IRI
+			new TeleopActionRunner(AutomatedActions.SetRestingPosition(), Constants.kActionTimeoutS).runAction();
+			//cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.GO_DOWN);
+			//cubeHandlerSubsystem.setBlinkOnHome(false);
 		}
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_OVER_BACK_LOW))
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnScaleOverBackLow(), Constants.kActionTimeoutS).runAction();
@@ -132,7 +115,11 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setElevatorHeight(ElevatorPosition.HIGH);
 		else if(buttonBox1.getRisingEdgeButton(Constants.BB1_AUTO_SWITCH))
 			new TeleopActionRunner(AutomatedActions.PreparePlaceCubeOnSwitch(), Constants.kActionTimeoutS).runAction();
+		///////////////////////////////
 
+
+		///////////////////////////////
+		//Arm Angle Control POV
 		if(armControlJoystick.getPOV() == Constants.ARM_ELEVATOR_INCREMENT_POV) {
 			cubeHandlerSubsystem.setDisableFastDown(true);
 			cubeHandlerSubsystem.incrementElevatorHeight();
@@ -149,7 +136,10 @@ public class HIDController implements Runnable {
 		} else {
 			cubeHandlerSubsystem.setDisableFastDown(false);
 		}
+		///////////////////////////////
 
+		///////////////////////////////
+		//Arm Angle Control Buttons
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_DOWN))
 			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.DOWN);
 		else if (armControlJoystick.getRisingEdgeButton(Constants.ARM_ARM_VERTICAL))
@@ -158,13 +148,19 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.BACK);
 		else if (buttonBox1.getRisingEdgeButton(Constants.BB1_ARM_SWITCH))
 			cubeHandlerSubsystem.setArmRotationDeg(ArmPosition.SWITCH);
+		///////////////////////////////
 
+		///////////////////////////////
+		//Elevator Rehome
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_ELEVATOR_REHOME)) {
 			ConsoleReporter.report("Elevator rehoming requested!", MessageLevel.DEFCON1);
 			cubeHandlerSubsystem.setBlinkOnHome(true);
 			cubeHandlerSubsystem.setElevatorControl(ElevatorControl.HOMING);
 		}
+		///////////////////////////////
 
+		///////////////////////////////
+		//LED Request Cube
 		if (buttonBox1.getRisingEdgeButton(Constants.BB1_REQUEST_CUBE_FROM_WALL) || driveJoystickThrottle.getRisingEdgeButton(Constants.DRIVE_REQUEST_CUBE_FROM_WALL)) {
 			if (ConnectionMonitor.getInstance().isConnected()) {
 				ledController.configureBlink(4, LEDController.kDefaultBlinkDuration);
@@ -172,7 +168,10 @@ public class HIDController implements Runnable {
 				ledController.setRequestedState(LEDController.LEDState.BLINK);
 			}
 		}
+		///////////////////////////////
 
+		///////////////////////////////
+		//Arm Homing
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_ARM_SET_ZERO) && cubeHandlerSubsystem.getArmControlMode() == ArmControl.OPEN_LOOP) {
 			cubeHandlerSubsystem.setArmControl(ArmControl.HOMING);
 			cubeHandlerSubsystem.setDisableCollisionPrevention(false);
@@ -182,8 +181,11 @@ public class HIDController implements Runnable {
 			cubeHandlerSubsystem.setDisableCollisionPrevention(true);
 			cubeHandlerSubsystem.setArmControl(ArmControl.OPEN_LOOP);
 		}
+		///////////////////////////////
 
 
+		///////////////////////////////
+		//Climber Deployment and Lifting
 		if (buttonBox2.getRisingEdgeButton(Constants.BB2_CLIMBER_DEPLOY_PLATFORM))
 			climberSubsystem.deployPlatform();
 
@@ -202,12 +204,16 @@ public class HIDController implements Runnable {
 			//0.55
 		}
 		else {
+			//Use velocity control set to 0 to hold robots up while enabled
 			climberSubsystem.setVelocity(0);
 		}
+		///////////////////////////////
 
-
+		//Manual arm control
 		cubeHandlerSubsystem.setArmOpenLoopDriveVal(QuickMaths.normalizeJoystickWithDeadband(armControlJoystick.getRawAxis(Constants.ARM_Y_AXIS), Constants.kJoystickDeadband)/2.0);
 
+		///////////////////////////////
+		//Elevator mapped drive speed to help prevent tipping
 		double elevatorScaling = 1 - cubeHandlerSubsystem.getElevatorHeight() / Constants.kElevatorSoftMax;
 
 		if (cubeHandlerSubsystem.getElevatorHeight() < 5)
@@ -220,13 +226,17 @@ public class HIDController implements Runnable {
 
 		driveBaseSubsystem.setBrakeMode(driveJoystickThrottle.getRawButton(Constants.DRIVE_HOLD_BRAKE));
 
+
 		driveBaseSubsystem.setDriveOpenLoop(new DriveMotorValues(Util.limit(y + x, 1), Util.limit(y - x, 1)));
+		///////////////////////////////
 
-		//		double wheel = driveJoystickThrottle.getRawAxis(Constants.DRIVE_X_AXIS);
-//		double throttle = -driveJoystickThrottle.getRawAxis(Constants.DRIVE_Y_AXIS);
+		//TODO: Enable for new drivers maybe
+		//CheesyDrive for new drivers
+//		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(y, x, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
 
-//		driveBaseSubsystem.setDriveOpenLoop(driveHelper.calculateOutput(throttle, wheel, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear()));
-		//driveBaseSubsystem.setDriveVelocity(driveHelper.calculateOutput(y, x, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear(), 10000));
+
+
+//		driveBaseSubsystem.setDriveVelocity(driveHelper.calculateOutput(y, x, driveJoystickThrottle.getRawButton(Constants.DRIVE_IMM_TURN), driveBaseSubsystem.isHighGear(), 10000));
 //		driveBaseSubsystem.setDriveVelocity(new DriveMotorValues((y + x) * 650, (y - x) * 650));
 	}
 

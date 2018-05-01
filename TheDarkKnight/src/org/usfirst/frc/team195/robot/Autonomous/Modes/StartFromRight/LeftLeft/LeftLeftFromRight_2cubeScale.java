@@ -17,7 +17,6 @@ import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathCon
 import java.util.Arrays;
 
 public class LeftLeftFromRight_2cubeScale extends AutoModeBase {
-	//TODO: FOR RIGHT LEFT & LEFT LEFT FIELD CONFIG
 
 	@Override
 	protected void routine() throws AutoModeEndedException {

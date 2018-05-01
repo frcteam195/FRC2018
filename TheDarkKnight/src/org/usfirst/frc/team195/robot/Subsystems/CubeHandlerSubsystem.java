@@ -496,36 +496,26 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 				if (mIntakeControl != mPrevIntakeControl || mIntakeControl == IntakeControl.OFF || mIntakeControl == IntakeControl.HOLD) {
 					switch (mIntakeControl) {
 						case INTAKE_IN:
-//							mIntakeMotor.set(ControlMode.Current, 25);
-//							mIntake2Motor.set(ControlMode.Current, 25);
 							mIntakeMotor.set(ControlMode.PercentOutput, 1);
 							mIntake2Motor.set(ControlMode.PercentOutput, 1);
 							break;
 						case INTAKE_OUT_EXTRA_FAST:
-//							mIntakeMotor.set(ControlMode.Current, -55);
-//							mIntake2Motor.set(ControlMode.Current, -55);
 							mIntakeMotor.set(ControlMode.PercentOutput, -1);
 							mIntake2Motor.set(ControlMode.PercentOutput, -1);
 							break;
 						case INTAKE_OUT_AUTO:
 							mIntakeMotor.set(ControlMode.PercentOutput, -0.80);
 							mIntake2Motor.set(ControlMode.PercentOutput, -0.80);
-							//TODO: Fix this bug - missing break
+							break;
 						case INTAKE_OUT:
-//							mIntakeMotor.set(ControlMode.Current, -55);
-//							mIntake2Motor.set(ControlMode.Current, -55);
 							mIntakeMotor.set(ControlMode.PercentOutput, -0.65);
 							mIntake2Motor.set(ControlMode.PercentOutput, -0.65);
 							break;
 						case INTAKE_OUT_HALFSPEED:
-//							mIntakeMotor.set(ControlMode.Current, -55);
-//							mIntake2Motor.set(ControlMode.Current, -55);
 							mIntakeMotor.set(ControlMode.PercentOutput, -0.4);
 							mIntake2Motor.set(ControlMode.PercentOutput, -0.4);
 							break;
 						case INTAKE_OUT_SLOW:
-//							mIntakeMotor.set(ControlMode.Current, -55);
-//							mIntake2Motor.set(ControlMode.Current, -55);
 							mIntakeMotor.set(ControlMode.PercentOutput, -0.3);
 							mIntake2Motor.set(ControlMode.PercentOutput, -0.3);
 							break;

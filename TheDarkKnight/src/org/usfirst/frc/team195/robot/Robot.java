@@ -212,15 +212,15 @@ public class Robot extends RobbieRobot {
 			case LEFT_LEFT:
 				//return new LeftLeftFromLeftMode_3cube();
 				//return new LeftFromLeft3CubeScaleModeAlt();
-				return new LeftFromLeft3CubeScaleModeAlt();
+				return new LeftFromLeft3CubeScaleMode();
 			case LEFT_RIGHT:
 				//return new RightFromLeft3CubeScaleMode();
-				return new RightFromLeft3CubeScaleModeAlt();
+				return new RightFromLeft3CubeScaleMode();
 			case RIGHT_LEFT:
 				//return new LeftFromLeft3CubeScaleModeAlt();
-				return new LeftFromLeft3CubeScaleModeAlt();
+				return new LeftFromLeft3CubeScaleMode();
 			case RIGHT_RIGHT:
-				return new RightFromLeft3CubeScaleModeAlt();
+				return new RightFromLeft3CubeScaleMode();
 			case UNDEFINED:
 			default:
 				break;
@@ -233,18 +233,18 @@ public class Robot extends RobbieRobot {
 			case LEFT_LEFT:
 				//return new LeftLeftFromRightMode_2cube();
 				//return new LeftLeftFromRight_2cubeScale();
-				return new LeftFromRight3CubeScaleModeAlt();
+				return new LeftFromRight3CubeScaleMode();
 			case LEFT_RIGHT:
 				//return new LeftRightFromRightMode_3cubeScale();
-				return new LeftRightFromRightMode_3cubeScaleAlt();
+				return new LeftRightFromRightMode_3cubeScale();
 			case RIGHT_LEFT:
 //				return new LeftLeftFromRight_2cubeScale();
 				//return new RightLeftFromRightMode_2cube();
 				//return new LeftFromRight3CubeScaleMode();
-				return new LeftFromRight3CubeScaleModeAlt();
+				return new LeftFromRight3CubeScaleMode();
 			case RIGHT_RIGHT:
 				//return new LeftRightFromRightMode_3cubeScaleAlt();
-				return new LeftRightFromRightMode_3cubeScaleAlt();
+				return new LeftRightFromRightMode_3cubeScale();
 			case UNDEFINED:
 			default:
 				break;

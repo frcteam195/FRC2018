@@ -23,7 +23,6 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
-	//TODO: FOR LEFT RIGHT FIELD CONFIG
 
 	@Override
 	protected void routine() throws AutoModeEndedException {
