@@ -80,9 +80,9 @@ public class DriveControl extends Thread {
 	}
 
 	public void shiftControl() {
-		if(driveJoystick.getRawButton(6))
+		if(driveJoystick.getRawButton(6) || driveJoystick2.getRawButton(6))
 			Drive.getInstance().shiftHigh();
-		else if (driveJoystick.getRawButton(7))
+		else if (driveJoystick.getRawButton(7) || driveJoystick2.getRawButton(5))
 			Drive.getInstance().shiftLow();
 	}
 
