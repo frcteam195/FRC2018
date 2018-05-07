@@ -1,303 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40a3f3f4-9b80-4375-8cd1-ba1b3e604b54" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/TheDarkKnightGradle_main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheDarkKnightGradle_test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ProfileDriveTest/Debug/FRCUserProgram" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/ant.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/OldSource/AutoProfileTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/OldSource/AutoProfileTest2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/OldSource/AutoProfileTest3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/OldSource/DriveBaseSubsystemOld.java.OLD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/TheDarkKnight.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/TheDarkKnight.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/build.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/build.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/IntakeCubeAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetArmRotationAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetDisableCollisionPreventionAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetIntakeAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetIntakeClampAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/DrivePathAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/Action.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/CrashTrackingRunnable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/ParallelAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/RunOnceAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/SeriesAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/WaitAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/WaitForElevatorDownAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/Framework/WaitForPathMarkerAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/ResetPoseFromPathAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/ShiftAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Actions/TurnToHeadingAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/AutoSelectionReceiver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeBase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeEndedException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeExecuter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_1cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_2cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_3CubeSwitch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/LeftLeft/LeftLeftFromCenterMode_SwitchScale.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/LeftRight/LeftRightFromCenterMode_SwitchScale.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_1cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_2cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_3CubeSwitch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_3cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftFromLeft3CubeScaleMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftFromLeft3CubeScaleModeAlt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftFromLeft4CubeScaleMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftLeftFromLeftMode_3cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/RightRight/RightFromLeft3CubeScaleMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/RightRight/RightFromLeft3CubeScaleModeAlt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftFromRight/LeftFromRight3CubeScaleMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftFromRight/LeftFromRight3CubeScaleModeAlt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_2cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_3cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_driveStraightTrash.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRight_2cubeScale.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cubeScale.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScale.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScaleAlt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRight_5cubescale.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/BostonWeek7Field.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CurieChampsField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/EnergyEinsteinField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/HartfordWeek6Field.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/MassEinsteinField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/ReferenceField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/TestingField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Robots/CompBot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Robots/PracticeBot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/Robots/RobotProfile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep5Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftLeftFromCenter_SwitchScale/LeftLeftFromCenter_AddPath1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftRightFromCenter_SwitchScale/LeftRightFromCenter_AddPath1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep5Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep6.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep7.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep8.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep9.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep9Alt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep6.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep6Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeScaleStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_driveStraightTrash.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep5Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep5Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/LeftRight3CubeScaleStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep5Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/LaunchinCubes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3GOBACK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3GOBACK_Alt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3Ready44.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightGOBACK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep6.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep7.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep8Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/LaunchinCubes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightCube3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightCube3GOBACK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightCube3Ready44.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightGOBACK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep5.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep6.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep7.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep8Final.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/ConnectionMonitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/CriticalSystemsMonitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/HIDController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/LEDController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Reporters/CKMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Reporters/DashboardReporter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Reporters/MessageLevel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/RobbieRobot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Robot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CKAutoBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Climber/ClimberControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Constants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Controllers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CriticalSystemStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CubeHandler/IntakeControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CustomAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CustomAuto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/CustomSubsystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/DiagnosableSubsystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/DriveControlState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/DriveHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/DriveMotorValues.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CANSpeedControllerBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/CKVictorSPX.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/KnightDigitalInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/KnightJoystick.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverCANifier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverRGB.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/NavX.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/PigeonDriver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TalonHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/ElapsedTimer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/FieldLayout.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/GameSpecificMessageParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Loops/CrashTrackingRunnable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Loops/Loop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Loops/Looper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Loops/RobotStateEstimator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/MorseCodeTranslator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/MotorDiagnostics.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/PIDValues.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/QuickMaths.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/RGBColor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/Reportable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/ScaleHeightPriority.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/SetpointValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/ShiftHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/StartingPosition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TeleopActionRunner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/ThreadRateControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/AdaptivePurePursuitController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/CircularBuffer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/DelayedBoolean.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/DriveSignal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/GoalTrack.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/GoalTracker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/HeadingProfileFollower.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Interpolable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InterpolatingDouble.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InterpolatingLong.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InterpolatingTreeMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InverseInterpolable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Kinematics.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/LatchedBoolean.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Lookahead.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfileConstraints.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfileGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfileGoal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionSegment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MovingAverage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Path.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathContainer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathFollower.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathFollowerRobotState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathSegment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PolynomialRegression.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/ProfileFollower.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/RigidTransform2d.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Rotation2d.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/SetpointGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/ShooterAimingParameters.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/SynchronousPIDF.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/TargetInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/TimeDelayedBoolean.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Translation2d.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Twist2d.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheDarkKnight/src/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Util.java" beforeDir="false" />
-    </list>
+    <list default="true" id="40a3f3f4-9b80-4375-8cd1-ba1b3e604b54" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -854,7 +558,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -877,8 +583,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1023,11 +727,12 @@
       <updated>1525663040197</updated>
       <workItem from="1525663041430" duration="31000" />
       <workItem from="1525663088641" duration="128000" />
+      <workItem from="1525663378786" duration="16000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159000" />
+    <option name="totallyTimeSpent" value="175000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -1040,28 +745,28 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" weight="0.32967034" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32923076" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24969475" />
-      <window_info anchor="bottom" id="Build" weight="0.32923076" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25274727" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="right" id="Gradle" order="1" visible="true" weight="0.32967034" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="9" weight="0.24969475" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Build" order="8" weight="0.32923076" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="FRC" order="7" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
