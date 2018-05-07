@@ -12,6 +12,8 @@
       <entry name="!?*.groovy" />
     </wildcardResourcePatterns>
     <bytecodeTargetLevel target="1.8">
+      <module name="TheDarkKnight_Gradle_main" target="1.8" />
+      <module name="TheDarkKnight_Gradle_test" target="1.8" />
       <module name="TheDarkKnightGradle_main" target="1.8" />
       <module name="TheDarkKnightGradle_test" target="1.8" />
     </bytecodeTargetLevel>
@@ -66,8 +68,9 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TheDarkKnightGradle_main.iml" filepath="$PROJECT_DIR$/TheDarkKnightGradle_main.iml" group="TheDarkKnightGradle" />
-      <module fileurl="file://$PROJECT_DIR$/TheDarkKnightGradle_test.iml" filepath="$PROJECT_DIR$/TheDarkKnightGradle_test.iml" group="TheDarkKnightGradle" />
+      <module fileurl="file://$PROJECT_DIR$/TheDarkKnight_Gradle.iml" filepath="$PROJECT_DIR$/TheDarkKnight_Gradle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TheDarkKnight_Gradle_main.iml" filepath="$PROJECT_DIR$/TheDarkKnight_Gradle_main.iml" group="TheDarkKnight_Gradle" />
+      <module fileurl="file://$PROJECT_DIR$/TheDarkKnight_Gradle_test.iml" filepath="$PROJECT_DIR$/TheDarkKnight_Gradle_test.iml" group="TheDarkKnight_Gradle" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">

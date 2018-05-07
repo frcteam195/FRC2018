@@ -1,0 +1,1148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="40a3f3f4-9b80-4375-8cd1-ba1b3e604b54" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/fileContent/annotation-processors.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/fileContent/fileContent.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/taskHistory/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/4.4/taskHistory/taskHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/TheDarkKnightGradle.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/TheDarkKnightGradle.ipr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/TheDarkKnightGradle.iws" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/TheDarkKnightGradle_main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/TheDarkKnightGradle_test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/lib/Jama-1.0.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/AutomatedActions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/IntakeCubeAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetArmRotationAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetDisableCollisionPreventionAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetIntakeAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetIntakeClampAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/DrivePathAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/Action.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/CrashTrackingRunnable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/ParallelAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/RunOnceAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/SeriesAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/WaitAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/WaitForElevatorDownAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/WaitForPathMarkerAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/ResetPoseFromPathAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/ShiftAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Actions/TurnToHeadingAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/AutoSelectionReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeEndedException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeExecuter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_1cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_2cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Left/LeftFromCenterMode_3CubeSwitch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/LeftLeft/LeftLeftFromCenterMode_SwitchScale.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/LeftRight/LeftRightFromCenterMode_SwitchScale.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_1cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_2cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_3CubeSwitch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromCenter/Right/RightFromCenterMode_3cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftFromLeft3CubeScaleMode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftFromLeft3CubeScaleModeAlt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftFromLeft4CubeScaleMode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/LeftLeft/LeftLeftFromLeftMode_3cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/RightRight/RightFromLeft3CubeScaleMode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/RightRight/RightFromLeft3CubeScaleModeAlt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftFromRight/LeftFromRight3CubeScaleMode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftFromRight/LeftFromRight3CubeScaleModeAlt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_2cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_3cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRightMode_driveStraightTrash.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftLeft/LeftLeftFromRight_2cubeScale.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_2cubeScale.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScale.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/LeftRight/LeftRightFromRightMode_3cubeScaleAlt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightLeft/RightLeftFromRightMode_2cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRightMode_4cube.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromRight/RightRight/RightRightFromRight_5cubescale.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/BostonWeek7Field.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CompetitionTheoreticalField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/CurieChampsField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/EnergyEinsteinField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/FieldProfile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/HartfordWeek6Field.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/MassEinsteinField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/PracticeField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/ReferenceField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Fields/TestingField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/PathAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Robots/CompBot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Robots/PracticeBot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/Robots/RobotProfile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Left2Cube/LeftFromCenterStep5Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftFromCenter3CubeSwitch/LeftFromCenter3CubeSwitchStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftLeftFromCenter_SwitchScale/LeftLeftFromCenter_AddPath1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/LeftRightFromCenter_SwitchScale/LeftRightFromCenter_AddPath1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right2Cube/RightFromCenterStep5Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep6.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep7.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep8.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep9.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/Right3Cube/RightFromCenterStep9Alt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromCenter/RightFromCenter3CubeSwitch/RightFromCenter3CubeSwitchStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Left3CubeScale/Left3CubeScaleStep6.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/LeftLeft_3cube/LeftLeftFromLeftStep6Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromLeft/Right3CubeScale/Right3CubeScaleStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftFromRight3CubeScale/LeftFromRight3CubeScaleStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeScaleStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_2cubeStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_2cube/LeftLeftFromRight_driveStraightTrash.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftLeft_3cube/LeftLeftFromRightStep5Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightStep5Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/LeftRight_2cube/LeftRightFromRightTestStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/LeftRight3CubeScaleStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightLeft_2cube/RightLeftFromRightStep5Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/LaunchinCubes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3GOBACK.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3GOBACK_Alt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightCube3Ready44.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightGOBACK.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep6.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep7.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_4cube/RightRightFromRightStep8Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/LaunchinCubes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightCube3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightCube3GOBACK.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightCube3Ready44.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightGOBACK.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep6.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep7.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Paths/StartFromRight/RightRight_5cubescale/RightRightFromRightStep8Final.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/ConnectionMonitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/CriticalSystemsMonitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/HIDController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/LEDController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Reporters/CKMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Reporters/ConsoleReporter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Reporters/DashboardReporter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Reporters/MessageLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/RobbieRobot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Robot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Subsystems/ClimberSubsystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Subsystems/DriveBaseSubsystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CKAutoBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Climber/ClimberControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Controllers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CriticalSystemStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ArmPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CubeHandler/ElevatorPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CubeHandler/IntakeControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CustomAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CustomAuto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/CustomSubsystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/DiagnosableSubsystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/DriveControlState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/DriveHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/DriveMotorValues.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/CANSpeedControllerBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/CKTalonSRX.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/CKVictorSPX.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/KnightDigitalInput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/KnightJoystick.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverCANifier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/LEDDriverRGB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/NavX.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/PigeonDriver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/TalonHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Drivers/TuneablePID.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/ElapsedTimer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/FieldLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/GameSpecificMessageParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Loops/CrashTrackingRunnable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Loops/Loop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Loops/Looper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Loops/RobotStateEstimator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/MorseCodeTranslator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/MotorDiagnostics.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/PIDValues.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/QuickMaths.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/RGBColor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/Reportable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/ScaleHeightPriority.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/SetpointValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/ShiftHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/StartingPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TeleopActionRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/ThreadRateControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/AdaptivePurePursuitController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/CircularBuffer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/DelayedBoolean.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/DriveSignal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/GoalTrack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/GoalTracker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/HeadingProfileFollower.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Interpolable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InterpolatingDouble.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InterpolatingLong.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InterpolatingTreeMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/InverseInterpolable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Kinematics.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/LatchedBoolean.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Lookahead.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfileConstraints.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfileGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionProfileGoal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionSegment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MotionUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/MovingAverage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Path.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathFollower.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathFollowerRobotState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PathSegment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/PolynomialRegression.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/ProfileFollower.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/RigidTransform2d.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Rotation2d.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/SetpointGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/ShooterAimingParameters.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/SynchronousPIDF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/TargetInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/TimeDelayedBoolean.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Translation2d.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Twist2d.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnightGradle/src/main/java/org/usfirst/frc/team195/robot/Utilities/TrajectoryFollowingMotion/Util.java" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+    <option name="REVERSE_PATCH" value="false" />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any converted="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="TheDarkKnight_Gradle" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="TheDarkKnight_Gradle" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="TheDarkKnight_Gradle" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="TheDarkKnight_Gradle" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="myGradleHomes">
+      <map>
+        <entry key="$PROJECT_DIR$" value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4" />
+      </map>
+    </option>
+    <option name="myGradleVersions">
+      <map>
+        <entry key="$PROJECT_DIR$" value="4.4" />
+      </map>
+    </option>
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="TheDarkKnight_Gradle" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="TheDarkKnight_Gradle" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="availableTasks">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of root project 'TheDarkKnight_Gradle'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployFrcJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="wrapper" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deploy all artifacts on all targets" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deploy" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates the Eclipse classpath file." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipseClasspath" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of root project 'TheDarkKnight_Gradle'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Launch Smart Dashboard" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="smartDashboard" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from root project 'TheDarkKnight_Gradle'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run a console displaying output from the RoboRIO (roborio)" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="riologRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Initializes a new Gradle build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="init" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Determine the address(es) of target Roborio" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="discoverRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployNativeZips" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run a console displaying output from the default RoboRIO (roborio)" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="riolog" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in root project 'TheDarkKnight_Gradle'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates all Eclipse files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipse" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Print all versions of the wpi block" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="wpi" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployRoborioCommands" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates the Eclipse JDT settings file." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipseJdt" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates the Eclipse project file." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="eclipseProject" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Render the collected telemetry to the console" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="telemetry" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by root project 'TheDarkKnight_Gradle'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployNativeLibs" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipseClasspath" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Clean Clion IDE Files" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanClion" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Cleans all Eclipse files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipse" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in root project 'TheDarkKnight_Gradle'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in root project 'TheDarkKnight_Gradle'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipseProject" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generate Clion CMakeLists.txt files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clion" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Launch Shuffleboard" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="shuffleboard" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployJre" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanEclipseJdt" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in root project 'TheDarkKnight_Gradle'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Install the C++ FRC Toolchain for this system" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="installToolchain" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Simulate Task for Java/Kotlin/JVM" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="simulateJar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of root project 'TheDarkKnight_Gradle'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$/.gradle" value="0" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="3141368346" />
+        <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="1741342742" />
+      </map>
+    </option>
+    <option name="projectBuildClasspath">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <ExternalProjectBuildClasspathPojo>
+              <option name="modulesBuildClasspath">
+                <map>
+                  <entry key="$PROJECT_DIR$">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/gradle.plugin.jaci.openrio.gradle/GradleRIO/2018.03.06/3d7e4de436043f462e5377eba14bd045b0b280c8/GradleRIO-2018.03.06-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/gradle.plugin.jaci.openrio.gradle/GradleRIO/2018.03.06/78172612e51b431791103f9b0428a3a7bff98d6e/GradleRIO-2018.03.06.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/gradle.plugin.jaci.gradle/DeployTools/2018.02.04/2318254e7eed26d1062310471d23793a1fbd981a/DeployTools-2018.02.04-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/gradle.plugin.jaci.gradle/DeployTools/2018.02.04/6db9c819bd87e1a68d58af927ab74b1bb098aca9/DeployTools-2018.02.04.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.undercouch/gradle-download-task/3.1.2/a770cf45a3df7a09f2ae9f9d4d781338ca316189/gradle-download-task-3.1.2-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.undercouch/gradle-download-task/3.1.2/dbb5911739f1a18228847ad955c700a368db1ba4/gradle-download-task-3.1.2.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a6dc5db8a12928e583bd3f23e72d3ab611ecd58f/gson-2.2.4-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch/0.1.53/791359d94d6edcace686a56d0727ee093a2f7c33/jsch-0.1.53-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch/0.1.53/658b682d5c817b27ae795637dfec047c63d29935/jsch-0.1.53.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.2/b9f9e3e5255b6ddc3bf21be05428c7a60d00e042/httpclient-4.5.2-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.2/733db77aa8d9b2d68015189df76ab06304406e50/httpclient-4.5.2.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.4/c5c19e3e6af6b452def290cde12a3ee4c35c893c/httpcore-4.4.4-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.4/b31526a230871fbe285fbcbe2813f9c0839ae9b0/httpcore-4.4.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/ecf26c7507d67782a3bbd148d170b31dfad001aa/commons-logging-1.2-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.9/3f15fff45d57656685abfee9e8302bf14580044c/commons-codec-1.9-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.9/9ce04e34240f674bc72680f8b843b1457383161a/commons-codec-1.9.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="name" value="TheDarkKnight_Gradle" />
+              <option name="projectBuildClasspath">
+                <list>
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-wrapper-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-logging-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-native-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-runtime-api-info-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-kotlin-dsl-tooling-builders-0.13.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-build-cache-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-process-services-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-base-services-groovy-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-installation-beacon-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/groovy-all-2.4.12.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-core-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/ant-launcher-1.9.9.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-model-core-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/ant-1.9.9.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-base-services-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-kotlin-dsl-0.13.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-launcher-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-jvm-services-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-messaging-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-build-option-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-kotlin-dsl-tooling-models-0.13.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-persistent-cache-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-docs-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-cli-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-core-api-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-tooling-api-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-resources-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/gradle-model-groovy-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-announce-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-tooling-api-builders-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-ide-play-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-language-scala-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-plugin-use-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-version-control-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-language-native-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-build-comparison-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-plugins-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-jacoco-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-platform-native-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-javascript-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-workers-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-build-cache-http-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-ide-native-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-diagnostics-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-plugin-development-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-language-jvm-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-platform-base-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-testing-native-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-dependency-management-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-composite-builds-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-publish-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-ear-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-resources-http-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-scala-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-resources-gcs-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-ide-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-platform-play-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-reporting-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-antlr-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-language-java-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-language-groovy-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-osgi-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-ivy-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-test-kit-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-code-quality-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-resources-s3-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-signing-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-resources-sftp-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-maven-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-build-init-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-testing-jvm-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/ivy-2.2.0.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-testing-base-4.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/lib/plugins/gradle-platform-jvm-4.4.jar" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/java" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/groovy" />
+                </list>
+              </option>
+            </ExternalProjectBuildClasspathPojo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1680" />
+    <option name="height" value="1050" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state />
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Gradle.TheDarkKnightGradle [clean]">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TheDarkKnightGradle [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+    </configuration>
+    <configuration name="TheDarkKnightGradle [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <patterns />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="TheDarkKnightGradle" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method>
+        <option name="BuildArtifacts" enabled="false" />
+      </method>
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.TheDarkKnightGradle [build]" />
+      <item itemvalue="Gradle.TheDarkKnightGradle [clean]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.TheDarkKnightGradle [clean]" />
+        <item itemvalue="Gradle.TheDarkKnightGradle [build]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="40a3f3f4-9b80-4375-8cd1-ba1b3e604b54" name="Default" comment="" />
+      <created>1525663040197</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1525663040197</updated>
+      <workItem from="1525663041430" duration="31000" />
+      <workItem from="1525663088641" duration="128000" />
+      <workItem from="1525663378786" duration="16000" />
+      <workItem from="1525663641703" duration="24000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="199000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <layout>
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="6" weight="0.32967034" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32923076" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25579977" />
+      <window_info anchor="bottom" id="Build" order="8" weight="0.32923076" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Gradle" order="1" visible="true" weight="0.32967034" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="9" weight="0.24969475" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="FRC" order="7" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>TheDarkKnightGradle</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Gradle: edu.wpi.first.cscore:cscore-java:1.3.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
