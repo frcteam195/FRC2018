@@ -14,6 +14,7 @@ deploy {
     targets {
         target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
             team = TEAM
+            addresses << '10.1.95.2' << 'roborio-195-frc.local'
         }
     }
     artifacts {
@@ -44,6 +45,10 @@ dependencies {
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+}
+
+telemetry {
+    reportTelemetry = false
 }
 
 task wrapper(type: Wrapper) {
