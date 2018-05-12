@@ -1,6 +1,12 @@
 package org.usfirst.frc.team195.robot.Reporters;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc.team195.robot.AutoSelectionReceiver;
 import org.usfirst.frc.team195.robot.Utilities.*;
+import org.usfirst.frc.team195.robot.Utilities.Loops.RobotStateEstimator;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathFollowerRobotState;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.RigidTransform2d;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Translation2d;
 
 import java.io.IOException;
 import java.net.*;
@@ -105,6 +111,9 @@ public class MobileDiagnosticsReporter {
 							case "diagnostics":
 								sendData = DashboardReporter.getInstance(null).getSendData().clone();
 								break;
+							case "autonomous":
+								sendData = buildAutoTrackerData();
+								break;
 							default:
 								sendData = null;
 								break;
@@ -126,6 +135,17 @@ public class MobileDiagnosticsReporter {
 				}
 			}
 		}
+	}
 
+	private byte[] buildAutoTrackerData() {
+		//RigidTransform2d tmp = PathFollowerRobotState.getInstance().getLatestFieldToVehicle().getValue();
+		RigidTransform2d tmp = new RigidTransform2d();
+		String retVal = "";
+		retVal += "Alliance:" + DriverStation.getInstance().getAlliance() + ";";
+		retVal += "RobotX:" + tmp.getTranslation().x() + ";";
+		retVal += "RobotY:" + tmp.getTranslation().y() + ";";
+		retVal += "RobotAngle:" + tmp.getRotation().getDegrees() + ";";
+		retVal += "StartPos:" + AutoSelectionReceiver.getInstance().getStartingPosition() + ";";
+		return retVal.getBytes();
 	}
 }
