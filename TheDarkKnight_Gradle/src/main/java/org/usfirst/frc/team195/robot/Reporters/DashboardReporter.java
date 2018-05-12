@@ -33,11 +33,14 @@ public class DashboardReporter extends Thread {
 	private boolean runThread;
 	
 	private static DashboardReporter instance;
-	
+
 	public static DashboardReporter getInstance(List<CustomSubsystem> subsystemList) {
 		if(instance == null) {
 			try {
-				instance = new DashboardReporter(subsystemList);
+				if (subsystemList != null)
+					instance = new DashboardReporter(subsystemList);
+				else
+					throw new Exception("Cannot create DashboardReporter when first instance subsystem list is null!");
 			} catch (Exception ex) {
 				ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
 			}
@@ -84,6 +87,10 @@ public class DashboardReporter extends Thread {
 		
 		if(!clientSocket.isClosed())
 			clientSocket.close();
+	}
+
+	public synchronized byte[] getSendData() {
+		return sendData;
 	}
 
 	private byte[] createSendData() {

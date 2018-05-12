@@ -17,6 +17,7 @@ import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightRight.
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
+import org.usfirst.frc.team195.robot.Reporters.MobileDiagnosticsReporter;
 import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
@@ -43,7 +44,8 @@ public class Robot extends RobbieRobot {
 	private GameSpecificMessageParser gameSpecificMessageParser;
 	private ThreadRateControl threadRateControl = new ThreadRateControl();
 	private AutoSelectionReceiver autoSelectionReceiver;
-	
+	private MobileDiagnosticsReporter mobileDiagnosticsReporter;
+
 	public Robot() {
 		;
 	}
@@ -97,10 +99,14 @@ public class Robot extends RobbieRobot {
 		dashboardReporter = DashboardReporter.getInstance(subsystemVector);
 		dashboardReporter.start();
 
+		//Start the MobileDiagnosticsReporter after the DashboardReporter, since it is dependent on Dashboard running
+		mobileDiagnosticsReporter = MobileDiagnosticsReporter.getInstance();
+		mobileDiagnosticsReporter.setPortNumber(Constants.MOBILE_DIAGNOSTICS_PORT);
+		mobileDiagnosticsReporter.start();
+
 		//Setup the CriticalSystemsMonitor once all other subsystems have been initialized
 		criticalSystemsMonitor = CriticalSystemsMonitor.getInstance(subsystemVector);
 		criticalSystemsMonitor.start();
-
 
 		ConsoleReporter.report("Robot Init Complete!", MessageLevel.INFO);
 	}
