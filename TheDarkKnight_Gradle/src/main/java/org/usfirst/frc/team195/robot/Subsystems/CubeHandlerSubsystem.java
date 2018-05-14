@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.LEDController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.*;
@@ -22,6 +23,8 @@ import org.usfirst.frc.team195.robot.Utilities.Loops.Looper;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,8 +90,6 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private double elevatorRequestHomingTime = 0;
 
 	private boolean blinkOnHome = true;
-
-
 
 	private CubeHandlerSubsystem() throws Exception {
 		ds = DriverStation.getInstance();
@@ -605,10 +606,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		retVal += "ElevatorPosReq:" + elevatorHeight + ";";
 		retVal += "ElevatorPosAct:" + (mElevatorMotorMaster.getSelectedSensorPosition(0) * Constants.kElevatorEncoderGearRatio / Constants.kSensorUnitsPerRotation) + ";";
 		retVal += "ElevatorFault:" + (isElevatorFaulted() || mElevatorControl == ElevatorControl.OFF) + ";";
+		retVal += "ElevatorHomeSwitch:" + mElevatorHomeSwitch.get() + ";";
+		retVal += "ElevatorMode:" + mElevatorControl.toString() + ";";
 
 		retVal += "Arm1PosReq:" + armRotation + ";";
 		retVal += "Arm1PosAct:" + (mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree) + ";";
 		retVal += "ArmFault:" + (isArmFaulted() || mArmControl == ArmControl.OPEN_LOOP) + ";";
+		retVal += "ArmMode:" + mArmControl.toString() + ";";
 
 		retVal += "HasCube:" + mCubeSensor.get() + ";";
 
@@ -796,6 +800,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			}
 
 			ConsoleReporter.report("Arm Talon has reset! Arm may require rehoming! We tried to prevent this for you, but who knows...", MessageLevel.DEFCON1);
+			DashboardReporter.addDiagnosticMessage("ArmResetHasOccurred");
 
 			boolean setSucceeded;
 			int retryCounter = 0;
@@ -828,6 +833,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (mIntakeMotor.hasResetOccurred()) {
 
 			ConsoleReporter.report("Intake 1 Talon has reset!", MessageLevel.DEFCON1);
+			DashboardReporter.addDiagnosticMessage("Intake1ResetHasOccurred");
 
 			boolean setSucceeded;
 			int retryCounter = 0;
@@ -846,6 +852,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		if (mIntake2Motor.hasResetOccurred()) {
 
 			ConsoleReporter.report("Intake 2 Talon has reset!", MessageLevel.DEFCON1);
+			DashboardReporter.addDiagnosticMessage("Intake2ResetHasOccurred");
 
 			boolean setSucceeded;
 			int retryCounter = 0;
@@ -900,6 +907,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			setElevatorControl(ElevatorControl.OFF);
 
 			ConsoleReporter.report("Elevator requires rehoming!", MessageLevel.DEFCON1);
+			DashboardReporter.addDiagnosticMessage("ElevatorMasterResetHasOccurred");
 
 			boolean setSucceeded;
 			int retryCounter = 0;
@@ -916,8 +924,13 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 			//elevatorFault = true;
 		}
 
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(mElevatorMotorSlave, "ElevatorSlave1"));
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(mElevatorMotorSlave2, "ElevatorSlave2"));
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(mElevatorMotorSlave3, "ElevatorSlave3"));
+
 		return elevatorFault;
 	}
+
 
 	public boolean isElevatorFaulted() {
 		return elevatorFault;

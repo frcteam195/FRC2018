@@ -4,13 +4,12 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
-import org.usfirst.frc.team195.robot.Utilities.Constants;
-import org.usfirst.frc.team195.robot.Utilities.CustomSubsystem;
-import org.usfirst.frc.team195.robot.Utilities.Reportable;
-
-import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
+import org.usfirst.frc.team195.robot.Utilities.*;
 
 public class DashboardReporter extends Thread {
 
@@ -33,6 +32,9 @@ public class DashboardReporter extends Thread {
 	private boolean runThread;
 	
 	private static DashboardReporter instance;
+
+	private static HashSet<DiagnosticMessage> diagnosticMessages = new HashSet<>();
+	private static ReentrantLock _reporterMutex = new ReentrantLock();
 
 	public static DashboardReporter getInstance(List<CustomSubsystem> subsystemList) {
 		if(instance == null) {
@@ -99,6 +101,24 @@ public class DashboardReporter extends Thread {
 			if (customSubsystem instanceof Reportable)
 				stringBuilder.append(((Reportable) customSubsystem).generateReport());
 		}
+
+		stringBuilder.append("DiagnosticMessages:");
+
+		_reporterMutex.lock();
+		try {
+			for (Iterator<DiagnosticMessage> i = diagnosticMessages.iterator(); i.hasNext(); ) {
+				DiagnosticMessage m = i.next();
+
+				stringBuilder.append(m.getMessage()).append("|");
+
+				i.remove();
+			}
+		} finally {
+			_reporterMutex.unlock();
+		}
+
+		stringBuilder.append(";");
+
 		return stringBuilder.toString().getBytes();
 	}
 	
@@ -107,6 +127,19 @@ public class DashboardReporter extends Thread {
 		runThread = true;
 		ConsoleReporter.report("Dashboard Reporter Started!", MessageLevel.INFO);
 		super.start();
+	}
+
+	public static void addDiagnosticMessage(String diagnosticMessage) {
+		diagnosticMessages.add(new DiagnosticMessage(diagnosticMessage));
+	}
+
+	public static void addDiagnosticMessage(DiagnosticMessage diagnosticMessage) {
+		_reporterMutex.lock();
+		try {
+			diagnosticMessages.add(diagnosticMessage);
+		} finally {
+			_reporterMutex.unlock();
+		}
 	}
 	
 }

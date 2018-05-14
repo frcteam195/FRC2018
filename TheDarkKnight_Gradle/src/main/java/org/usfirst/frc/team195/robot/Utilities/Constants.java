@@ -85,6 +85,7 @@ public class Constants {
 	public static final int BB2_CLIMBER_CLIMB_ROLL_DEPLOY = 6;
 	public static final int BB2_CLIMBER_CLIMB_IN = 7;
 	public static final int BB2_CLIMBER_CLIMB_HOOK_SLOW = 8;
+	public static final int BB2_ELEVATOR_CALCULATED_SCALE = 9;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
@@ -305,6 +306,7 @@ public class Constants {
 	public static final int kElevatorMaxAccelUp = 1600;	//Old value was 1600, fast 1900
 	public static final int kElevatorMaxVelocityDown = 1200;	//1200
 	public static final int kElevatorMaxAccelDown = 5500;	//5500
+	public static final double kElevatorInchesPerRotation = 10;
 
 //	Old gains for climber motor
 //	public static final double kClimberKp = 1;
@@ -411,7 +413,12 @@ public class Constants {
 
 
 
-
+	//////////////////////////////////////
+	//FIRST POWER UP CONFIG DATA - Measurements in Inches
+	private static final double kScaleArmTotalLength = 180.85;
+	private static final double kScalePlateLength = 39;
+	public static final double kScaleLevelHeight = 74;
+	public static final double kScaleArmCenterToPlateEdge = kScaleArmTotalLength / 2.0 - kScalePlateLength;
 	//////////////////////////////////////
 
 

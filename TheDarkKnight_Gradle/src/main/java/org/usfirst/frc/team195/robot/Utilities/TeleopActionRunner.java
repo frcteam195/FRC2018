@@ -22,6 +22,10 @@ public class TeleopActionRunner {
 		this.timeout = timeout;
 	}
 
+	public TeleopActionRunner(Action action) {
+		this(action, Constants.kActionTimeoutS);
+	}
+
 	public boolean isFinished() {
 		return finished;
 	}

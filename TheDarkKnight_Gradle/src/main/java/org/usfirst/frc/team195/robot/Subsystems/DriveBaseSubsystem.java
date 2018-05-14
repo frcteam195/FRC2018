@@ -3,11 +3,10 @@ package org.usfirst.frc.team195.robot.Subsystems;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Drivers.CKTalonSRX;
@@ -46,7 +45,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	private SetpointValue rightSetpointValue = new SetpointValue();
 	private Rotation2d mTargetHeading = new Rotation2d();
 	private boolean mIsOnTarget = false;
-
+	private boolean mIsDriveFaulted = false;
 
 	private boolean emergencySafetyRequired = false;
 
@@ -233,19 +232,24 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	public String generateReport() {
 		String retVal = "";
 
-		retVal += "LeftDrivePos:" + mLeftMaster.getSelectedSensorVelocity(0) + ";";
-		retVal += "LeftDriveVel:" + mLeftMaster.getSelectedSensorPosition(0) + ";";
+		retVal += "LeftDrivePos:" + mLeftMaster.getSelectedSensorPosition(0) + ";";
+		retVal += "LeftDriveVel:" + mLeftMaster.getSelectedSensorVelocity(0) + ";";
 		retVal += "LeftDriveOutput:" + leftDriveSpeed + ";";
 		retVal += "LeftDrive1Current:" + mLeftMaster.getOutputCurrent() + ";";
 		retVal += "LeftDrive2Current:" + leftDriveSlave1.getOutputCurrent() + ";";
 		retVal += "LeftDrive3Current:" + leftDriveSlave2.getOutputCurrent() + ";";
 
-		retVal += "RightDrivePos:" + mRightMaster.getSelectedSensorVelocity(0) + ";";
-		retVal += "RightDriveVel:" + mRightMaster.getSelectedSensorPosition(0) + ";";
+		retVal += "RightDrivePos:" + mRightMaster.getSelectedSensorPosition(0) + ";";
+		retVal += "RightDriveVel:" + mRightMaster.getSelectedSensorVelocity(0) + ";";
 		retVal += "RightDriveOutput:" + rightDriveSpeed + ";";
 		retVal += "RightDrive1Current:" + mRightMaster.getOutputCurrent() + ";";
 		retVal += "RightDrive2Current:" + rightDriveSlave1.getOutputCurrent() + ";";
 		retVal += "RightDrive3Current:" + rightDriveSlave2.getOutputCurrent() + ";";
+
+		retVal += "DriveMode:" + mControlMode.toString() + ";";
+		retVal += "RobotPosition:" + PathFollowerRobotState.getInstance().getLatestFieldToVehicle().getValue().toString() + ";";
+
+		retVal += "IsDriveFaulted:" + isDriveFaulted() + ";";
 
 		return retVal;
 	}
@@ -348,36 +352,19 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 			DriverStation.reportError(msg, false);
 		}
 
-		checkMotorReset(mLeftMaster, "Left Drive Master");
-		checkMotorReset(leftDriveSlave1, "Left Drive Slave 1");
-		checkMotorReset(leftDriveSlave2, "Left Drive Slave 2");
-		checkMotorReset(mRightMaster, "Right Drive Master");
-		checkMotorReset(rightDriveSlave1, "Right Drive Slave 1");
-		checkMotorReset(rightDriveSlave2, "Right Drive Slave 2");
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(mLeftMaster, "Left Drive Master"));
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(leftDriveSlave1, "Left Drive Slave 1"));
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(leftDriveSlave2, "Left Drive Slave 2"));
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(mRightMaster, "Right Drive Master"));
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(rightDriveSlave1, "Right Drive Slave 1"));
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(rightDriveSlave2, "Right Drive Slave 2"));
 
+		mIsDriveFaulted = !allSensorsPresent;
 		return !allSensorsPresent;
 	}
 
-	private boolean checkMotorReset(BaseMotorController motorController, String name) {
-		if (motorController.hasResetOccurred()) {
-
-			ConsoleReporter.report(name + " Talon has reset!", MessageLevel.DEFCON1);
-
-			boolean setSucceeded;
-			int retryCounter = 0;
-
-			do {
-				setSucceeded = true;
-				setSucceeded &= motorController.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
-			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
-
-			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
-				ConsoleReporter.report("Failed to clear " + name + " Reset !!!!!!", MessageLevel.DEFCON1);
-
-			return true;
-		}
-
-		return false;
+	public boolean isDriveFaulted() {
+		return mIsDriveFaulted;
 	}
 
 	public boolean isHighGear() {

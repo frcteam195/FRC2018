@@ -139,6 +139,6 @@ public class Rotation2d implements Interpolable<Rotation2d> {
     @Override
     public String toString() {
         final DecimalFormat fmt = new DecimalFormat("#0.000");
-        return "(" + fmt.format(getDegrees()) + " deg)";
+        return "(" + fmt.format(getDegrees()) + "deg)";
     }
 }

@@ -5,15 +5,18 @@ import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeBase;
 import org.usfirst.frc.team195.robot.Autonomous.Framework.AutoModeExecuter;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Left.LeftFromCenterMode_3CubeSwitch;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromCenter.Right.RightFromCenterMode_3CubeSwitch;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.Calculated.LeftFromLeft3CubeScaleModeCalculated;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.Calculated.RightFromLeft3CubeScaleModeCalculated;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft3CubeScaleMode;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.LeftLeft.LeftFromLeft3CubeScaleModeAlt;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.RightRight.RightFromLeft3CubeScaleMode;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromLeft.RightRight.RightFromLeft3CubeScaleModeAlt;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.Calculated.LeftFromRight3CubeScaleModeCalculated;
+import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.Calculated.RightFromRight3cubeScaleModeCalculated;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleMode;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleModeAlt;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScale;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScaleAlt;
-import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.RightRight.RightRightFromRight_5cubescale;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
@@ -45,6 +48,8 @@ public class Robot extends RobbieRobot {
 	private ThreadRateControl threadRateControl = new ThreadRateControl();
 	private AutoSelectionReceiver autoSelectionReceiver;
 	private MobileDiagnosticsReporter mobileDiagnosticsReporter;
+
+	private static FieldLayout fieldLayout = FieldLayout.UNDEFINED;
 
 	public Robot() {
 		;
@@ -122,10 +127,8 @@ public class Robot extends RobbieRobot {
 
 		StartingPosition startingPosition = autoSelectionReceiver.getStartingPosition();
 		boolean scaleIsHigh = autoSelectionReceiver.getScaleHeightPriority() == ScaleHeightPriority.HIGH;
-		// Don't terminate if you want to run auto again without rebooting code
-//		autoSelectionReceiver.terminate();
 
-		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
+		fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
 		AutoModeBase autoMode = null;
 		if (!gameSpecificMessageParser.isAutoDisabled() && fieldLayout != FieldLayout.UNDEFINED) {
 			switch (startingPosition) {
@@ -203,6 +206,10 @@ public class Robot extends RobbieRobot {
 		System.exit(1);
 	}
 
+	public static FieldLayout getFieldLayout() {
+		return fieldLayout;
+	}
+
 	private void exitAuto() {
 		try {
 			if (autoModeExecuter != null)
@@ -215,35 +222,59 @@ public class Robot extends RobbieRobot {
 	}
 
 	private AutoModeBase getModeStartingLeft(FieldLayout fieldLayout, boolean scaleIsHigh) {
-		switch (fieldLayout) {
-			case LEFT_LEFT:
-				return scaleIsHigh ? new LeftFromLeft3CubeScaleModeAlt() : new LeftFromLeft3CubeScaleMode();
-			case LEFT_RIGHT:
-				return scaleIsHigh ? new RightFromLeft3CubeScaleModeAlt() :  new RightFromLeft3CubeScaleMode();
-			case RIGHT_LEFT:
-				return scaleIsHigh ? new LeftFromLeft3CubeScaleModeAlt() : new LeftFromLeft3CubeScaleMode();
-			case RIGHT_RIGHT:
-				return scaleIsHigh ? new RightFromLeft3CubeScaleModeAlt() :  new RightFromLeft3CubeScaleMode();
-			case UNDEFINED:
-			default:
-				break;
+		if (autoSelectionReceiver.isScaleHeightValid()) {
+			switch (fieldLayout) {
+				case LEFT_LEFT:
+				case RIGHT_LEFT:
+					return new LeftFromLeft3CubeScaleModeCalculated();
+				case LEFT_RIGHT:
+				case RIGHT_RIGHT:
+					return new RightFromLeft3CubeScaleModeCalculated();
+				case UNDEFINED:
+				default:
+					break;
+			}
+		} else {
+			switch (fieldLayout) {
+				case LEFT_LEFT:
+				case RIGHT_LEFT:
+					return scaleIsHigh ? new LeftFromLeft3CubeScaleModeAlt() : new LeftFromLeft3CubeScaleMode();
+				case LEFT_RIGHT:
+				case RIGHT_RIGHT:
+					return scaleIsHigh ? new RightFromLeft3CubeScaleModeAlt() : new RightFromLeft3CubeScaleMode();
+				case UNDEFINED:
+				default:
+					break;
+			}
 		}
 		return null;
 	}
 
 	private AutoModeBase getModeStartingRight(FieldLayout fieldLayout, boolean scaleIsHigh) {
-		switch (fieldLayout) {
-			case LEFT_LEFT:
-				return scaleIsHigh ? new LeftFromRight3CubeScaleModeAlt() : new LeftFromRight3CubeScaleMode();
-			case LEFT_RIGHT:
-				return scaleIsHigh ? new LeftRightFromRightMode_3cubeScaleAlt() : new LeftRightFromRightMode_3cubeScale();
-			case RIGHT_LEFT:
-				return scaleIsHigh ? new LeftFromRight3CubeScaleModeAlt() : new LeftFromRight3CubeScaleMode();
-			case RIGHT_RIGHT:
-				return scaleIsHigh ? new LeftRightFromRightMode_3cubeScaleAlt() : new LeftRightFromRightMode_3cubeScale();
-			case UNDEFINED:
-			default:
-				break;
+		if (autoSelectionReceiver.isScaleHeightValid()) {
+			switch (fieldLayout) {
+				case LEFT_LEFT:
+				case RIGHT_LEFT:
+					return new LeftFromRight3CubeScaleModeCalculated();
+				case LEFT_RIGHT:
+				case RIGHT_RIGHT:
+					return new RightFromRight3cubeScaleModeCalculated();
+				case UNDEFINED:
+				default:
+					break;
+			}
+		} else {
+			switch (fieldLayout) {
+				case LEFT_LEFT:
+				case RIGHT_LEFT:
+					return scaleIsHigh ? new LeftFromRight3CubeScaleModeAlt() : new LeftFromRight3CubeScaleMode();
+				case LEFT_RIGHT:
+				case RIGHT_RIGHT:
+					return scaleIsHigh ? new LeftRightFromRightMode_3cubeScaleAlt() : new LeftRightFromRightMode_3cubeScale();
+				case UNDEFINED:
+				default:
+					break;
+			}
 		}
 		return null;
 	}
@@ -251,11 +282,9 @@ public class Robot extends RobbieRobot {
 	private AutoModeBase getModeStartingCenter(FieldLayout fieldLayout, boolean scaleIsHigh) {
 		switch (fieldLayout) {
 			case LEFT_LEFT:
-				return new LeftFromCenterMode_3CubeSwitch();
 			case LEFT_RIGHT:
 				return new LeftFromCenterMode_3CubeSwitch();
 			case RIGHT_LEFT:
-				return new RightFromCenterMode_3CubeSwitch();
 			case RIGHT_RIGHT:
 				return new RightFromCenterMode_3CubeSwitch();
 			case UNDEFINED:

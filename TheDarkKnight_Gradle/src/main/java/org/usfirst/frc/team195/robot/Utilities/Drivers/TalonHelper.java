@@ -1,8 +1,12 @@
 package org.usfirst.frc.team195.robot.Utilities.Drivers;
 
 import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.Constants;
+import org.usfirst.frc.team195.robot.Utilities.DiagnosticMessage;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 public class TalonHelper {
@@ -115,5 +119,27 @@ public class TalonHelper {
 			talon.configMotionAcceleration(Util.convertRPMToNativeUnits(maxAccelRPM), slotIdx, timeout);
 		}
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
+	}
+
+	public static DiagnosticMessage checkMotorReset(BaseMotorController motorController, String name) {
+		if (motorController.hasResetOccurred()) {
+
+			ConsoleReporter.report(name + " Talon has reset!", MessageLevel.DEFCON1);
+
+			boolean setSucceeded;
+			int retryCounter = 0;
+
+			do {
+				setSucceeded = true;
+				setSucceeded &= motorController.clearStickyFaults(Constants.kTimeoutMsFast) == ErrorCode.OK;
+			} while(!setSucceeded && retryCounter++ < Constants.kTalonRetryCount);
+
+			if (retryCounter >= Constants.kTalonRetryCount || !setSucceeded)
+				ConsoleReporter.report("Failed to clear " + name + " Reset !!!!!!", MessageLevel.DEFCON1);
+
+			return new DiagnosticMessage(name.replace(" ", "") + "ResetHasOccurred");
+		}
+
+		return DiagnosticMessage.NO_MSG;
 	}
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team195.robot.Actions;
 
 import org.usfirst.frc.team195.robot.Actions.CubeHandlerActions.*;
 import org.usfirst.frc.team195.robot.Actions.Framework.*;
+import org.usfirst.frc.team195.robot.AutoSelectionReceiver;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ArmPosition;
 import org.usfirst.frc.team195.robot.Utilities.CubeHandler.ElevatorPosition;
@@ -215,6 +216,15 @@ public class AutomatedActions {
 
 	public static Action OutakeCubeALittleLessFast() {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
+	}
+
+	public static Action PreparePlaceCubeCalculatedScaleHeight() {
+		return new SetElevatorHeightAction(AutoSelectionReceiver.getInstance().getScaleHeightRotations());
+	}
+
+	public static ParallelAction PreparePlaceCubeCalculatedScaleHeight(double armPosition) {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(armPosition),
+												PreparePlaceCubeCalculatedScaleHeight()));
 	}
 
 }

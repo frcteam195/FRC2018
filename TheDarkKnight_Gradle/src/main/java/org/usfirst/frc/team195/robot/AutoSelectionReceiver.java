@@ -1,12 +1,8 @@
 package org.usfirst.frc.team195.robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Utilities.Constants;
-import org.usfirst.frc.team195.robot.Utilities.ScaleHeightPriority;
-import org.usfirst.frc.team195.robot.Utilities.StartingPosition;
-import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
+import org.usfirst.frc.team195.robot.Utilities.*;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -32,6 +28,9 @@ public class AutoSelectionReceiver {
 
 	private StartingPosition startingPosition = StartingPosition.RIGHT;
 	private ScaleHeightPriority scaleHeightPriority = ScaleHeightPriority.LOW;
+
+	private double scaleAngleDeg = -999;
+	private double mTempScaleAngleDeg = -999;
 
 	private AutoSelectionReceiver() throws Exception {
 		super();
@@ -75,6 +74,7 @@ public class AutoSelectionReceiver {
 						processUDPPacket(receivePacket.getData());
 						startingPosition = mTempStartingPosition;
 						scaleHeightPriority = mTempScalePriority;
+						scaleAngleDeg = mTempScaleAngleDeg;
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -94,6 +94,41 @@ public class AutoSelectionReceiver {
 		runThread = false;
 	}
 
+	public double getScaleAngleDeg() {
+		return scaleAngleDeg;
+	}
+
+	private double getScaleHeightInches() {
+		if (scaleAngleDeg == -999)
+			return -1;
+
+		double deltaY = Math.asin(Math.toRadians(scaleAngleDeg)) * Constants.kScaleArmCenterToPlateEdge;
+
+		double leftScaleHeight = Constants.kScaleLevelHeight + deltaY;
+		double rightScaleHeight = Constants.kScaleLevelHeight - deltaY;
+
+		FieldLayout f = Robot.getFieldLayout();
+		switch (f) {
+			case LEFT_LEFT:
+			case RIGHT_LEFT:
+				return leftScaleHeight;
+			case LEFT_RIGHT:
+			case RIGHT_RIGHT:
+				return rightScaleHeight;
+			case UNDEFINED:
+			default:
+				return -1;
+		}
+	}
+
+	public double getScaleHeightRotations() {
+		return getScaleHeightInches() / Constants.kElevatorInchesPerRotation;
+	}
+
+	public boolean isScaleHeightValid() {
+		return getScaleHeightInches() > 0;
+	}
+
 	public StartingPosition getStartingPosition() {
 		return startingPosition;
 	}
@@ -107,6 +142,7 @@ public class AutoSelectionReceiver {
 		String[] sArr = sData.split(";");
 		int autoStartPos = -1;
 		int scaleHeight = -1;
+		double scaleAngleDeg = -999;
 		for (String s : sArr) {
 			String[] sArrProcess = s.split(":");
 			if (sArrProcess.length == 2) {
@@ -121,12 +157,16 @@ public class AutoSelectionReceiver {
 						case "scale":
 							scaleHeight = Integer.parseInt(value);
 							break;
+						case "scaleangle":
+							scaleAngleDeg = Double.parseDouble(value);
+							break;
 						default:
 							break;
 					}
 				} catch (Exception ex) {
 					autoStartPos = -1;
 					scaleHeight = -1;
+					scaleAngleDeg = -999;
 
 					if (Constants.DEBUG)
 						ConsoleReporter.report(ex.toString(), MessageLevel.ERROR);
@@ -149,7 +189,7 @@ public class AutoSelectionReceiver {
 				break;
 		}
 
-		switch (autoStartPos) {
+		switch (scaleHeight) {
 			case 0:
 				mTempScalePriority = ScaleHeightPriority.LOW;
 				break;
@@ -160,6 +200,8 @@ public class AutoSelectionReceiver {
 				mTempScalePriority = ScaleHeightPriority.LOW;
 				break;
 		}
+
+		this.mTempScaleAngleDeg = scaleAngleDeg;
 	}
 
 }

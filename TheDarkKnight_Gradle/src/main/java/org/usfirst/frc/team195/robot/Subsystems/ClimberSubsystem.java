@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 import org.usfirst.frc.team195.robot.Utilities.Climber.ClimberControl;
@@ -21,6 +22,8 @@ import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Synchro
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -232,6 +235,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 		retVal += "ClimberFault:" + isClimberFaulted() + ";";
 		retVal += "Climber1Current:" + mClimberMotorMaster.getOutputCurrent() + ";";
 		retVal += "Climber2Current:" + mClimberMotorSlave.getOutputCurrent() + ";";
+		retVal += "ClimberMode:" + mClimberControl.toString() + ";";
 
 		return retVal;
 	}
@@ -312,6 +316,7 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 			setClimberControl(ClimberControl.OPEN_LOOP);
 
 			ConsoleReporter.report("Climber requires rehoming!", MessageLevel.DEFCON1);
+			DashboardReporter.addDiagnosticMessage("ClimberMasterResetHasOccurred");
 
 			boolean setSucceeded;
 			int retryCounter = 0;
@@ -326,6 +331,8 @@ public class ClimberSubsystem implements CriticalSystemStatus, CustomSubsystem, 
 
 			climberFault = true;
 		}
+
+		DashboardReporter.addDiagnosticMessage(TalonHelper.checkMotorReset(mClimberMotorSlave, "ClimberSlave"));
 
 		return climberFault;
 	}

@@ -178,6 +178,6 @@ public class RigidTransform2d implements Interpolable<RigidTransform2d> {
 
     @Override
     public String toString() {
-        return "T:" + translation_.toString() + ", R:" + rotation_.toString();
+        return "T" + translation_.toString() + ",R" + rotation_.toString();
     }
 }
