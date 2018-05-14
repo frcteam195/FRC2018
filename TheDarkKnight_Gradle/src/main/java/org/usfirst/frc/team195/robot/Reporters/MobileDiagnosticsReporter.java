@@ -109,7 +109,7 @@ public class MobileDiagnosticsReporter {
 					try {
 						switch (value) {
 							case "diagnostics":
-								sendData = DashboardReporter.getInstance(null).getSendData().clone();
+								sendData = buildDiagnosticData();
 								break;
 							case "autonomous":
 								sendData = buildAutoTrackerData();
@@ -135,6 +135,10 @@ public class MobileDiagnosticsReporter {
 				}
 			}
 		}
+	}
+
+	private byte[] buildDiagnosticData() {
+		return DashboardReporter.getInstance(null).getSendData().clone();
 	}
 
 	private byte[] buildAutoTrackerData() {
