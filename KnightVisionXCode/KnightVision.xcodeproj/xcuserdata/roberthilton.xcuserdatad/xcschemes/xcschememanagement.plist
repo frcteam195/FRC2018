@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>KnightVision.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>OpenCVTestSingleImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>B701EEF81E5545470045DFEF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B73A3BE61E50396D00767B4E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B73A3C0A1E503CC300767B4E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B797A04D1E6DD9140012E649</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B797A0581E6DD92F0012E649</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
