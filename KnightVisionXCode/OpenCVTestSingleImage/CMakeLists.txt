@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
+set(CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_FLAGS "--std=gnu++11 ${CMAKE_CXX_FLAGS}")
+project(OpenCVTestSingleImage)
+find_package(OpenCV)
+include_directories(${OpenCV_INCLUDE_DIRS})
+add_executable(OpenCVTestSingleImage main.cpp)
+target_link_libraries(OpenCVTestSingleImage ${OpenCV_LIBS})

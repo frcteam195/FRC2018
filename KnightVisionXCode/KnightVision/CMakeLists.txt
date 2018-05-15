@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
+set(CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_FLAGS "--std=gnu++11 ${CMAKE_CXX_FLAGS}")
+project(KnightVision)
+find_package(OpenCV)
+include_directories(${OpenCV_INCLUDE_DIRS})
+add_executable(KnightVision KnightVision.cpp UDPSocket.cpp UDPSocket.h SimpleGPIO.cpp SimpleGPIO.h KnightCamera.cpp KnightCamera.h)
+target_link_libraries(KnightVision ${OpenCV_LIBS})
