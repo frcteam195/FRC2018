@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team195.robot.AutoSelectionReceiver;
 import org.usfirst.frc.team195.robot.LEDController;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
@@ -617,6 +618,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		retVal += "HasCube:" + mCubeSensor.get() + ";";
 
 		retVal += "IntakeCurrent:" + mIntakeMotor.getOutputCurrent() + ";";
+		//TODO: Monitor performance of this method
+		retVal += "ScaleHeightInches:" + AutoSelectionReceiver.getInstance().getScaleHeightInches() + ";";
 
 		return retVal;
 	}

@@ -1,9 +1,11 @@
 package org.usfirst.frc.team195.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
 
+import java.io.Console;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -98,8 +100,8 @@ public class AutoSelectionReceiver {
 		return scaleAngleDeg;
 	}
 
-	private double getScaleHeightInches() {
-		if (scaleAngleDeg == -999)
+	public double getScaleHeightInches() {
+		if (scaleAngleDeg < -360)
 			return -1;
 
 		double deltaY = Math.asin(Math.toRadians(scaleAngleDeg)) * Constants.kScaleArmCenterToPlateEdge;
@@ -107,7 +109,7 @@ public class AutoSelectionReceiver {
 		double leftScaleHeight = Constants.kScaleLevelHeight + deltaY;
 		double rightScaleHeight = Constants.kScaleLevelHeight - deltaY;
 
-		FieldLayout f = Robot.getFieldLayout();
+		FieldLayout f = GameSpecificMessageParser.getInstance().getTargetFieldLayout();
 		switch (f) {
 			case LEFT_LEFT:
 			case RIGHT_LEFT:
@@ -119,9 +121,12 @@ public class AutoSelectionReceiver {
 			default:
 				return -1;
 		}
+
 	}
 
+
 	public double getScaleHeightRotations() {
+		SmartDashboard.putNumber("ScaleHeightRotations", getScaleHeightInches() / Constants.kElevatorInchesPerRotation);
 		return getScaleHeightInches() / Constants.kElevatorInchesPerRotation;
 	}
 

@@ -49,8 +49,6 @@ public class Robot extends RobbieRobot {
 	private AutoSelectionReceiver autoSelectionReceiver;
 	private MobileDiagnosticsReporter mobileDiagnosticsReporter;
 
-	private static FieldLayout fieldLayout = FieldLayout.UNDEFINED;
-
 	public Robot() {
 		;
 	}
@@ -128,7 +126,7 @@ public class Robot extends RobbieRobot {
 		StartingPosition startingPosition = autoSelectionReceiver.getStartingPosition();
 		boolean scaleIsHigh = autoSelectionReceiver.getScaleHeightPriority() == ScaleHeightPriority.HIGH;
 
-		fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
+		FieldLayout fieldLayout = gameSpecificMessageParser.getTargetFieldLayout();
 		AutoModeBase autoMode = null;
 		if (!gameSpecificMessageParser.isAutoDisabled() && fieldLayout != FieldLayout.UNDEFINED) {
 			switch (startingPosition) {
@@ -204,10 +202,6 @@ public class Robot extends RobbieRobot {
 
 		//Crash the JVM and force the code to reset so we no longer have the motor controllers configured for testing
 		System.exit(1);
-	}
-
-	public static FieldLayout getFieldLayout() {
-		return fieldLayout;
 	}
 
 	private void exitAuto() {
