@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
 import org.usfirst.frc.team195.robot.Utilities.*;
+import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Util;
 
-import java.io.Console;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -101,13 +101,13 @@ public class AutoSelectionReceiver {
 	}
 
 	public double getScaleHeightInches() {
-		if (scaleAngleDeg < -360)
+		if (scaleAngleDeg < -360 || Math.abs(scaleAngleDeg) > Constants.kScaleMaxAngle * 2)
 			return -1;
 
-		double deltaY = Math.asin(Math.toRadians(scaleAngleDeg)) * Constants.kScaleArmCenterToPlateEdge;
+		double deltaY = Math.asin(Math.toRadians(scaleAngleDeg)) * Constants.kScaleArmCenterToPlateCenter;
 
-		double leftScaleHeight = Constants.kScaleLevelHeight + deltaY;
-		double rightScaleHeight = Constants.kScaleLevelHeight - deltaY;
+		double leftScaleHeight = Util.limit(Constants.kScaleLevelHeight + deltaY, Constants.kScaleMinHeight, Constants.kScaleMaxHeight);
+		double rightScaleHeight = Util.limit(Constants.kScaleLevelHeight - deltaY, Constants.kScaleMinHeight, Constants.kScaleMaxHeight);
 
 		FieldLayout f = GameSpecificMessageParser.getInstance().getTargetFieldLayout();
 		switch (f) {
@@ -125,9 +125,13 @@ public class AutoSelectionReceiver {
 	}
 
 
-	public double getScaleHeightRotations() {
-		SmartDashboard.putNumber("ScaleHeightRotations", getScaleHeightInches() / Constants.kElevatorInchesPerRotation);
-		return getScaleHeightInches() / Constants.kElevatorInchesPerRotation;
+	public double getScaleHeightRotations(double requestedElevatorHeightOnError) {
+		double sInches = getScaleHeightInches();
+
+		if (sInches < 0)
+			return requestedElevatorHeightOnError;
+
+		return sInches / Constants.kElevatorInchesPerRotation;
 	}
 
 	public boolean isScaleHeightValid() {

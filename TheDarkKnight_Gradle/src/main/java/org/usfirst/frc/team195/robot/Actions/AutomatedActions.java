@@ -218,13 +218,13 @@ public class AutomatedActions {
 		return new SetIntakeAction(IntakeControl.INTAKE_OUT, 0.25);
 	}
 
-	public static Action PreparePlaceCubeCalculatedScaleHeight() {
-		return new SetElevatorHeightAction(AutoSelectionReceiver.getInstance().getScaleHeightRotations());
+	public static Action PreparePlaceCubeCalculatedScaleHeight(double requestedElevatorHeightOnError) {
+		return new SetElevatorHeightAction(AutoSelectionReceiver.getInstance().getScaleHeightRotations(requestedElevatorHeightOnError));
 	}
 
-	public static ParallelAction PreparePlaceCubeCalculatedScaleHeight(double armPosition) {
+	public static ParallelAction PreparePlaceCubeCalculatedScaleHeight(double requestedElevatorHeightOnError, double armPosition) {
 		return new ParallelAction(Arrays.asList(new SetArmRotationAction(armPosition),
-												PreparePlaceCubeCalculatedScaleHeight()));
+												PreparePlaceCubeCalculatedScaleHeight(requestedElevatorHeightOnError)));
 	}
 
 }

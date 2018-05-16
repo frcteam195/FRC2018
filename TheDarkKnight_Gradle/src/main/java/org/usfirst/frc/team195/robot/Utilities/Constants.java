@@ -415,10 +415,16 @@ public class Constants {
 
 	//////////////////////////////////////
 	//FIRST POWER UP CONFIG DATA - Measurements in Inches
-	private static final double kScaleArmTotalLength = 180.85;
-	private static final double kScalePlateLength = 39;
-	public static final double kScaleLevelHeight = 74;
-	public static final double kScaleArmCenterToPlateEdge = kScaleArmTotalLength / 2.0 - kScalePlateLength;
+	private static final double kScaleArmTotalLength = 15 * 12;
+	private static final double kScalePlateLength = 3 * 12;
+	private static final double kScalePlateCenterWallHeight = 3.5;
+	public static final double kScaleLevelHeight = 5 * 12 + kScalePlateCenterWallHeight;
+	public static final double kScaleMinHeight = 4 * 12 + kScalePlateCenterWallHeight;
+	public static final double kScaleMaxHeight = 6 * 12 + kScalePlateCenterWallHeight;
+	public static final double kScaleMinAngle = Math.toDegrees(Math.tan((kScaleMinHeight - kScaleLevelHeight)/(kScaleArmTotalLength/2.0)));
+	public static final double kScaleMaxAngle = Math.toDegrees(Math.tan((kScaleMaxHeight - kScaleLevelHeight)/(kScaleArmTotalLength/2.0)));
+
+	public static final double kScaleArmCenterToPlateCenter = kScaleArmTotalLength / 2.0 - (kScalePlateLength / 2.0);	//Length to midpoint of scale plate from midpoint of scale arm
 	//////////////////////////////////////
 
 
