@@ -126,7 +126,7 @@ public class AutoSelectionReceiver {
 
 
 	public double getScaleHeightRotations(double requestedElevatorHeightOnError) {
-		double sInches = getScaleHeightInches();
+		double sInches = getScaleHeightInches() + Constants.kElevatorInchAdditionOffset;
 
 		if (sInches < 0)
 			return requestedElevatorHeightOnError;

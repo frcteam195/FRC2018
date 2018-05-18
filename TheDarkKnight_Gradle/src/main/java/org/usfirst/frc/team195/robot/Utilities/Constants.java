@@ -306,7 +306,8 @@ public class Constants {
 	public static final int kElevatorMaxAccelUp = 1600;	//Old value was 1600, fast 1900
 	public static final int kElevatorMaxVelocityDown = 1200;	//1200
 	public static final int kElevatorMaxAccelDown = 5500;	//5500
-	public static final double kElevatorInchesPerRotation = 4.9;
+	public static final double kElevatorInchesPerRotation = 5;
+	public static final double kElevatorInchAdditionOffset = 12;
 
 //	Old gains for climber motor
 //	public static final double kClimberKp = 1;
@@ -423,7 +424,6 @@ public class Constants {
 	public static final double kScaleMaxHeight = 6 * 12 + kScalePlateCenterWallHeight;
 	public static final double kScaleMinAngle = Math.toDegrees(Math.tan((kScaleMinHeight - kScaleLevelHeight)/(kScaleArmTotalLength/2.0)));
 	public static final double kScaleMaxAngle = Math.toDegrees(Math.tan((kScaleMaxHeight - kScaleLevelHeight)/(kScaleArmTotalLength/2.0)));
-
 	public static final double kScaleArmCenterToPlateCenter = kScaleArmTotalLength / 2.0 - (kScalePlateLength / 2.0);	//Length to midpoint of scale plate from midpoint of scale arm
 	//////////////////////////////////////
 
