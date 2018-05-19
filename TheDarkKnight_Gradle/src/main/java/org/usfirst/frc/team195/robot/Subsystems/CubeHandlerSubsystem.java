@@ -445,7 +445,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 							zeroElevator(true);
 							//setElevatorHeight(getElevatorHeight() + Constants.kElevatorSafetyDelta * 2);
 						} else if (tmpElevatorHeight != mPrevElevatorHeight) {
-							if ((getElevatorHeight() < tmpElevatorHeight) || isAuto || disableFastDown)
+							if ((getElevatorHeight() < tmpElevatorHeight) || isAuto || disableFastDown || true)
 								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorUpRateSlot);
 							else
 								mElevatorMotorMaster.set(ControlMode.MotionMagic, tmpElevatorHeight * Constants.kSensorUnitsPerRotation * Constants.kElevatorEncoderGearRatio, kElevatorDownRateSlot);
