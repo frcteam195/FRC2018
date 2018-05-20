@@ -35,7 +35,8 @@ public class LeftFromLeft3CubeScaleModeCalculated extends AutoModeBase {
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
 												   new SetIntakeAction(IntakeControl.INTAKE_IN),
-												   new DrivePathAction(new Left3CubeScaleStep2()))));
+												   new SeriesAction(Arrays.asList(new WaitAction(0.5),
+																				  new DrivePathAction(new Left3CubeScaleStep2()))))));
 
 		runAction(AutomatedActions.GrabCube());
 
@@ -50,7 +51,8 @@ public class LeftFromLeft3CubeScaleModeCalculated extends AutoModeBase {
 
 		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
 												   new SetIntakeAction(IntakeControl.INTAKE_IN),
-												   new DrivePathAction(new Left3CubeScaleStep4()))));
+												   new SeriesAction(Arrays.asList(new WaitAction(0.5),
+														   						  new DrivePathAction(new Left3CubeScaleStep4()))))));
 
 		runAction(AutomatedActions.GrabCube());
 
