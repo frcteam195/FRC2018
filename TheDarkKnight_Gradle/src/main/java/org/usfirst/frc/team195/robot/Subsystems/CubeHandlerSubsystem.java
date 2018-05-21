@@ -92,6 +92,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	private boolean blinkOnHome = true;
 
+	private boolean autoMode = true;
+
 	private CubeHandlerSubsystem() throws Exception {
 		ds = DriverStation.getInstance();
 		Controllers robotControllers = Controllers.getInstance();
@@ -340,6 +342,14 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		return retryCounter < Constants.kTalonRetryCount && setSucceeded;
 	}
 
+	public boolean isAuto() {
+		return autoMode;
+	}
+
+	private synchronized void setAuto(boolean autoMode) {
+		this.autoMode = autoMode;
+	}
+
 	private final Loop mLoop = new Loop() {
 		@Override
 		public void onFirstStart(double timestamp) {
@@ -365,8 +375,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 //				ConsoleReporter.report("Disable collision: " + isCollisionPreventionDisabled());
 //				SmartDashboard.putBoolean("DisableCollisionPrevention", isCollisionPreventionDisabled());
 
-				SmartDashboard.putString("Elevator Position", "" + mElevatorMotorMaster.getSelectedSensorPosition(0)/4096.0);
-				SmartDashboard.putBoolean("Homing switch: ", mElevatorHomeSwitch.get());
+//				SmartDashboard.putString("Elevator Position", "" + mElevatorMotorMaster.getSelectedSensorPosition(0)/4096.0);
+//				SmartDashboard.putBoolean("Homing switch: ", mElevatorHomeSwitch.get());
+				setAuto(isAuto);
+
 				switch (mArmControl) {
 					case POSITION:
 
@@ -989,6 +1001,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 	public boolean isElevatorAtSetpoint() {
 		return Math.abs(getElevatorHeight() - elevatorHeight) <= Constants.kElevatorDeviationThreshold;
+	}
+
+	public boolean isElevatorPositionControlled() {
+		return mElevatorControl == ElevatorControl.POSITION && !requestElevatorHoming;
 	}
 
 	public synchronized void incrementElevatorHeight() {

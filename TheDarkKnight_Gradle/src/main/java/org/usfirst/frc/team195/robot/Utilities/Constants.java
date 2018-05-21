@@ -307,7 +307,7 @@ public class Constants {
 	public static final int kElevatorMaxVelocityDown = 1200;	//1200
 	public static final int kElevatorMaxAccelDown = 5500;	//5500
 	public static final double kElevatorInchesPerRotation = 5;
-	public static final double kElevatorInchAdditionOffset = 12;
+	public static final double kElevatorInchAdditionOffset = 6;
 
 //	Old gains for climber motor
 //	public static final double kClimberKp = 1;
