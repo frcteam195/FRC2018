@@ -6,7 +6,7 @@ import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 public class SetElevatorHeightAction implements Action {
 	private double elevatorHeight = 0;
 	private CubeHandlerSubsystem mCubeHandlerSubsystem = CubeHandlerSubsystem.getInstance();
-	
+
 	private int updateFrequencyDividerCounter = 0;
 	private static final int kUpdateFrequencyDivisor = 5;
 

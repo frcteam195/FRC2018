@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40a3f3f4-9b80-4375-8cd1-ba1b3e604b54" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Utilities/TimeoutTimer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheDarkKnightGradle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/TheDarkKnightGradle.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetArmRotationAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetArmRotationAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Utilities/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Utilities/Constants.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -111,21 +109,8 @@
       <file leaf-file-name="SetElevatorHeightAction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CubeHandlerSubsystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="471" column="34" lean-forward="true" selection-start-line="471" selection-start-column="34" selection-end-line="471" selection-end-column="34" />
-              <folding>
-                <element signature="e#17932#17933#0" expanded="true" />
-                <element signature="e#17954#17955#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="420">
+              <caret line="33" column="10" lean-forward="true" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -608,8 +593,9 @@
         <option value="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Modes/StartFromLeft/Calculated/LeftFromLeft3CubeScaleModeCalculated.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Utilities/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Utilities/TimeoutTimer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetArmRotationAction.java" />
       </list>
     </option>
   </component>
@@ -650,61 +636,99 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TheDarkKnight_Gradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="TheDarkKnight_Gradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TheDarkKnight_Gradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="TheDarkKnight_Gradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TheDarkKnight_Gradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="AndroidView" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Actions" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Actions" type="1f31426a:PackageElementNode" />
               <item name="CubeHandlerActions" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Actions" type="1f31426a:PackageElementNode" />
               <item name="Framework" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
               <item name="Framework" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
               <item name="Modes" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
@@ -712,7 +736,7 @@
               <item name="StartFromLeft" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
@@ -721,7 +745,7 @@
               <item name="Calculated" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
@@ -729,7 +753,7 @@
               <item name="StartFromRight" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
@@ -738,14 +762,14 @@
               <item name="Calculated" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
               <item name="Paths" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Autonomous" type="1f31426a:PackageElementNode" />
@@ -753,120 +777,22 @@
               <item name="StartFromLeft" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Reporters" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Subsystems" type="1f31426a:PackageElementNode" />
             </path>
             <path>
-              <item name="TheDarkKnightGradle" type="58d84e3e:PackageViewProjectNode" />
+              <item name="TheDarkKnight_Gradle" type="58d84e3e:PackageViewProjectNode" />
               <item name="TheDarkKnight_Gradle_main" type="616d4139:PackageViewModuleNode" />
               <item name="org.usfirst.frc.team195.robot" type="1f31426a:PackageElementNode" />
               <item name="Utilities" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
-              <item name="Modes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
-              <item name="Modes" type="462c0819:PsiDirectoryNode" />
-              <item name="StartFromLeft" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Autonomous" type="462c0819:PsiDirectoryNode" />
-              <item name="Modes" type="462c0819:PsiDirectoryNode" />
-              <item name="StartFromLeft" type="462c0819:PsiDirectoryNode" />
-              <item name="LeftLeft" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Reporters" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TheDarkKnightGradle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TheDarkKnight_Gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="robot" type="462c0819:PsiDirectoryNode" />
-              <item name="Subsystems" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1067,12 +993,14 @@
       <workItem from="1526833284190" duration="5000" />
       <workItem from="1526834693446" duration="1221000" />
       <workItem from="1526850665160" duration="207000" />
-      <workItem from="1526876868450" duration="3545000" />
+      <workItem from="1526876868450" duration="4021000" />
+      <workItem from="1526934613737" duration="27000" />
+      <workItem from="1526934674039" duration="1068000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28272000" />
+    <option name="totallyTimeSpent" value="29843000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1088,33 +1016,33 @@
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="6" weight="0.32967034" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="right" id="Flutter Outline" order="9" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="bottom" id="Build" order="12" weight="0.32923076" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="11" weight="0.24969475" />
+      <window_info id="UI Designer" order="5" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32923076" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info id="Image Layers" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="6" weight="0.32967034" />
-      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32923076" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32923076" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32923076" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="right" id="Flutter Outline" order="9" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2857143" />
-      <window_info anchor="right" id="Database" order="8" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2930403" />
       <window_info anchor="right" id="Gradle" order="1" weight="0.25824177" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="11" weight="0.24969475" />
-      <window_info id="UI Designer" order="5" />
       <window_info anchor="right" id="Theme Preview" order="10" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="right" id="Flutter Inspector" order="7" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Build" order="12" weight="0.32923076" />
       <window_info anchor="bottom" id="FRC" order="9" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1336,13 +1264,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetArmRotationAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/IntakeCubeAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1354,13 +1275,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="33" column="49" lean-forward="true" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetIntakeAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1409,12 +1323,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#436#437#0" expanded="true" />
-            <element signature="e#456#457#0" expanded="true" />
-            <element signature="e#478#479#0" expanded="true" />
-            <element signature="e#509#510#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1453,13 +1361,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/ParallelAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1471,13 +1372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1495,10 +1389,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/Framework/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetIntakeAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Subsystems/CubeHandlerSubsystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="471" column="34" lean-forward="true" selection-start-line="471" selection-start-column="34" selection-end-line="471" selection-end-column="34" />
+        <state relative-caret-position="8914">
+          <caret line="952" selection-start-line="952" selection-end-line="952" />
           <folding>
             <element signature="e#17932#17933#0" expanded="true" />
             <element signature="e#17954#17955#0" expanded="true" />
@@ -1506,10 +1414,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetArmRotationAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="57" selection-start-column="57" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Autonomous/Framework/AutoModeBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/usfirst/frc/team195/robot/Actions/CubeHandlerActions/SetElevatorHeightAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        <state relative-caret-position="420">
+          <caret line="33" column="10" lean-forward="true" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
         </state>
       </provider>
     </entry>
