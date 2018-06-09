@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Actions.CubeHandlerActions;
 
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
+import org.usfirst.frc.team195.robot.AutoRequestUpdater;
 import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 
@@ -22,12 +23,7 @@ public class SetArmRotationAction implements Action {
 
 	@Override
 	public void update() {
-		// Add this statement in update to continually set the rotation to fix bug with a resetting arm where
-		// sometimes reset wouldn't finish fast enough and the arm would not move
-		//MAY INTRODUCE A BUG FOR CONCURRENT TELEOP SETS - come up with something better => (check if auto?)
-		//TODO: Test this auto fix
-		if (mCubeHandlerSubsystem.isAuto() && (updateFrequencyDividerCounter++ % kUpdateFrequencyDivisor) == 0)
-			mCubeHandlerSubsystem.setArmRotationDeg(armRotationDeg);
+		//
 	}
 
 	@Override

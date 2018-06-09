@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Actions.CubeHandlerActions;
 
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
+import org.usfirst.frc.team195.robot.AutoRequestUpdater;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 
 public class SetElevatorHeightAction implements Action {
@@ -21,12 +22,7 @@ public class SetElevatorHeightAction implements Action {
 
 	@Override
 	public void update() {
-		// Add this statement in update to continually set the height to fix bug with a slow homing elevator where
-		// sometimes homing wouldn't finish fast enough and the elevator would not raise up
-		//MAY INTRODUCE A BUG FOR CONCURRENT TELEOP SETS - come up with something better => (check if auto?)
-		//TODO: Test this auto fix
-		if (mCubeHandlerSubsystem.isAuto() && (updateFrequencyDividerCounter++ % kUpdateFrequencyDivisor) == 0)
-			mCubeHandlerSubsystem.setElevatorHeight(elevatorHeight);
+		//
 	}
 
 	@Override
