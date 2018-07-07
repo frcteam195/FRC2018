@@ -90,6 +90,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	private boolean requestElevatorHoming = false;
 	private double elevatorRequestHomingTime = 0;
 
+	private double elevatorOpenLoopVal = 0;
+
 	private boolean blinkOnHome = true;
 
 	private boolean autoMode = true;
@@ -474,6 +476,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 						break;
 					case MANUAL:
+						mElevatorMotorMaster.set(ControlMode.PercentOutput, elevatorOpenLoopVal);
 						break;
 					case HOMING:
 						if (mPrevElevatorControl != ElevatorControl.HOMING) {
@@ -494,7 +497,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 						}
 
 						if (Timer.getFPGATimestamp() - elevatorHomingTimeStart > Constants.kElevatorHomingTimeout) {
-							setElevatorControl(ElevatorControl.OFF);
+							//setElevatorControl(ElevatorControl.OFF);
+							zeroElevator();
+							setElevatorControl(ElevatorControl.POSITION);
+							setElevatorFaulted(true, false);
 							ConsoleReporter.report("Elevator Failed to Home! Elevator Disabled!", MessageLevel.DEFCON1);
 						}
 						break;
@@ -1047,6 +1053,10 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		elevatorCurrentAverage += mElevatorMotorSlave3.getOutputCurrent();
 		elevatorCurrentAverage /= 4;
 		return elevatorCurrentAverage;
+	}
+
+	public synchronized void setOpenLoopElevator(double elevatorOpenLoopVal) {
+		this.elevatorOpenLoopVal = elevatorOpenLoopVal;
 	}
 
 	public synchronized void setDisableFastDown(boolean disable) {

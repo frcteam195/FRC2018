@@ -10,7 +10,8 @@ public class ArmPosition {
 	public static final double BACK_SHOOT = 135;
 	public static final double BACK_SHOOT_HIGH = 130;
 	public static final double BACK_SHOOT_LESS_HIGH = 150;
-	public static final double BACK = 175;
+	public static final double BACK = 172;
+	//public static final double BACK = 175;
 	public static final double ELEVATOR_COLLISION_POINT = 95;
 	public static final double GET_CLIMBER_HOOK = 107;
 }

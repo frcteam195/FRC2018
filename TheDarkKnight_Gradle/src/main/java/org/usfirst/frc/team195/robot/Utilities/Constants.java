@@ -86,6 +86,8 @@ public class Constants {
 	public static final int BB2_CLIMBER_CLIMB_IN = 7;
 	public static final int BB2_CLIMBER_CLIMB_HOOK_SLOW = 8;
 	public static final int BB2_ELEVATOR_CALCULATED_SCALE = 9;
+	public static final int BB2_ELEVATOR_OPEN_LOOP_UP_RANDY = 10;
+	public static final int BB2_ELEVATOR_OPEN_LOOP_DOWN_RANDY = 11;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	/* TALONS */
@@ -229,7 +231,7 @@ public class Constants {
 	public static final double kElevatorHomingSpeed = -0.3;	//In percent output
 	public static final double kElevatorSafetyCurrent = 32;	//In amps
 	public static final double kElevatorSafetyDelta = 0.05;	//In rotations of output shaft
-	public static final double kElevatorHomingTimeout = 5;	//In seconds
+	public static final double kElevatorHomingTimeout = 3;	//In seconds
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
 	public static final int kElevatorMaxPeakCurrentLimit = (int)(kElevatorMaxContinuousCurrentLimit * 1.25);
 	public static final int kElevatorMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kElevatorMaxPeakCurrentLimit, kElevatorMaxContinuousCurrentLimit, 8);;

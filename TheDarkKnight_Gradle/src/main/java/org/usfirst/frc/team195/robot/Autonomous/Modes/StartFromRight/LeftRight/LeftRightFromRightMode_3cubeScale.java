@@ -74,7 +74,7 @@ public class LeftRightFromRightMode_3cubeScale extends AutoModeBase {
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupLastCube(),
 				new DrivePathAction(new RightRightFromRightCube3Ready44()),
 				new SetIntakeAction(IntakeControl.INTAKE_IN))));
 

@@ -147,6 +147,12 @@ public class AutomatedActions {
 												new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
 	}
 
+	public static Action PreparePickupLastCube() {
+		return new ParallelAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
+				new SetIntakeClampAction(true),
+				new SetElevatorHeightAction(ElevatorPosition.GO_DOWN)));
+	}
+
 	public static SeriesAction PreparePickupCubeSlow() {
 //		return new SeriesAction(Arrays.asList(new SetArmRotationAction(ArmPosition.VERTICAL),
 //											  new SetElevatorHeightAction(ElevatorPosition.HOME),

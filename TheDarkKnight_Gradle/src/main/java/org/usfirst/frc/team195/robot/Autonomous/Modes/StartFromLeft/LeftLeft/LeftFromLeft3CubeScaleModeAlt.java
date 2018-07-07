@@ -62,7 +62,7 @@ public class LeftFromLeft3CubeScaleModeAlt extends AutoModeBase {
 		runAction(AutomatedActions.OutakeCubeFast());
 		runAction(AutomatedActions.StopIntake());
 
-		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupCube(),
+		runAction(new ParallelAction(Arrays.asList(AutomatedActions.PreparePickupLastCube(),
 				new SetIntakeAction(IntakeControl.INTAKE_IN),
 				new DrivePathAction(new Left3CubeScaleStep6()))));
 
