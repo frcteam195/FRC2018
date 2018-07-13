@@ -47,6 +47,8 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 	private boolean mIsOnTarget = false;
 	private boolean mIsDriveFaulted = false;
 
+	private int methodCounter = 0;
+
 	private boolean emergencySafetyRequired = false;
 
 	private final Loop mLoop = new Loop() {
@@ -619,6 +621,7 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 	public synchronized boolean isDoneWithTurn() {
 		if (mControlMode == DriveControlState.TURN_TO_HEADING) {
+			ConsoleReporter.report("Robot has completed turning");
 			return mIsOnTarget;
 		} else {
 			ConsoleReporter.report("Robot is not in turning mode");
@@ -628,15 +631,20 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 	public synchronized boolean isDoneWithPath() {
 		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
+			ConsoleReporter.report("Robot has completed the path");
 			return mPathFollower.isFinished();
 		} else {
 			ConsoleReporter.report("Robot is not in path following mode");
-			return true;
+			if (mPathFollower != null)
+				return mPathFollower.isFinished();
+			else
+				return true;
 		}
 	}
 
 	public synchronized void forceDoneWithPath() {
 		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
+			ConsoleReporter.report("Forcing robot to stop the path");
 			mPathFollower.forceFinish();
 		} else {
 			ConsoleReporter.report("Robot is not in path following mode");
@@ -645,10 +653,16 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 
 	public synchronized boolean hasPassedMarker(String marker) {
 		if (mControlMode == DriveControlState.PATH_FOLLOWING && mPathFollower != null) {
+			ConsoleReporter.report("Robot has passed marker " + marker);
 			return mPathFollower.hasPassedMarker(marker);
 		} else {
 			ConsoleReporter.report("Robot is not in path following mode");
-			return false;
+			if (mPathFollower != null)
+				return (mPathFollower.isFinished() || mPathFollower.hasPassedMarker(marker));
+			else {
+				//TODO: Test with false value
+				return true;
+			}
 		}
 	}
 }

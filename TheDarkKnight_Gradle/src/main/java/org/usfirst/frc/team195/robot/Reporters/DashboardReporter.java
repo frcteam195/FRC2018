@@ -18,7 +18,7 @@ public class DashboardReporter extends Thread {
 	private static final int SEND_PORT = Constants.DASHBOARD_REPORTER_PORT;
 	
 	private static final String SEND_IP = Constants.DASHBOARD_IP;
-	
+
 	private InetAddress IPAddress;
 
     private DatagramSocket clientSocket;
@@ -77,6 +77,7 @@ public class DashboardReporter extends Thread {
 		while (runThread) {
             try {
                 sendData = createSendData();
+//				FileReporter.report(sendData);
                 sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, SEND_PORT);
                 clientSocket.send(sendPacket);
             } catch (Exception ex) {

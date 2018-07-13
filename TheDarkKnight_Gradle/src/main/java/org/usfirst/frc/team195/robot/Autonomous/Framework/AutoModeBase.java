@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Autonomous.Framework;
 
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 
 /**
  * An abstract class that is the basis of the robot's autonomous routines. This is implemented in auto modes (which are
@@ -57,6 +58,8 @@ public abstract class AutoModeBase {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            ConsoleReporter.report(action.getClass().getName());
         }
 
         action.done();

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team195.robot.Actions;
 
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.Path;
 import org.usfirst.frc.team195.robot.Utilities.TrajectoryFollowingMotion.PathContainer;
@@ -19,6 +20,7 @@ public class DrivePathAction implements Action {
     public DrivePathAction(PathContainer p) {
         mPathContainer = p;
         mPath = mPathContainer.buildPath();
+        ConsoleReporter.report(p.getClass().getName());
     }
 
     @Override

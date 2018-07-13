@@ -1,5 +1,7 @@
 package org.usfirst.frc.team195.robot.Actions.Framework;
 
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class SeriesAction implements Action {
 
     @Override
     public boolean isFinished() {
+        ConsoleReporter.report("Series queue empty: " + mRemainingActions.isEmpty());
+        ConsoleReporter.report("Series inner action null: " + (mCurAction == null));
         return mRemainingActions.isEmpty() && mCurAction == null;
     }
 
@@ -42,6 +46,8 @@ public class SeriesAction implements Action {
         }
 
         mCurAction.update();
+
+        ConsoleReporter.report(mCurAction.getClass().getName());
 
         if (mCurAction.isFinished()) {
             mCurAction.done();

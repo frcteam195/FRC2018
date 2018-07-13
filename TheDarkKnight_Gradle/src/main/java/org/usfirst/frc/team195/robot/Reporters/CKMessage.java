@@ -49,4 +49,8 @@ public class CKMessage {
 		retVal += "\n\r";
 		return retVal;
 	}
+
+	public String toString(boolean appendReportingLevel) {
+		return message;
+	}
 }

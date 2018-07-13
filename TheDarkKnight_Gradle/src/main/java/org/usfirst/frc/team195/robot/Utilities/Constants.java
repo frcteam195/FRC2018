@@ -228,13 +228,14 @@ public class Constants {
 	public static final double kElevatorSoftMax = 20;	//In rotations of output shaft
 	public static final double kElevatorStepSize = 0.2;	//In rotations of output shaft
 	public static final double kElevatorDeviationThreshold = 0.1;	//In rotations of output shaft
+	public static final double kElevatorSetDeviationThreshold = 0.2;	//In rotations of output shaft
 	public static final double kElevatorHomingSpeed = -0.3;	//In percent output
-	public static final double kElevatorSafetyCurrent = 32;	//In amps
+	public static final double kElevatorSafetyCurrent = 50;	//In amps
 	public static final double kElevatorSafetyDelta = 0.05;	//In rotations of output shaft
-	public static final double kElevatorHomingTimeout = 3;	//In seconds
+	public static final double kElevatorHomingTimeout = 2.5;	//In seconds
 	public static final int kElevatorMaxContinuousCurrentLimit = kElevatorMasterPDPBreakerRating;
-	public static final int kElevatorMaxPeakCurrentLimit = (int)(kElevatorMaxContinuousCurrentLimit * 1.25);
-	public static final int kElevatorMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kElevatorMaxPeakCurrentLimit, kElevatorMaxContinuousCurrentLimit, 8);;
+	public static final int kElevatorMaxPeakCurrentLimit = (int)(kElevatorMaxContinuousCurrentLimit * 1.5);
+	public static final int kElevatorMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kElevatorMaxPeakCurrentLimit, kElevatorMaxContinuousCurrentLimit, 2);;
 	public static final double kElevatorRetensioningTime = 0.4;
 
 	// Climber

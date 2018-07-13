@@ -1006,7 +1006,7 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 	}
 
 	public boolean isElevatorAtSetpoint() {
-		return Math.abs(getElevatorHeight() - elevatorHeight) <= Constants.kElevatorDeviationThreshold;
+		return Math.abs(getElevatorHeight() - elevatorHeight) <= Constants.kElevatorSetDeviationThreshold;
 	}
 
 	public boolean isElevatorPositionControlled() {

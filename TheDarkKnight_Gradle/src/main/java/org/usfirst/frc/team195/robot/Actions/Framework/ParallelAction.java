@@ -1,5 +1,7 @@
 package org.usfirst.frc.team195.robot.Actions.Framework;
 
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +36,10 @@ public class ParallelAction implements Action {
     @Override
     public void update() {
         for (Action action : mActions) {
-            if (!action.isFinished())
+            if (!action.isFinished()) {
                 action.update();
+                ConsoleReporter.report(action.getClass().getName());
+            }
         }
     }
 

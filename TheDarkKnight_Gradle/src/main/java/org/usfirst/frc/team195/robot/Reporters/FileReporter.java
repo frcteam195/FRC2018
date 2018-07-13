@@ -5,7 +5,6 @@ import org.usfirst.frc.team195.robot.Utilities.Constants;
 import org.usfirst.frc.team195.robot.Utilities.ThreadRateControl;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
@@ -13,17 +12,14 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * A class to report messages to the console or DriverStation. Messages with a level of DEFCON1 will always be reported
- * whether reporting is enabled or not and will be reported both to the console and the DriverStation.
- */
-public class ConsoleReporter extends Thread {
+public class FileReporter extends Thread {
+	private static FileReporter instance = null;
 
-	private static final int MIN_CONSOLE_SEND_RATE_MS = 250;
+
+	private static final int MIN_FILE_WRITE_RATE_MS = 250;
 	private static MessageLevel reportingLevel = MessageLevel.ERROR;
 	private static LinkedHashSet<CKMessage> sendMessageSet = new LinkedHashSet<>();
 	private static ReentrantLock _reporterMutex = new ReentrantLock();
-	private static ConsoleReporter instance = null;
 	private boolean runThread;
 	private ThreadRateControl threadRateControl = new ThreadRateControl();
 
@@ -31,16 +27,10 @@ public class ConsoleReporter extends Thread {
 
 	private Thread logThread;
 
-	private ConsoleReporter() throws Exception {
-		super();
-		super.setPriority(Constants.kConsoleReporterThreadPriority);
-		runThread = false;
-	}
-
-	public static ConsoleReporter getInstance() {
+	public static FileReporter getInstance() {
 		if(instance == null) {
 			try {
-				instance = new ConsoleReporter();
+				instance = new FileReporter();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -49,8 +39,18 @@ public class ConsoleReporter extends Thread {
 		return instance;
 	}
 
+	private FileReporter() {
+		try {
+			logWriter = new PrintWriter(new FileWriter("/home/lvuser/DataLog.txt", true));
+			logWriter.print(new Date().toString());
+			logWriter.println();
+		} catch (Exception e) {
+
+		}
+	}
+
 	public static void setReportingLevel(MessageLevel messageLevel) {
-		ConsoleReporter.reportingLevel = messageLevel;
+		FileReporter.reportingLevel = messageLevel;
 	}
 
 	public static void report(Throwable t) { report(t, MessageLevel.ERROR); }
@@ -88,7 +88,6 @@ public class ConsoleReporter extends Thread {
 	public void start() {
 		runThread = true;
 		threadRateControl.start();
-//		createLog();
 		super.start();
 	}
 
@@ -98,6 +97,10 @@ public class ConsoleReporter extends Thread {
 
 	@Override
 	public void run() {
+		while (!DriverStation.getInstance().isEnabled()) {
+			threadRateControl.doRateControl(100);
+		}
+
 		while (runThread) {
 			try {
 				_reporterMutex.lock();
@@ -105,32 +108,13 @@ public class ConsoleReporter extends Thread {
 					for (Iterator<CKMessage> i = sendMessageSet.iterator(); i.hasNext();) {
 						CKMessage ckm = i.next();
 						if (ckm.messageLevel == MessageLevel.DEFCON1 || (Constants.REPORTING_ENABLED && (ckm.messageLevel.ordinal() <= reportingLevel.ordinal()))) {
-							String s = ckm.toString();
-							if (Constants.REPORT_TO_DRIVERSTATION_INSTEAD_OF_CONSOLE) {
-								switch (ckm.messageLevel) {
-									case DEFCON1:
-										System.out.println(s);
-									case ERROR:
-										DriverStation.reportError(s, false);
-										break;
-									case WARNING:
-									case INFO:
-										DriverStation.reportWarning(s, false);
-										break;
-									default:
-										break;
-								}
-							} else {
-								System.out.println(s);
-								if (ckm.messageLevel == MessageLevel.DEFCON1)
-									DriverStation.reportError(s, false);
-							}
-//							writeData(s);
+							String s = ckm.toString(true);
+							logWriter.println(s);
 							i.remove();
 						}
 					}
 
-//					flushData();
+					logWriter.flush();
 				} finally {
 					_reporterMutex.unlock();
 				}
@@ -138,50 +122,10 @@ public class ConsoleReporter extends Thread {
 				ex.printStackTrace();
 			}
 
-			threadRateControl.doRateControl(MIN_CONSOLE_SEND_RATE_MS);
+			threadRateControl.doRateControl(MIN_FILE_WRITE_RATE_MS);
 		}
-	}
 
-	private void createLog() {
-		try {
-			logWriter = new PrintWriter(new FileWriter("/home/lvuser/ConsoleLog.txt", true));
-			logWriter.print(new Date().toString());
-			logWriter.println();
-		} catch (Exception e) {
-
-		}
-	}
-
-	private void writeData(String data) {
-		if (logWriter != null) {
-			try {
-				logWriter.println(data);
-			} catch (Exception ex) {
-
-			}
-		}
-	}
-
-	private void flushData() {
-		if (logWriter != null) {
-			try {
-				logWriter.flush();
-			} catch (Exception ex) {
-
-			}
-		}
-	}
-
-	private void closeLog() {
-		if (logWriter != null) {
-			try {
-				logWriter.flush();
-				logWriter.close();
-				logWriter = null;
-			} catch (Exception ex) {
-
-			}
-		}
+		logWriter.close();
 	}
 
 }

@@ -17,10 +17,7 @@ import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRig
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftFromRight.LeftFromRight3CubeScaleModeAlt;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScale;
 import org.usfirst.frc.team195.robot.Autonomous.Modes.StartFromRight.LeftRight.LeftRightFromRightMode_3cubeScaleAlt;
-import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
-import org.usfirst.frc.team195.robot.Reporters.DashboardReporter;
-import org.usfirst.frc.team195.robot.Reporters.MessageLevel;
-import org.usfirst.frc.team195.robot.Reporters.MobileDiagnosticsReporter;
+import org.usfirst.frc.team195.robot.Reporters.*;
 import org.usfirst.frc.team195.robot.Subsystems.ClimberSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 import org.usfirst.frc.team195.robot.Subsystems.DriveBaseSubsystem;
@@ -61,6 +58,9 @@ public class Robot extends RobbieRobot {
 		ConsoleReporter.setReportingLevel(MessageLevel.INFO);
 		ConsoleReporter.getInstance().start();
 		ConsoleReporter.report("Console Reporter Running!", MessageLevel.INFO);
+
+//		FileReporter.setReportingLevel(MessageLevel.INFO);
+//		FileReporter.getInstance().start();
 
 		ledController = LEDController.getInstance();
 		ledController.start();
@@ -208,6 +208,8 @@ public class Robot extends RobbieRobot {
 		try {
 			if (autoModeExecuter != null)
 				autoModeExecuter.stop();
+
+			FileReporter.getInstance().terminate();
 
 			autoModeExecuter = null;
 		} catch (Throwable t) {
