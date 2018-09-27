@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac89bb9a-7b10-4810-a032-820c088f6d39" name="Default" comment="" />
+    <list default="true" id="ac89bb9a-7b10-4810-a032-820c088f6d39" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnight_Gradle/TheDarkKnightGradle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/../TheDarkKnight_Gradle/TheDarkKnightGradle.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheDarkKnight_Gradle/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../TheDarkKnight_Gradle/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -14,20 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/files/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="938" column="36" selection-start-line="938" selection-start-column="36" selection-end-line="938" selection-end-column="36" />
+            <state relative-caret-position="468">
+              <caret line="359" column="41" lean-forward="true" selection-start-line="359" selection-start-column="41" selection-end-line="359" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2880">
-              <caret line="192" column="60" selection-start-line="192" selection-start-column="60" selection-end-line="192" selection-end-column="60" />
+            <state relative-caret-position="368">
+              <caret line="137" lean-forward="true" selection-start-line="137" selection-end-line="137" />
             </state>
           </provider>
         </entry>
@@ -39,6 +43,7 @@
       <find>DElete</find>
       <find>Delete</find>
       <find>placeholder='Marker'</find>
+      <find>modal</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -185,14 +190,19 @@
       <workItem from="1522870171598" duration="317000" />
       <workItem from="1523642952152" duration="295000" />
       <workItem from="1524028789688" duration="5000" />
+      <workItem from="1534000888693" duration="590000" />
+      <workItem from="1534094401738" duration="577000" />
+      <workItem from="1534123862087" duration="175000" />
+      <workItem from="1534126576249" duration="1745000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28069000" />
+    <option name="totallyTimeSpent" value="31156000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13095239" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -219,7 +229,19 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2880">
+          <caret line="192" column="60" selection-start-line="192" selection-start-column="60" selection-end-line="192" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/files/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14070">
@@ -522,17 +544,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/files/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2880">
-          <caret line="192" column="60" selection-start-line="192" selection-start-column="60" selection-end-line="192" selection-end-column="60" />
+        <state relative-caret-position="468">
+          <caret line="359" column="41" lean-forward="true" selection-start-line="359" selection-start-column="41" selection-end-line="359" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/files/script.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="938" column="36" selection-start-line="938" selection-start-column="36" selection-end-line="938" selection-end-column="36" />
+        <state relative-caret-position="368">
+          <caret line="137" lean-forward="true" selection-start-line="137" selection-end-line="137" />
         </state>
       </provider>
     </entry>

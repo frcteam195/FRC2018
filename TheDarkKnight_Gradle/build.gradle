@@ -14,7 +14,7 @@ deploy {
     targets {
         target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
             team = TEAM
-            addresses << '10.1.95.2' << 'roborio-195-frc.local'
+            addresses << '10.1.95.2' << 'roborio-195-frc.local' 
             password = 'admin'
         }
     }
