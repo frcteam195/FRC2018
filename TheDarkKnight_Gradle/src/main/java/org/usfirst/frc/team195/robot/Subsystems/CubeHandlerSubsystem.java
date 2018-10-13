@@ -635,7 +635,8 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 
 		retVal += "HasCube:" + mCubeSensor.get() + ";";
 
-		retVal += "IntakeCurrent:" + mIntakeMotor.getOutputCurrent() + ";";
+		retVal += "Intake1Current:" + mIntakeMotor.getOutputCurrent() + ";";
+		retVal += "Intake2Current:" + mIntake2Motor.getOutputCurrent() + ";";
 		//TODO: Monitor performance of this method
 		retVal += "ScaleHeightInches:" + AutoSelectionReceiver.getInstance().getScaleHeightInches() + ";";
 
@@ -1025,8 +1026,16 @@ public class CubeHandlerSubsystem implements CriticalSystemStatus, CustomSubsyst
 		return mElevatorMotorMaster.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kElevatorEncoderGearRatio;
 	}
 
+	public double getElevatorDesiredHeight() {
+		return elevatorHeight;
+	}
+
 	public double getArmRotationDeg() {
 		return mArmMotor.getSelectedSensorPosition(0) / Constants.kSensorUnitsPerRotation / Constants.kArmEncoderGearRatio / Constants.kArmFinalRotationsPerDegree;
+	}
+
+	public double getArmDesiredPosition() {
+		return armRotation;
 	}
 
 	public double getArmAbsolutePosition() {

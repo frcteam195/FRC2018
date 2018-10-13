@@ -240,6 +240,9 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		retVal += "LeftDrive1Current:" + mLeftMaster.getOutputCurrent() + ";";
 		retVal += "LeftDrive2Current:" + leftDriveSlave1.getOutputCurrent() + ";";
 		retVal += "LeftDrive3Current:" + leftDriveSlave2.getOutputCurrent() + ";";
+		retVal += "LeftOutputDutyCycle:" + mLeftMaster.getMotorOutputPercent() + ";";
+		retVal += "LeftOutputVoltage:" + mLeftMaster.getMotorOutputVoltage() + ";";
+		retVal += "LeftSupplyVoltage:" + mLeftMaster.getBusVoltage() + ";";
 
 		retVal += "RightDrivePos:" + mRightMaster.getSelectedSensorPosition(0) + ";";
 		retVal += "RightDriveVel:" + mRightMaster.getSelectedSensorVelocity(0) + ";";
@@ -247,6 +250,16 @@ public class DriveBaseSubsystem implements CriticalSystemStatus, CustomSubsystem
 		retVal += "RightDrive1Current:" + mRightMaster.getOutputCurrent() + ";";
 		retVal += "RightDrive2Current:" + rightDriveSlave1.getOutputCurrent() + ";";
 		retVal += "RightDrive3Current:" + rightDriveSlave2.getOutputCurrent() + ";";
+		retVal += "RightOutputDutyCycle:" + mRightMaster.getMotorOutputPercent() + ";";
+		retVal += "RightOutputVoltage:" + mRightMaster.getMotorOutputVoltage() + ";";
+		retVal += "RightSupplyVoltage:" + mRightMaster.getBusVoltage() + ";";
+
+		retVal += "AccelX:" + mNavXBoard.getRawAccelX() + ";";
+		retVal += "AccelY:" + mNavXBoard.getRawAccelY() + ";";
+		retVal += "AccelZ:" + mNavXBoard.getRawAccelZ() + ";";
+
+		retVal += "Gyro:" + mNavXBoard.getRawYawDegrees() + ";";
+		retVal += "GyroRate:" + mNavXBoard.getYawRateDegreesPerSec() + ";";
 
 		retVal += "DriveMode:" + mControlMode.toString() + ";";
 		retVal += "RobotPosition:" + PathFollowerRobotState.getInstance().getLatestFieldToVehicle().getValue().toString() + ";";

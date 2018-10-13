@@ -17,6 +17,9 @@ public class SetArmRotationAction implements Action {
 
 	@Override
 	public boolean isFinished() {
+		ConsoleReporter.report("Desired Arm Position: " + CubeHandlerSubsystem.getInstance().getArmDesiredPosition());
+		ConsoleReporter.report("Actual Arm Position: " + CubeHandlerSubsystem.getInstance().getArmRotationDeg());
+
 		return mCubeHandlerSubsystem.isArmAtSetpoint();
 		//return mCubeHandlerSubsystem.getArmRotationDeg() < armRotationDeg;
 	}

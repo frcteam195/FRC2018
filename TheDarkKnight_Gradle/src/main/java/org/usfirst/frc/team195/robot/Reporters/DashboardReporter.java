@@ -13,7 +13,7 @@ import org.usfirst.frc.team195.robot.Utilities.*;
 
 public class DashboardReporter extends Thread {
 
-	private static final int MIN_DASHBOARD_SEND_RATE_MS = 500;
+	private static final int MIN_DASHBOARD_SEND_RATE_MS = 100;
 	
 	private static final int SEND_PORT = Constants.DASHBOARD_REPORTER_PORT;
 	
@@ -110,7 +110,8 @@ public class DashboardReporter extends Thread {
 			for (Iterator<DiagnosticMessage> i = diagnosticMessages.iterator(); i.hasNext(); ) {
 				DiagnosticMessage m = i.next();
 
-				stringBuilder.append(m.getMessage()).append("|");
+				if (!m.getMessage().isEmpty())
+					stringBuilder.append(m.getMessage()).append("|");
 
 				i.remove();
 			}
@@ -119,6 +120,12 @@ public class DashboardReporter extends Thread {
 		}
 
 		stringBuilder.append(";");
+
+		try {
+			LogDataReporter.reportOSCData(stringBuilder.toString());
+		} catch (Exception e) {
+//				e.printStackTrace();
+		}
 
 		return stringBuilder.toString().getBytes();
 	}

@@ -14,13 +14,14 @@ public class Constants {
 	public static final RGBColor kElevatorHomeColor = new RGBColor(0, 0, 255);
 
 
-	public static final boolean ENABLE_DRIVE_DIAG = false;
+	public static final boolean ENABLE_DRIVE_DIAG = true;
 	public static final boolean ENABLE_CUBE_HANDLER_DIAG = true;
 	public static final boolean ENABLE_CLIMBER_DIAG = false;
 
 	public static final String DASHBOARD_IP = "10.1.95.14";
 	public static final int DASHBOARD_REPORTER_PORT = 5801;
 	public static final int AUTO_SELECTOR_PORT = 5803;
+	public static final int LOG_OSC_REPORTER_PORT = 5805;
 	public static final int MOBILE_DIAGNOSTICS_PORT = 5807;
 
 	//Thread prioritization - 5 is default
@@ -211,7 +212,7 @@ public class Constants {
 	public static final double kArmHomingTimeout = 2;	//In seconds
 	public static final double kArmHomingSpeed = 0.3;	//In PercentOutput
 	public static final double kArmHomingSetpoint = 86.3 * kArmFinalRotationsPerDegree;	//Number in degrees of arm converted to rotations
-	public static final double kArmDeviationThresholdDeg = 3;	//In degrees
+	public static final double kArmDeviationThresholdDeg = 5;	//In degrees, used to be 3
 	public static final int kArmMaxContinuousCurrentLimit = kArmMotorPDPBreakerRating;
 	public static final int kArmMaxPeakCurrentLimit = kArmMaxContinuousCurrentLimit * 2;
 	public static final int kArmMaxPeakCurrentDurationMS = getMSDurationForBreakerLimit(kArmMaxPeakCurrentLimit, kArmMaxContinuousCurrentLimit);

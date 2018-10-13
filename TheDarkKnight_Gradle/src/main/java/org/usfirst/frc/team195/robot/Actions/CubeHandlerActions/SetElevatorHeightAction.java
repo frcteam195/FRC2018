@@ -2,6 +2,7 @@ package org.usfirst.frc.team195.robot.Actions.CubeHandlerActions;
 
 import org.usfirst.frc.team195.robot.Actions.Framework.Action;
 import org.usfirst.frc.team195.robot.AutoRequestUpdater;
+import org.usfirst.frc.team195.robot.Reporters.ConsoleReporter;
 import org.usfirst.frc.team195.robot.Subsystems.CubeHandlerSubsystem;
 
 public class SetElevatorHeightAction implements Action {
@@ -17,6 +18,8 @@ public class SetElevatorHeightAction implements Action {
 
 	@Override
 	public boolean isFinished() {
+		ConsoleReporter.report("Desired Elevator Position: " + CubeHandlerSubsystem.getInstance().getElevatorDesiredHeight());
+		ConsoleReporter.report("Actual Elevator Position: " + CubeHandlerSubsystem.getInstance().getElevatorHeight());
 		return mCubeHandlerSubsystem.isElevatorAtSetpoint();
 	}
 
