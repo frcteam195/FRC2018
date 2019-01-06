@@ -19,4 +19,12 @@ public class QuickMaths {
 	public static int convertNativeUnitsToRotations(double nativeUnitsPos) {
 		return (int)(nativeUnitsPos / Constants.kSensorUnitsPerRotation);
 	}
+
+	public static int convertRPMToNativeUnits(double rpm) {
+		return (int)(rpm * Constants.kSensorUnitsPerRotation / Constants.k100msPerMinute);
+	}
+
+	public static int convertNativeUnitsToRPM(double nativeUnits) {
+		return (int)(nativeUnits / Constants.kSensorUnitsPerRotation * Constants.k100msPerMinute);
+	}
 }
